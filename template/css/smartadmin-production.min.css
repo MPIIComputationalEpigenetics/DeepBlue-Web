@@ -17674,12 +17674,12 @@ aside {
 }
 #logo {
   display: inline-block;
-  width: 185px;
-  margin-top: 4px;
-  margin-left: 9px;
+  width: 175px;
+  margin-top: 2px;
+  margin-left: 5px;
 }
 #logo img {
-  width: 110px;
+  width: 140px;
   height: auto;
   padding-left: 3px;
 }
