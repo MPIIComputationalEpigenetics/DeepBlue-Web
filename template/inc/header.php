@@ -164,7 +164,7 @@
 						<!-- Top menu profile link : this shows only when top menu is active -->
 						<ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
 							<li class="">
-								<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
+								<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
 									<img src="<?php echo ASSETS_URL; ?>/img/avatars/sunny.png" alt="John Doe" class="online" />
 								</a>
 								<ul class="dropdown-menu pull-right">
@@ -221,8 +221,8 @@
 
 						<!-- #Voice Command: Start Speech -->
 						<div id="speech-btn" class="btn-header transparent pull-right hidden-sm hidden-xs">
-							<div> 
-								<a href="javascript:void(0)" title="Voice Command" data-action="voiceCommand"><i class="fa fa-microphone"></i></a> 
+							<div>
+								<a href="javascript:void(0)" title="Voice Command" data-action="voiceCommand"><i class="fa fa-microphone"></i></a>
 								<div class="popover bottom"><div class="arrow"></div>
 									<div class="popover-content">
 										<h4 class="vc-title">Voice command activated <br><small>Please speak clearly into the mic</small></h4>
@@ -231,8 +231,8 @@
 											<br><small class="txt-color-red">Must <strong>"Allow"</strong> Microphone</small>
 											<br><small class="txt-color-red">Must have <strong>Internet Connection</strong></small>
 										</h4>
-										<a href="javascript:void(0);" class="btn btn-success" onclick="commands.help()">See Commands</a> 
-										<a href="javascript:void(0);" class="btn bg-color-purple txt-color-white" onclick="$('#speech-btn .popover').fadeOut(50);">Close Popup</a> 
+										<a href="javascript:void(0);" class="btn btn-success" onclick="commands.help()">See Commands</a>
+										<a href="javascript:void(0);" class="btn bg-color-purple txt-color-white" onclick="$('#speech-btn .popover').fadeOut(50);">Close Popup</a>
 									</div>
 								</div>
 							</div>
@@ -240,10 +240,10 @@
 						<!-- end voice command -->
 
 						<!-- multiple lang dropdown : find all flags in the flags page -->
-											
+
 						<ul class="header-dropdown-list hidden-xs">
 							<li>
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="<?php echo ASSETS_URL; ?>img/blank.gif" class="flag flag-us" alt="United States"> <span> English (US) </span> <i class="fa fa-angle-down"></i> </a>
 								<ul class="dropdown-menu pull-right">
 									<li class="active">
@@ -263,10 +263,10 @@
 									</li>
 									<li>
 										<a href="javascript:void(0);"><img src="<?php echo ASSETS_URL; ?>img/blank.gif" class="flag flag-cn" alt="China"> 中文</a>
-									</li>	
+									</li>
 									<li>
 										<a href="javascript:void(0);"><img src="<?php echo ASSETS_URL; ?>img/blank.gif" class="flag flag-it" alt="Italy"> Italiano</a>
-									</li>	
+									</li>
 									<li>
 										<a href="javascript:void(0);"><img src="<?php echo ASSETS_URL; ?>img/blank.gif" class="flag flag-pt" alt="Portugal"> Portugal</a>
 									</li>
@@ -275,11 +275,11 @@
 									</li>
 									<li>
 										<a href="javascript:void(0);"><img src="<?php echo ASSETS_URL; ?>img/blank.gif" class="flag flag-kp" alt="Korea"> 한국어</a>
-									</li>						
+									</li>
 								</ul>
 							</li>
 						</ul>
-						
+
 						<!-- end multiple lang -->
 
 					</div>

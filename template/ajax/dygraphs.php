@@ -1,21 +1,21 @@
 <?php require_once("inc/init.php"); ?>
 <!-- row -->
 <div class="row">
-	
+
 	<!-- col -->
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark">
-			
+
 			<!-- PAGE HEADER -->
-			<i class="fa fa-fw fa-bar-chart-o"></i> 
-				Graphs 
-			<span>>  
+			<i class="fa fa-fw fa-bar-chart-o"></i>
+				Graphs
+			<span>>
 				Dygraphs
 			</span>
 		</h1>
 	</div>
 	<!-- end col -->
-	
+
 	<!-- right side of the page with the sparkline graphs -->
 	<!-- col -->
 	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
@@ -43,14 +43,14 @@
 		<!-- end sparks -->
 	</div>
 	<!-- end col -->
-	
+
 </div>
 <!-- end row -->
 
 <!--
-	The ID "widget-grid" will start to initialize all widgets below 
-	You do not need to use widgets if you dont want to. Simply remove 
-	the <section></section> and you can use wells or panels instead 
+	The ID "widget-grid" will start to initialize all widgets below
+	You do not need to use widgets if you dont want to. Simply remove
+	the <section></section> and you can use wells or panels instead
 	-->
 
 <!-- widget grid -->
@@ -58,19 +58,19 @@
 
 	<!-- row -->
 	<div class="row">
-		
+
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			
+
 			<div class="alert alert-info">
-				
+
 				<div class="row">
-					
+
 					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
 				<h3 class="no-margin">Dygraphs is a fast, flexible open source JavaScript charting library.</h3>
-				
-				
-				
+
+
+
 			      <h5>Features</h5>
 			      <ul>
 			        <li>Handles <strong>huge data sets</strong>: dygraphs plots millions of points without getting bogged down.
@@ -81,7 +81,7 @@
 			        </li><li>There's an <strong>active community</strong> developing and supporting dygraphs.</li>
 			      </ul>
 					</div>
-					
+
 					<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
 						<h4>JavaScript Example</h4>
 						<pre class="prettyprint margin-top-10">new Dygraph(div, "ny-vs-sf.txt", {
@@ -93,91 +93,91 @@
   ylabel: 'Temperature (F)',
 });</pre>
 					</div>
-					
-				</div>
-				
 
-			
+				</div>
+
+
+
 
 			</div>
-			
+
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-0">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-					
-					data-widget-colorbutton="false"	
+
+					data-widget-colorbutton="false"
 					data-widget-editbutton="false"
 					data-widget-togglebutton="false"
 					data-widget-deletebutton="false"
 					data-widget-fullscreenbutton="false"
 					data-widget-custombutton="false"
-					data-widget-collapsed="true" 
+					data-widget-collapsed="true"
 					data-widget-sortable="false"
-					
+
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>No roll period </h2>				
-					
+					<h2>No roll period </h2>
+
 				</header>
 
 				<!-- widget div-->
 				<div>
-					
+
 					<!-- widget edit box -->
 					<div class="jarviswidget-editbox">
 						<!-- This area used as dropdown edit box -->
-						<input class="form-control" type="text">	
+						<input class="form-control" type="text">
 					</div>
 					<!-- end widget edit box -->
-					
+
 					<!-- widget content -->
 					<div class="widget-body">
-						
+
 						<!-- this is what the user will see -->
 						<div id="noroll" style="width:100%; height:300px;"></div>
 
 					</div>
 					<!-- end widget content -->
-					
+
 				</div>
 				<!-- end widget div -->
-				
+
 			</div>
 			<!-- end widget -->
-			
+
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-1">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-					
-					data-widget-colorbutton="false"	
+
+					data-widget-colorbutton="false"
 					data-widget-editbutton="false"
 					data-widget-togglebutton="false"
 					data-widget-deletebutton="false"
 					data-widget-fullscreenbutton="false"
 					data-widget-custombutton="false"
-					data-widget-collapsed="true" 
+					data-widget-collapsed="true"
 					data-widget-sortable="false"
-					
+
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>No roll (timestamp)</h2>				
-					
+					<h2>No roll (timestamp)</h2>
+
 				</header>
 
 				<!-- widget div-->
 				<div>
-					
+
 					<!-- widget edit box -->
 					<div class="jarviswidget-editbox">
 						<!-- This area used as dropdown edit box -->
-						<input class="form-control" type="text">	
+						<input class="form-control" type="text">
 					</div>
 					<!-- end widget edit box -->
-					
+
 					<!-- widget content -->
 					<div class="widget-body">
 						<p class="alert alert-success">Roll period of 14 timesteps, custom range selector height and plot color.</p>
@@ -186,16 +186,16 @@
 
 					</div>
 					<!-- end widget content -->
-					
+
 				</div>
 				<!-- end widget div -->
-				
+
 			</div>
 			<!-- end widget -->
 
 		</article>
 		<!-- WIDGET END -->
-		
+
 	</div>
 
 	<!-- end row -->
@@ -208,7 +208,7 @@
 		<div class="col-sm-12">
 			<!-- your contents here -->
 		</div>
-			
+
 	</div>
 
 	<!-- end row -->
@@ -219,7 +219,7 @@
 
 
 <script type="text/javascript">
-	
+
 	/* DO NOT REMOVE : GLOBAL FUNCTIONS!
 	 *
 	 * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
@@ -251,28 +251,28 @@
 	 */
 
 	pageSetUp();
-	
+
 	/*
 	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
 	 * eg alert("my home function");
-	 * 
+	 *
 	 * var pagefunction = function() {
 	 *   ...
 	 * }
 	 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-	 * 
+	 *
 	 * TO LOAD A SCRIPT:
-	 * var pagefunction = function (){ 
-	 *  loadScript(".../plugin.js", run_after_loaded);	
+	 * var pagefunction = function (){
+	 *  loadScript(".../plugin.js", run_after_loaded);
 	 * }
-	 * 
+	 *
 	 * OR
-	 * 
+	 *
 	 * loadScript(".../plugin.js", run_after_loaded);
 	 */
-	
+
 	var pagefunction = function (){
-			
+
 		loadScript("js/plugin/dygraphs/demo-data.min.js", draw_g_1);
 
 			function draw_g_1() {
@@ -304,8 +304,8 @@
 				});
 			}
 
-	} 
-	
+	}
+
 	loadScript("js/plugin/dygraphs/dygraph-combined.min.js", pagefunction);
 
 </script>
