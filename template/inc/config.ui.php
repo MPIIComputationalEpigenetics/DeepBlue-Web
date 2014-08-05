@@ -22,6 +22,56 @@ ex:
 
 */
 $page_nav = array(
+	"tables" => array(
+		"title" => "Data Tables",
+		"icon" => "fa-table",
+		"sub" => array(
+			"experiments" => array(
+				"title" => "Experiments",
+				"url" => "ajax/deepblue_view_experiments.php"
+			),
+			"annotations" => array(
+				"title" => "Annotations",
+				"url" => "ajax/deepblue_view_annotation.php"
+			),
+			"bio_sources" => array(
+				"title" => "Bio Sources",
+				"url" =>"ajax/deepblue_view_bio_sources.php"
+			),
+			"bio_sources" => array(
+				"title" => "Samples",
+				"url" =>"ajax/deepblue_view_samples.php"
+			),
+			"epigenetic_marks" => array(
+				"title" => "Epigenetic Marks",
+				"url" => "ajax/deepblue_view_epigenetic_marks.php"
+			)
+		)
+	)
+);
+
+/*
+	"tables" => array(
+		"title" => "Tables",
+		"icon" => "fa-table",
+		"sub" => array(
+			"normal" => array(
+				"title" => "Normal Tables",
+				"url" => "ajax/table.php"
+			),
+			"data" => array(
+				"title" => "Data Tables",
+				"url" => "ajax/datatables.php",
+				"label_htm" => ' <span class="badge inbox-badge bg-color-greenLight">v1.10</span>'
+			),
+			"jqgrid" => array(
+				"title" => "Jquery Grid",
+				"url" => "ajax/jqgrid.php"
+			)
+		)
+
+
+	/*
 	"dashboard" => array(
 		"title" => "Dashboard",
 		"url" => "ajax/dashboard.php",
@@ -397,6 +447,8 @@ $page_nav = array(
 		)
 	)
 );
+
+*/
 
 //configuration variables
 $page_title = "";
