@@ -16180,7 +16180,7 @@ textarea.clone {
   padding-top: 20px;
 }
 #extr-page #header #logo {
-  margin-top: 22px;
+  margin-top: 10px;
   margin-left: 0px;
 }
 #extr-page #header #logo img {
@@ -16224,7 +16224,8 @@ textarea.clone {
   font-weight: normal;
   line-height: 22px;
   margin-top: 15px;
-  width: 270px;
+  text-align: left;
+
 }
 #extr-page h5.about-heading {
   color: #565656;
@@ -17681,7 +17682,7 @@ aside {
 #logo img {
   width: 140px;
   height: auto;
-  padding-left: 3px;
+  padding-left: 4px;
 }
 #logo-group > span b.badge {
   position: absolute;

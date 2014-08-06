@@ -19,10 +19,17 @@ ex:
 	"label_htm" => "<span>Add your custom label/badge html here</span>",
 	"sub" => array() //contains array of sub items with the same format as the parent
 )
-
 */
+
 $page_nav = array(
-	"tables" => array(
+
+	"dashboard" => array(
+		"title" => "Dashboard",
+		"url" => "ajax/dashboard.php",
+		"icon" => "fa-home"
+	),
+
+	"deepblue_tables" => array(
 		"title" => "Data Tables",
 		"icon" => "fa-table",
 		"sub" => array(
@@ -47,36 +54,8 @@ $page_nav = array(
 				"url" => "ajax/deepblue_view_epigenetic_marks.php"
 			)
 		)
-	)
-);
-
-/*
-	"tables" => array(
-		"title" => "Tables",
-		"icon" => "fa-table",
-		"sub" => array(
-			"normal" => array(
-				"title" => "Normal Tables",
-				"url" => "ajax/table.php"
-			),
-			"data" => array(
-				"title" => "Data Tables",
-				"url" => "ajax/datatables.php",
-				"label_htm" => ' <span class="badge inbox-badge bg-color-greenLight">v1.10</span>'
-			),
-			"jqgrid" => array(
-				"title" => "Jquery Grid",
-				"url" => "ajax/jqgrid.php"
-			)
-		)
-
-
-	/*
-	"dashboard" => array(
-		"title" => "Dashboard",
-		"url" => "ajax/dashboard.php",
-		"icon" => "fa-home"
 	),
+
 	"smartui" => array(
 		"title" => "Smart UI",
 		"icon" => "fa-code",
@@ -448,12 +427,11 @@ $page_nav = array(
 	)
 );
 
-*/
-
 //configuration variables
 $page_title = "";
 $page_css = array();
 $no_main_header = false; //set true for lock.php and login.php
 $page_body_prop = array(); //optional properties for <body>
 $page_html_prop = array(); //optional properties for <html>
+
 ?>
