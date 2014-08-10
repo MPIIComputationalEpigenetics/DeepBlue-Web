@@ -1,9 +1,7 @@
 <?php
-<<<<<<< HEAD
-session_start();
-=======
 
->>>>>>> 1b8987efad053ea3abea7754746650d206ff06ae
+session_start();
+
 //initilize the page
 require_once("inc/init.php");
 
