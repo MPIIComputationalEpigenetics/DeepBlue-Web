@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once("inc/init.php");
 
 ?>
@@ -66,11 +64,6 @@ require_once("inc/init.php");
 	
 					        <thead>
 								<tr>
-									
-									<th class="hasinput" style="width:17%">
-										<input type="text" class="form-control" placeholder="Filter Number" />
-									</th>
-									
 									<th class="hasinput" style="width:18%">
 										<input class="form-control" placeholder="Filter ID" type="text">
 									</th>
@@ -80,22 +73,11 @@ require_once("inc/init.php");
 									</th>
 								</tr>
 					            <tr>
-				                    <th data-class="expand">No</th>
 				                    <th>ID</th>
 				                    <th data-hide="phone">Experiment</th>
 					            </tr>
 					        </thead>
 
-					        <tbody>
-							<?php foreach($_SESSION['finalResult'] as $allExpKey => $allExpVal){ ?>
-					            <tr>
-					                <td><?= ++$num; ?></td>
-					                <td><?= $allExpVal[0]; ?></td>
-					                <td><?= $allExpVal[1]; ?></td>
-					            </tr>
-					        <?php } $num = 1;?>
-					        </tbody>
-					
 						</table>
 
 					</div>
@@ -151,7 +133,7 @@ require_once("inc/init.php");
 	 *
 	 */
 
-	//pageSetUp();
+	pageSetUp();
 	
 	/*
 	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
@@ -220,16 +202,9 @@ require_once("inc/init.php");
 		
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
-	    	//"bFilter": false,
-	    	//"bInfo": false,
-	    	//"bLengthChange": false
-	    	//"bAutoWidth": false,
-	    	//"bPaginate": false,
-	    	//"bStateSave": true // saves sort state using localStorage
-			"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'f><'col-sm-6 col-xs-12 hidden-xs'<'toolbar'>>r>"+
-					"t"+
-					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
-			"autoWidth" : true,
+			
+	        "ajax": "ajax/server_side/server_processing.php",
+	        "autoWidth" : true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
@@ -241,7 +216,7 @@ require_once("inc/init.php");
 			},
 			"drawCallback" : function(oSettings) {
 				responsiveHelper_datatable_fixed_column.respond();
-			}		
+			}
 		
 	    });
 	    
