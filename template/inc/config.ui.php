@@ -37,6 +37,10 @@ $page_nav = array(
 				"title" => "Experiments",
 				"url" => "ajax/deepblue_view_experiments.php"
 			),
+			"genomes" => array(
+				"title" => "Genomes",
+				"url" => "ajax/deepblue_view_genomes.php"
+			),
 			"annotations" => array(
 				"title" => "Annotations",
 				"url" => "ajax/deepblue_view_annotation.php"
@@ -45,13 +49,25 @@ $page_nav = array(
 				"title" => "Bio Sources",
 				"url" =>"ajax/deepblue_view_bio_sources.php"
 			),
-			"bio_sources" => array(
-				"title" => "Samples",
-				"url" =>"ajax/deepblue_view_samples.php"
-			),
 			"epigenetic_marks" => array(
 				"title" => "Epigenetic Marks",
 				"url" => "ajax/deepblue_view_epigenetic_marks.php"
+			),
+			"techniques" => array(
+				"title" => "Techniques",
+				"url" =>"ajax/deepblue_view_tech.php"
+			),
+			"samples" => array(
+				"title" => "Samples",
+				"url" => "ajax/deepblue_view_samples.php"
+			),
+			"column_types" => array(
+				"title" => "Column types",
+				"url" => "ajax/deepblue_view_column.php"
+			),
+			"projects" => array(
+				"title" => "Projects",
+				"url" => "ajax/deepblue_view_projects.php"
 			)
 		)
 	),
