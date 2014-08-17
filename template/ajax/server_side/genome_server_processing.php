@@ -35,5 +35,4 @@ $user_key = 'JBv8qZORmuNr7G6N';
 
         echo json_encode(array('data' => $orderedDataStr));
 
-
 ?>

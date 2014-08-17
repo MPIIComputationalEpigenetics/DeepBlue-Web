@@ -65,16 +65,56 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="Filter ID" type="text">
+										<input class="form-control" placeholder="Sample ID" type="text" />
 									</th>
 									
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Techniques" />
+										<input type="text" class="form-control" placeholder="Bio source" />
+									</th>
+
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Description" />
+									</th>
+
+									<th class="hasinput">
+										<input class="form-control" placeholder="Karyotype" type="text" />
+									</th>
+									
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Lineage" />
+									</th>
+
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Organism" />
+									</th>
+
+									<th class="hasinput">
+										<input class="form-control" placeholder="Sex" type="text" />
+									</th>
+									
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Source" />
+									</th>
+
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Tier" />
+									</th>
+
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="User" />
 									</th>
 								</tr>
 					            <tr>
-				                    <th>ID</th>
-				                    <th>Techniques</th>
+				                    <th>Sample ID</th>
+				                    <th>Bio source</th>
+				                    <th>Description</th>
+				                    <th>Karyotype</th>
+				                    <th>Lineage</th>
+				                    <th>Organism</th>
+				                    <th>Sex</th>
+				                    <th>Source</th>
+				                    <th>Tier</th>
+				                    <th>User</th>
 					            </tr>
 					        </thead>
 
@@ -178,11 +218,11 @@ require_once("inc/init.php");
 				tablet : 1024,
 				phone : 480
 			};
-
+		
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
 			
-	        "ajax": "ajax/server_side/tech_server_processing.php",
+	        "ajax": "ajax/server_side/sample_server_processing.php",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 			"preDrawCallback" : function() {
@@ -213,7 +253,6 @@ require_once("inc/init.php");
 	            
 	    } );
 	    /* END COLUMN FILTER */
-
 	};
 
 	// load related plugins
