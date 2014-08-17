@@ -25,12 +25,19 @@ $user_key = 'JBv8qZORmuNr7G6N';
 
         foreach($columnList[0][1] as $orderedData){
 
-                $tempArr[] = $orderedData[0];
-                $tempArr[] = $orderedData[1];
+            $splitIntoArrays[] = explode(" ", $orderedData[1]);
 
-                array_push($orderedDataStr, $tempArr);
+                foreach ($splitIntoArrays as $val_1) {
 
-                $tempArr = array();
+                    $tempArr[] = $orderedData[0];
+                    $tempArr[] = $val_1[3];
+                    $tempArr[] = $val_1[8];
+
+                    array_push($orderedDataStr, $tempArr);
+                    $tempArr = array();
+                }
+
+            $splitIntoArrays = array();
         }
 
         echo json_encode(array('data' => $orderedDataStr));
