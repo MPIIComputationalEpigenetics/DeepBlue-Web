@@ -27,23 +27,27 @@ require_once("../../lib/lib.php");
 
         $orderedDataStr = array();
         $tempArr = array();
+        $tempStr = "";
 
         foreach ($sampleList[0][1] as $val_1) {
 
             $tempArr[] = $val_1[1]['_id'];
             $tempArr[] = $val_1[1]['bio_source_name'];
             $tempArr[] = $val_1[1]['description'];
-            $tempArr[] = $val_1[1]['karyotype'];
-            $tempArr[] = $val_1[1]['lineage'];
-            $tempArr[] = $val_1[1]['organism'];
-            $tempArr[] = $val_1[1]['sex'];
-            $tempArr[] = $val_1[1]['source'];
-            $tempArr[] = $val_1[1]['tier'];
-            $tempArr[] = $val_1[1]['user'];
 
+            $tempStr .= '<b>Karyotype</b> : '.$val_1[1]['karyotype'].'<br/>';
+            $tempStr .= '<b>Lineage</b> : '.$val_1[1]['lineage'].'<br/>';
+            $tempStr .= '<b>Organism</b> : '.$val_1[1]['organism'].'<br/>';
+            $tempStr .= '<b>Sex</b>: '.$val_1[1]['sex'].'<br/>';
+            $tempStr .= '<b>Source</b> : '.$val_1[1]['source'].'<br/>';
+            $tempStr .= '<b>Tier</b> : '.$val_1[1]['tier'].'<br/>';
+            $tempStr .= '<b>User</b> : '.$val_1[1]['user'];
+
+            $tempArr[] = $tempStr;
 
             array_push($orderedDataStr, $tempArr);
             $tempArr = array();
+            $tempStr = "";
 
         }
         echo json_encode(array('data' => $orderedDataStr));
