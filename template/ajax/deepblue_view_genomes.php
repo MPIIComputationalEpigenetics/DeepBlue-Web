@@ -182,7 +182,7 @@ require_once("inc/init.php");
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
 			
-	        "ajax": "ajax/server_side/genome_server_processing.php",
+	        "ajax": "ajax/server_side/genomes_server_processing.php",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 			"preDrawCallback" : function() {

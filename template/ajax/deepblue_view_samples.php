@@ -222,7 +222,7 @@ require_once("inc/init.php");
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
 			
-	        "ajax": "ajax/server_side/sample_server_processing.php",
+	        "ajax": "ajax/server_side/samples_server_processing.php",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 			"preDrawCallback" : function() {

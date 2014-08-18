@@ -65,19 +65,21 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-									</th>
-									<th class="hasinput">
 										<input class="form-control" placeholder="Filter ID" type="text">
+									</th>
+
+									<th class="hasinput">
+										<input class="form-control" placeholder="Filter Column Name" type="text">
 									</th>
 									
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Experiment" />
+										<input type="text" class="form-control" placeholder="Filter Column Types" />
 									</th>
 								</tr>
 					            <tr>
-					            	<th>Select</th>
 				                    <th>ID</th>
-				                    <th>Experiment</th>
+				                    <th>Column Name</th>
+				                    <th>Column Types</th>
 					            </tr>
 					        </thead>
 
@@ -185,7 +187,7 @@ require_once("inc/init.php");
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
 			
-	        "ajax": "ajax/server_side/experiments_server_processing.php",
+	        "ajax": "ajax/server_side/column_types_server_processing.php",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 			"preDrawCallback" : function() {

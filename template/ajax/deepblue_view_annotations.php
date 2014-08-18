@@ -65,19 +65,16 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-									</th>
-									<th class="hasinput">
-										<input class="form-control" placeholder="Filter ID" type="text">
+										<input class="form-control" placeholder="Filter ID" type="text"/>
 									</th>
 									
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Experiment" />
+										<input type="text" class="form-control" placeholder="Filter Annotation"/>
 									</th>
 								</tr>
 					            <tr>
-					            	<th>Select</th>
 				                    <th>ID</th>
-				                    <th>Experiment</th>
+				                    <th>Annotation</th>
 					            </tr>
 					        </thead>
 
@@ -181,11 +178,13 @@ require_once("inc/init.php");
 				tablet : 1024,
 				phone : 480
 			};
+
+			
 		
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
 			
-	        "ajax": "ajax/server_side/experiments_server_processing.php",
+	        "ajax": "ajax/server_side/annotations_server_processing.php",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 			"preDrawCallback" : function() {
@@ -216,7 +215,6 @@ require_once("inc/init.php");
 	            
 	    } );
 	    /* END COLUMN FILTER */
-
 	};
 
 	// load related plugins

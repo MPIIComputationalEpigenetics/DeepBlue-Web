@@ -43,7 +43,7 @@ $page_nav = array(
 			),
 			"annotations" => array(
 				"title" => "Annotations",
-				"url" => "ajax/deepblue_view_annotation.php"
+				"url" => "ajax/deepblue_view_annotations.php"
 			),
 			"bio_sources" => array(
 				"title" => "Bio Sources",
@@ -55,7 +55,7 @@ $page_nav = array(
 			),
 			"techniques" => array(
 				"title" => "Techniques",
-				"url" =>"ajax/deepblue_view_tech.php"
+				"url" =>"ajax/deepblue_view_techniques.php"
 			),
 			"samples" => array(
 				"title" => "Samples",
@@ -63,7 +63,7 @@ $page_nav = array(
 			),
 			"column_types" => array(
 				"title" => "Column types",
-				"url" => "ajax/deepblue_view_column.php"
+				"url" => "ajax/deepblue_view_column_types.php"
 			),
 			"projects" => array(
 				"title" => "Projects",
