@@ -3,13 +3,13 @@
 //include IXR Library for RPC-XML
 require_once("../../lib/deepblue.IXR_Library.php");
 
-$url = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
-$user_key = 'JBv8qZORmuNr7G6N';
+/* Including URL for server and USER Key  */
+require_once("../../lib/lib.php");
 
         /* Getting data from the server */
 
         $client = new IXR_Client($url);
-        
+
         if(!$client->query("list_column_types", $user_key)){
             $columnList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
         }
@@ -19,7 +19,7 @@ $user_key = 'JBv8qZORmuNr7G6N';
         }
 
         /* Ordering and generating json file for Datatables */
-             
+
         $orderedDataStr = array();
         $tempArr = array();
 
@@ -27,7 +27,7 @@ $user_key = 'JBv8qZORmuNr7G6N';
 
             $splitIntoArrays[] = explode(" ", $orderedData[1]);
 
-                foreach ($splitIntoArrays as $val_1) {                
+                foreach ($splitIntoArrays as $val_1) {
 
                     $tempArr[] = $orderedData[0];
                     $tempArr[] = str_replace("'", "", $val_1[3]);

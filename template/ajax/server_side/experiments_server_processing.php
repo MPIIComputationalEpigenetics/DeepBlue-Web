@@ -3,17 +3,17 @@
 //include IXR Library for RPC-XML
 require_once("../../lib/deepblue.IXR_Library.php");
 
-$url = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
-$user_key = 'JBv8qZORmuNr7G6N';
+/* Including URL for server and USER Key  */
+require_once("../../lib/lib.php");
 
         /* Checking these parametrs exist or not */
-        
+
         (!$genomF) ? $genomF = "" : $genomF;
         (!$emF) ? $emF = "" : $emF;
 
         $client = new IXR_Client($url);
-        
-        if(!$client->query("list_experiments", $genomF, $emF, "", "", "", $user_key)){            
+
+        if(!$client->query("list_experiments", $genomF, $emF, "", "", "", $user_key)){
             $finalList = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
         }
         else{
@@ -21,7 +21,7 @@ $user_key = 'JBv8qZORmuNr7G6N';
             $finalList[] = $client->getResponse();
         }
 
-        
+
         $orderedDataStr = array();
         $tempArr = array();
 

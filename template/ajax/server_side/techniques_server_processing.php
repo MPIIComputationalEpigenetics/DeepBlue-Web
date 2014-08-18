@@ -3,13 +3,13 @@
 //include IXR Library for RPC-XML
 require_once("../../lib/deepblue.IXR_Library.php");
 
-$url = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
-$user_key = 'JBv8qZORmuNr7G6N';
+/* Including URL for server and USER Key  */
+require_once("../../lib/lib.php");
 
         /* Getting data from the server */
 
         $client = new IXR_Client($url);
-        
+
         if(!$client->query("list_techniques", $user_key)){
             $techList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
         }
@@ -19,7 +19,7 @@ $user_key = 'JBv8qZORmuNr7G6N';
         }
 
         /* Ordering and generating json file for Datatables */
-             
+
         $orderedDataStr = array();
         $tempArr = array();
 

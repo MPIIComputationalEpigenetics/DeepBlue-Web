@@ -3,13 +3,13 @@
 //include IXR Library for RPC-XML
 require_once("../../lib/deepblue.IXR_Library.php");
 
-$url = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
-$user_key = 'JBv8qZORmuNr7G6N';
+/* Including URL for server and USER Key  */
+require_once("../../lib/lib.php");
 
         /* Getting data from the server */
 
         $client = new IXR_Client($url);
-        
+
         if(!$client->query("list_bio_sources", $user_key)){
             $bioSourceList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
         }
@@ -21,7 +21,7 @@ $user_key = 'JBv8qZORmuNr7G6N';
         foreach($bioSourceList[0][1] as $bioSourceName){
             $bioNames[] = $bioSourceName[1];
         }
-            
+
         $client->query("list_samples", $bioNames, (object) null, $user_key);
         $sampleList[] = $client->getResponse();
 
@@ -29,7 +29,7 @@ $user_key = 'JBv8qZORmuNr7G6N';
         $tempArr = array();
 
         foreach ($sampleList[0][1] as $val_1) {
-                
+
             $tempArr[] = $val_1[1]['_id'];
             $tempArr[] = $val_1[1]['bio_source_name'];
             $tempArr[] = $val_1[1]['description'];
