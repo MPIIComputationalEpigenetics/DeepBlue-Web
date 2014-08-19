@@ -35,13 +35,21 @@ require_once("../../lib/lib.php");
             $tempArr[] = $val_1[1]['bio_source_name'];
             $tempArr[] = $val_1[1]['description'];
 
-            $tempStr .= '<b>Karyotype</b> : '.$val_1[1]['karyotype'].'<br/>';
+            foreach ($val_1[1] as $key => $value) {
+                if ($key == "_id" || $key == 'bio_source_name' || $key == 'description' || $key == 'user') {
+                    continue;
+                }
+                $tempStr .= '<b>'.$key.'</b> : '.$val_1[1][$key].'<br/>';
+            }
+/*
+$tempStr .= '<b>Karyotype</b> : '.$val_1[1]['karyotype'].'<br/>';
             $tempStr .= '<b>Lineage</b> : '.$val_1[1]['lineage'].'<br/>';
             $tempStr .= '<b>Organism</b> : '.$val_1[1]['organism'].'<br/>';
             $tempStr .= '<b>Sex</b>: '.$val_1[1]['sex'].'<br/>';
             $tempStr .= '<b>Source</b> : '.$val_1[1]['source'].'<br/>';
             $tempStr .= '<b>Tier</b> : '.$val_1[1]['tier'].'<br/>';
             $tempStr .= '<b>User</b> : '.$val_1[1]['user'];
+*/
 
             $tempArr[] = $tempStr;
 
