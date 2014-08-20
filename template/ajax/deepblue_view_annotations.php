@@ -6,9 +6,9 @@ require_once("inc/init.php");
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark">
-			<i class="fa fa-table fa-fw "></i> 
-				Table 
-			<span>> 
+			<i class="fa fa-table fa-fw "></i>
+				Table
+			<span>>
 				Data Tables
 			</span>
 		</h1>
@@ -24,7 +24,7 @@ require_once("inc/init.php");
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-			
+
 
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
@@ -61,20 +61,31 @@ require_once("inc/init.php");
 					<div class="widget-body no-padding">
 
 						<table id="datatable_fixed_column" class="table table-striped table-bordered" width="100%">
-	
+
 					        <thead>
 								<tr>
 									<th class="hasinput">
 										<input class="form-control" placeholder="Filter ID" type="text"/>
 									</th>
-									
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Filter Annotation"/>
+									</th>
+									<th class="hasinput">
+										<input class="form-control" placeholder="Filter Genome" type="text"/>
+									</th>
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Filter Description"/>
+									</th>
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Filter Metadata"/>
 									</th>
 								</tr>
 					            <tr>
 				                    <th>ID</th>
-				                    <th>Annotation</th>
+				                    <th>Annotation Name</th>
+				                    <th>Genome</th>
+				                    <th>Description</th>
+				                    <th>Metadata</th>
 					            </tr>
 					        </thead>
 
@@ -134,56 +145,56 @@ require_once("inc/init.php");
 	 */
 
 	pageSetUp();
-	
+
 	/*
 	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
 	 * eg alert("my home function");
-	 * 
+	 *
 	 * var pagefunction = function() {
 	 *   ...
 	 * }
 	 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-	 * 
+	 *
 	 */
-	
+
 	// PAGE RELATED SCRIPTS
-	
-	// pagefunction	
+
+	// pagefunction
 	var pagefunction = function() {
 		//console.log("cleared");
-		
+
 		/* // DOM Position key index //
-		
+
 			l - Length changing (dropdown)
 			f - Filtering input (search)
 			t - The Table! (datatable)
 			i - Information (records)
 			p - Pagination (paging)
-			r - pRocessing 
+			r - pRocessing
 			< and > - div elements
 			<"#id" and > - div with an id
 			<"class" and > - div with a class
 			<"#id.class" and > - div with an id and class
-			
+
 			Also see: http://legacy.datatables.net/usage/features
-		*/	
+		*/
 
 		/* BASIC ;*/
 			var responsiveHelper_dt_basic = undefined;
 			var responsiveHelper_datatable_fixed_column = undefined;
 			var responsiveHelper_datatable_col_reorder = undefined;
 			var responsiveHelper_datatable_tabletools = undefined;
-			
+
 			var breakpointDefinition = {
 				tablet : 1024,
 				phone : 480
 			};
 
-			
-		
+
+
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
-			
+
 	        "ajax": "ajax/server_side/annotations_server_processing.php",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
@@ -199,26 +210,26 @@ require_once("inc/init.php");
 			"drawCallback" : function(oSettings) {
 				responsiveHelper_datatable_fixed_column.respond();
 			}
-		
+
 	    });
-	    
+
 	    // custom toolbar
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
-	    	   
+
 	    // Apply the filter
 	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-	    	
+
 	        otable
 	            .column( $(this).parent().index()+':visible' )
 	            .search( this.value )
 	            .draw();
-	            
+
 	    } );
 	    /* END COLUMN FILTER */
 	};
 
 	// load related plugins
-	
+
 	loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
 		loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
 			loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){

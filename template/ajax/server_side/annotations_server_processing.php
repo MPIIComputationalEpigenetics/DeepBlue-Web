@@ -17,27 +17,48 @@ require_once("../../lib/lib.php");
         }
 
         foreach($genomeList[0][1] as $genomes){
-
-            $client->query("list_annotations", $genomes[1], $user_key);
-            $annotations[] = $client->getResponse();
-
+            $genomeIds[] = $genomes[1];
         }
 
-
-        $orderedDataStr = array();
-        $tempArr = array();
+        $client->query("list_annotations", $genomeIds, $user_key);
+        $annotations[] = $client->getResponse();
 
         foreach($annotations[0][1] as $orderedData){
 
-                $tempArr[] = $orderedData[0];
-                $tempArr[] = $orderedData[1];
+            $client->query("info", $orderedData[0], $user_key);
+            $infoList[] = $client->getResponse();
 
-                array_push($orderedDataStr, $tempArr);
+        }
 
-                $tempArr = array();
+        $orderedDataStr = array();
+        $tempArr = array();
+        $tempAnStr = "";
+
+        foreach($infoList as $orderedData){
+            foreach ($orderedData as $key_2 => $value_2) {
+                if($key_2 != 'okay'){
+
+                    $tempArr[] = $value_2['_id'];
+                    $tempArr[] = $value_2['name'];
+                    $tempArr[] = $value_2['genome'];
+                    $tempArr[] = $value_2['description'];
+                    $tempAnStr.= "<div class='format-small'><b>Format : </b>".$value_2['format']."</div><br/>";
+
+                    foreach ($value_2['extra_metadata'] as $key_3 => $value_3) {
+                        $tempAnStr .= "<div class='format-small'><b>".$key_3."</b> : ".$value_3."</div><br/>";
+                    }
+
+                    $tempArr[] = $tempAnStr;
+
+                }
+            }
+
+            array_push($orderedDataStr, $tempArr);
+            $tempArr = array();
+            $tempAnStr = "";
+
         }
 
         echo json_encode(array('data' => $orderedDataStr));
-
 
 ?>

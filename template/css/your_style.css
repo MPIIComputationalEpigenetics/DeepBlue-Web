@@ -26,3 +26,8 @@ margin:10px 9px 0 30px;
 
 }
 
+.format-small{
+	width: 300px !important;
+	word-wrap: break-word;
+}
+
