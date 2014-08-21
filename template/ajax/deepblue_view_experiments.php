@@ -73,7 +73,9 @@ require_once("inc/init.php");
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Filter Experiment" />
 									</th>
-
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Filter Description" />
+									</th>
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Filtering Genome" />
 									</th>
@@ -97,6 +99,7 @@ require_once("inc/init.php");
 					            	<th>Select</th>
 				                    <th>ID</th>
 				                    <th>Experiment</th>
+				                    <th>Description</th>
 				                    <th>Genome</th>
 				                    <th>Epigenetic Mark</th>
 				                    <th>Sample</th>
