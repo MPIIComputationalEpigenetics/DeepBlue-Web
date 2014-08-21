@@ -1,5 +1,24 @@
 <?php
 
+/**
+*   DeepBlue Epigenomic Data Server
+*   Copyright (c) 2014 Max Planck Institute for Computer Science.
+*   All rights reserved.
+*
+*   Authors :
+*
+*   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
+*   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
+*
+*   Created : 21-08-2014
+*
+*   ================================================
+*
+*   File : deepblue_view_experiments.php
+*
+*/
+
+
 require_once("inc/init.php");
 
 ?>
@@ -73,7 +92,9 @@ require_once("inc/init.php");
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Filter Experiment" />
 									</th>
-
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Filter Description" />
+									</th>
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Filtering Genome" />
 									</th>
@@ -97,6 +118,7 @@ require_once("inc/init.php");
 					            	<th>Select</th>
 				                    <th>ID</th>
 				                    <th>Experiment Name</th>
+				                    <th>Description</th>
 				                    <th>Genome</th>
 				                    <th>Epigenetic Mark</th>
 				                    <th>Sample</th>
