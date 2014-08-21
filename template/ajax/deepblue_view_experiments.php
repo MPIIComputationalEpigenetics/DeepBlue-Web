@@ -96,7 +96,7 @@ require_once("inc/init.php");
 					            <tr>
 					            	<th>Select</th>
 				                    <th>ID</th>
-				                    <th>Experiment</th>
+				                    <th>Experiment Name</th>
 				                    <th>Genome</th>
 				                    <th>Epigenetic Mark</th>
 				                    <th>Sample</th>

@@ -1,5 +1,16 @@
 <?php
 
+/**
+*   DeepBlue Epigenomic Data Server
+*   Copyright (c) 2014, Max-Planck Institute.
+*   All rights reserved.
+*
+*   Author: Umidjon Urunov
+*   Email: umidjon.urunov@mpi-inf.mpg.de
+*   Created : 21-08-2014
+*/
+
+
 //include IXR Library for RPC-XML
 require_once("../../lib/deepblue.IXR_Library.php");
 
@@ -21,17 +32,16 @@ require_once("../../lib/lib.php");
         $experimentList[] = $client->getResponse();
     }
 
-    $counter = 0;
+    /* Collecting all experiment ids into array */
 
     foreach ($experimentList[0][1] as $value) {
-
-        if($counter < 6){
-            $client->query("info", $value[0], $user_key);
-            $infoList[] = $client->getResponse();
-            $counter++;
-        }
-        else break;
+        $exp_ids[] = $value[0];
     }
+
+    /* Make a request to server with all experiment ids */
+
+    $client->query("info", $exp_ids, $user_key);
+    $infoList[] = $client->getResponse();
 
 
     $orderedDataStr = array();
@@ -42,6 +52,8 @@ require_once("../../lib/lib.php");
         foreach ($orderedData as $key_2 => $value_2) {
 
             if($key_2 != 'okay'){
+
+                /* Generating array for generation JSON file */
 
                 $tempArr[] = "<input type='checkbox' name='' value=''>";
                 $tempArr[] = $value_2['_id'];
@@ -65,6 +77,8 @@ require_once("../../lib/lib.php");
         $tempArr = array();
         $tempExpStr = "";
     }
+
+    /* Generating JSON file from $tempArray final output */
 
     echo json_encode(array('data' => $orderedDataStr));
 
