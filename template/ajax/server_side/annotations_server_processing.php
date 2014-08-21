@@ -1,64 +1,88 @@
 <?php
 
-//include IXR Library for RPC-XML
+/**
+*   DeepBlue Epigenomic Data Server
+*   Copyright (c) 2014 Max Planck Institute for Computer Science.
+*   All rights reserved.
+*
+*   Authors :
+*
+*   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
+*   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
+*
+*   Created : 21-08-2014
+*
+*   ================================================
+*
+*   File : annotations_server_processing.php
+*
+*/
+
+/* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
 
 /* Including URL for server and USER Key  */
 require_once("../../lib/lib.php");
 
-        $client = new IXR_Client($url);
+$client = new IXR_Client($url);
 
-        if(!$client->query("list_genomes", $user_key)){
-            $genomeList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
-        }
-        else{
-            $client->query("list_genomes", $user_key);
-            $genomeList[] = $client->getResponse();
-        }
+/* Request Genome List from the server  */
 
-        foreach($genomeList[0][1] as $genomes){
-            $genomeIds[] = $genomes[1];
-        }
+if(!$client->query("list_genomes", $user_key)){
+    $genomeList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+}
+else{
+    $client->query("list_genomes", $user_key);
+    $genomeList[] = $client->getResponse();
+}
 
-        $client->query("list_annotations", $genomeIds, $user_key);
-        $annotations[] = $client->getResponse();
+/* Collecting genome ids into array */
 
-        foreach($annotations[0][1] as $orderedData){
+$genomeIds = array();
 
-            $client->query("info", $orderedData[0], $user_key);
-            $infoList[] = $client->getResponse();
+foreach($genomeList[0][1] as $genomes){
+    $genomeIds[] = $genomes[1];
+}
 
-        }
+/* Getting annotation list from the server  */
+$annotations = array();
 
-        $orderedDataStr = array();
-        $tempArr = array();
-        $tempAnStr = "";
+$client->query("list_annotations", $genomeIds, $user_key);
+$annotations[] = $client->getResponse();
 
-        foreach($infoList as $orderedData){
-            foreach ($orderedData as $key_2 => $value_2) {
-                if($key_2 != 'okay'){
+/* Collecting annotation ids into array */
+$annotationsIds = array();
 
-                    $tempArr[] = $value_2['_id'];
-                    $tempArr[] = $value_2['name'];
-                    $tempArr[] = $value_2['genome'];
-                    $tempArr[] = $value_2['description'];
-                    $tempAnStr.= "<div class='format-small'><b>Format : </b>".$value_2['format']."</div><br/>";
+foreach($annotations[0][1] as $annotationVal){
+    $annotationsIds[] = $annotationVal[0];
+}
 
-                    foreach ($value_2['extra_metadata'] as $key_3 => $value_3) {
-                        $tempAnStr .= "<div class='format-small'><b>".$key_3."</b> : ".$value_3."</div><br/>";
-                    }
+$client->query("info", $annotationsIds, $user_key);
+$infoList[] = $client->getResponse();
 
-                    $tempArr[] = $tempAnStr;
+$orderedDataStr = array();
+$tempArr = array();
+$tempAnStr = "";
 
-                }
-            }
+foreach($infoList[0][1] as $value_2){
 
-            array_push($orderedDataStr, $tempArr);
-            $tempArr = array();
-            $tempAnStr = "";
+    $tempArr[] = $value_2['_id'];
+    $tempArr[] = $value_2['name'];
+    $tempArr[] = $value_2['genome'];
+    $tempArr[] = $value_2['description'];
+    $tempAnStr.= "<div class='format-small'><b>Format : </b>".$value_2['format']."</div><br/>";
 
-        }
+    foreach ($value_2['extra_metadata'] as $key_3 => $value_3) {
+        $tempAnStr .= "<div class='format-small'><b>".$key_3."</b> : ".$value_3."</div><br/>";
+    }
 
-        echo json_encode(array('data' => $orderedDataStr));
+    $tempArr[] = $tempAnStr;
+
+    array_push($orderedDataStr, $tempArr);
+    $tempArr = array();
+    $tempAnStr = "";
+}
+
+echo json_encode(array('data' => $orderedDataStr));
 
 ?>
