@@ -1,64 +1,85 @@
 <?php
 
-//include IXR Library for RPC-XML
+/**
+*   DeepBlue Epigenomic Data Server
+*   Copyright (c) 2014 Max Planck Institute for Computer Science.
+*   All rights reserved.
+*
+*   Authors :
+*
+*   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
+*   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
+*
+*   Created : 21-08-2014
+*
+*   ================================================
+*
+*   File : samples_server_processing.php
+*
+*/
+
+/* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
 
 /* Including URL for server and USER Key  */
 require_once("../../lib/lib.php");
 
-        /* Getting data from the server */
+/* Getting data from the server */
 
-        $client = new IXR_Client($url);
+$client = new IXR_Client($url);
 
-        if(!$client->query("list_bio_sources", $user_key)){
-            $bioSourceList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+if(!$client->query("list_bio_sources", $user_key)){
+    $bioSourceList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+}
+else{
+    $client->query("list_bio_sources", $user_key);
+    $bioSourceList[] = $client->getResponse();
+}
+
+foreach($bioSourceList[0][1] as $bioSourceName){
+    $bioNames[] = $bioSourceName[1];
+}
+
+$client->query("list_samples", $bioNames, (object) null, $user_key);
+$sampleList[] = $client->getResponse();
+
+/* Collecting epigenetic mark ids into array */
+$sampleIds = array();
+
+foreach ($sampleList[0][1] as $samples) {
+    $sampleIds[] = $samples[0];
+}
+
+/* Getting info data about epigenetc marks */
+
+$client->query("info", $sampleIds, $user_key);
+$infoList[] = $client->getResponse();
+
+$orderedDataStr = array();
+$tempArr = array();
+$tempStr = "";
+
+foreach ($infoList[0][1] as $val_1) {
+
+    $tempArr[] = $val_1['_id'];
+    $tempArr[] = $val_1['bio_source_name'];
+    $tempArr[] = $val_1['description'];
+
+    foreach ($val_1 as $key => $value) {
+        if ($key == "_id" || $key == 'bio_source_name' || $key == 'description' || $key == 'user') {
+            continue;
         }
-        else{
-            $client->query("list_bio_sources", $user_key);
-            $bioSourceList[] = $client->getResponse();
-        }
+        $tempStr .= '<b>'.$key.'</b> : '.$val_1[$key].'<br/>';
+    }
 
-        foreach($bioSourceList[0][1] as $bioSourceName){
-            $bioNames[] = $bioSourceName[1];
-        }
+    $tempArr[] = $tempStr;
 
-        $client->query("list_samples", $bioNames, (object) null, $user_key);
-        $sampleList[] = $client->getResponse();
+    array_push($orderedDataStr, $tempArr);
+    $tempArr = array();
+    $tempStr = "";
 
-        $orderedDataStr = array();
-        $tempArr = array();
-        $tempStr = "";
+}
 
-        foreach ($sampleList[0][1] as $val_1) {
-
-            $tempArr[] = $val_1[1]['_id'];
-            $tempArr[] = $val_1[1]['bio_source_name'];
-            $tempArr[] = $val_1[1]['description'];
-
-            foreach ($val_1[1] as $key => $value) {
-                if ($key == "_id" || $key == 'bio_source_name' || $key == 'description' || $key == 'user') {
-                    continue;
-                }
-                $tempStr .= '<b>'.$key.'</b> : '.$val_1[1][$key].'<br/>';
-            }
-/*
-$tempStr .= '<b>Karyotype</b> : '.$val_1[1]['karyotype'].'<br/>';
-            $tempStr .= '<b>Lineage</b> : '.$val_1[1]['lineage'].'<br/>';
-            $tempStr .= '<b>Organism</b> : '.$val_1[1]['organism'].'<br/>';
-            $tempStr .= '<b>Sex</b>: '.$val_1[1]['sex'].'<br/>';
-            $tempStr .= '<b>Source</b> : '.$val_1[1]['source'].'<br/>';
-            $tempStr .= '<b>Tier</b> : '.$val_1[1]['tier'].'<br/>';
-            $tempStr .= '<b>User</b> : '.$val_1[1]['user'];
-*/
-
-            $tempArr[] = $tempStr;
-
-            array_push($orderedDataStr, $tempArr);
-            $tempArr = array();
-            $tempStr = "";
-
-        }
-        echo json_encode(array('data' => $orderedDataStr));
-
+echo json_encode(array('data' => $orderedDataStr));
 
 ?>

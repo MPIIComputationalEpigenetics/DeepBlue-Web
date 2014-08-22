@@ -1,5 +1,23 @@
 <?php
 
+/**
+*   DeepBlue Epigenomic Data Server
+*   Copyright (c) 2014 Max Planck Institute for Computer Science.
+*   All rights reserved.
+*
+*   Authors :
+*
+*   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
+*   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
+*
+*   Created : 21-08-2014
+*
+*   ================================================
+*
+*   File : deepblue_view_samples.php
+*
+*/
+
 require_once("inc/init.php");
 
 ?>
