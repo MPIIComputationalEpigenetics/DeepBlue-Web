@@ -82,9 +82,9 @@ foreach($infoList[1] as $metadata) {
     }
 
 
-    // foreach ($metadata['extra_metadata'] as $extra_metadata_key => $extra_metadata_value) {
-    //     $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.'<br/>';
-    // }
+    foreach ($metadata['extra_metadata'] as $extra_metadata_key => $extra_metadata_value) {
+        $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.'<br/>';
+    }
 
     $tempArr[] = $tempExpStr;
     array_push($orderedDataStr, $tempArr);
