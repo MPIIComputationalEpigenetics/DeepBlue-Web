@@ -40,14 +40,9 @@ else{
 }
 
 $bioSourceIds = array();
-$counter = 0;
 
 foreach ($biosourceList[0][1] as $bioSource) {
-    if($counter < 150){
         $bioSourceIds[] = $bioSource[0];
-        $counter++;
-    }
-    else break;
 }
 
 $client->query("info", $bioSourceIds, $user_key);
