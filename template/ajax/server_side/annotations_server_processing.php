@@ -18,6 +18,9 @@
 *
 */
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
 
@@ -70,10 +73,13 @@ foreach($infoList[0][1] as $value_2){
     $tempArr[] = $value_2['name'];
     $tempArr[] = $value_2['genome'];
     $tempArr[] = $value_2['description'];
+
     $tempAnStr.= "<div class='format-small'><b>Format : </b>".$value_2['format']."</div><br/>";
 
-    foreach ($value_2['extra_metadata'] as $key_3 => $value_3) {
-        $tempAnStr .= "<div class='format-small'><b>".$key_3."</b> : ".$value_3."</div><br/>";
+    if(isset($value_2['extra_metadata'])){
+        foreach ($value_2['extra_metadata'] as $key_3 => $value_3) {
+            $tempAnStr .= "<div class='format-small'><b>".$key_3."</b> : ".$value_3."</div><br/>";
+        }
     }
 
     $tempArr[] = $tempAnStr;

@@ -18,6 +18,8 @@
 *
 */
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require_once("inc/init.php");
 
@@ -89,7 +91,7 @@ require_once("inc/init.php");
 										<input class="form-control" placeholder="Filter ID" type="text">
 									</th>
 
-									<th class="hasinput">
+									<th class="hasinput" style="width:20px">
 										<input type="text" class="form-control" placeholder="Filter Experiment" />
 									</th>
 									<th class="hasinput">
@@ -110,7 +112,7 @@ require_once("inc/init.php");
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Filter Project" />
 									</th>
-									<th class="hasinput" style="width:18%">
+									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Filter Meta data"/>
 									</th>
 								</tr>

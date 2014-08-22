@@ -18,15 +18,14 @@
 *
 */
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-//include IXR Library for RPC-XML
+/* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
 
 /* Including URL for server and USER Key  */
 require_once("../../lib/lib.php");
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 /* Checking these parametrs exist or not */
 !isset($genomF) ? $genomF = "" : $genomF;
@@ -82,11 +81,11 @@ foreach($infoList[1] as $metadata) {
     }
 
 
-    // foreach ($metadata['extra_metadata'] as $extra_metadata_key => $extra_metadata_value) {
-    //     $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.'<br/>';
-    // }
+    foreach ($metadata['extra_metadata'] as $extra_metadata_key => $extra_metadata_value) {
+        $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.'<br/>';
+    }
 
-    $tempArr[] = $tempExpStr;
+    $tempArr[] = "<div class='exp-metadata'>".$tempExpStr."</div>";
     array_push($orderedDataStr, $tempArr);
 
     $tempArr = array();
