@@ -18,6 +18,9 @@
 *
 */
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once("inc/init.php");
 
 ?>
@@ -85,7 +88,7 @@ require_once("inc/init.php");
 									<th class="hasinput" style="width:10%">
 										<input class="form-control" placeholder="Filter ID" type="text"/>
 									</th>
-									<th class="hasinput">
+									<th class="hasinput" style="width:10%">
 										<input type="text" class="form-control" placeholder="Filter Epigenetic Marks"/>
 									</th>
 									<th class="hasinput">
