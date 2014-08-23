@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 /* URL to XML-RPC Server */
 $url = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
 //$url = '139.19.102.157:31415';

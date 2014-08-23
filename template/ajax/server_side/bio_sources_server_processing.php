@@ -5,29 +5,21 @@
 *   Copyright (c) 2014 Max Planck Institute for Computer Science.
 *   All rights reserved.
 *
-*   Authors :
+*   File : bio_sources_server_processing.php
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
 *
 *   Created : 21-08-2014
-*
-*   ================================================
-*
-*   File : bio_sources_server_processing.php
-*
 */
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+/* DeepBlue Configuration */
+require_once("../../lib/lib.php");
 
 //include IXR Library for RPC-XML
 require_once("../../lib/deepblue.IXR_Library.php");
 
-/* Including URL for server and USER Key  */
-require_once("../../lib/lib.php");
-
-/* Getting data from the server */
+ini_set('memory_limit', '-1');
 
 $client = new IXR_Client($url);
 
@@ -50,25 +42,22 @@ else{ $infoList[] = $client->getResponse(); }
 /* Ordering and generating json file for Datatables */
 
 $orderedDataStr = array();
-$tempArr = array();
-$tempBioStr = "";
+
 
 foreach($infoList[0][1] as $orderedData){
+    $tempArr = array();
 
     $tempArr[] = !isset($orderedData['_id']) ? "" : $orderedData['_id'];
     $tempArr[] = !isset($orderedData['name']) ? "" : $orderedData['name'];
     $tempArr[] = !isset($orderedData['description']) ? "" : $orderedData['description'];
 
-
+    $tempBioStr = "";
     foreach ($orderedData['extra_metadata'] as $bioKey => $bioValue) {
         $tempBioStr .= '<b>'.$bioKey.'</b> : '.$bioValue.'<br/>';
     }
-
     $tempArr[] = $tempBioStr;
 
-    array_push($orderedDataStr, $tempArr);
-    $tempArr = array();
-    $tempBioStr = "";
+    $orderedDataStr[] = $tempArr;
 }
 
 echo json_encode(array('data' => $orderedDataStr));
