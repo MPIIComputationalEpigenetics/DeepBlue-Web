@@ -18,6 +18,9 @@
 *
 */
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 //include IXR Library for RPC-XML
 require_once("../../lib/deepblue.IXR_Library.php");
 
@@ -29,12 +32,9 @@ require_once("../../lib/lib.php");
 $client = new IXR_Client($url);
 
 if(!$client->query("list_genomes", $user_key)){
-    $genomeList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $client->query("list_genomes", $user_key);
-    $genomeList[] = $client->getResponse();
-}
+else{ $genomeList[] = $client->getResponse(); }
 
 $genomeIds = array();
 
@@ -42,8 +42,11 @@ foreach ($genomeList[0][1] as $genomes) {
     $genomeIds[] = $genomes[0];
 }
 
-$client->query("info", $genomeIds, $user_key);
-$infoList[] = $client->getResponse();
+
+if(!$client->query("info", $genomeIds, $user_key)){
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{ $infoList[] = $client->getResponse(); }
 
 /* Ordering and generating json file for Datatables */
 

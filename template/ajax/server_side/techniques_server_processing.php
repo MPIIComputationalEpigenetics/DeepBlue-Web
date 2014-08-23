@@ -18,6 +18,9 @@
 *
 */
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 //include IXR Library for RPC-XML
 require_once("../../lib/deepblue.IXR_Library.php");
 
@@ -29,12 +32,9 @@ require_once("../../lib/lib.php");
 $client = new IXR_Client($url);
 
 if(!$client->query("list_techniques", $user_key)){
-    $techList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $client->query("list_techniques", $user_key);
-    $techList[] = $client->getResponse();
-}
+else{ $techList[] = $client->getResponse(); }
 
 /* Collecting epigenetic mark ids into array */
 $techniquesIds = array();
@@ -45,8 +45,10 @@ foreach ($techList[0][1] as $techniques) {
 
 /* Getting info data about epigenetc marks */
 
-$client->query("info", $techniquesIds, $user_key);
-$infoList[] = $client->getResponse();
+if(!$client->query("info", $techniquesIds, $user_key)){
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{ $infoList[] = $client->getResponse(); }
 
 /* Ordering and generating json file for Datatables */
 

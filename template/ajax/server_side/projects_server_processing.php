@@ -32,12 +32,9 @@ require_once("../../lib/lib.php");
 $client = new IXR_Client($url);
 
 if(!$client->query("list_projects", $user_key)){
-    $projectList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $client->query("list_projects", $user_key);
-    $projectList[] = $client->getResponse();
-}
+else{ $projectList[] = $client->getResponse(); }
 
 /* Collecting projects ids into array */
 $projectIds = array();
@@ -48,8 +45,10 @@ foreach ($projectList[0][1] as $project) {
 
 /* Getting info data about projects */
 
-$client->query("info", $projectIds, $user_key);
-$infoList[] = $client->getResponse();
+if(!$client->query("info", $projectIds, $user_key)){
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{ $infoList[] = $client->getResponse(); }
 
 /* Ordering and generating json file for Datatables */
 

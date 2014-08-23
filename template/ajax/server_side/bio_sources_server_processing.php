@@ -32,12 +32,9 @@ require_once("../../lib/lib.php");
 $client = new IXR_Client($url);
 
 if(!$client->query("list_bio_sources", $user_key)){
-    $biosourceList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $client->query("list_bio_sources", $user_key);
-    $biosourceList[] = $client->getResponse();
-}
+else{ $biosourceList[] = $client->getResponse(); }
 
 $bioSourceIds = array();
 
@@ -45,8 +42,10 @@ foreach ($biosourceList[0][1] as $bioSource) {
         $bioSourceIds[] = $bioSource[0];
 }
 
-$client->query("info", $bioSourceIds, $user_key);
-$infoList[] = $client->getResponse();
+if(!$client->query("info", $bioSourceIds, $user_key)){
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{ $infoList[] = $client->getResponse(); }
 
 /* Ordering and generating json file for Datatables */
 

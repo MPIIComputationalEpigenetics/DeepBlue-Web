@@ -32,12 +32,9 @@ $client = new IXR_Client($url);
 /* Request Genome List from the server  */
 
 if(!$client->query("list_genomes", $user_key)){
-    $genomeList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $client->query("list_genomes", $user_key);
-    $genomeList[] = $client->getResponse();
-}
+else{ $genomeList[] = $client->getResponse(); }
 
 /* Collecting genome ids into array */
 
@@ -50,8 +47,10 @@ foreach($genomeList[0][1] as $genomes){
 /* Getting annotation list from the server  */
 $annotations = array();
 
-$client->query("list_annotations", $genomeIds, $user_key);
-$annotations[] = $client->getResponse();
+if(!$client->query("list_annotations", $genomeIds, $user_key)){
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{ $annotations[] = $client->getResponse(); }
 
 /* Collecting annotation ids into array */
 $annotationsIds = array();
@@ -60,8 +59,10 @@ foreach($annotations[0][1] as $annotationVal){
     $annotationsIds[] = $annotationVal[0];
 }
 
-$client->query("info", $annotationsIds, $user_key);
-$infoList[] = $client->getResponse();
+if(!$client->query("info", $annotationsIds, $user_key)){
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{ $infoList[] = $client->getResponse(); }
 
 $orderedDataStr = array();
 $tempArr = array();

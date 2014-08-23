@@ -31,13 +31,11 @@ require_once("../../lib/lib.php");
 
 $client = new IXR_Client($url);
 
+
 if(!$client->query("list_column_types", $user_key)){
-    $columnList[] = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $client->query("list_column_types", $user_key);
-    $columnList[] = $client->getResponse();
-}
+else{ $columnList[] = $client->getResponse(); }
 
 /* Ordering and generating json file for Datatables */
 

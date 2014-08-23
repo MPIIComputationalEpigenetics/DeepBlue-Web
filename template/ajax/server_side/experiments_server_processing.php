@@ -34,12 +34,9 @@ require_once("../../lib/lib.php");
 $client = new IXR_Client($url);
 
 if(!$client->query("list_experiments", $genomF, $emF, "", "", "", $user_key)){
-    $experimentList = 'An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage();
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $client->query("list_experiments", $genomF, $emF, "", "", "", $user_key);
-    $experimentList[] = $client->getResponse();
-}
+else{ $experimentList[] = $client->getResponse(); }
 
 $experiment_ids = array();
 
@@ -47,8 +44,10 @@ foreach($experimentList[0][1] as $experiment){
     $experiment_ids[] = $experiment[0];
 }
 
-$client->query("info", $experiment_ids, $user_key);
-$infoList = $client->getResponse();
+if(!$client->query("info", $experiment_ids, $user_key)){
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{ $infoList = $client->getResponse(); }
 
 $orderedDataStr = array();
 $tempArr = array();
