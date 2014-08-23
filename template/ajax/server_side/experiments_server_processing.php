@@ -13,6 +13,9 @@
 *   Created : 21-08-2014
 */
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 

@@ -17,11 +17,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-/* include IXR Library for RPC-XML */
-require_once("../../lib/deepblue.IXR_Library.php");
-
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+
+/* include IXR Library for RPC-XML */
+require_once("../../lib/deepblue.IXR_Library.php");
 
 $client = new IXR_Client($url);
 
