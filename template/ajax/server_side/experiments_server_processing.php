@@ -13,9 +13,6 @@
 *   Created : 21-08-2014
 */
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 
@@ -31,7 +28,9 @@ $client = new IXR_Client($url);
 if(!$client->query("list_experiments", $genomF, $emF, "", "", "", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $experimentList[] = $client->getResponse(); }
+else{
+    $experimentList[] = $client->getResponse();
+}
 
 $experiment_ids = array();
 
@@ -42,7 +41,9 @@ foreach($experimentList[0][1] as $experiment){
 if(!$client->query("info", $experiment_ids, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $infoList = $client->getResponse(); }
+else{
+    $infoList = $client->getResponse();
+}
 
 $orderedDataStr = array();
 $tempArr = array();

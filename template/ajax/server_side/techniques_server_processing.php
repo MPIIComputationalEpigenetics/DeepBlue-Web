@@ -13,10 +13,6 @@
 *   Created : 21-08-2014
 */
 
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 
@@ -28,7 +24,9 @@ $client = new IXR_Client($url);
 if(!$client->query("list_techniques", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $techList[] = $client->getResponse(); }
+else{
+	$techList[] = $client->getResponse();
+}
 
 /* Collecting epigenetic mark ids into array */
 $techniquesIds = array();
@@ -42,7 +40,9 @@ foreach ($techList[0][1] as $techniques) {
 if(!$client->query("info", $techniquesIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $infoList[] = $client->getResponse(); }
+else{
+	$infoList[] = $client->getResponse();
+}
 
 /* Ordering and generating json file for Datatables */
 

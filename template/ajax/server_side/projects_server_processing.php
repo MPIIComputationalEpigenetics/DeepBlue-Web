@@ -13,9 +13,6 @@
 *   Created : 21-08-2014
 */
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 
@@ -27,7 +24,9 @@ $client = new IXR_Client($url);
 if(!$client->query("list_projects", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $projectList[] = $client->getResponse(); }
+else{
+	$projectList[] = $client->getResponse();
+}
 
 /* Collecting projects ids into array */
 $projectIds = array();
@@ -41,7 +40,9 @@ foreach ($projectList[0][1] as $project) {
 if(!$client->query("info", $projectIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $infoList[] = $client->getResponse(); }
+else{
+	$infoList[] = $client->getResponse();
+}
 
 /* Ordering and generating json file for Datatables */
 

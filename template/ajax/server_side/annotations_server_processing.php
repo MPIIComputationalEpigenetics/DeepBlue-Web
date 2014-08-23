@@ -13,9 +13,6 @@
 *   Created : 21-08-2014
 */
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 
@@ -27,7 +24,9 @@ $client = new IXR_Client($url);
 if(!$client->query("list_genomes", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $genomeList[] = $client->getResponse(); }
+else{
+    $genomeList[] = $client->getResponse();
+}
 
 /* Collecting genome ids into array */
 
@@ -43,7 +42,9 @@ $annotations = array();
 if(!$client->query("list_annotations", $genomeIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $annotations[] = $client->getResponse(); }
+else{
+    $annotations[] = $client->getResponse();
+}
 
 /* Collecting annotation ids into array */
 $annotationsIds = array();
@@ -55,7 +56,9 @@ foreach($annotations[0][1] as $annotationVal){
 if(!$client->query("info", $annotationsIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $infoList[] = $client->getResponse(); }
+else{
+    $infoList[] = $client->getResponse();
+}
 
 $orderedDataStr = array();
 $tempArr = array();

@@ -13,9 +13,6 @@
 *   Created : 21-08-2014
 */
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 
@@ -29,7 +26,9 @@ $client = new IXR_Client($url);
 if(!$client->query("list_bio_sources", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $biosourceList[] = $client->getResponse(); }
+else{
+    $biosourceList[] = $client->getResponse();
+}
 
 $bioSourceIds = array();
 
@@ -40,7 +39,9 @@ foreach ($biosourceList[0][1] as $bioSource) {
 if(!$client->query("info", $bioSourceIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $infoList[] = $client->getResponse(); }
+else{
+    $infoList[] = $client->getResponse();
+}
 
 /* Ordering and generating json file for Datatables */
 

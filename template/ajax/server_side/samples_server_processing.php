@@ -13,10 +13,6 @@
 *   Created : 21-08-2014
 */
 
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 
@@ -28,7 +24,9 @@ $client = new IXR_Client($url);
 if(!$client->query("list_bio_sources", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $bioSourceList[] = $client->getResponse(); }
+else{
+    $bioSourceList[] = $client->getResponse();
+}
 
 foreach($bioSourceList[0][1] as $bioSourceName){
     $bioNames[] = $bioSourceName[1];
@@ -37,7 +35,9 @@ foreach($bioSourceList[0][1] as $bioSourceName){
 if(!$client->query("list_samples", $bioNames, (object) null, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $sampleList[] = $client->getResponse(); }
+else{
+    $sampleList[] = $client->getResponse();
+}
 
 /* Collecting epigenetic mark ids into array */
 $sampleIds = array();
@@ -51,7 +51,9 @@ foreach ($sampleList[0][1] as $samples) {
 if(!$client->query("info", $sampleIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{ $infoList[] = $client->getResponse(); }
+else{
+    $infoList[] = $client->getResponse();
+}
 
 $orderedDataStr = array();
 $tempArr = array();
