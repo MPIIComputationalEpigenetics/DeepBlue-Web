@@ -5,29 +5,19 @@
 *   Copyright (c) 2014 Max Planck Institute for Computer Science.
 *   All rights reserved.
 *
-*   Authors :
+*   File : column_types_server_processing.php
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
 *
 *   Created : 21-08-2014
-*
-*   ================================================
-*
-*   File : column_types_server_processing.php
-*
 */
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+/* DeepBlue Configuration */
+require_once("../../lib/lib.php");
 
 //include IXR Library for RPC-XML
 require_once("../../lib/deepblue.IXR_Library.php");
-
-/* Including URL for server and USER Key  */
-require_once("../../lib/lib.php");
-
-/* Getting data from the server */
 
 $client = new IXR_Client($url);
 
