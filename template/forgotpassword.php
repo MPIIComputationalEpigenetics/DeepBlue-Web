@@ -18,7 +18,7 @@ $page_title = "Forgot Password";
 //include header
 //you can add your custom css in $page_css array.
 //Note: all css files are inside css/ folder
-$page_css[] = "your_style.css";
+$page_css[] = "deepblue.css";
 $no_main_header = true;
 $page_body_prop = array("id"=>"extr-page", "class"=>"animated fadeInDown");
 include("inc/header.php");
@@ -56,7 +56,7 @@ include("inc/header.php");
 									<a href="javascript:void(0);" class="btn btn-danger btn-sm">Find out more</a>
 								</div>
 							</div>
-							
+
 							<img src="img/demo/sa-demo.png" class="pull-right display-image" alt="" style="width:355px">
 
 						</div>
@@ -79,13 +79,13 @@ include("inc/header.php");
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">
-							<form action="<?php echo APP_URL; ?>/login.php" id="login-form" class="smart-form client-form">
+							<form action="<?php echo APP_URL; ?>/index.php" id="login-form" class="smart-form client-form">
 								<header>
 									Forgot Password
 								</header>
 
 								<fieldset>
-									
+
 									<section>
 										<label class="label">Enter your email address</label>
 										<label class="input"> <i class="icon-append fa fa-envelope"></i>
@@ -93,7 +93,7 @@ include("inc/header.php");
 											<b class="tooltip tooltip-top-right"><i class="fa fa-envelope txt-color-teal"></i> Please enter email address for password reset</b></label>
 									</section>
 									<section>
-										<span class="timeline-seperator text-center text-primary"> <span class="font-sm">OR</span> 
+										<span class="timeline-seperator text-center text-primary"> <span class="font-sm">OR</span>
 									</section>
 									<section>
 										<label class="label">Your Username</label>
@@ -101,7 +101,7 @@ include("inc/header.php");
 											<input type="text" name="username">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Enter your username</b> </label>
 										<div class="note">
-											<a href="<?php echo APP_URL; ?>/login.php">I remembered my password!</a>
+											<a href="<?php echo APP_URL; ?>/index.php">I remembered my password!</a>
 										</div>
 									</section>
 
@@ -114,9 +114,9 @@ include("inc/header.php");
 							</form>
 
 						</div>
-						
+
 						<h5 class="text-center"> - Or sign in using -</h5>
-															
+
 										<ul class="list-inline text-center">
 											<li>
 												<a href="javascript:void(0);" class="btn btn-primary btn-circle"><i class="fa fa-facebook"></i></a>
@@ -128,7 +128,7 @@ include("inc/header.php");
 												<a href="javascript:void(0);" class="btn btn-warning btn-circle"><i class="fa fa-linkedin"></i></a>
 											</li>
 										</ul>
-						
+
 					</div>
 				</div>
 			</div>
@@ -138,12 +138,12 @@ include("inc/header.php");
 <!-- END MAIN PANEL -->
 <!-- ==========================CONTENT ENDS HERE ========================== -->
 
-<?php 
+<?php
 	//include required scripts
-	include("inc/scripts.php"); 
+	include("inc/scripts.php");
 ?>
 
-<!-- PAGE RELATED PLUGIN(S) 
+<!-- PAGE RELATED PLUGIN(S)
 <script src="..."></script>-->
 
 		<script type="text/javascript">
@@ -151,7 +151,7 @@ include("inc/header.php");
 
 		</script>
 
-<?php 
+<?php
 	//include footer
-	include("inc/google-analytics.php"); 
+	include("inc/google-analytics.php");
 ?>

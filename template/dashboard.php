@@ -19,7 +19,7 @@ YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC. */
 //include header
 //you can add your custom css in $page_css array.
 //Note: all css files are inside css/ folder
-$page_css[] = "your_style.css";
+$page_css[] = "deepblue.css";
 include("inc/header.php");
 
 //include left panel (navigation)
@@ -39,7 +39,7 @@ include("inc/nav.php");
 
 	</div>
 	<!-- END MAIN CONTENT -->
-	
+
 </div>
 <!-- END MAIN PANEL -->
 
@@ -51,9 +51,9 @@ include("inc/nav.php");
 
 <!-- ==========================CONTENT ENDS HERE ========================== -->
 
-<?php 
+<?php
 	//include required scripts
-	include("inc/scripts.php"); 
+	include("inc/scripts.php");
 	//include footer
-	include("inc/google-analytics.php"); 
+	include("inc/google-analytics.php");
 ?>

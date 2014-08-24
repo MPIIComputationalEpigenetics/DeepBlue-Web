@@ -374,7 +374,7 @@ $page_nav = array(
 			),
             "login" => array(
 				"title" => "Login",
-				"url" => APP_URL."/login.php",
+				"url" => APP_URL."/index.php",
 				"url_target" => "_top"
 			),
             "register" => array(
@@ -446,7 +446,7 @@ $page_nav = array(
 //configuration variables
 $page_title = "";
 $page_css = array();
-$no_main_header = false; //set true for lock.php and login.php
+$no_main_header = false; //set true for lock.php and index.php
 $page_body_prop = array(); //optional properties for <body>
 $page_html_prop = array(); //optional properties for <html>
 
