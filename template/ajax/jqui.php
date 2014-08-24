@@ -1,8 +1,8 @@
 <?php require_once("inc/init.php"); ?>
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-		<h1 class="page-title txt-color-blueDark"><i class="fa fa-desktop fa-fw "></i> 
-			UI Elements 
+		<h1 class="page-title txt-color-blueDark"><i class="fa fa-desktop fa-fw "></i>
+			UI Elements
 			<span>>
 			JQuery UI
 			</span>
@@ -133,19 +133,19 @@
 			<small>Horizontal Slider with tooltip</small></h3>
 
 
-			<input type="text" class="slider slider-primary" id="g1" value="" 
-					data-slider-max="500" 
-					data-slider-value="185" 
-					data-slider-selection = "before" 
+			<input type="text" class="slider slider-primary" id="g1" value=""
+					data-slider-max="500"
+					data-slider-value="185"
+					data-slider-selection = "before"
 					data-slider-handle="round">
 
-			<input type="text" class="slider slider-success" id="g2" value="" 
-					data-slider-max="1000" 
-					data-slider-step="1" 
-					data-slider-value="[150,760]" 
+			<input type="text" class="slider slider-success" id="g2" value=""
+					data-slider-max="1000"
+					data-slider-step="1"
+					data-slider-value="[150,760]"
 					data-slider-handle="squar">
 
-			
+
 					<h3>Usage <small>Its so simple...</small> </h3>
 				<pre>
 <code><strong>&lt;input class="slider slider-primary" data-slider-min="10" ..  /></strong></code>
@@ -155,7 +155,7 @@ data-slider-max="500"      <span class="text-muted"> // slider max value</span>
 data-slider-value="315"    <span class="text-muted"> // handler position on slider</span>
 data-slider-handle="round" <span class="text-muted"> // round or square</span> </pre>
 
-			
+
 		</div>
 
 		<div class="well well-sm well-light">
@@ -343,15 +343,15 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 			</div>
 
 		</div>
-		
+
 		<div class="well well-sm well-light">
 			<h3>Progress Bar
 			<br>
 			<small>Default progress bar.</small></h3>
-			
+
 			<div id="progressbar"></div>
 		</div>
-	
+
 	</div>
 
 </div>
@@ -413,45 +413,45 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 	 */
 
 	pageSetUp();
-	
+
 	/*
 	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
 	 * eg alert("my home function");
-	 * 
+	 *
 	 * var pagefunction = function() {
 	 *   ...
 	 * }
 	 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-	 * 
+	 *
 	 * TO LOAD A SCRIPT:
-	 * var pagefunction = function (){ 
-	 *  loadScript(".../plugin.js", run_after_loaded);	
+	 * var pagefunction = function (){
+	 *  loadScript(".../plugin.js", run_after_loaded);
 	 * }
-	 * 
+	 *
 	 * OR
-	 * 
+	 *
 	 * loadScript(".../plugin.js", run_after_loaded);
 	 */
-	
+
 
 	// PAGE RELATED SCRIPTS
 
 	// pagefunction
-	
+
 	var pagefunction = function() {
 
 		// menu
 		$("#menu").menu();
-	
+
 		/*
 		 * AUTO COMPLETE AJAX
 		 */
-	
+
 		function log(message) {
 			$("<div>").text(message).prependTo("#log");
 			$("#log").scrollTop(0);
 		}
-	
+
 		$("#city").autocomplete({
 			source : function(request, response) {
 				$.ajax({
@@ -478,7 +478,7 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 				log(ui.item ? "Selected: " + ui.item.label : "Nothing selected, input was " + this.value);
 			}
 		});
-	
+
 		/*
 		 * Spinners
 		 */
@@ -487,7 +487,7 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 			step : 0.01,
 			numberFormat : "n"
 		});
-	
+
 		$("#spinner-currency").spinner({
 			min : 5,
 			max : 2500,
@@ -495,7 +495,7 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 			start : 1000,
 			numberFormat : "C"
 		});
-	
+
 		/*
 		 * CONVERT DIALOG TITLE TO HTML
 		 * REF: http://stackoverflow.com/questions/14488774/using-html-in-a-dialogs-title-in-jquery-ui-1-10
@@ -509,18 +509,18 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 				}
 			}
 		}));
-	
+
 		/*
 		* DIALOG SIMPLE
 		*/
-	
+
 		// Dialog click
 		$('#dialog_link').click(function() {
 			$('#dialog_simple').dialog('open');
 			return false;
-	
+
 		});
-	
+
 		$('#dialog_simple').dialog({
 			autoOpen : false,
 			width : 600,
@@ -541,17 +541,17 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 				}
 			}]
 		});
-	
+
 		/*
 		* DIALOG HEADER ICON
 		*/
-	
+
 		// Modal Link
 		$('#modal_link').click(function() {
 			$('#dialog-message').dialog('open');
 			return false;
 		});
-	
+
 		$("#dialog-message").dialog({
 			autoOpen : false,
 			modal : true,
@@ -569,31 +569,31 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 					$(this).dialog("close");
 				}
 			}]
-	
+
 		});
-	
+
 		/*
 		 * Remove focus from buttons
 		 */
 		$('.ui-dialog :button').blur();
-	
+
 		/*
 		 * Just Tabs
 		 */
-	
+
 		$('#tabs').tabs();
-	
+
 		/*
 		 *  Simple tabs adding and removing
 		 */
-	
+
 		$('#tabs2').tabs();
-	
+
 		// Dynamic tabs
 		var tabTitle = $("#tab_title"), tabContent = $("#tab_content"), tabTemplate = "<li style='position:relative;'> <span class='air air-top-left delete-tab' style='top:7px; left:7px;'><button class='btn btn-xs font-xs btn-default hover-transparent'><i class='fa fa-times'></i></button></span></span><a href='#{href}'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{label}</a></li>", tabCounter = 2;
-	
+
 		var tabs = $("#tabs2").tabs();
-	
+
 		// modal dialog init: custom buttons and a "close" callback reseting the form inside
 		var dialog = $("#addtab").dialog({
 			autoOpen : false,
@@ -605,10 +605,10 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 				"class" : "btn btn-default",
 				click : function() {
 					$(this).dialog("close");
-	
+
 				}
 			}, {
-	
+
 				html : "<i class='fa fa-plus'></i>&nbsp; Add",
 				"class" : "btn btn-danger",
 				click : function() {
@@ -617,51 +617,51 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 				}
 			}]
 		});
-	
+
 		// addTab form: calls addTab function on submit and closes the dialog
 		var form = dialog.find("form").submit(function(event) {
 			addTab();
 			dialog.dialog("close");
 			event.preventDefault();
 		});
-	
+
 		// actual addTab function: adds new tab using the input from the form above
 		function addTab() {
 			var label = tabTitle.val() || "Tab " + tabCounter, id = "tabs-" + tabCounter, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label)), tabContentHtml = tabContent.val() || "Tab " + tabCounter + " content.";
-	
+
 			tabs.find(".ui-tabs-nav").append(li);
 			tabs.append("<div id='" + id + "'><p>" + tabContentHtml + "</p></div>");
 			tabs.tabs("refresh");
 			tabCounter++;
-	
+
 			// clear fields
 			$("#tab_title").val("");
 			$("#tab_content").val("");
 		}
-	
+
 		// addTab button: just opens the dialog
 		$("#add_tab").button().click(function() {
 			dialog.dialog("open");
 		});
-	
+
 		// close icon: removing the tab on click
 		$("#tabs2").on("click", 'span.delete-tab', function() {
-	
+
 			var panelId = $(this).closest("li").remove().attr("aria-controls");
 			$("#" + panelId).remove();
 			tabs.tabs("refresh");
 		});
-	
+
 		/*
 		* ACCORDION
 		*/
 		//jquery accordion
-		
+
 	     var accordionIcons = {
 	         header: "fa fa-plus",    // custom icon class
 	         activeHeader: "fa fa-minus" // custom icon class
 	     };
-	     
+
 		$("#accordion").accordion({
 			autoHeight : false,
 			heightStyle : "content",
@@ -670,7 +670,7 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 			icons: accordionIcons,
 			header : "h4",
 		})
-	
+
 		/*
 		 * PROGRESS BAR
 		 */
@@ -681,11 +681,11 @@ data-slider-handle="round" <span class="text-muted"> // round or square</span> <
 			}
 		});
 
-		
+
 	};
-	
+
 	// end pagefunction
-	
+
 	// run pagefunction on load
 
 	pagefunction();

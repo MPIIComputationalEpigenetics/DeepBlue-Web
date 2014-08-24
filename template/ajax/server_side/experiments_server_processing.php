@@ -46,11 +46,9 @@ else{
 }
 
 $orderedDataStr = array();
-$tempArr = array();
-$tempExpStr = "";
-
 
 foreach($infoList[1] as $metadata) {
+    $tempArr = array();
 
     $tempArr[] = "<input type='checkbox' name='' value=''>";
     $tempArr[] = $metadata['_id'];
@@ -63,6 +61,7 @@ foreach($infoList[1] as $metadata) {
     $tempArr[] = $metadata['technique'];
     $tempArr[] = $metadata['project'];
 
+    $tempExpStr = "";
     foreach ($metadata as $others_metadata_key => $others_metadata_value) {
         if ($others_metadata_key != '_id' && $others_metadata_key != 'name' && $others_metadata_key != 'genome' &&
         $others_metadata_key != 'epigenetic_mark' && $others_metadata_key != 'sample_id' &&
@@ -74,7 +73,6 @@ foreach($infoList[1] as $metadata) {
             $tempExpStr .= '<b>'.$others_metadata_key.'</b> : '.$others_metadata_value.'<br/>';
         }
     }
-
 
     foreach ($metadata['extra_metadata'] as $extra_metadata_key => $extra_metadata_value) {
         $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.'<br/>';

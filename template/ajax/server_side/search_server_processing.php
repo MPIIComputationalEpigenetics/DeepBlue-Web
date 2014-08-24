@@ -39,15 +39,36 @@ else{
     $searchList[] = $client->getResponse();
 }
 
+$items_ids = array();
+foreach($searchList[0][1] as $item){
+    $items_ids[] = $item[0];
+}
+
+if(!$client->query("info", $items_ids, $user_key)){
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{
+    $infoList = $client->getResponse();
+}
+
 $orderedDataStr = array();
-$tempArr = array();
-
-foreach ($searchList[0][1] as $val_1) {
+foreach ($infoList[1] as $val_1) {
 	$tempArr = array();
-    $tempArr[] = $val_1[0];
-    $tempArr[] = $val_1[1];
-    $tempArr[] = $val_1[2];
+    $tempArr[] = $val_1["_id"];
+    if (isset($val_1["name"])) {
+        $tempArr[] = $val_1["name"];
+    } else {
+        $tempArr[] = "";
+    }
 
+    $tempArr[] = $val_1["_id"];
+    if (isset($val_1["description"])) {
+        $tempArr[] = $val_1["description"];
+    } else {
+        $tempArr[] = "";
+    }
+
+    $tempArr[] = $val_1["type"];
     array_push($orderedDataStr, $tempArr);
 }
 

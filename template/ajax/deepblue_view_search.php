@@ -531,7 +531,7 @@
 		request.done( function(data) {
 			//alert(JSON.stringify(data));
 		    $.each(data.data, function(i, item) {
-		    	$("<h1>"+item[0] + "," + item[1]+ "</h1> - " + item[2] + "</BR>").insertBefore("#search_result");
+		    	$("<h1>"+item[0] + "," + item[1]+ "</h1> - " + item[2] + "," + item[3] + "</BR>").insertBefore("#search_result");
 		    });
 		});
 

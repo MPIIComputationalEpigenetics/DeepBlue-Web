@@ -72,6 +72,12 @@ $page_nav = array(
 		)
 	),
 
+	"search" => array(
+		"title" => "Search",
+		"url"=> "ajax/deepblue_view_search.php",
+		"icon" => "fa-search"
+	),
+
 	"smartui" => array(
 		"title" => "Smart UI",
 		"icon" => "fa-code",
