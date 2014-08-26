@@ -18,7 +18,7 @@ $page_title = "DeepBlue Epigenomic Data Server";
 //include header
 //you can add your custom css in $page_css array.
 //Note: all css files are inside css/ folder
-$page_css[] = "your_style.css";
+$page_css[] = "deepblue.css";
 $no_main_header = true;
 $page_body_prop = array("id"=>"extr-page", "class"=>"animated fadeInDown");
 include("inc/header.php");
@@ -30,7 +30,7 @@ include("inc/header.php");
 	<!--<span id="logo"></span>-->
 
 	<div id="logo-group">
-		<span id="logo"> <img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="SmartAdmin"> </span>
+		<span id="logo"> <img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="DeepBlue Epigenomic Data Server"> </span>
 
 		<!-- END AJAX-DROPDOWN -->
 	</div>
@@ -45,32 +45,20 @@ include("inc/header.php");
 	<div id="content" class="container">
 
 		<div class="row">
-			
 			<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-				
 				<h1 class="txt-color-red login-header-big">DeepBlue Epigenomic Data Server</h1>
 				<div class="hero">
-
 					<div class="pull-left login-desc-box-l">
-						<h4 class="paragraph-header">DeepBlue Epigenomic Data server was conceptualized and developed by Felipe Albrecht with help from Fabian Reinartz. It is a project from Computation Epigenetics group from Computational Biology and Applied Algorithmics Department from Max-Planck-Institut Informatik.</h4>
+						<h4 class="paragraph-header">DeepBlue provides a central data access hub for large collections of epigenomic data, as well as organizing the data using controlled vocabularies. The data is kept in a central server, where the users access, perform operations on, and finally, transfer only the meaningful data.</h4>
 					</div>
-					
 					<img src="<?php echo ASSETS_URL; ?>/img/logo.png" class="pull-right display-image index-middle-logo" alt="">
-
 				</div>
-
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<h5 class="about-heading">About SmartAdmin - Are you up to date?</h5>
-						<p>
-							Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.
-						</p>
+						<img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/minerva-MPG-small.png"/>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<h5 class="about-heading">Not just your average template!</h5>
-						<p>
-							Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!
-						</p>
+						<img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/mpilogo-inf-compact.png"/>
 					</div>
 				</div>
 
@@ -83,7 +71,7 @@ include("inc/header.php");
 						</header>
 
 						<fieldset>
-							
+
 							<section>
 								<label class="label">E-mail</label>
 								<label class="input"> <i class="icon-append fa fa-user"></i>
@@ -115,7 +103,7 @@ include("inc/header.php");
 					</form>
 
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -124,12 +112,12 @@ include("inc/header.php");
 <!-- END MAIN PANEL -->
 <!-- ==========================CONTENT ENDS HERE ========================== -->
 
-<?php 
+<?php
 	//include required scripts
-	include("inc/scripts.php"); 
+	include("inc/scripts.php");
 ?>
 
-<!-- PAGE RELATED PLUGIN(S) 
+<!-- PAGE RELATED PLUGIN(S)
 <script src="..."></script>-->
 
 <script type="text/javascript">
@@ -170,7 +158,7 @@ include("inc/header.php");
 	});
 </script>
 
-<?php 
+<?php
 	//include footer
-	include("inc/google-analytics.php"); 
+	include("inc/google-analytics.php");
 ?>
