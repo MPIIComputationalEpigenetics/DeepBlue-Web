@@ -1,5 +1,19 @@
 <?php
 
+/**
+*   DeepBlue Epigenomic Data Server
+*   Copyright (c) 2014 Max Planck Institute for Computer Science.
+*   All rights reserved.
+*
+*   File : config.ui.php
+*
+*   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
+*   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
+*
+*   Created : 25-08-2014
+*/
+
+
 //CONFIGURATION for SmartAdmin UI
 
 //ribbon breadcrumbs config
@@ -27,6 +41,12 @@ $page_nav = array(
 		"title" => "Dashboard",
 		"url" => "ajax/dashboard.php",
 		"icon" => "fa-home"
+	),
+
+	"API Documentation" => array(
+		"title" => "API Documentation",
+		"url" => "ajax/deepblue_api_documentation.php",
+		"icon" => "fa-plane"
 	),
 
 	"deepblue_tables" => array(
