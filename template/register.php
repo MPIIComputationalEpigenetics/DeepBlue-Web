@@ -294,5 +294,5 @@ include("inc/header.php");
 </script>
 
 <?php
-	include("inc/google-analytics.php");
+	// include("inc/google-analytics.php");
 ?>
