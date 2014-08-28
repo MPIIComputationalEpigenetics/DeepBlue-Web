@@ -1,8 +1,11 @@
 .index-middle-logo{
+    width:315px;
+    margin:10px 9px 0 30px;
+}
 
-width:315px;
-margin:10px 9px 0 30px;
-
+.mpi-logo {
+    width: 200px;
+    margin: 2px;
 }
 
 .format-small{
