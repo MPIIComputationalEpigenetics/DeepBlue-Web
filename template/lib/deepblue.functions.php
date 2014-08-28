@@ -69,15 +69,13 @@ class Main{
 
 		echo "<div class='api-title'>Table of contents</div>";
 
-		foreach ($sortedArray as $sKeyOne => $sValueOne){ ?>
+		foreach ($sortedArray as $sKeyOne => $sValueOne){
 
-		    <a onclick="$(function() { $(document).scrollTop( $('#delete').offset().top ); });" href="javascript:void(0);"><h3><b><?php echo $sKeyOne;?></b></a> - <b><?php echo $sValueOne; ?></b></h3>
-
-		    <?php
+		    echo "<a href='#' class='scroll-link' data-id='".str_replace(' ', '-', strtolower($sKeyOne))."'><h3><b>".$sKeyOne."</b></a> - <b>".$sValueOne."</b></h3>";
 
 		    foreach($this->getApiList() as $tKeyOne => $tValueOne){
 			    if($sKeyOne == $tValueOne['description'][0]){
-					echo "<div class='api-description-listing'>".$n." ) <a href='#".str_replace(' ', '-', strtolower($tKeyOne))."'>".$tKeyOne."</a> — ".$tValueOne['description'][2]."</div>";?>
+					echo "<div class='api-description-listing'>".$n." ) <a class='scroll-link' data-id='".str_replace(' ', '-', strtolower($tKeyOne))."'   >".$tKeyOne."</a> — ".$tValueOne['description'][2]."</div>";?>
 					<div class="marginDiv"></div>
 
 			        <?php
@@ -89,7 +87,7 @@ class Main{
 
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
 			echo "<div class='api-blocks'>
-				  <div class='api-block-header' id='#api-".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
+				  <div class='api-block-header' id='".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
 
 			foreach($this->getApiList() as $tKeyOne => $tValueOne){
 				if($sKeyOne == $tValueOne['description'][0]){
