@@ -46,7 +46,7 @@ class Main{
 		    $finalCommands[] = $client->getResponse();
 		}
 
-		return $finalCommands;
+		return $finalCommands[0][1];
 
 	}
 
@@ -54,13 +54,11 @@ class Main{
 
     public function displayAPIList(){
 
-    	$apiArray[] = $this->getApiList();
-
     	/* Collecting title and description */
 
-		foreach($apiArray[0][0][1] as $keyOne => $valueOne){
-		    $sortedArray[$valueOne['description'][0]] = $valueOne['description'][1];
-		}
+		foreach($this->getApiList() as $keyOne => $valueOne){
+            $sortedArray[$valueOne['description'][0]] = $valueOne['description'][1];
+        }
 
 		/* Ordering by title */
 
@@ -69,100 +67,134 @@ class Main{
 		/* Counter for order number */
 		$n = 1;
 
-		foreach ($sortedArray as $sKeyOne => $sValueOne){
-		    echo "<h3><b>".$sKeyOne." - ".$sValueOne."</b></h3><br/>";
+		echo "<div class='api-title'>Table of contents</div>";
 
-		    	foreach($apiArray[0][0] as $tKeyOne => $tValueOne){
+		foreach ($sortedArray as $sKeyOne => $sValueOne){ ?>
 
-			    	if($tValueOne!='okay'){
+		    <a onclick="$(function() { $(document).scrollTop( $('#delete').offset().top ); });" href="javascript:void(0);"><h3><b><?php echo $sKeyOne;?></b></a> - <b><?php echo $sValueOne; ?></b></h3>
 
-			    		foreach ($tValueOne as $tKeyTwo => $tValueTwo){
-			            if($sKeyOne == $tValueTwo['description'][0]){
+		    <?php
 
-			                echo $n." ) <a class='pointerH' id='".$tKeyTwo."'>".$tKeyTwo."</a> - ".$tValueTwo['description'][2]."<br/>";?>
+		    foreach($this->getApiList() as $tKeyOne => $tValueOne){
+			    if($sKeyOne == $tValueOne['description'][0]){
+					echo "<div class='api-description-listing'>".$n." ) <a href='#".str_replace(' ', '-', strtolower($tKeyOne))."'>".$tKeyOne."</a> — ".$tValueOne['description'][2]."</div>";?>
+					<div class="marginDiv"></div>
 
-			                <div class="marginDiv"></div>
-			                    <div class='toggleDiv' id='div_<?php echo $tKeyTwo; ?>'>
-			                        <div class='row'>
-			                            <div class='span10 apiTitle'>
-			                                <?php echo $tKeyTwo;?>
-			                            </div>
-			                        </div>
-				                    <div class='row'>
-				                        <div class='span10'>
-				                            <?php echo $tValueTwo['description'][2];?>
-				                        </div>
-					                    <div class='span10 apiSource'>
-					                        <?php
-					                            $paramSet = "";
-					                            $paramTypeSet = array();
-
-					                            foreach ($tValueTwo['parameters'] as $param){
-					                                $paramSet = $paramSet.$param[0].", ";
-					                                $paramTypeSet[] = $param[1];
-					                            }
-
-					                            $paramSet = substr($paramSet, 0, -2);
-					                            echo "<code class='apiRCode'>".$tKeyTwo."</code> <code class='apiBCode'>( ".$paramSet." ) </code>";
-
-					                        ?>
-					                    </div>
-				                    </div>
-			                    	<div class='row'>
-			                        	<div class='span12 apiSubTitle'>
-			                            	Parametrs:
-			                        	</div>
-			                        </div>
-			                        <div class='row'>
-			                            <div class='span12'>
-			                                <ul>
-
-			                                <?php
-			                                    $pieces = explode(",", $paramSet);
-			                                    $tcounter = 0;
-			                                    foreach($pieces as $paramTwo){
-			                                      	echo "<li><code class='apiBCode'>".$paramTwo."</code><code class='apiGCode'>(".$paramTypeSet[$tcounter].")</code></li>";
-			                                        $tcounter++;
-			                                 	}
-			                                ?>
-			                                </ul>
-			                            </div>
-			                        </div>
-
-			                        <div class='row'>
-			                            <div class='span12 apiSubTitle'>
-			                                Response:
-			                            </div>
-			                        </div>
-			                        <div class='row'>
-			                            <div class='span12'>
-			                                <ul><li><code class='apiVCode'>['okay', result]</code> — result consists of</li></ul>
-			                            </div>
-				                        <div class='span12'>
-				                            <ul class='apiUlMargin'>
-				                            	<?php
-				                                   	foreach ($tValueTwo['results'] as $result){
-				                                        echo "<li><code class='apiBCode'>".$result[0]."</code><code class='apiGCode'>(".$result[1].")</code> - ".$result[3]."</li>";
-				                                    }
-				                                ?>
-				                            </ul>
-				                        </div>
-				                       	<div class='span12'>
-				                            <ul><li><code class='apiVCode'>['error', error_message]</code> — Error. Verify the error message.</li></ul>
-				                       	</div>
-			                        </div>
-			                    </div>
-			                    <script>$('#<?php echo $tKeyTwo;?>').click(function() { $('#div_<?php echo $tKeyTwo;?>').toggle('slow'); });</script>
-			                    <?php $n++;
-			            }
-			        }
-
-		    	}
-		        $n = 1;
-
+			        <?php
+			        $n++;
+			    }
 		    }
+		    $n = 1;
 		}
+
+		foreach ($sortedArray as $sKeyOne => $sValueOne){
+			echo "<div class='api-blocks'>
+				  <div class='api-block-header' id='#api-".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
+
+			foreach($this->getApiList() as $tKeyOne => $tValueOne){
+				if($sKeyOne == $tValueOne['description'][0]){
+					//print_r($tValueOne);
+				?>
+
+				<div class="marginDiv"></div>
+
+					<div class='row'>
+                        <div class='span10 apiTitle'>
+                            <?php echo $tKeyOne;?>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='span10'>
+                        	<?php echo $tValueOne['description'][2];?>
+                        </div>
+                        <div class='span10 apiSource'>
+                            <?php
+                            $paramSet = "";
+                            $paramTypeSet = array();
+
+                            foreach ($tValueOne['parameters'] as $param){
+                                $paramSet = $paramSet.$param[0].", ";
+                                $paramTypeSet[] = $param[1];
+                            }
+
+                            $paramSet = substr($paramSet, 0, -2);
+                            echo "<code class='apiRCode'>".$tKeyOne."</code> <code class='apiBCode'>( ".$paramSet." ) </code>";
+
+                            ?>
+                        </div>
+                    </div>
+
+					<div class='row'>
+                        <div class='span12 apiSubTitle'>
+                            Parametrs:
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='span12'>
+                            <ul>
+
+                                <?php
+                                $pieces = explode(",", $paramSet);
+                                $tcounter = 0;
+                                foreach($pieces as $paramTwo){
+                                    echo "<li><code class='apiBCode'>".$paramTwo."</code><code class='apiGCode'>(".$paramTypeSet[$tcounter].")</code></li>";
+                                    $tcounter++;
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='span12 apiSubTitle'>
+                            Response:
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='span12'>
+                            <ul><li><code class='apiVCode'>['okay', result]</code> — result consists of</li></ul>
+                        </div>
+                        <div class='span12'>
+                            <ul class='apiUlMargin'>
+                            <?php
+                                foreach ($tValueOne['results'] as $result){
+                                    echo "<li><code class='apiBCode'>".$result[0]."</code><code class='apiGCode'>(".$result[1].")</code> - ".$result[3]."</li>";
+                                }
+
+                            ?>
+                            </ul>
+                        </div>
+                        <div class='span12'>
+                            <ul><li><code class='apiVCode'>['error', error_message]</code> — Error. Verify the error message.</li></ul>
+                        </div>
+                    </div>
+
+				<?php
+				}
+			}
+			echo "</div>";
+		}
+
 	}
+
+	/* Getting DeepBlue Server Version */
+
+    public function getServerVersion(){
+
+        $client = new IXR_Client($this->privateUrl);
+
+        if(!$client->query('echo', $this->privateUrl)){
+            die('An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage());
+        }
+        else{
+            $serVer[] = $client->getResponse();
+            $finalReturn = substr($serVer[0][1], 0, -21);
+        }
+
+        return $finalReturn;
+
+    }
+
 
 }
 

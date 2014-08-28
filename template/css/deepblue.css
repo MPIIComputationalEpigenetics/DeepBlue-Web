@@ -1,7 +1,8 @@
-
 .index-middle-logo{
-	width:315px;
-	margin:10px 9px 0 30px;
+
+width:315px;
+margin:10px 9px 0 30px;
+
 }
 
 .format-small{
@@ -13,8 +14,89 @@
 	word-wrap: break-word;
 }
 
-.mpi-logo {
-    width: 200px;
-    margin: 2px;
- }
+.apiDiv{
+    min-height: 200px!important;
+    text-align: left;
+    margin-left:20px;
+}
+.toggleDiv{
+    display: none;
+    margin:20px 0 40px 0;
+    padding:25px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:    0 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow:         0 5px 10px rgba(0, 0, 0, 0.3);
 
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.pointerH{
+    cursor: pointer;
+}
+.apiSource{
+    border:1px dashed #CCC;
+    padding: 20px;
+    background: #EEE;
+    margin-bottom: 20px;
+}
+.marginDiv{
+    margin:10px 0 10px 10px;
+}
+.apiTitle{
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #005DAC;
+    font-size: 16px;
+}
+.apiRCode{
+    color:#A00A31;
+}
+.apiBCode{
+    color:#2586B9;
+}
+.apiGCode{
+    color:#289334;
+}
+.apiSubTitle{
+    color:#666;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.apiVCode{
+    color: #CD7CA5;
+}
+.apiDiv li{
+    margin-left: 10px;
+}
+.apiUlMargin{
+    margin-left: 60px;
+}
+.api-title{
+    font-size: 35px;
+}
+.api-description-listing{
+    font-size:17px;
+}
+.api-blocks{
+    margin:20px 0 40px 0;
+    padding:40px!important;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:    0 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow:         0 5px 10px rgba(0, 0, 0, 0.3);
+
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.api-block-header{
+    padding: 15px;
+    background: #EAEAEA;
+    font-size: 20px;
+    font-weight: bold;
+    margin: -40px -40px 20px !important;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+}
