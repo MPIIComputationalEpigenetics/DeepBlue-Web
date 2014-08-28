@@ -81,11 +81,7 @@ require_once("inc/init.php");
 
 					<!-- widget content -->
 					<div class="apiDiv widget-body">
-						<?php $main->displayAPIList();
-						// echo "<pre>";
-						// print_r($main->getApiList());
-						// echo "</pre>";
-						?>
+						<?php $main->displayAPIList();?>
 					</div>
 					<!-- end widget content -->
 

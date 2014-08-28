@@ -56,7 +56,9 @@ class Main{
 
     	/* Collecting title and description */
 
-		foreach($this->getApiList() as $keyOne => $valueOne){
+        $commands = $this->getApiList();
+
+		foreach($commands as $keyOne => $valueOne){
             $sortedArray[$valueOne['description'][0]] = $valueOne['description'][1];
         }
 
@@ -71,40 +73,27 @@ class Main{
 
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
 
-		    echo "<a onclick=\"$(function() { $(document).scrollTop( $('#api-". str_replace(' ', '-', strtolower($sKeyOne))."').offset().top ); });\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> - <b><$sValueOne; ?></b></h3>";
+    	    echo "<a onclick=\"$(function() { $(document).scrollTop( $('#api-". str_replace(' ', '-', strtolower($sKeyOne))."').offset().top ); });\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> — $sValueOne</h3>";
 
-		    foreach($this->getApiList() as $tKeyOne => $tValueOne){
-			    if($sKeyOne == $tValueOne['description'][0]){
+		    foreach($commands as $tKeyOne => $tValueOne){
+			    if($sKeyOne == $tValueOne['description'][0]) {
                     echo "<div class='api-description-listing'>".$n." )\n";
-                    echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". str_replace(' ', '-', strtolower($tKeyOne))."').offset().top ); });\" href='javascript:void(0);'>$tKeyOne</a>";
-
-                    //href='#".str_replace(' ', '-', strtolower($tKeyOne))."'>".$tKeyOne."</a> — ".$tValueOne['description'][2]."</div>";
-                    //
-
-                    // $(document).scrollTop( $('str_replace(' ', '-', strtolower($tKeyOne)').offset().top );
-
-                    ?>
-
-					<div class="marginDiv"></div>
-
-			        <?php
-			        $n++;
-			    }
+                    echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". str_replace(' ', '-', strtolower($tKeyOne))."').offset().top ); });\" href='javascript:void(0);'>$tKeyOne</a> — ".$tValueOne['description'][2];
+                    $n++;
+                }
+                ?>
+				<div class="marginDiv"></div>
+			<?php
 		    }
 		    $n = 1;
 		}
 
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
-			echo "<div class='api-blocks'>
-<<<<<<< HEAD
-				  <div class='api-block-header' id='".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
-=======
-				  <div class='api-block-header' id='api-".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
->>>>>>> b81d8bb5e5fab756406abf9e107796a1cd3a9429
+			echo "<div class='api-panel'>
+				  <div class='api-panel-header' id='api-".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
 
-			foreach($this->getApiList() as $tKeyOne => $tValueOne){
+			foreach($commands as $tKeyOne => $tValueOne){
 				if($sKeyOne == $tValueOne['description'][0]){
-					//print_r($tValueOne);
 				?>
 
 				<div class="marginDiv"></div>
@@ -112,10 +101,10 @@ class Main{
                     <?php
                         echo "<h3 id='api-".str_replace(' ', '-', strtolower($tKeyOne))."'>$tKeyOne</h3>"
                     ?>
-                        <div class='span10'>
+                        <div class='api-description'>
                         	<?php echo $tValueOne['description'][2];?>
                         </div>
-                        <div class='span10 apiSource'>
+                        <div class='api-header'>
                             <?php
                             $paramSet = "";
                             $paramTypeSet = array();
@@ -126,27 +115,21 @@ class Main{
                             }
 
                             $paramSet = substr($paramSet, 0, -2);
-                            echo "<code class='apiRCode'>".$tKeyOne."</code> <code class='apiBCode'>( ".$paramSet." ) </code>";
+                            echo "<code class='operation-name'>".$tKeyOne."</code> <code class='operation-parameter'>( ".$paramSet." ) </code>";
 
                             ?>
                         </div>
                     </div>
 
 					<div class='row'>
-                        <div class='span12 apiSubTitle'>
-                            Parametrs:
-                        </div>
+                        <h4>Parametrs:</h4>
                     </div>
-                    <div class='row'>
+                    <div class='api-parameters row'>
                         <div class='span12'>
                             <ul>
-
                                 <?php
-                                $pieces = explode(",", $paramSet);
-                                $tcounter = 0;
-                                foreach($pieces as $paramTwo){
-                                    echo "<li><code class='apiBCode'>".$paramTwo."</code><code class='apiGCode'>(".$paramTypeSet[$tcounter].")</code></li>";
-                                    $tcounter++;
+                                foreach($tValueOne['parameters'] as $paramTwo){
+                                    echo "<li><code class='operation-parameter'>".$paramTwo[0]."</code><code class='operation-type'>(".$paramTwo[1].")</code> — ".$paramTwo[3]."</li>";
                                 }
                                 ?>
                             </ul>
@@ -154,26 +137,24 @@ class Main{
                     </div>
 
                     <div class='row'>
-                        <div class='span12 apiSubTitle'>
-                            Response:
-                        </div>
+                        <h4>Response:</h4>
                     </div>
-                    <div class='row'>
+                    <div class='api-responses row'>
                         <div class='span12'>
-                            <ul><li><code class='apiVCode'>['okay', result]</code> — result consists of</li></ul>
+                            <ul><li><code class='api-python-code'>['okay', result]</code> — result consists of</li></ul>
                         </div>
                         <div class='span12'>
-                            <ul class='apiUlMargin'>
+                            <ul class='apiLeftMargin'>
                             <?php
                                 foreach ($tValueOne['results'] as $result){
-                                    echo "<li><code class='apiBCode'>".$result[0]."</code><code class='apiGCode'>(".$result[1].")</code> - ".$result[3]."</li>";
+                                    echo "<li><code class='operation-parameter'>".$result[0]."</code><code class='operation-type'>(".$result[1].")</code> — ".$result[3]."</li>";
                                 }
 
                             ?>
                             </ul>
                         </div>
                         <div class='span12'>
-                            <ul><li><code class='apiVCode'>['error', error_message]</code> — Error. Verify the error message.</li></ul>
+                            <ul><li><code class='api-python-code'>['error', error_message]</code> — Error. Verify the error message.</li></ul>
                         </div>
                     </div>
 

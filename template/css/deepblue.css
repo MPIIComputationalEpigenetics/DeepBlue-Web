@@ -1,4 +1,4 @@
-.index-middle-logo{
+.index-middle-logo {
     width:315px;
     margin:10px 9px 0 30px;
 }
@@ -22,22 +22,7 @@
     text-align: left;
     margin-left:20px;
 }
-.toggleDiv{
-    display: none;
-    margin:20px 0 40px 0;
-    padding:25px;
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow:    0 5px 10px rgba(0, 0, 0, 0.3);
-    box-shadow:         0 5px 10px rgba(0, 0, 0, 0.3);
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-}
-.pointerH{
-    cursor: pointer;
-}
-.apiSource{
+.api-header{
     border:1px dashed #CCC;
     padding: 20px;
     background: #EEE;
@@ -46,35 +31,23 @@
 .marginDiv{
     margin:10px 0 10px 10px;
 }
-.apiTitle{
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #005DAC;
-    font-size: 16px;
-}
-.apiRCode{
+.operation-name{
     color:#A00A31;
 }
-.apiBCode{
+.operation-parameter{
     color:#2586B9;
 }
-.apiGCode{
+.operation-type{
     color:#289334;
 }
-.apiSubTitle{
-    color:#666;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-.apiVCode{
+.api-python-code{
     color: #CD7CA5;
 }
 .apiDiv li{
     margin-left: 10px;
 }
-.apiUlMargin{
-    margin-left: 60px;
+.apiLeftMargin{
+    margin-left: 60px!important;
 }
 .api-title{
     font-size: 35px;
@@ -82,7 +55,7 @@
 .api-description-listing{
     font-size:17px;
 }
-.api-blocks{
+.api-panel{
     margin:20px 0 40px 0;
     padding:40px!important;
     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
@@ -93,7 +66,7 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
-.api-block-header{
+.api-panel-header{
     padding: 15px;
     background: #EAEAEA;
     font-size: 20px;
@@ -102,4 +75,20 @@
     -webkit-border-radius: 10px 10px 0 0;
     -moz-border-radius: 10px 10px 0 0;
     border-radius: 10px 10px 0 0;
+}
+.api-panel h3 {
+    font-family: "Helvetica Neue","Helvetica",arial,sans-serif;
+    font-weight: bold;
+    line-height: 1em;
+    padding-bottom: 0.2em;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: #005DAC;
+}
+.api-parameters ul li, .api-responses ul li{
+    list-style: circle outside none;
+}
+.api-parameters ul li{
+    line-height: 2.0em;
 }
