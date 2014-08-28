@@ -79,6 +79,15 @@ require_once("inc/init.php");
 					</div>
 					<!-- end widget edit box -->
 
+
+<li>
+	<a onclick="$(function() {
+    $(document).scrollTop( $('#delete').offset().top );
+	});"
+	href="javascript:void(0);"> delete</a> &mdash; delete command description
+</li>
+
+
 					<!-- widget content -->
 					<div class="apiDiv widget-body">
 						<?php $main->displayAPIList(); ?>
@@ -179,5 +188,4 @@ require_once("inc/init.php");
 
 	// run pagefunction
 	pagefunction();
-
 </script>
