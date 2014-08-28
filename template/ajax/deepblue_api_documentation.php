@@ -25,7 +25,7 @@ require_once("inc/init.php");
 
 			<!-- PAGE HEADER -->
 			<i class="fa-fw fa fa-home"></i>
-				API Documentation
+				API Documentation > <?php echo $main->getServerVersion();?>
 		</h1>
 	</div>
 	<!-- end col -->
@@ -81,7 +81,11 @@ require_once("inc/init.php");
 
 					<!-- widget content -->
 					<div class="apiDiv widget-body">
-						<?php $main->displayAPIList(); ?>
+						<?php $main->displayAPIList();
+						// echo "<pre>";
+						// print_r($main->getApiList());
+						// echo "</pre>";
+						?>
 					</div>
 					<!-- end widget content -->
 
