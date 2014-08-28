@@ -56,7 +56,9 @@ class Main{
 
     	/* Collecting title and description */
 
-		foreach($this->getApiList() as $keyOne => $valueOne){
+        $commands = $this->getApiList();
+
+		foreach($commands as $keyOne => $valueOne){
             $sortedArray[$valueOne['description'][0]] = $valueOne['description'][1];
         }
 
@@ -71,24 +73,17 @@ class Main{
 
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
 
-		    echo "<a onclick=\"$(function() { $(document).scrollTop( $('#api-". str_replace(' ', '-', strtolower($sKeyOne))."').offset().top ); });\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> - <b><$sValueOne; ?></b></h3>";
+		    echo "<a onclick=\"$(function() { $(document).scrollTop( $('#api-". str_replace(' ', '-', strtolower($sKeyOne))."').offset().top ); });\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> - $sValueOne</h3>";
 
-		    foreach($this->getApiList() as $tKeyOne => $tValueOne){
-			    if($sKeyOne == $tValueOne['description'][0]){
-echo "<div class='api-description-listing'>".$n." )\n";
-echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". str_replace(' ', '-', strtolower($tKeyOne))."').offset().top ); });\" href='javascript:void(0);'>$tKeyOne</a>";
-
-                    //href='#".str_replace(' ', '-', strtolower($tKeyOne))."'>".$tKeyOne."</a> — ".$tValueOne['description'][2]."</div>";
-                    //
-
-                    // $(document).scrollTop( $('str_replace(' ', '-', strtolower($tKeyOne)').offset().top );
-
-                    ?>
-					<div class="marginDiv"></div>
-
-			        <?php
-			        $n++;
-			    }
+		    foreach($commands as $tKeyOne => $tValueOne){
+			    if($sKeyOne == $tValueOne['description'][0]) {
+                    echo "<div class='api-description-listing'>".$n." )\n";
+                    echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". str_replace(' ', '-', strtolower($tKeyOne))."').offset().top ); });\" href='javascript:void(0);'>$tKeyOne</a>";
+                    $n++;
+                }
+                ?>
+				<div class="marginDiv"></div>
+			     <?php
 		    }
 		    $n = 1;
 		}
@@ -97,7 +92,7 @@ echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". str_replace('
 			echo "<div class='api-blocks'>
 				  <div class='api-block-header' id='api-".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
 
-			foreach($this->getApiList() as $tKeyOne => $tValueOne){
+			foreach($commands as $tKeyOne => $tValueOne){
 				if($sKeyOne == $tValueOne['description'][0]){
 					//print_r($tValueOne);
 				?>
