@@ -71,13 +71,21 @@ class Main{
 
 		foreach ($sortedArray as $sKeyOne => $sValueOne){ ?>
 
-		    <a onclick="$(function() { $(document).scrollTop( $('#delete').offset().top ); });" href="javascript:void(0);"><h3><b><?php echo $sKeyOne;?></b></a> - <b><?php echo $sValueOne; ?></b></h3>
+		    <a onclick="$(function() { alert('hey'); $(document).scrollTop( $('#delete').offset().top ); });" href="javascript:void(0);"><h3><b><?php echo $sKeyOne;?></b></a> - <b><?php echo $sValueOne; ?></b></h3>
 
 		    <?php
 
 		    foreach($this->getApiList() as $tKeyOne => $tValueOne){
 			    if($sKeyOne == $tValueOne['description'][0]){
-					echo "<div class='api-description-listing'>".$n." ) <a href='#".str_replace(' ', '-', strtolower($tKeyOne))."'>".$tKeyOne."</a> — ".$tValueOne['description'][2]."</div>";?>
+echo "<div class='api-description-listing'>".$n." )\n";
+echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". str_replace(' ', '-', strtolower($tKeyOne))."').offset().top ); });\" href='javascript:void(0);'>$tKeyOne</a>";
+
+                    //href='#".str_replace(' ', '-', strtolower($tKeyOne))."'>".$tKeyOne."</a> — ".$tValueOne['description'][2]."</div>";
+                    //
+
+                    // $(document).scrollTop( $('str_replace(' ', '-', strtolower($tKeyOne)').offset().top );
+
+                    ?>
 					<div class="marginDiv"></div>
 
 			        <?php
@@ -99,8 +107,10 @@ class Main{
 				<div class="marginDiv"></div>
 
 					<div class='row'>
-                        <div class='span10 apiTitle'>
-                            <?php echo $tKeyOne;?>
+                    <?php
+                        echo "<h3 id='api-".str_replace(' ', '-', strtolower($tKeyOne))."'>$tKeyOne</h3>"
+                    ?>
+
                         </div>
                     </div>
                     <div class='row'>
