@@ -71,11 +71,20 @@ class Main{
 
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
 
-		    echo "<a href='#' class='scroll-link' data-id='".str_replace(' ', '-', strtolower($sKeyOne))."'><h3><b>".$sKeyOne."</b></a> - <b>".$sValueOne."</b></h3>";
+		    echo "<a onclick=\"$(function() { $(document).scrollTop( $('#api-". str_replace(' ', '-', strtolower($sKeyOne))."').offset().top ); });\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> - <b><$sValueOne; ?></b></h3>";
 
 		    foreach($this->getApiList() as $tKeyOne => $tValueOne){
 			    if($sKeyOne == $tValueOne['description'][0]){
-					echo "<div class='api-description-listing'>".$n." ) <a class='scroll-link' data-id='".str_replace(' ', '-', strtolower($tKeyOne))."'   >".$tKeyOne."</a> — ".$tValueOne['description'][2]."</div>";?>
+                    echo "<div class='api-description-listing'>".$n." )\n";
+                    echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". str_replace(' ', '-', strtolower($tKeyOne))."').offset().top ); });\" href='javascript:void(0);'>$tKeyOne</a>";
+
+                    //href='#".str_replace(' ', '-', strtolower($tKeyOne))."'>".$tKeyOne."</a> — ".$tValueOne['description'][2]."</div>";
+                    //
+
+                    // $(document).scrollTop( $('str_replace(' ', '-', strtolower($tKeyOne)').offset().top );
+
+                    ?>
+
 					<div class="marginDiv"></div>
 
 			        <?php
@@ -87,7 +96,11 @@ class Main{
 
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
 			echo "<div class='api-blocks'>
+<<<<<<< HEAD
 				  <div class='api-block-header' id='".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
+=======
+				  <div class='api-block-header' id='api-".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
+>>>>>>> b81d8bb5e5fab756406abf9e107796a1cd3a9429
 
 			foreach($this->getApiList() as $tKeyOne => $tValueOne){
 				if($sKeyOne == $tValueOne['description'][0]){
@@ -95,13 +108,10 @@ class Main{
 				?>
 
 				<div class="marginDiv"></div>
-
-					<div class='row'>
-                        <div class='span10 apiTitle'>
-                            <?php echo $tKeyOne;?>
-                        </div>
-                    </div>
                     <div class='row'>
+                    <?php
+                        echo "<h3 id='api-".str_replace(' ', '-', strtolower($tKeyOne))."'>$tKeyOne</h3>"
+                    ?>
                         <div class='span10'>
                         	<?php echo $tValueOne['description'][2];?>
                         </div>
