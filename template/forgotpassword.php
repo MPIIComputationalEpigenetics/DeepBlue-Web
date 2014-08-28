@@ -153,5 +153,5 @@ include("inc/header.php");
 
 <?php
 	//include footer
-	include("inc/google-analytics.php");
+	// include("inc/google-analytics.php");
 ?>
