@@ -20,7 +20,7 @@ require_once("inc/init.php");
 <div class="row">
 
 	<!-- col -->
-	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+	<div class="col-xs-12 col-sm-7 col-md-7">
 		<h1 class="page-title txt-color-blueDark">
 
 			<!-- PAGE HEADER -->
@@ -49,7 +49,7 @@ require_once("inc/init.php");
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget" id="wid-id-0">
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 

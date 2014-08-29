@@ -48,7 +48,7 @@ require_once("inc/init.php");
 
 
 			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
+			<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
 				<!-- widget options:
 				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -174,6 +174,7 @@ require_once("inc/init.php");
 
 	// pagefunction
 	var pagefunction = function() {
+
 		//console.log("cleared");
 
 		/* // DOM Position key index //
@@ -236,6 +237,7 @@ require_once("inc/init.php");
 	            .draw();
 
 	    } );
+
 	    /* END COLUMN FILTER */
 
 	};
