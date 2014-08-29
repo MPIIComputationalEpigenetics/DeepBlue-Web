@@ -17,7 +17,7 @@
 /* XML-RPC Library */
 require_once("deepblue.IXR_Library.php");
 
-class Main{
+class Deepblue{
 
 	private $privateUrl;
 	private $privateUserKey;

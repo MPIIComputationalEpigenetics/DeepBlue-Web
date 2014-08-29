@@ -25,7 +25,7 @@ require_once("inc/init.php");
 
 			<!-- PAGE HEADER -->
 			<i class="fa-fw fa fa-home"></i>
-				API Documentation > <?php echo $main->getServerVersion();?>
+				API Documentation > <?php echo $deepBlueObj->getServerVersion();?>
 		</h1>
 	</div>
 	<!-- end col -->
@@ -81,7 +81,7 @@ require_once("inc/init.php");
 
 					<!-- widget content -->
 					<div class="apiDiv widget-body">
-						<?php $main->displayAPIList();?>
+						<?php $deepBlueObj->displayAPIList();?>
 					</div>
 					<!-- end widget content -->
 

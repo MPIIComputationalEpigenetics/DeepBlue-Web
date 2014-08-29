@@ -18,6 +18,6 @@
 //    session_start();
 require_once("../lib/config.php");
 require_once("../lib/deepblue.functions.php");
-$main = new Main();
+$deepBlueObj = new Deepblue();
 
 ?>
