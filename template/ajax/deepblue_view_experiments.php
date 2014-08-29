@@ -203,6 +203,25 @@ require_once("inc/init.php");
 
 	// pagefunction
 	var pagefunction = function() {
+
+		/* Hide and show experiment metadata */
+
+		var isShow = false;
+		$(document).on("click", '.exp-metadata-more-view', function () {
+			//var metadata = $(this).prev();
+			if(isShow == false){
+				$(this).prev().show(1000);
+				$(this).text("-- Hide --");
+				isShow = true;
+			}
+			else{
+				$(this).prev().hide(1000);
+				$(this).text("-- View metadata --");
+				isShow = false;
+			}
+
+		});
+
 		//console.log("cleared");
 
 		/* // DOM Position key index //
@@ -280,6 +299,5 @@ require_once("inc/init.php");
 			});
 		});
 	});
-
 
 </script>

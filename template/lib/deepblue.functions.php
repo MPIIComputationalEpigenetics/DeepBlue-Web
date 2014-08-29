@@ -43,10 +43,10 @@ class Main{
 		   die('An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage());
 		}
 		else{
-		    $finalCommands[] = $client->getResponse();
+		    $finalCommands = $client->getResponse();
 		}
 
-		return $finalCommands[0][1];
+		return $finalCommands;
 
 	}
 

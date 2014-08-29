@@ -15,6 +15,19 @@
 .exp-metadata{
 	width:250px !important;
 	word-wrap: break-word;
+    overflow:hidden;
+    display: none;
+}
+.exp-metadata-minimize{
+    height: auto;
+}
+.exp-metadata-more-view{
+    width:250px !important;
+    text-align: center;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    color:#3E78FD;
 }
 
 .apiDiv{

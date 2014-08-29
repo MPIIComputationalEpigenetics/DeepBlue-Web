@@ -78,7 +78,7 @@ foreach($infoList[1] as $metadata) {
         $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.'<br/>';
     }
 
-    $tempArr[] = "<div class='exp-metadata'>".$tempExpStr."</div>";
+    $tempArr[] = "<div class='exp-metadata'>".$tempExpStr."</div><div class='exp-metadata-more-view'>-- View metadata --</div>";
     array_push($orderedDataStr, $tempArr);
 
     $tempArr = array();
