@@ -121,3 +121,10 @@
     height: 20px;
     clear: both;
 }
+#tempSearchResult .search-results{
+    width:70%!important;
+}
+.searchMetadata{
+    border:1px solid red;
+    width:100em;
+}

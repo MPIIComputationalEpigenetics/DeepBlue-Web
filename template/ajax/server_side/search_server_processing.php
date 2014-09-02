@@ -59,6 +59,8 @@ if ($infoList[0] == "error" || !isset($infoList[1])) {
     return;
 }
 
+$tempSearchString = '';
+
 foreach ($infoList[1] as $val_1) {
     $tempArr[] = $val_1["_id"];
     isset($val_1["name"]) ? $tempArr[] = $val_1["name"] : $tempArr[] = "";
@@ -66,8 +68,17 @@ foreach ($infoList[1] as $val_1) {
     $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["type"];
     isset($val_1["description"]) ? $tempArr[] = $val_1["description"] : $tempArr[] = "";
 
+    if(isset($val_1['extra_metadata'])){
+        foreach ($val_1["extra_metadata"] as $key => $value){
+            $value = ($value!='') ? $value : 'none';
+            $tempSearchString .= "<b>".$key."</b> : ".$value.", ";
+        }
+        $tempArr[] = substr($tempSearchString, 0, -2);
+    }
+
     array_push($orderedDataStr, $tempArr);
     $tempArr = array();
+    $tempSearchString = '';
 
 }
 

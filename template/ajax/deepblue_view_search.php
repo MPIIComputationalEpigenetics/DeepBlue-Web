@@ -71,7 +71,7 @@
 
 				<!--<h1 class="font-md"> Search Results for <span class="semi-bold">Projects</span><small class="text-danger"> &nbsp;&nbsp;(2,281 results)</small></h1>-->
 
-				<div id="tempSerachResult"></div>
+				<div id="tempSearchResult"></div>
 
 				<!--<div class="text-center">
 					<hr>
@@ -435,12 +435,18 @@
 
 		request.done( function(data) {
 			//alert(JSON.stringify(data));
-			$( "#tempSerachResult" ).empty();
-		    $.each(data.data, function(i, item) {
-		    	//$( "#tempSerachResult" ).append("["+i+"] : "+item+"<br/><br/>");
-		    	 $( "#tempSerachResult" ).append( "<div class='search-results clearfix'><h4><a>"
-		    		+item[0] + " - " + item[1]+ "</a></h4><div><p class='note'><a>" + item[2] + " &nbsp;</a><a>" + item[3] + " &nbsp;</a></p><p class='description marginTop'>" + item[4] +"</p></div></div>" );
-		    });
+			$( "#tempSearchResult" ).empty();
+			if(data.data == ''){
+				$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>Your search - "+$search+" - did not match any documents.</h2><ul><li>Make sure all words are spelled correctly.</li><li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");
+			}
+			else{
+				$.each(data.data, function(i, item) {
+			    	//$( "#tempSearchResult" ).append(data.data);
+			    	$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h4><a>"
+			    	+item[0] + " - " + item[1]+ "</a></h4><div><p class='note'><a>" + item[2] + " &nbsp;</a><a>" + item[3] + " &nbsp;</a></p><p class='description marginTop'>" + item[4] +"</p></div><div class='searchMetadata'>"+item[5]+"</div></div>" );
+		    	});
+
+			}
 		});
 
 		request.fail( function(jqXHR, textStatus) {
