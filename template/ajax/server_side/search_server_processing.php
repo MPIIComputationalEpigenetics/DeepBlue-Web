@@ -20,7 +20,6 @@ require_once("../../lib/deepblue.IXR_Library.php");
 
 $client = new IXR_Client($url);
 
-
 if ((!isset($_GET)) || !isset($_GET["text"]) || !isset($_GET["types"])) {
 	return;
 }
@@ -32,14 +31,6 @@ if($_GET["types"] != ""){
 else{
     $types = "";
 }
-
-//isset($_GET["types"]) ? $types = $_GET["types"] : $types = "";
-
-// if (isset($_GET["types"])) {
-// 	$types = $_GET["types"];
-// } else {
-// 	$types = "";
-// }
 
 if(!$client->query("search", $words, $types, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
@@ -63,8 +54,12 @@ else{
 $orderedDataStr = array();
 $tempArr = array();
 
-foreach ($infoList[1] as $val_1) {
+if ($infoList[0] == "error" || !isset($infoList[1])) {
+    echo json_encode(array('data' => array()));
+    return;
+}
 
+foreach ($infoList[1] as $val_1) {
     $tempArr[] = $val_1["_id"];
     isset($val_1["name"]) ? $tempArr[] = $val_1["name"] : $tempArr[] = "";
     isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["genome"] : $tempArr[] = "";
