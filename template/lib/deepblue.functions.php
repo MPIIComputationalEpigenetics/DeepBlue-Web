@@ -99,7 +99,7 @@ class Deepblue{
 				<div class="marginDiv"></div>
                     <div class='row'>
                     <?php
-                        echo "<h3 id='api-".str_replace(' ', '-', strtolower($tKeyOne))."'>$tKeyOne</h3>"
+                        echo "<h3 id='api-".str_replace(' ', '-', strtolower($tKeyOne))."'>$tKeyOne</h3>";
                     ?>
                         <div class='api-description'>
                         	<?php echo $tValueOne['description'][2];?>
@@ -183,7 +183,6 @@ class Deepblue{
         return $finalReturn;
 
     }
-
 
 }
 

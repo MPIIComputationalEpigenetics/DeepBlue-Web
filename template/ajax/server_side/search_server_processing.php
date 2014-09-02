@@ -20,17 +20,26 @@ require_once("../../lib/deepblue.IXR_Library.php");
 
 $client = new IXR_Client($url);
 
-if ((!isset($_GET)) || !isset($_GET["text"])) {
+
+if ((!isset($_GET)) || !isset($_GET["text"]) || !isset($_GET["types"])) {
 	return;
 }
 
 $words = $_GET["text"];
-
-if (isset($_GET["types"])) {
-	$types = $_GET["types"];
-} else {
-	$types = "";
+if($_GET["types"] != ""){
+    $types = str_replace(' ', '_', strtolower($_GET["types"]));
 }
+else{
+    $types = "";
+}
+
+//isset($_GET["types"]) ? $types = $_GET["types"] : $types = "";
+
+// if (isset($_GET["types"])) {
+// 	$types = $_GET["types"];
+// } else {
+// 	$types = "";
+// }
 
 if(!$client->query("search", $words, $types, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
@@ -52,24 +61,19 @@ else{
 }
 
 $orderedDataStr = array();
+$tempArr = array();
+
 foreach ($infoList[1] as $val_1) {
-	$tempArr = array();
-    $tempArr[] = $val_1["_id"];
-    if (isset($val_1["name"])) {
-        $tempArr[] = $val_1["name"];
-    } else {
-        $tempArr[] = "";
-    }
 
     $tempArr[] = $val_1["_id"];
-    if (isset($val_1["description"])) {
-        $tempArr[] = $val_1["description"];
-    } else {
-        $tempArr[] = "";
-    }
+    isset($val_1["name"]) ? $tempArr[] = $val_1["name"] : $tempArr[] = "";
+    isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["genome"] : $tempArr[] = "";
+    $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["type"];
+    isset($val_1["description"]) ? $tempArr[] = $val_1["description"] : $tempArr[] = "";
 
-    $tempArr[] = $val_1["type"];
     array_push($orderedDataStr, $tempArr);
+    $tempArr = array();
+
 }
 
 echo json_encode(array('data' => $orderedDataStr));

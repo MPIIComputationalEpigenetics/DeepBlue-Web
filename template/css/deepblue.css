@@ -105,3 +105,19 @@
 .api-parameters ul li{
     line-height: 2.0em;
 }
+.seach-result-blocks{
+    border-bottom:1px dashed #ccc;
+    padding: 15px 0 15px 0;
+}
+.search-result-header{
+    color: #3276b1;
+    font-weight: bold;
+    font-size: 15px;
+}
+.marginTop{
+    margin-top:10px;
+}
+.clear{
+    height: 20px;
+    clear: both;
+}

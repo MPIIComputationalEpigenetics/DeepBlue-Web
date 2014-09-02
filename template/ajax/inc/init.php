@@ -16,7 +16,10 @@
 
 //if (session_id() == '')
 //    session_start();
+
 require_once("../lib/config.php");
+
+/* Deepblue Functions */
 require_once("../lib/deepblue.functions.php");
 $deepBlueObj = new Deepblue();
 
