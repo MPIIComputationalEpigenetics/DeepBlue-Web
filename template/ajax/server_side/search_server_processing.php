@@ -75,6 +75,14 @@ foreach ($infoList[1] as $val_1) {
         }
         $tempArr[] = substr($tempSearchString, 0, -2);
     }
+    else{
+        $tempArr[] = "";
+    }
+
+    isset($val_1["epigenetic_mark"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["epigenetic_mark"] : $tempArr[] = "";
+    isset($val_1["sample_id"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["sample_id"] : $tempArr[] = "";
+    isset($val_1["technique"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["technique"] : $tempArr[] = "";
+    isset($val_1["project"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["project"] : $tempArr[] = "";
 
     array_push($orderedDataStr, $tempArr);
     $tempArr = array();

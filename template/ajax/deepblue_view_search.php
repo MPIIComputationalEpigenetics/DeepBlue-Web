@@ -436,23 +436,62 @@
 		request.done( function(data) {
 			//alert(JSON.stringify(data));
 			$( "#tempSearchResult" ).empty();
+
 			if(data.data == ''){
 				$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>Your search - "+$search+" - did not match any documents.</h2><ul><li>Make sure all words are spelled correctly.</li><li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");
 			}
 			else{
 				$.each(data.data, function(i, item) {
-			    	//$( "#tempSearchResult" ).append(data.data);
+			    	//$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
 			    	$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h4><a>"
-			    	+item[0] + " - " + item[1]+ "</a></h4><div><p class='note'><a>" + item[2] + " &nbsp;</a><a>" + item[3] + " &nbsp;</a></p><p class='description marginTop'>" + item[4] +"</p></div><div class='searchMetadata'>"+item[5]+"</div></div>" );
+			    	+item[0]+ " - " + item[1]+ "</a></h4><div><p class='note'><a>" + item[2] + " &nbsp;</a><a>" + item[3] + " &nbsp;</a><a>" + item[6] + " &nbsp;</a><a>" + item[7] + " &nbsp;</a><a>" + item[8] + " &nbsp;</a><a>" + item[9] + " &nbsp;</a></p><p class='description marginTop'>" + item[4] +"</p></div><div class='searchMetadata'><b>Metadata:</b><br/>"+item[5]+"</div></div>" );
 		    	});
 
 			}
+
+			/* Make metadata short with MORE button */
+
+			var showChar = 160;
+			var ellipsestext = "...";
+			var moretext = "<b>MORE<b>";
+			var lesstext = "<b>HIDE</b>";
+
+			$('.searchMetadata').each(function() {
+				var content = $(this).html();
+				var contentLength = content.length;
+
+				if(contentLength > showChar) {
+
+					var c = content.substr(0, showChar);
+					var h = content.substr(showChar, contentLength);
+					var html = c +' <span class="moreellipses"></b>' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>'+h+'</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+					$(this).html(html);
+				}
+
+			});
+
+			$(".morelink").click(function(){
+				if($(this).hasClass("less")) {
+					$(this).removeClass("less");
+					$(this).html(moretext);
+				} else {
+					$(this).addClass("less");
+					$(this).html(lesstext);
+				}
+				$(this).parent().prev().toggle();
+				$(this).prev().toggle();
+				return false;
+			});
+
+
+
 		});
 
 		request.fail( function(jqXHR, textStatus) {
 			alert( "error" );
-			alert(jqXHR);
-			alert(textStatus);
+			// alert(jqXHR);
+			// alert(textStatus);
 		});
 	});
 

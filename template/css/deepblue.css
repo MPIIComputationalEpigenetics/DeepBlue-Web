@@ -105,8 +105,8 @@
 .api-parameters ul li{
     line-height: 2.0em;
 }
-.seach-result-blocks{
-    border-bottom:1px dashed #ccc;
+.search-results{
+    border-top:1px solid #E3E3E3!important;
     padding: 15px 0 15px 0;
 }
 .search-result-header{
@@ -124,7 +124,14 @@
 #tempSearchResult .search-results{
     width:70%!important;
 }
+a.morelink {
+    text-decoration:none;
+    outline: none;
+}
+.morecontent span {
+    display: none;
+}
 .searchMetadata{
-    border:1px solid red;
-    width:100em;
+    border-top: 1px dashed #E3E3E3;
+    width: 100%;
 }
