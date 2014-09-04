@@ -26,7 +26,7 @@ class Deepblue{
 
 		/* Including URL and User Key */
 
-		require_once("lib.php");
+		include("lib.php");
 
 		$this->privateUrl = $url;
 		$this->privateUserKey = $user_key;
@@ -181,6 +181,90 @@ class Deepblue{
         }
 
         return $finalReturn;
+
+    }
+
+    public function searchResultToJson($inputArray){
+
+        $orderedDataStr = array();
+
+        foreach ($inputArray as $key_1 => $val_1) {
+
+        $tempSearchString = '';
+        $tempArr = array();
+
+        if($inputArray[$key_1] == 0){
+            continue;
+        }
+
+        $tempArr[] = $val_1["_id"];
+        isset($val_1["name"]) ? $tempArr[] = $val_1["name"] : $tempArr[] = "";
+        isset($val_1["description"]) ? $tempArr[] = $val_1["description"] : $tempArr[] = "";
+
+        if(isset($val_1['extra_metadata'])){
+             $fullMetadata = $this->experimentMetadata($val_1, "searchResult");
+             $tempArr[] = $fullMetadata;
+        }
+        else{
+            $tempArr[] = "";
+        }
+
+        // if(isset($val_1['extra_metadata'])){
+        //     foreach ($val_1["extra_metadata"] as $key => $value){
+        //         $value = ($value!='') ? $value : 'none';
+        //         $tempSearchString .= "<b>".$key."</b> : ".$value.", ";
+        //     }
+        //     $tempArr[] = substr($tempSearchString, 0, -2);
+        // }
+        // else{
+        //     $tempArr[] = "";
+        // }
+
+        isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["genome"] : $tempArr[] = "";
+        $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["type"];
+        isset($val_1["epigenetic_mark"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["epigenetic_mark"] : $tempArr[] = "";
+        isset($val_1["sample_id"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["sample_id"] : $tempArr[] = "";
+        isset($val_1["technique"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["technique"] : $tempArr[] = "";
+        isset($val_1["project"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["project"] : $tempArr[] = "";
+
+        array_push($orderedDataStr, $tempArr);
+
+        }
+
+        echo json_encode(array('data' => $orderedDataStr));
+
+    }
+
+    public function experimentMetadata($inputMetadata, $forWhere){
+
+        $tempExpStr = "";
+
+        if($forWhere == 'searchResult'){
+            $tempVar = ', ';
+        }
+        else{
+            $tempVar = '<br/>';
+        }
+
+        foreach ($inputMetadata as $others_metadata_key => $others_metadata_value) {
+            if ($others_metadata_key != '_id' && $others_metadata_key != 'name' && $others_metadata_key != 'genome' &&
+            $others_metadata_key != 'epigenetic_mark' && $others_metadata_key != 'sample_id' &&
+            $others_metadata_key != 'description' && $others_metadata_key != 'type' &&
+            $others_metadata_key != 'done' && $others_metadata_key != 'client_address' && $others_metadata_key != 'format' &&
+            $others_metadata_key != 'upload_end' && $others_metadata_key != 'upload_start' && $others_metadata_key != 'extra_metadata' &&
+            $others_metadata_key != 'technique' && $others_metadata_key != 'project' && $others_metadata_key != 'user'){
+
+                $tempExpStr .= '<b>'.$others_metadata_key.'</b> : '.$others_metadata_value.$tempVar;
+            }
+        }
+
+        if(isset($inputMetadata['extra_metadata'])){
+            foreach ($inputMetadata['extra_metadata'] as $extra_metadata_key => $extra_metadata_value) {
+                $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.$tempVar;
+            }
+        }
+
+        return $tempExpStr;
 
     }
 

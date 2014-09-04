@@ -1,4 +1,4 @@
-<?php require_once("inc/init.php"); ?>
+<?php require_once("inc/init.php");?>
 <div class="row">
 
 	<div class="col-sm-12">
@@ -415,6 +415,13 @@
 
 	$("#search_bt").button().click(function() {
 		$search = $('#search_input').val();
+
+		if($search == ''){
+			$( "#tempSearchResult" ).empty();
+			$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>Search text cannot be empty!</h2></div>");
+			return;
+		}
+
 		var selectShowElement = $('#select-show').html();
 
 		if(selectShowElement != 'Everything'){
@@ -443,8 +450,8 @@
 			else{
 				$.each(data.data, function(i, item) {
 			    	//$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
-			    	$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h4><a>"
-			    	+item[0]+ " - " + item[1]+ "</a></h4><div><p class='note'><a>" + item[2] + " &nbsp;</a><a>" + item[3] + " &nbsp;</a><a>" + item[6] + " &nbsp;</a><a>" + item[7] + " &nbsp;</a><a>" + item[8] + " &nbsp;</a><a>" + item[9] + " &nbsp;</a></p><p class='description marginTop'>" + item[4] +"</p></div><div class='searchMetadata'><b>Metadata:</b><br/>"+item[5]+"</div></div>" );
+			    	$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h4><span class='seach-result-title'>"
+			    	+item[0]+ " - " + item[1]+ "</span></h4><div><p class='note'><span>" + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p><p class='description marginTop'>" + item[2] +"</p></div><div class='searchMetadata'>"+item[3]+"</div></div>" );
 		    	});
 
 			}
@@ -489,6 +496,10 @@
 		});
 
 		request.fail( function(jqXHR, textStatus) {
+
+			console.log(jqXHR);
+        	console.log('Error: '+ textStatus);
+
 			alert( "error" );
 			// alert(jqXHR);
 			// alert(textStatus);

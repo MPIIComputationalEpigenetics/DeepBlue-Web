@@ -12,19 +12,28 @@
 *   Created : 24-04-2014
 */
 
+
+// /* include init file */
+// require_once("../inc/init.php");
+
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
-
 $client = new IXR_Client($url);
+
+/* DeepBlue Class */
+require_once("../../lib/deepblue.functions.php");
+$deepBlueObj = new Deepblue();
+
 
 if ((!isset($_GET)) || !isset($_GET["text"]) || !isset($_GET["types"])) {
 	return;
 }
 
 $words = $_GET["text"];
+
 if($_GET["types"] != ""){
     $types = str_replace(' ', '_', strtolower($_GET["types"]));
 }
@@ -44,52 +53,30 @@ foreach($searchList[0][1] as $item){
     $items_ids[] = $item[0];
 }
 
+$sizeOfItemIds = sizeof($items_ids);
+
 if(!$client->query("info", $items_ids, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 else{
-    $infoList = $client->getResponse();
+    $infoList[] = $client->getResponse();
 }
 
-$orderedDataStr = array();
-$tempArr = array();
 
-if ($infoList[0] == "error" || !isset($infoList[1])) {
+if ($infoList[0][0] == "error" || !isset($infoList[0][1])) {
     echo json_encode(array('data' => array()));
     return;
 }
 
-$tempSearchString = '';
-
-foreach ($infoList[1] as $val_1) {
-    $tempArr[] = $val_1["_id"];
-    isset($val_1["name"]) ? $tempArr[] = $val_1["name"] : $tempArr[] = "";
-    isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["genome"] : $tempArr[] = "";
-    $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["type"];
-    isset($val_1["description"]) ? $tempArr[] = $val_1["description"] : $tempArr[] = "";
-
-    if(isset($val_1['extra_metadata'])){
-        foreach ($val_1["extra_metadata"] as $key => $value){
-            $value = ($value!='') ? $value : 'none';
-            $tempSearchString .= "<b>".$key."</b> : ".$value.", ";
-        }
-        $tempArr[] = substr($tempSearchString, 0, -2);
-    }
-    else{
-        $tempArr[] = "";
-    }
-
-    isset($val_1["epigenetic_mark"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["epigenetic_mark"] : $tempArr[] = "";
-    isset($val_1["sample_id"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["sample_id"] : $tempArr[] = "";
-    isset($val_1["technique"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["technique"] : $tempArr[] = "";
-    isset($val_1["project"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["project"] : $tempArr[] = "";
-
-    array_push($orderedDataStr, $tempArr);
-    $tempArr = array();
-    $tempSearchString = '';
-
+if($sizeOfItemIds == 1){
+    $deepBlueObj->searchResultToJson($infoList[0]);
+    //print_r($deepBlueObj->searchResultToJson($infoList[0]));
+}
+else{
+    $deepBlueObj->searchResultToJson($infoList[0][1]);
+    //print_r($deepBlueObj->searchResultToJson($infoList[0][1]));
 }
 
-echo json_encode(array('data' => $orderedDataStr));
+
 
 ?>
