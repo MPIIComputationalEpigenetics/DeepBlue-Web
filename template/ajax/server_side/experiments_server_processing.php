@@ -83,7 +83,7 @@ foreach($infoList[1] as $metadata) {
     //     $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.'<br/>';
     // }
 
-    $fullMetadata = $deepBlueObj->experimentMetadata($metadata);
+    $fullMetadata = $deepBlueObj->experimentMetadata($metadata, "forTable");
 
     $tempArr[] = "<div class='exp-metadata'>".$fullMetadata."</div><div class='exp-metadata-more-view'>-- View metadata --</div>";
     array_push($orderedDataStr, $tempArr);
