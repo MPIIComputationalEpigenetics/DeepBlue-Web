@@ -274,7 +274,12 @@ class Deepblue{
         if(isset($inputMetadata['extra_metadata'])){
             foreach ($inputMetadata['extra_metadata'] as $extra_metadata_key => $extra_metadata_value) {
                 if($extra_metadata_value != ''){
-                    $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.$tempVar;
+                    if($extra_metadata_key == 'url'){
+                        $tempExpStr .= "<b>".$extra_metadata_key."</b> : <a href='".$extra_metadata_value."' target='_blank'\>".$extra_metadata_value.'</a>'.$tempVar;
+                    }
+                    else{
+                        $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.$tempVar;
+                    }
                 }
             }
         }
