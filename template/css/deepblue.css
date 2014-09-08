@@ -110,9 +110,13 @@
     padding: 15px 0 15px 0;
 }
 .seach-result-title{
-    color: #3276b1;
+    color: #434343;
     font-weight: bold;
     font-size: 15px;
+}
+.seach-result-title span{
+    font-size:20px;
+    font-weight: bold;
 }
 .marginTop{
     margin-top:10px;
@@ -128,9 +132,12 @@ a.morelink {
     text-decoration:none;
     outline: none;
 }
-.morecontent span {
-    display: none;
-}
 .searchMetadata{
     width: 100%;
+}
+.more-hidden {
+    display: none;
+}
+.more-link{
+    margin-left:15px;
 }

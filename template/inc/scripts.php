@@ -22,7 +22,7 @@
 		<script src="js/app.config.js"></script>
 
 		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-		<script src="<?php echo ASSETS_URL; ?>/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> 
+		<script src="<?php echo ASSETS_URL; ?>/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
 
 		<!-- BOOTSTRAP JS -->
 		<script src="<?php echo ASSETS_URL; ?>/js/bootstrap/bootstrap.min.js"></script>
@@ -70,8 +70,13 @@
 		<script src="<?php echo ASSETS_URL; ?>/js/demo.min.js"></script>
 
 		<!-- MAIN APP JS FILE -->
-		<script src="<?php echo ASSETS_URL; ?>/js/app.min.js"></script>		
+		<script src="<?php echo ASSETS_URL; ?>/js/app.min.js"></script>
 
 		<!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
 		<!-- Voice command : plugin -->
-		<script src="<?php echo ASSETS_URL; ?>/js/speech/voicecommand.min.js"></script>		
+		<script src="<?php echo ASSETS_URL; ?>/js/speech/voicecommand.min.js"></script>
+
+		<!-- JQuery Read More Plugin -->
+		<script src="<?php echo ASSETS_URL; ?>/js/jquery.plugin.min.js"></script>
+		<script src="<?php echo ASSETS_URL; ?>/js/jquery.more.min.js"></script>
+

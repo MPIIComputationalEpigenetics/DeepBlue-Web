@@ -184,6 +184,8 @@ class Deepblue{
 
     }
 
+    /* Search result to JSON format */
+
     public function searchResultToJson($inputArray){
 
         $orderedDataStr = array();
@@ -202,8 +204,8 @@ class Deepblue{
         isset($val_1["description"]) ? $tempArr[] = $val_1["description"] : $tempArr[] = "";
 
         if(isset($val_1['extra_metadata'])){
-             $fullMetadata = $this->experimentMetadata($val_1, "searchResult");
-             $tempArr[] = $fullMetadata;
+            $fullMetadata = $this->experimentMetadata($val_1, "searchResult");
+            $tempArr[] = substr($fullMetadata, 0, -2);
         }
         else{
             $tempArr[] = "";
@@ -223,7 +225,15 @@ class Deepblue{
         isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["genome"] : $tempArr[] = "";
         $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["type"];
         isset($val_1["epigenetic_mark"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["epigenetic_mark"] : $tempArr[] = "";
-        isset($val_1["sample_id"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["sample_id"] : $tempArr[] = "";
+
+        if(isset($val_1["sample_id"]) && isset($val_1["bio_source_name"])){
+            $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1['bio_source_name']." ( ".$val_1["sample_id"]." )";
+        }
+        else{
+            $tempArr[] = "";
+        }
+
+
         isset($val_1["technique"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["technique"] : $tempArr[] = "";
         isset($val_1["project"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["project"] : $tempArr[] = "";
 
@@ -234,6 +244,8 @@ class Deepblue{
         echo json_encode(array('data' => $orderedDataStr));
 
     }
+
+    /* Experiment metadata generating */
 
     public function experimentMetadata($inputMetadata, $forWhere){
 
@@ -253,18 +265,50 @@ class Deepblue{
             $others_metadata_key != 'done' && $others_metadata_key != 'client_address' && $others_metadata_key != 'format' &&
             $others_metadata_key != 'upload_end' && $others_metadata_key != 'upload_start' && $others_metadata_key != 'extra_metadata' &&
             $others_metadata_key != 'technique' && $others_metadata_key != 'project' && $others_metadata_key != 'user'){
-
-                $tempExpStr .= '<b>'.$others_metadata_key.'</b> : '.$others_metadata_value.$tempVar;
+                if($others_metadata_value != ''){
+                    $tempExpStr .= '<b>'.$others_metadata_key.'</b> : '.$others_metadata_value.$tempVar;
+                }
             }
         }
 
         if(isset($inputMetadata['extra_metadata'])){
             foreach ($inputMetadata['extra_metadata'] as $extra_metadata_key => $extra_metadata_value) {
-                $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.$tempVar;
+                if($extra_metadata_value != ''){
+                    $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.$tempVar;
+                }
             }
         }
 
         return $tempExpStr;
+
+    }
+
+    /* Replacing plus to double quotes */
+
+    public function plusToQuotes($inputString){
+
+        if(strpos($inputString, '+') === false){
+            return $inputString;
+        }
+        else{
+
+            $newString = "";
+            $splitedData = explode(' ', $inputString);
+
+            foreach($splitedData as $value){
+
+                if(strpos($value, '+') !== false){
+                    $withoutPlusValue = str_replace('+', '', $value);
+                    $newString .= "\"$withoutPlusValue\" ";
+                }
+                else {
+                    $newString .= $value." ";
+                }
+            }
+
+            return substr($newString, 0, -1);
+
+        }
 
     }
 

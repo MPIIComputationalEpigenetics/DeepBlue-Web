@@ -34,6 +34,9 @@ if ((!isset($_GET)) || !isset($_GET["text"]) || !isset($_GET["types"])) {
 
 $words = $_GET["text"];
 
+/* Replacing plus to quotes */
+$words = $deepBlueObj->plusToQuotes($words);
+
 if($_GET["types"] != ""){
     $types = str_replace(' ', '_', strtolower($_GET["types"]));
 }

@@ -3,24 +3,9 @@
 
 	<div class="col-sm-12">
 
-		<ul id="myTab1" class="nav nav-tabs table-bordereddered">
-			<li class="active">
-				<a href="#s1" data-toggle="tab">Search All <i class="fa fa-caret-down"></i></a>
-			</li>
-			<li>
-				<a href="#s2" data-toggle="tab">Users</a>
-			</li>
-			<li>
-				<a href="#s3" data-toggle="tab">Search History</a>
-			</li>
-			<li class="pull-right hidden-mobile">
-				<a href="javascript:void(0);"> <span class="note">About 24,431 results (0.15 seconds) </span> </a>
-			</li>
-		</ul>
-
 		<div id="myTabContent1" class="tab-content bg-color-white padding-10">
 			<div class="tab-pane fade in active" id="s1">
-				<h1> Search <span class="semi-bold">Everything</span></h1>
+				<h1> Search <span id="seach-type-title" class="semi-bold">Everything</span></h1>
 				<br>
 				<div class="input-group input-group-lg hidden-mobile">
 					<div class="input-group-btn">
@@ -405,6 +390,7 @@
 
 		var selectShow = $('#select-show');
 		selectShow.html(event.target.id);
+		$('#seach-type-title').text(event.target.id);
 	});
 
 	$("#search_input").keyup(function(event){
@@ -451,45 +437,51 @@
 				$.each(data.data, function(i, item) {
 			    	//$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
 			    	$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h4><span class='seach-result-title'>"
-			    	+item[0]+ " - " + item[1]+ "</span></h4><div><p class='note'><span>" + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p><p class='description marginTop'>" + item[2] +"</p></div><div class='searchMetadata'>"+item[3]+"</div></div>" );
+			    	+item[0]+ " - <span>" + item[1]+ "</span></span></h4><div><p class='note'><span>" + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p><p class='description marginTop'>" + item[2] +"</p></div><div class='searchMetadata'>"+item[3]+"</div></div>" );
 		    	});
 
 			}
 
 			/* Make metadata short with MORE button */
 
-			var showChar = 160;
-			var ellipsestext = "...";
-			var moretext = "<b>MORE<b>";
-			var lesstext = "<b>HIDE</b>";
-
-			$('.searchMetadata').each(function() {
-				var content = $(this).html();
-				var contentLength = content.length;
-
-				if(contentLength > showChar) {
-
-					var c = content.substr(0, showChar);
-					var h = content.substr(showChar, contentLength);
-					var html = c +' <span class="moreellipses"></b>' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>'+h+'</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
-
-					$(this).html(html);
-				}
-
+			$('.searchMetadata').more({
+				length: 160,
+				moreText: 'More', // Display text for more link
+				lessText: 'Hide', // Display text for less link
 			});
 
-			$(".morelink").click(function(){
-				if($(this).hasClass("less")) {
-					$(this).removeClass("less");
-					$(this).html(moretext);
-				} else {
-					$(this).addClass("less");
-					$(this).html(lesstext);
-				}
-				$(this).parent().prev().toggle();
-				$(this).prev().toggle();
-				return false;
-			});
+			// var showChar = 160;
+			// var ellipsestext = "...";
+			// var moretext = "<b>MORE<b>";
+			// var lesstext = "<b>HIDE</b>";
+
+			// $('.searchMetadata').each(function() {
+			// 	var content = $(this).html();
+			// 	var contentLength = content.length;
+
+			// 	if(contentLength > showChar) {
+
+			// 		var c = content.substr(0, showChar);
+			// 		var h = content.substr(showChar, contentLength);
+			// 		var html = c +' <span class="moreellipses"></b>' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>'+h+'</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+			// 		$(this).html(html);
+			// 	}
+
+			// });
+
+			// $(".morelink").click(function(){
+			// 	if($(this).hasClass("less")) {
+			// 		$(this).removeClass("less");
+			// 		$(this).html(moretext);
+			// 	} else {
+			// 		$(this).addClass("less");
+			// 		$(this).html(lesstext);
+			// 	}
+			// 	$(this).parent().prev().toggle();
+			// 	$(this).prev().toggle();
+			// 	return false;
+			// });
 
 
 
