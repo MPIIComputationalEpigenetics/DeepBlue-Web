@@ -200,7 +200,7 @@ class Deepblue{
         }
 
         $tempArr[] = $val_1["_id"];
-        isset($val_1["name"]) ? $tempArr[] = $val_1["name"] : $tempArr[] = "";
+        isset($val_1["name"]) ? $tempArr[] = $val_1["name"] : $tempArr[] = current(explode(",", $val_1["description"]));
         isset($val_1["description"]) ? $tempArr[] = $val_1["description"] : $tempArr[] = "";
 
         if(isset($val_1['extra_metadata'])){
@@ -222,8 +222,8 @@ class Deepblue{
         //     $tempArr[] = "";
         // }
 
+        $tempArr[] = $val_1["type"];
         isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["genome"] : $tempArr[] = "";
-        $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["type"];
         isset($val_1["epigenetic_mark"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["epigenetic_mark"] : $tempArr[] = "";
 
         if(isset($val_1["sample_id"]) && isset($val_1["bio_source_name"])){
@@ -317,9 +317,98 @@ class Deepblue{
 
     }
 
+
+    public function experimentDataTable(){
+
+        $dataTableContent = <<<XYZ
+
+        <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>Column Filters </h2>
+
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+
+                        <table id="datatable_fixed_column" class="table table-striped table-bordered" width="100%">
+
+                            <thead>
+                                <tr>
+                                    <th class="hasinput">
+                                    </th>
+                                    <th class="hasinput">
+                                        <input class="form-control" placeholder="Filter ID" type="text" id="experiment-id">
+                                    </th>
+
+                                    <th class="hasinput" style="width:20px">
+                                        <input type="text" class="form-control" placeholder="Filter Experiment" id="experiment-name" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filter Description" id="experiment-description" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filtering Genome" id="experiment-genome" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filtering Epegenetic mark" id="experiment-em" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filter Sample" id="experiment-sample" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filter Technique" id="experiment-technique" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filter Project" id="experiment-project" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filter Meta data" id="experiment-metadata" />
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Select</th>
+                                    <th>ID</th>
+                                    <th>Experiment Name</th>
+                                    <th>Description</th>
+                                    <th>Genome</th>
+                                    <th>Epigenetic Mark</th>
+                                    <th>Sample</th>
+                                    <th>Technique</th>
+                                    <th>Project</th>
+                                    <th>Metadata</th>
+
+                                </tr>
+                            </thead>
+
+                        </table>
+
+                    </div>
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+XYZ;
+        return $dataTableContent;
+    }
+
 }
-
-
 
 
 ?>
