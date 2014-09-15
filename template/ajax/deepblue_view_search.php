@@ -166,15 +166,19 @@ require_once("inc/init.php");
 
 	/* Trigger searching with pressing ENTER Key */
 
+	var isSelected = 0;
+
 	$("#search_input").keyup(function(event){
 	    if(event.keyCode == 13){
 	        $("#search_bt").click();
+	        isSelected = 1;
 	    }
 	});
 
 	/* Start serching with clicking search button */
 
 	$("#search_bt").button().click(function() {
+		isSelected = 1;
 		$search = $('#search_input').val();
 
 		/* Checking search value is empty or not */
@@ -238,6 +242,19 @@ require_once("inc/init.php");
 			// alert(jqXHR);
 			// alert(textStatus);
 		});
+	});
+
+
+	/* Triggering search automatically when user changes the type */
+
+	var timer;
+	$('#seach-type-title').bind("DOMSubtreeModified",function(){
+		if(isSelected != 0){
+			if (timer) clearTimeout(timer);
+		   	timer = setTimeout(function() {
+		   		$("#search_bt").click();
+		   	}, 100);
+	   	}
 	});
 
 	/* Search result :: Displaying modal view after clicking the title */
