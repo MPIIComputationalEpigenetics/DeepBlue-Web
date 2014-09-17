@@ -23,8 +23,9 @@ require_once("../../lib/deepblue.IXR_Library.php");
 require_once("../../lib/deepblue.functions.php");
 $deepBlueObj = new Deepblue();
 
+$type = $_GET["types"];
+$title = $_GET["titles"];
 
-$deepBlueObj->experimentDataTable($type = '', $title = '', 'experiments_server_processing');
-
+$deepBlueObj->experimentDataTable($type, $title, 'modal_view');
 
 ?>

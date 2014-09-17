@@ -44,7 +44,7 @@ require_once("inc/init.php");
 
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<?php echo $deepBlueObj->experimentDataTable(); ?>
+			<?php echo $deepBlueObj->experimentDataTableTemplate(); ?>
 		</article>
 		<!-- WIDGET END -->
 

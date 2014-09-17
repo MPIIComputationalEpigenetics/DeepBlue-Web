@@ -79,7 +79,7 @@ require_once("inc/init.php");
 		</div>
 		<div class="modal-body custom-scroll terms-body">
 
-			<?php echo $deepBlueObj->experimentDataTable(); ?>
+			<?php echo $deepBlueObj->experimentDataTableTemplate(); ?>
 
 
 			<div class="modal-footer">
@@ -263,7 +263,7 @@ require_once("inc/init.php");
 
 		var type = this.className;
 
-		if(type == 'genome' || type == 'technique' || type == 'project' || type == 'epigenetic_mark'){
+		if(type == 'genome' || type == 'technique' || type == 'project' || type == 'epigenetic_mark' || type == 'bio_source'){
 			var text = $(this).text();
 		}
 		else{
@@ -309,7 +309,13 @@ require_once("inc/init.php");
 
 	    var otable = $('#datatable_fixed_column').DataTable({
 
-	        "ajax": "ajax/server_side/experiments_server_processing.php",
+	        "ajax": {
+	            "url": "ajax/server_side/modal_view_server_processing.php",
+	            "data": function ( d ) {
+	                d.types = type;
+	                d.titles = text;
+	            }
+	        },
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 	        "bDestroy": true,
@@ -327,7 +333,6 @@ require_once("inc/init.php");
 			},
 			"fnInitComplete": function(oSettings, json) {
 
-				var columnId;
 			    var inputName;
 
 			    switch (type) {
@@ -338,35 +343,26 @@ require_once("inc/init.php");
 				        alert('Annotations');
 				        break;
 				    case 'genome':
-				        columnId = 4;
 				        inputName = '#experiment-genome';
 				        break;
 				    case 'epigenetic_mark':
-				        columnId = 5;
 				        inputName = '#experiment-em';
 				        break;
 				    case 'sample':
-				        columnId = 6;
 				        inputName = '#experiment-sample';
 				        break;
 				    case 'technique':
-				        columnId = 7;
 				        inputName = '#experiment-technique';
 				        break;
 				    case 'project':
-				        columnId = 8;
 				        inputName = '#experiment-project';
 				        break;
 				    default:
-				        alert('Nobody Wins!');
+				        break;
 				}
 
 				$(inputName).val(text);
 				$(inputName).prop('disabled', true);
-			    otable
-			    	.column(columnId)
-			    	.search(text)
-			    	.draw();
 
 		    }
 

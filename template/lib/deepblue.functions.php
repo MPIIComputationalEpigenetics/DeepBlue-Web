@@ -21,6 +21,7 @@ class Deepblue{
 
 	private $privateUrl;
 	private $privateUserKey;
+    private $client;
 
 	function __construct() {
 
@@ -30,6 +31,7 @@ class Deepblue{
 
 		$this->privateUrl = $url;
 		$this->privateUserKey = $user_key;
+        $this->client = new IXR_Client($this->privateUrl);
 
 	}
 
@@ -37,13 +39,13 @@ class Deepblue{
 
 	public function getApiList(){
 
-		$client = new IXR_Client($this->privateUrl);
+		//$client = new IXR_Client($this->privateUrl);
 
-		if(!$client->query('commands')){
-		   die('An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage());
+		if(!$this->client->query('commands')){
+		   die('An error occured - '.$this->client->getErrorCode()." : ".$this->client->getErrorMessage());
 		}
 		else{
-		    $finalCommands[] = $client->getResponse();
+		    $finalCommands[] = $this->client->getResponse();
 		}
 
 		return $finalCommands[0][1];
@@ -170,13 +172,13 @@ class Deepblue{
 
     public function getServerVersion(){
 
-        $client = new IXR_Client($this->privateUrl);
+        //$client = new IXR_Client($this->privateUrl);
 
-        if(!$client->query('echo', $this->privateUrl)){
-            die('An error occured - '.$client->getErrorCode()." : ".$client->getErrorMessage());
+        if(!$this->client->query('echo', $this->privateUrl)){
+            die('An error occured - '.$this->client->getErrorCode()." : ".$this->client->getErrorMessage());
         }
         else{
-            $serVer[] = $client->getResponse();
+            $serVer[] = $this->client->getResponse();
             $finalReturn = substr($serVer[0][1], 0, -21);
         }
 
@@ -317,8 +319,165 @@ class Deepblue{
 
     }
 
+    /* Generating experiment data table content */
 
-    public function experimentDataTable(){
+    public function experimentDataTable($type, $title, $where){
+
+        //$client = new IXR_Client($this->privateUrl);
+
+        if($where == 'modal_view'){
+
+            switch ($type) {
+
+                case 'experiment':
+                    $genome = "";
+                    $epigenetic_mark = "";
+                    $sampleIds = "";
+                    $technique = "";
+                    $project = "";
+                    break;
+                case 'annotation':
+                    $genome = "";
+                    $epigenetic_mark = "";
+                    $sampleIds = "";
+                    $technique = "";
+                    $project = "";
+                    break;
+                case 'genome':
+                    $genome = $title;
+                    $epigenetic_mark = "";
+                    $sampleIds = "";
+                    $technique = "";
+                    $project = "";
+                    break;
+                case 'epigenetic_mark':
+                    $genome = "";
+                    $epigenetic_mark = $title;
+                    $sampleIds = "";
+                    $technique = "";
+                    $project = "";
+                    break;
+                case 'sample':
+                    $genome = "";
+                    $epigenetic_mark = "";
+                    $sampleIds = $title;
+                    $technique = "";
+                    $project = "";
+                    break;
+                case 'technique':
+                    $genome = "";
+                    $epigenetic_mark = "";
+                    $sampleIds = "";
+                    $technique = $title;
+                    $project = "";
+                    break;
+                case 'project':
+                    $genome = "";
+                    $epigenetic_mark = "";
+                    $sampleIds = "";
+                    $technique = "";
+                    $project = $title;
+                    break;
+
+                default:
+
+                    if(!$this->client->query("list_samples", $title, (object) null, $this->privateUserKey)){
+                        die('An error occurred - '.$this->client->getErrorCode().":".$this->client->getErrorMessage());
+                    }
+                    else{
+
+                        $sampleList[] = $this->client->getResponse();
+
+                        if(empty($sampleList[0][1])){
+
+                            echo '{
+                                "sEcho": 1,
+                                "iTotalRecords": 0,
+                                "iTotalDisplayRecords": 0,
+                                "aaData":[
+
+                                ]
+                            }';
+
+                            return;
+                        }
+
+                        foreach ($sampleList[0][1] as $samples) {
+                            $sampleIds[] = $samples[0];
+                        }
+
+                        $genome = "";
+                        $epigenetic_mark = "";
+                        $technique = "";
+                        $project = "";
+
+                    }
+                    break;
+            }
+        }
+        else{
+            $genome = "";
+            $epigenetic_mark = "";
+            $sampleIds = "";
+            $technique = "";
+            $project = "";
+        }
+
+
+        if(!$this->client->query("list_experiments", $genome, $epigenetic_mark, $sampleIds, $technique, $project, $this->privateUserKey)){
+            die('An error occurred - '.$this->client->getErrorCode().":".$this->client->getErrorMessage());
+        }
+        else{
+            $responseList[] = $this->client->getResponse();
+        }
+
+
+        $experiment_ids = array();
+
+        foreach($responseList[0][1] as $experiment){
+            $experiment_ids[] = $experiment[0];
+        }
+
+        if(!$this->client->query("info", $experiment_ids, $this->privateUserKey)){
+            die('An error occurred - '.$this->client->getErrorCode().":".$this->client->getErrorMessage());
+        }
+        else{
+            $infoList = $this->client->getResponse();
+        }
+
+        $orderedDataStr = array();
+
+        foreach($infoList[1] as $metadata) {
+            $tempArr = array();
+
+            $tempArr[] = "<input type='checkbox' name='' value=''>";
+            $tempArr[] = $metadata['_id'];
+            $tempArr[] = $metadata['name'];
+            $tempArr[] = $metadata['description'];
+
+            $tempArr[] = $metadata['genome'];
+            $tempArr[] = $metadata['epigenetic_mark'];
+            $tempArr[] = $metadata['sample_id'];
+            $tempArr[] = $metadata['technique'];
+            $tempArr[] = $metadata['project'];
+
+            $fullMetadata = $this->experimentMetadata($metadata, "forTable");
+
+            $tempArr[] = "<div class='exp-metadata'>".$fullMetadata."</div><div class='exp-metadata-more-view'>-- View metadata --</div>";
+            array_push($orderedDataStr, $tempArr);
+
+            $tempArr = array();
+            $tempExpStr = "";
+        }
+
+        /* Generating JSON file from $tempArray final output */
+
+        echo json_encode(array('data' => $orderedDataStr));
+
+    }
+
+
+    public function experimentDataTableTemplate(){
 
         $dataTableContent = <<<XYZ
 
