@@ -48,7 +48,7 @@ require_once("inc/init.php");
 							</li>
 						</ul>
 					</div>
-					<input id="search_input" class="form-control input-lg" type="text" placeholder="Search again..." id="search-project">
+					<input id="search_input" class="form-control input-lg" type="text" placeholder="Search again..." />
 					<div class="input-group-btn">
 						<button type="button" id="search_bt" class="btn btn-default">
 							&nbsp;&nbsp;&nbsp;<i class="fa fa-fw fa-search fa-lg"></i>&nbsp;&nbsp;&nbsp;
@@ -79,9 +79,13 @@ require_once("inc/init.php");
 		</div>
 		<div class="modal-body custom-scroll terms-body">
 
-			<?php echo $deepBlueObj->experimentDataTableTemplate(); ?>
+			<div id='modal_for_experiment' style="display:none;">
+				Modal view for experiment and annotation!!!
+			</div>
 
-
+			<div id="modal-content-by-jquery" style="display:none;">
+				<?php echo $deepBlueObj->experimentDataTableTemplate(); ?>
+			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					Close
@@ -149,10 +153,10 @@ require_once("inc/init.php");
 
 	// pagefunction
 
+
 	var pagefunction = function() {
 
-		$("#search-project").focus();
-
+		$("#search_input").focus();
 	};
 
 	/* Filtering search by type */
@@ -169,10 +173,10 @@ require_once("inc/init.php");
 	var isSelected = 0;
 
 	$("#search_input").keyup(function(event){
-	    if(event.keyCode == 13){
-	        $("#search_bt").click();
-	        isSelected = 1;
-	    }
+		if(event.keyCode == 13){
+		    $("#search_bt").click();
+		    isSelected = 1;
+		}
 	});
 
 	/* Start serching with clicking search button */
@@ -216,10 +220,10 @@ require_once("inc/init.php");
 			}
 			else{
 				$.each(data.data, function(i, item) {
-			    	//$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
-			    	$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h4><span class='seach-result-title'><b>"
-			    	+item[0]+ "</b> - <span data-toggle='modal' data-target='#myModal' class='"+item[4]+"'>" + item[1]+ "</span></span></h4><div><p class='note'><span><i class='fa fa-star txt-color-yellow'></i> " + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p><p class='description marginTop'>" + item[2] +"</p></div><div class='searchMetadata'>"+item[3]+"</div></div>" );
-		    	});
+				    //$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
+				    $( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h4><span class='seach-result-title'><b>"
+				    +item[0]+ "</b> - <span data-toggle='modal' data-target='#myModal' class='"+item[4]+"'>" + item[1]+ "</span></span></h4><div><p class='note'><span><i class='fa fa-star txt-color-yellow'></i> " + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p><p class='description marginTop'>" + item[2] +"</p></div><div class='searchMetadata'>"+item[3]+"</div></div>" );
+			    });
 
 			}
 
@@ -236,7 +240,7 @@ require_once("inc/init.php");
 		request.fail( function(jqXHR, textStatus) {
 
 			console.log(jqXHR);
-        	console.log('Error: '+ textStatus);
+	        console.log('Error: '+ textStatus);
 
 			alert( "error" );
 			// alert(jqXHR);
@@ -251,17 +255,29 @@ require_once("inc/init.php");
 	$('#seach-type-title').bind("DOMSubtreeModified",function(){
 		if(isSelected != 0){
 			if (timer) clearTimeout(timer);
-		   	timer = setTimeout(function() {
-		   		$("#search_bt").click();
-		   	}, 100);
-	   	}
+			timer = setTimeout(function() {
+				$("#search_bt").click();
+			}, 100);
+		}
 	});
 
 	/* Search result :: Displaying modal view after clicking the title */
 
+	//$('.seach-result-title span').click(function(){
 	$(document).on("click", '.seach-result-title span', function () {
 
+		$('#search_input').val($search);
 		var type = this.className;
+
+		if(type == 'experiment' || type == 'annotation'){
+			$('#modal-content-by-jquery').hide();
+			$('#modal_for_experiment').show();
+		}
+		else{
+			$('#modal_for_experiment').hide();
+			$('#modal-content-by-jquery').show();
+		}
+
 
 		if(type == 'genome' || type == 'technique' || type == 'project' || type == 'epigenetic_mark' || type == 'bio_source'){
 			var text = $(this).text();
@@ -291,8 +307,8 @@ require_once("inc/init.php");
 
 		/* Reset all input values */
 
-		$('input').val("");
-		$('input').prop('disabled', false);
+		$('.hasinput input').val("");
+		$('.hasinput input').prop('disabled', false);
 
 		/* BASIC */
 		var responsiveHelper_dt_basic = undefined;
@@ -305,20 +321,21 @@ require_once("inc/init.php");
 			phone : 480
 		};
 
+		var selectedElementsModal = [];
 		/* COLUMN FILTER  */
 
-	    var otable = $('#datatable_fixed_column').DataTable({
+		var otable = $('#datatable_fixed_column').DataTable({
 
-	        "ajax": {
-	            "url": "ajax/server_side/modal_view_server_processing.php",
-	            "data": function ( d ) {
-	                d.types = type;
-	                d.titles = text;
-	            }
-	        },
-	        "iDisplayLength": 50,
-	        "autoWidth" : true,
-	        "bDestroy": true,
+		    "ajax": {
+		    "url": "ajax/server_side/modal_view_server_processing.php",
+		    "data": function ( d ) {
+		       		d.types = type;
+		        	d.titles = text;
+		       	}
+		    },
+		    "iDisplayLength": 50,
+		    "autoWidth" : true,
+		    "bDestroy": true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
@@ -333,53 +350,87 @@ require_once("inc/init.php");
 			},
 			"fnInitComplete": function(oSettings, json) {
 
-			    var inputName;
+				var inputName;
 
-			    switch (type) {
-				    case 'experiment':
-				        alert('This is experiment');
-				        break;
-				    case 'annotation':
-				        alert('Annotations');
-				        break;
-				    case 'genome':
-				        inputName = '#experiment-genome';
-				        break;
-				    case 'epigenetic_mark':
-				        inputName = '#experiment-em';
-				        break;
-				    case 'sample':
-				        inputName = '#experiment-sample';
-				        break;
-				    case 'technique':
-				        inputName = '#experiment-technique';
-				        break;
-				    case 'project':
-				        inputName = '#experiment-project';
-				        break;
-				    default:
-				        break;
+				switch (type) {
+					case 'experiment':
+					    alert('This is experiment');
+					    break;
+					case 'annotation':
+					    alert('Annotations');
+					    break;
+					case 'genome':
+					   	inputName = '#experiment-genome';
+					    break;
+					case 'epigenetic_mark':
+					    inputName = '#experiment-em';
+					    break;
+					case 'sample':
+					    inputName = '#experiment-sample';
+					    break;
+					case 'technique':
+					    inputName = '#experiment-technique';
+					    break;
+					case 'project':
+					    inputName = '#experiment-project';
+					    break;
+					default:
+					    break;
 				}
 
 				$(inputName).val(text);
 				$(inputName).prop('disabled', true);
 
-		    }
+				/* Insert or remove selected or unselected elements */
 
-	    });
+				//selectedElementsModal = [];
 
-	    // custom toolbar
-	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+				$( ".downloadCheckBox" ).change(function() {
+					var downloadIdModal = $(this).parent().next().text();
+					var downloadTitleModal = $(this).parent().next().next().text();
+					var downloadTotalModal = downloadIdModal+"-"+downloadTitleModal;
 
-	    // Apply the filter
-	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
+					var foundModal = $.inArray(downloadTotalModal, selectedElementsModal);
 
-	        otable
-	            .column( $(this).parent().index()+':visible' )
-	            .search( this.value )
-	            .draw();
+					if(foundModal < 0){
+						selectedElementsModal.push(downloadTotalModal);
+					}
+					else{
+						selectedElementsModal.splice(foundModal, 1);
+					}
+				});
 
-	    });
+			}
+
+		});
+
+
+		// custom toolbar
+		$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+
+		// Apply the filter
+		$("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
+
+		    otable
+		        .column( $(this).parent().index()+':visible' )
+		        .search( this.value )
+		        .draw();
+
+		});
+
+		/* Download button :: Getting selected elements */
+		$('#downloadBtnTop').click(function(){
+
+			if(selectedElementsModal.length == 0){
+				//alert("( Modal ) Please select elements!");
+				//alert("( length = 0 ) Klikkkkk");
+			}
+			else{
+				//alert(selectedElementsModal);
+				//alert("( length != 0 ) Klikkkkk");
+			}
+
+		});
 
 	});
 
@@ -387,18 +438,18 @@ require_once("inc/init.php");
 
 	// run pagefunction on load
 
-	pagefunction();
+	//pagefunction();
 
 	// load related plugins
 
-		loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
-			loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
-				loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
-					loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
-						loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
-					});
+	loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
+		loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
+			loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
+				loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
+					loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
 				});
 			});
 		});
+	});
 
 </script>

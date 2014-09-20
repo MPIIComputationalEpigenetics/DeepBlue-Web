@@ -143,3 +143,11 @@ a.morelink {
 .more-link{
     margin-left:15px;
 }
+#datatable_fixed_column_filter label{
+    float: left;
+    margin-right: 10px;
+}
+.downloadButtonDiv{
+    background: #FAFAFA;
+    padding: 10px;
+}

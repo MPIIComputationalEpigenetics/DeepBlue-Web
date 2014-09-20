@@ -290,30 +290,56 @@ class Deepblue{
 
     }
 
-    /* Replacing plus to double quotes */
+    /* This function will remove only '+' and return double quotes */
+
+    public function onlyPlusToQuotes($inData){
+
+        $newString = "";
+        $splitedData = explode(' ', $inData);
+
+        foreach($splitedData as $value){
+
+            if(strpos($value, '+') !== false){
+                /* Checking string for '+' and double quotes */
+                if(strpos($value, '"') !== false){
+                    $value = str_replace('"', '', $value);
+                }
+
+                $withoutPlusValue = str_replace('+', '', $value);
+                $newString .= "\"$withoutPlusValue\" ";
+            }
+            else {
+                $newString .= $value." ";
+            }
+        }
+
+        return substr($newString, 0, -1);
+
+    }
+
+    /**
+    *   Replacing plus to double quotes, single quotes to double quotes and
+    *   others e.g. 'blood' +nextItem or +"blood" 'nextItem' ... etc.
+    */
 
     public function plusToQuotes($inputString){
 
-        if(strpos($inputString, '+') === false){
+        if(strpos($inputString, '+') === false && strpos($inputString, "'") === false){
             return $inputString;
         }
-        else{
+        elseif(strpos($inputString, '+') !== false && strpos($inputString, "'") !== false){
+            $inputString = str_replace("'", '"', $inputString);
 
-            $newString = "";
-            $splitedData = explode(' ', $inputString);
+            return $this->onlyPlusToQuotes($inputString);
 
-            foreach($splitedData as $value){
+        }
+        elseif(strpos($inputString, "'") !== false) {
+            $inputString = str_replace("'", '"', $inputString);
+            return $inputString;
+        }
+        elseif(strpos($inputString, '+') !== false){
 
-                if(strpos($value, '+') !== false){
-                    $withoutPlusValue = str_replace('+', '', $value);
-                    $newString .= "\"$withoutPlusValue\" ";
-                }
-                else {
-                    $newString .= $value." ";
-                }
-            }
-
-            return substr($newString, 0, -1);
+            return $this->onlyPlusToQuotes($inputString);
 
         }
 
@@ -429,6 +455,21 @@ class Deepblue{
         }
         else{
             $responseList[] = $this->client->getResponse();
+
+            /* Check the response, if it is empty then return empty datatables */
+
+            if(empty($responseList[0][1])){
+
+                echo '{
+                        "sEcho": 1,
+                        "iTotalRecords": 0,
+                        "iTotalDisplayRecords": 0,
+                        "aaData":[
+                        ]
+                    }';
+
+                return;
+            }
         }
 
 
@@ -450,7 +491,7 @@ class Deepblue{
         foreach($infoList[1] as $metadata) {
             $tempArr = array();
 
-            $tempArr[] = "<input type='checkbox' name='' value=''>";
+            $tempArr[] = "<input type='checkbox' name='checkboxlist' class='downloadCheckBox'>";
             $tempArr[] = $metadata['_id'];
             $tempArr[] = $metadata['name'];
             $tempArr[] = $metadata['description'];
@@ -504,10 +545,10 @@ class Deepblue{
                     <div class="widget-body no-padding">
 
                         <table id="datatable_fixed_column" class="table table-striped table-bordered" width="100%">
-
                             <thead>
                                 <tr>
                                     <th class="hasinput">
+                                        <button type="button" id="downloadBtnTop" class="btn btn-primary download-btn-size">Download</button>
                                     </th>
                                     <th class="hasinput">
                                         <input class="form-control" placeholder="Filter ID" type="text" id="experiment-id">
@@ -554,6 +595,7 @@ class Deepblue{
                             </thead>
 
                         </table>
+                        <div class="downloadButtonDiv"><button type="button" id="downloadBtnBottom" class="btn btn-primary">Download</button></div>
 
                     </div>
                     <!-- end widget content -->
@@ -564,6 +606,7 @@ class Deepblue{
             </div>
             <!-- end widget -->
 XYZ;
+
         return $dataTableContent;
     }
 

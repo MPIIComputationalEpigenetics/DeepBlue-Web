@@ -53,7 +53,6 @@ require_once("inc/init.php");
 	<!-- end row -->
 
 	<!-- end row -->
-
 </section>
 <!-- end widget grid -->
 
@@ -154,6 +153,8 @@ require_once("inc/init.php");
 				phone : 480
 			};
 
+		var selectedElements = [];
+
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
 
@@ -171,14 +172,33 @@ require_once("inc/init.php");
 			},
 			"drawCallback" : function(oSettings) {
 				responsiveHelper_datatable_fixed_column.respond();
-			}
+			},"fnInitComplete": function(oSettings, json) {
+
+				/* Insert or remove selected or unselected elements */
+
+				$( ".downloadCheckBox" ).change(function() {
+					var downloadId = $(this).parent().next().text();
+					var downloadTitle = $(this).parent().next().next().text();
+					var downloadTotal = downloadId+"-"+downloadTitle;
+
+					var found = $.inArray(downloadTotal, selectedElements);
+
+					if(found < 0){
+						selectedElements.push(downloadTotal);
+					}
+					else{
+						selectedElements.splice(found, 1);
+					}
+				});
+
+		    }
 
 	    });
 
 	    // custom toolbar
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
-	    // Apply the filter
+	    /* Apply the filter */
 	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
 
 	        otable
@@ -187,7 +207,21 @@ require_once("inc/init.php");
             .draw();
 
 	    } );
-	    /* END COLUMN FILTER */
+
+	    /* Created download button */
+	    //$('#datatable_fixed_column_filter').append('<button type="button" id="downloadBtnTop" class="btn btn-primary">Download</button>');
+
+	    /* Download button :: Getting selected elements */
+	    $('#downloadBtnTop, #downloadBtnBottom').click(function(){
+
+	    	if(selectedElements.length == 0){
+				alert("[ Experiment view ] Please select elements!");
+			}
+			else{
+				alert(selectedElements);
+			}
+
+	    });
 
 	};
 
