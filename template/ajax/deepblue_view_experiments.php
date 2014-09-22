@@ -28,10 +28,7 @@ require_once("inc/init.php");
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark">
 			<i class="fa fa-table fa-fw "></i>
-				Data Tables
-			<span>>
-				Experiments
-			</span>
+				DeepBlue Data > Experiments
 		</h1>
 	</div>
 </div>
@@ -58,50 +55,7 @@ require_once("inc/init.php");
 
 <script type="text/javascript">
 
-	/* DO NOT REMOVE : GLOBAL FUNCTIONS!
-	 *
-	 * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-	 *
-	 * // activate tooltips
-	 * $("[rel=tooltip]").tooltip();
-	 *
-	 * // activate popovers
-	 * $("[rel=popover]").popover();
-	 *
-	 * // activate popovers with hover states
-	 * $("[rel=popover-hover]").popover({ trigger: "hover" });
-	 *
-	 * // activate inline charts
-	 * runAllCharts();
-	 *
-	 * // setup widgets
-	 * setup_widgets_desktop();
-	 *
-	 * // run form elements
-	 * runAllForms();
-	 *
-	 ********************************
-	 *
-	 * pageSetUp() is needed whenever you load a page.
-	 * It initializes and checks for all basic elements of the page
-	 * and makes rendering easier.
-	 *
-	 */
-
 	pageSetUp();
-
-	/*
-	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-	 * eg alert("my home function");
-	 *
-	 * var pagefunction = function() {
-	 *   ...
-	 * }
-	 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-	 *
-	 */
-
-	// PAGE RELATED SCRIPTS
 
 	// pagefunction
 	var pagefunction = function() {
@@ -124,23 +78,6 @@ require_once("inc/init.php");
 
 		});
 
-		//console.log("cleared");
-
-		/* // DOM Position key index //
-
-			l - Length changing (dropdown)
-			f - Filtering input (search)
-			t - The Table! (datatable)
-			i - Information (records)
-			p - Pagination (paging)
-			r - pRocessing
-			< and > - div elements
-			<"#id" and > - div with an id
-			<"class" and > - div with a class
-			<"#id.class" and > - div with an id and class
-
-			Also see: http://legacy.datatables.net/usage/features
-		*/
 
 		/* BASIC ;*/
 			var responsiveHelper_dt_basic = undefined;
@@ -196,7 +133,7 @@ require_once("inc/init.php");
 	    });
 
 	    // custom toolbar
-	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
 	    /* Apply the filter */
 	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {

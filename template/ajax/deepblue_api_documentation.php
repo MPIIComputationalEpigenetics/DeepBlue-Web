@@ -24,7 +24,7 @@ require_once("inc/init.php");
 		<h1 class="page-title txt-color-blueDark">
 
 			<!-- PAGE HEADER -->
-			<i class="fa-fw fa fa-home"></i>
+			<i class="fa-fw fa fa-life-ring"></i>
 				API Documentation > <?php echo $deepBlueObj->getServerVersion();?>
 		</h1>
 	</div>

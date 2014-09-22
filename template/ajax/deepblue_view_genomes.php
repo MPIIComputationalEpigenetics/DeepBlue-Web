@@ -28,10 +28,7 @@ require_once("inc/init.php");
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark">
 			<i class="fa fa-table fa-fw "></i>
-				Data Tables
-			<span>>
-				Genomes
-			</span>
+				Data Tables > Genomes
 		</h1>
 	</div>
 </div>
@@ -48,7 +45,7 @@ require_once("inc/init.php");
 
 
 			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+			<div class="jarviswidget jarviswidget-color-blueDark" id="datable-genomes" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
 				<!-- widget options:
 				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -64,7 +61,7 @@ require_once("inc/init.php");
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-					<h2>Column Filters </h2>
+					<h2>Genomes </h2>
 
 				</header>
 

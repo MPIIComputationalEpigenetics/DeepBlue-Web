@@ -46,11 +46,11 @@ $page_nav = array(
 	"API Documentation" => array(
 		"title" => "API Documentation",
 		"url" => "ajax/deepblue_api_documentation.php",
-		"icon" => "fa-plane"
+		"icon" => "fa-life-ring"
 	),
 
 	"deepblue_tables" => array(
-		"title" => "Data Tables",
+		"title" => "DeepBlue Data",
 		"icon" => "fa-table",
 		"sub" => array(
 			"annotations" => array(
@@ -98,6 +98,7 @@ $page_nav = array(
 		"icon" => "fa-search"
 	),
 
+/*
 	"smartui" => array(
 		"title" => "Smart UI",
 		"icon" => "fa-code",
@@ -467,10 +468,11 @@ $page_nav = array(
 		    )
 		)
 	)
+*/
 );
 
 //configuration variables
-$page_title = "";
+$page_title = "DeepBlue Epigenomic Data Server - Web Interface";
 $page_css = array();
 $no_main_header = false; //set true for lock.php and index.php
 $page_body_prop = array(); //optional properties for <body>

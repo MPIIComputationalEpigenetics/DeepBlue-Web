@@ -1,6 +1,7 @@
 <?php
 require_once("inc/init.php");
 ?>
+
 <div class="row">
 
 	<div class="col-sm-12">
@@ -97,61 +98,11 @@ require_once("inc/init.php");
 <!-- end row -->
 
 <script type="text/javascript">
-	/* DO NOT REMOVE : GLOBAL FUNCTIONS!
-	 *
-	 * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-	 *
-	 * // activate tooltips
-	 * $("[rel=tooltip]").tooltip();
-	 *
-	 * // activate popovers
-	 * $("[rel=popover]").popover();
-	 *
-	 * // activate popovers with hover states
-	 * $("[rel=popover-hover]").popover({ trigger: "hover" });
-	 *
-	 * // activate inline charts
-	 * runAllCharts();
-	 *
-	 * // setup widgets
-	 * setup_widgets_desktop();
-	 *
-	 * // run form elements
-	 * runAllForms();
-	 *
-	 ********************************
-	 *
-	 * pageSetUp() is needed whenever you load a page.
-	 * It initializes and checks for all basic elements of the page
-	 * and makes rendering easier.
-	 *
-	 */
-
 	pageSetUp();
-
-	/*
-	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-	 * eg alert("my home function");
-	 *
-	 * var pagefunction = function() {
-	 *   ...
-	 * }
-	 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-	 *
-	 * TO LOAD A SCRIPT:
-	 * var pagefunction = function (){
-	 *  loadScript(".../plugin.js", run_after_loaded);
-	 * }
-	 *
-	 * OR
-	 *
-	 * loadScript(".../plugin.js", run_after_loaded);
-	 */
 
 	// PAGE RELATED SCRIPTS
 
 	// pagefunction
-
 
 	var pagefunction = function() {
 
@@ -167,20 +118,12 @@ require_once("inc/init.php");
 		$('#seach-type-title').text(event.target.id);
 	});
 
-	/* Trigger searching with pressing ENTER Key */
 
 	var isSelected = 0;
-
-	$("#search_input").keyup(function(event){
-		if(event.keyCode == 13){
-		    $("#search_bt").click();
-		    isSelected = 1;
-		}
-	});
-
 	/* Start serching with clicking search button */
 
-	$("#search_bt").button().click(function() {
+
+	function search_function() {
 		isSelected = 1;
 		$search = $('#search_input').val();
 
@@ -211,7 +154,6 @@ require_once("inc/init.php");
 		});
 
 		request.done( function(data) {
-			//alert(JSON.stringify(data));
 			$( "#tempSearchResult" ).empty();
 
 			if(data.data == ''){
@@ -237,16 +179,21 @@ require_once("inc/init.php");
 		});
 
 		request.fail( function(jqXHR, textStatus) {
-
 			console.log(jqXHR);
 	        console.log('Error: '+ textStatus);
-
 			alert( "error" );
-			// alert(jqXHR);
-			// alert(textStatus);
 		});
-	});
+	};
 
+	$("#search_bt").button().click(search_function);
+
+	<?php
+	if (isset($_GET["search"])) {
+ 		$search = $_GET["search"];
+		echo("$('#search_input').val('$search');");
+		echo("search_function()");
+	}
+	?>
 
 	/* Triggering search automatically when user changes the type */
 
@@ -255,8 +202,16 @@ require_once("inc/init.php");
 		if(isSelected != 0){
 			if (timer) clearTimeout(timer);
 			timer = setTimeout(function() {
-				$("#search_bt").click();
+				search_function();
 			}, 100);
+		}
+	});
+
+	/* Trigger searching with pressing ENTER Key */
+	$("#search_input").keyup(function(event){
+		if(event.keyCode == 13){
+		    search_function();
+		    isSelected = 1;
 		}
 	});
 
