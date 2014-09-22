@@ -239,6 +239,8 @@ class Deepblue{
         isset($val_1["technique"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["technique"] : $tempArr[] = "";
         isset($val_1["project"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["project"] : $tempArr[] = "";
 
+        isset($val_1["format"]) ? $tempArr[] = $val_1["format"] : $tempArr[] = "";
+
         array_push($orderedDataStr, $tempArr);
 
         }

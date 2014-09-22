@@ -111,8 +111,8 @@
 }
 .seach-result-title{
     color: #434343;
-    font-weight: bold;
     font-size: 15px;
+    margin-bottom: 10px;
 }
 .seach-result-title span{
     font-size:20px;
@@ -150,4 +150,16 @@ a.morelink {
 .downloadButtonDiv{
     background: #FAFAFA;
     padding: 10px;
+}
+.modalViewSingleInfo{
+    width: 60%!important;
+    margin:0 auto;
+}
+.search-modal-table{
+    font-weight: bold!important;
+    width:19%;
+}
+.search-modal-annotation-format{
+    width: 70%;
+    word-wrap: break-word;
 }

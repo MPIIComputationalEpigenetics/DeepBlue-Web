@@ -79,14 +79,13 @@ require_once("inc/init.php");
 		</div>
 		<div class="modal-body custom-scroll terms-body">
 
-			<div id='modal_for_experiment' style="display:none;">
-				Modal view for experiment and annotation!!!
-			</div>
+			<div id='modal_for_experiment' style="display:none;"></div>
 
 			<div id="modal-content-by-jquery" style="display:none;">
 				<?php echo $deepBlueObj->experimentDataTableTemplate(); ?>
 			</div>
 			<div class="modal-footer">
+				<button type="button" id="downloadBtnModal" class="btn btn-primary download-btn-size">Download</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					Close
 				</button>
@@ -270,10 +269,143 @@ require_once("inc/init.php");
 		var type = this.className;
 
 		if(type == 'experiment' || type == 'annotation'){
-			$('#modal-content-by-jquery').hide();
-			$('#modal_for_experiment').show();
+
+			var getId = $(this).prev().text();
+
+			var infoRequest = $.ajax({
+				url: "ajax/server_side/search_get_info_server_processing.php",
+				dataType: "json",
+				data : {
+					getId : getId
+				}
+			});
+
+			infoRequest.done( function(data) {
+
+				$.each(data.data, function(i, item) {
+				    $('#modal_for_experiment').empty();
+
+				    if(type == 'experiment'){
+
+				    $('#modal_for_experiment').append(
+				    	"<table class='table table-striped'>"+
+						    "<tbody>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Experiment name : </td>"+
+						            "<td class='search-modal-name'>"+item[1]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>ID : </td>"+
+						            "<td class='search-modal-id'>"+item[0]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Description : </td>"+
+						            "<td>"+item[2]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Type : </td>"+
+						            "<td>"+item[4]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Genome : </td>"+
+						            "<td>"+item[5]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Epigenetic mark : </td>"+
+						            "<td>"+item[6]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Sample : </td>"+
+						            "<td>"+item[7]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Technique : </td>"+
+						            "<td>"+item[8]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Project : </td>"+
+						            "<td>"+item[9]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Metadata : </td>"+
+						            "<td>"+item[3]+"</td>"+
+						        "</tr>"+
+						    "</tbody>"+
+						"</table>");
+
+						$('.modal-title').text("Experiment info");
+					}
+					else{
+
+						$('#modal_for_experiment').append(
+				    	"<table class='table table-striped search-modal-table-td'>"+
+						    "<tbody>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Annotation name : </td>"+
+						            "<td class='search-modal-name'>"+item[1]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>ID : </td>"+
+						            "<td class='search-modal-id'>"+item[0]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Description : </td>"+
+						            "<td><div class='search-modal-annotation-format'>"+item[2]+"</div></td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Type : </td>"+
+						            "<td>"+item[4]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Genome : </td>"+
+						            "<td>"+item[5]+"</td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Format : </td>"+
+						            "<td><div class='search-modal-annotation-format'>"+item[10]+"</div></td>"+
+						        "</tr>"+
+						        "<tr>"+
+						            "<td class='search-modal-table'>Metadata : </td>"+
+						            "<td>"+item[3]+"</td>"+
+						        "</tr>"+
+						    "</tbody>"+
+						"</table>");
+
+						$('.modal-title').text("Annotation info");
+
+					}
+			    });
+				
+				$('#modal-content-by-jquery').hide();
+				$('.modal-content').addClass( "modalViewSingleInfo" );
+				$('#modal_for_experiment').show();
+
+				/* Printinting experiment or anotation id and name in modal view when user
+				*  clicks Download button
+				*/
+
+				$('#downloadBtnModal').unbind('click').bind('click', function (e) {
+				//$(document).on("click", '#downloadBtnModal', function () {
+					var modal_id = $('.search-modal-id').text();
+					var modal_name = $('.search-modal-name').text();
+
+					alert("Id: "+modal_id+"\nName: "+modal_name);
+
+				});
+
+			});
+
+			infoRequest.fail( function(jqXHR, textStatus) {
+
+				console.log(jqXHR);
+		        console.log('Error: '+ textStatus);
+
+				alert( "Error in modal view experiment and annotaiton views" );
+			});
+
 		}
 		else{
+			$('.modal-content').removeClass( "modalViewSingleInfo" );
 			$('#modal_for_experiment').hide();
 			$('#modal-content-by-jquery').show();
 		}
@@ -285,7 +417,6 @@ require_once("inc/init.php");
 		else{
 			var text = $(this).prev().text();
 		}
-		$('.modal-title').text(text);
 
 		/* Hide and show experiment metadata */
 
@@ -354,10 +485,10 @@ require_once("inc/init.php");
 
 				switch (type) {
 					case 'experiment':
-					    alert('This is experiment');
+					    //alert('This is experiment');
 					    break;
 					case 'annotation':
-					    alert('Annotations');
+					    //alert('Annotations');
 					    break;
 					case 'genome':
 					   	inputName = '#experiment-genome';
