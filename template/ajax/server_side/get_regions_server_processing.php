@@ -17,6 +17,9 @@ require_once("../../lib/lib.php");
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
+
+ini_set('memory_limit', '-1');
+
 $client = new IXR_Client($url);
 
 /* DeepBlue Class */
