@@ -162,8 +162,11 @@ require_once("inc/init.php");
 			else{
 				$.each(data.data, function(i, item) {
 				    //$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
-				    $( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h4><span class='seach-result-title'><b>"
-				    +item[0]+ "</b> - <span data-toggle='modal' data-target='#myModal' class='"+item[4]+"'>" + item[1]+ "</span></span></h4><div><p class='note'><span><i class='fa fa-star txt-color-yellow'></i> " + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p><p class='description marginTop'>" + item[2] +"</p></div><div class='searchMetadata'>"+item[3]+"</div></div>" );
+				    $( "#tempSearchResult" ).append( "<div class='search-results clearfix'>"+
+				    	"<h4><span class='seach-result-title'><i class='fa fa-star txt-color-yellow'></i> <b>"+item[0]+ "</b> - <span data-toggle='modal' data-target='#myModal' class='"+item[4]+"'>" + item[1]+ "</span></span></h4>"+
+				    "<div><p class='note'><span><i class='fa fa-circle txt-color-black'></i> " + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p>"+
+				    "<p class='description marginTop'>" + item[2] +"</p></div>"+
+				    "<div class='searchMetadata'>"+item[3]+"</div></div>" );
 			    });
 
 			}
@@ -232,8 +235,9 @@ require_once("inc/init.php");
 
 			infoRequest.done( function(data) {
 
+				$('#modal_for_experiment').empty();
+
 				$.each(data.data, function(i, item) {
-				    $('#modal_for_experiment').empty();
 
 				    if(type == 'experiment'){
 
@@ -324,6 +328,8 @@ require_once("inc/init.php");
 						$('.modal-title').text("Annotation info");
 
 					}
+
+					$("td .fa-circle").remove();
 			    });
 
 				$('#modal-content-by-jquery').hide();

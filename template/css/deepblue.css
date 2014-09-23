@@ -152,7 +152,7 @@ a.morelink {
     padding: 10px;
 }
 .modalViewSingleInfo{
-    width: 60%!important;
+    width: 77%!important;
     margin:0 auto;
 }
 .search-modal-table{
@@ -162,4 +162,7 @@ a.morelink {
 .search-modal-annotation-format{
     width: 70%;
     word-wrap: break-word;
+}
+.txt-color-black{
+    color: #CCC!important;
 }
