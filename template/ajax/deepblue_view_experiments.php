@@ -91,6 +91,7 @@ require_once("inc/init.php");
 			};
 
 		var selectedElements = [];
+		var selectedElementsNames = [];
 
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
@@ -122,9 +123,11 @@ require_once("inc/init.php");
 
 					if(found < 0){
 						selectedElements.push(downloadTotal);
+						selectedElementsNames.push(downloadTitle);
 					}
 					else{
 						selectedElements.splice(found, 1);
+						selectedElementsNames.push(found, 1);
 					}
 				});
 
@@ -156,6 +159,24 @@ require_once("inc/init.php");
 			}
 			else{
 				alert(selectedElements);
+
+				var request = $.ajax({
+					url: "ajax/server_side/select_regions_server_processing.php",
+					dataType: "json",
+					data : {
+						experiments_names : selectedElementsNames,
+					}
+				});
+
+				request.done( function(data) {
+					window.location.href = 'ajax/server_side/get_regions_server_processing.php?query_id='+data.query_id;
+				});
+
+				request.fail( function(jqXHR, textStatus) {
+					console.log(jqXHR);
+	        		console.log('Error: '+ textStatus);
+					alert( "error" );
+				});
 			}
 
 	    });

@@ -9,12 +9,8 @@
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *
-*   Created : 24-04-2014
+*   Created : 24-08-2014
 */
-
-
-// /* include init file */
-// require_once("../inc/init.php");
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
