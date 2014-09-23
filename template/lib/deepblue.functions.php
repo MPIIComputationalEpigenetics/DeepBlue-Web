@@ -225,19 +225,19 @@ class Deepblue{
         // }
 
         $tempArr[] = $val_1["type"];
-        isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["genome"] : $tempArr[] = "";
-        isset($val_1["epigenetic_mark"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["epigenetic_mark"] : $tempArr[] = "";
+        isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["genome"] : $tempArr[] = "";
+        isset($val_1["epigenetic_mark"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["epigenetic_mark"] : $tempArr[] = "";
 
         if(isset($val_1["sample_id"]) && isset($val_1["bio_source_name"])){
-            $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1['bio_source_name']." ( ".$val_1["sample_id"]." )";
+            $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1['bio_source_name']." ( ".$val_1["sample_id"]." )";
         }
         else{
             $tempArr[] = "";
         }
 
 
-        isset($val_1["technique"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["technique"] : $tempArr[] = "";
-        isset($val_1["project"]) ? $tempArr[] = "<i class='fa fa-star txt-color-yellow'></i> ".$val_1["project"] : $tempArr[] = "";
+        isset($val_1["technique"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["technique"] : $tempArr[] = "";
+        isset($val_1["project"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["project"] : $tempArr[] = "";
 
         isset($val_1["format"]) ? $tempArr[] = $val_1["format"] : $tempArr[] = "";
 
