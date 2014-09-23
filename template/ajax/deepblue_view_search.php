@@ -196,14 +196,9 @@ require_once("inc/init.php");
 	?>
 
 	/* Triggering search automatically when user changes the type */
-
-	var timer;
 	$('#seach-type-title').bind("DOMSubtreeModified",function(){
 		if(isSelected != 0){
-			if (timer) clearTimeout(timer);
-			timer = setTimeout(function() {
-				search_function();
-			}, 100);
+			search_function();
 		}
 	});
 
@@ -330,7 +325,7 @@ require_once("inc/init.php");
 
 					}
 			    });
-				
+
 				$('#modal-content-by-jquery').hide();
 				$('.modal-content').addClass( "modalViewSingleInfo" );
 				$('#modal_for_experiment').show();
