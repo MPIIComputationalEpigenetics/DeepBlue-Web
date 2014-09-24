@@ -69,14 +69,14 @@ require_once("inc/init.php");
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modelSearchExperimentInfo" aria-hidden="true">
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 				&times;
 			</button>
-			<h4 class="modal-title" id="myModalLabel"></h4>
+			<h4 class="modal-title" id="modalSearchExperimenentInfo">Experiment Info</h4>
 		</div>
 		<div class="modal-body custom-scroll terms-body">
 
@@ -86,7 +86,9 @@ require_once("inc/init.php");
 				<?php echo $deepBlueObj->experimentDataTableTemplate(); ?>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="downloadBtnModal" class="btn btn-primary download-btn-size">Download</button>
+				<button type="button" id="downloadExperimentButton" class="btn btn-primary download-btn-size">
+					Download
+				</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					Close
 				</button>
@@ -214,8 +216,6 @@ require_once("inc/init.php");
 	});
 
 	/* Search result :: Displaying modal view after clicking the title */
-
-	//$('.seach-result-title span').click(function(){
 	$(document).on("click", '.seach-result-title span', function () {
 
 		$('#search_input').val($search);
@@ -340,13 +340,39 @@ require_once("inc/init.php");
 				*  clicks Download button
 				*/
 
-				$('#downloadBtnModal').unbind('click').bind('click', function (e) {
-				//$(document).on("click", '#downloadBtnModal', function () {
+				$('#downloadExperimentButton').unbind('click').bind('click', function (e) {
 					var modal_id = $('.search-modal-id').text();
 					var modal_name = $('.search-modal-name').text();
 
-					alert("Id: "+modal_id+"\nName: "+modal_name);
+					if(type == 'experiment'){
+						var request = $.ajax({
+							url: "ajax/server_side/select_regions_server_processing.php",
+							dataType: "json",
+							data : {
+								experiments_names : [modal_name],
+							}
+						});
+					} else {
+						var request = $.ajax({
+							url: "ajax/server_side/select_annotations_server_processing.php",
+							dataType: "json",
+							data : {
+								annotations_names : [modal_name],
+							}
+						});
+					}
 
+					request.done( function(data) {
+						window.location.href = 'ajax/server_side/get_regions_server_processing.php?query_id='+data.query_id;
+					});
+
+					request.fail( function(jqXHR, textStatus) {
+						console.log(jqXHR);
+		        		console.log('Error: '+ textStatus);
+						alert( "error" );
+					});
+
+					alert("Id: "+modal_id+"\nName: "+modal_name);
 				});
 
 			});
