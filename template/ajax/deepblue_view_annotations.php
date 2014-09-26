@@ -42,66 +42,7 @@ require_once("inc/init.php");
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget jarviswidget-color-darken" id="datable-annotations" data-widget-editbutton="false" data-widget-sortable="true">
-
-				<header>
-					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-					<h2> Annotations </h2>
-				</header>
-
-				<!-- widget div-->
-				<div>
-
-					<!-- widget edit box -->
-					<div class="jarviswidget-editbox">
-						<!-- This area used as dropdown edit box -->
-
-					</div>
-					<!-- end widget edit box -->
-
-					<!-- widget content -->
-					<div class="widget-body no-padding">
-
-						<table id="datatable_fixed_column" class="table table-striped table-bordered" width="100%">
-
-					        <thead>
-								<tr>
-									<th class="hasinput">
-										<input class="form-control" placeholder="Filter ID" type="text"/>
-									</th>
-									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Annotation"/>
-									</th>
-									<th class="hasinput">
-										<input class="form-control" placeholder="Filter Genome" type="text"/>
-									</th>
-									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Description"/>
-									</th>
-									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Metadata"/>
-									</th>
-								</tr>
-					            <tr>
-				                    <th>ID</th>
-				                    <th>Annotation Name</th>
-				                    <th>Genome</th>
-				                    <th>Description</th>
-				                    <th>Metadata</th>
-					            </tr>
-					        </thead>
-
-						</table>
-
-					</div>
-					<!-- end widget content -->
-
-				</div>
-				<!-- end widget div -->
-
-			</div>
-			<!-- end widget -->
+			<?php echo $deepBlueObj->annotationDataTableTemplate(); ?>
 
 		</article>
 		<!-- WIDGET END -->

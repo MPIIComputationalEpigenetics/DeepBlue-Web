@@ -1,5 +1,25 @@
 <?php
+
+/**
+*   DeepBlue Epigenomic Data Server
+*   Copyright (c) 2014 Max Planck Institute for Computer Science.
+*   All rights reserved.
+*
+*   Authors :
+*
+*   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
+*   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
+*
+*   Created : 23-08-2014
+*
+*   ================================================
+*
+*   File : deepblue_view_search.php
+*
+*/
+
 require_once("inc/init.php");
+
 ?>
 
 <div class="row">
@@ -83,7 +103,7 @@ require_once("inc/init.php");
 			<div id='modal_for_experiment' style="display:none;"></div>
 
 			<div id="modal-content-by-jquery" style="display:none;">
-				<?php echo $deepBlueObj->experimentDataTableTemplate(); ?>
+				<?php echo $deepBlueObj->experimentDataTableTemplate("search"); ?>
 			</div>
 			<div class="modal-footer">
 				<button type="button" id="downloadBtnModal" class="btn btn-primary download-btn-size">Download</button>
@@ -450,7 +470,7 @@ require_once("inc/init.php");
 					   	inputName = '#experiment-genome';
 					    break;
 					case 'epigenetic_mark':
-					    inputName = '#experiment-em';
+					    inputName = '#experiment-epigenetic_mark';
 					    break;
 					case 'sample':
 					    inputName = '#experiment-sample';

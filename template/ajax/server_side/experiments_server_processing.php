@@ -24,7 +24,7 @@ require_once("../../lib/deepblue.functions.php");
 $deepBlueObj = new Deepblue();
 
 
-$deepBlueObj->experimentDataTable($type = '', $title = '', 'experiments_server_processing');
+$deepBlueObj->experimentDataTable($type='', $title='', $genome='', $epigenetic_mark='', $sample='', $technique='', $project='', 'experiments_server_processing');
 
 
 ?>

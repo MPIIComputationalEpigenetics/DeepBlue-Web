@@ -349,11 +349,11 @@ class Deepblue{
 
     /* Generating experiment data table content */
 
-    public function experimentDataTable($type, $title, $where){
+    public function experimentDataTable($type, $title, $wf_genome, $wf_epigenetic_mark, $wf_sampleIds, $wf_technique, $wf_project, $where){
 
         //$client = new IXR_Client($this->privateUrl);
 
-        if($where == 'modal_view'){
+        if($where == 'modal_view' && $type != '' && $title != ''){
 
             switch ($type) {
 
@@ -443,6 +443,15 @@ class Deepblue{
                     break;
             }
         }
+        elseif ($where == 'workflow') {
+
+            $genome = $wf_genome;
+            $epigenetic_mark = $wf_epigenetic_mark;
+            $sampleIds = $wf_sampleIds;
+            $technique = $wf_technique;
+            $project = $wf_project;
+            
+        }
         else{
             $genome = "";
             $epigenetic_mark = "";
@@ -477,8 +486,16 @@ class Deepblue{
 
         $experiment_ids = array();
 
-        foreach($responseList[0][1] as $experiment){
-            $experiment_ids[] = $experiment[0];
+        $sizeOfItemIds = sizeof($responseList[0][1]);
+
+        if($sizeOfItemIds == 1){
+            $experiment_ids[] = $responseList[0][1][0][0];
+        }
+        else{
+            foreach($responseList[0][1] as $experiment){
+                $experiment_ids[] = $experiment[0];
+            }
+
         }
 
         if(!$this->client->query("info", $experiment_ids, $this->privateUserKey)){
@@ -489,8 +506,25 @@ class Deepblue{
         }
 
         $orderedDataStr = array();
+        $tempControlArr = array();
 
-        foreach($infoList[1] as $metadata) {
+        /* Checking the size of response */
+
+        if($sizeOfItemIds == 1){
+            $tempControlArr = $infoList;
+        }
+        else{
+            $tempControlArr = $infoList[1];
+        }
+
+        foreach($tempControlArr as $metadata) {
+
+            /* Ignoring 'okay' value */
+
+            if($metadata == 'okay'){
+                continue;
+            }
+
             $tempArr = array();
 
             $tempArr[] = "<input type='checkbox' name='checkboxlist' class='downloadCheckBox'>";
@@ -519,9 +553,190 @@ class Deepblue{
 
     }
 
+    /* Generating annotation data table content */
 
-    public function experimentDataTableTemplate(){
+    public function annotationDataTable($genome){
 
+        if($genome == ''){
+            if(!$this->client->query("list_genomes", $this->privateUserKey)){
+                die('An error occurred - '.$this->client->getErrorCode().":".$this->client->getErrorMessage());
+            }
+            else{
+                $genomeList[] = $this->client->getResponse();
+            }
+
+            /* Collecting genome ids into array */
+
+            $genomeIds = array();
+
+            foreach($genomeList[0][1] as $genomes){
+                $genomeIds[] = $genomes[1];
+            }
+
+        }
+        else{
+            $genomeIds = $genome;
+        }
+
+        /* Getting annotation list from the server  */
+        $annotations = array();
+
+        if(!$this->client->query("list_annotations", $genomeIds, $this->privateUserKey)){
+            die('An error occurred - '.$this->client->getErrorCode().":".$this->client->getErrorMessage());
+        }
+        else{
+            $annotations[] = $this->client->getResponse();
+
+            /* Check the response, if it is empty then return empty datatables */
+
+            if(empty($annotations[0][1])){
+
+                echo '{
+                        "sEcho": 1,
+                        "iTotalRecords": 0,
+                        "iTotalDisplayRecords": 0,
+                        "aaData":[
+                        ]
+                    }';
+
+                return;
+            }
+        }
+
+        /* Collecting annotation ids into array */
+        $annotationsIds = array();
+
+        foreach($annotations[0][1] as $annotationVal){
+            $annotationsIds[] = $annotationVal[0];
+        }
+
+        if(!$this->client->query("info", $annotationsIds, $this->privateUserKey)){
+            die('An error occurred - '.$this->client->getErrorCode().":".$this->client->getErrorMessage());
+        }
+        else{
+            $infoList[] = $this->client->getResponse();
+        }
+
+        $orderedDataStr = array();
+        $tempArr = array();
+        $tempAnStr = "";
+
+        foreach($infoList[0][1] as $value_2){
+
+            $tempArr[] = $value_2['_id'];
+            $tempArr[] = $value_2['name'];
+            $tempArr[] = $value_2['genome'];
+            $tempArr[] = $value_2['description'];
+
+            $tempAnStr.= "<div class='format-small'><b>Format : </b>".$value_2['format']."</div><br/>";
+
+            if(isset($value_2['extra_metadata'])){
+                foreach ($value_2['extra_metadata'] as $key_3 => $value_3) {
+                    $tempAnStr .= "<div class='format-small'><b>".$key_3."</b> : ".$value_3."</div><br/>";
+                }
+            }
+
+            $tempArr[] = $tempAnStr;
+
+            array_push($orderedDataStr, $tempArr);
+            $tempArr = array();
+            $tempAnStr = "";
+        }
+
+        /* Generating JSON file from $tempArray final output */
+
+        echo json_encode(array('data' => $orderedDataStr));
+
+    }
+
+    /* Generating annotation data table content [ Template ] */
+
+    public function annotationDataTableTemplate(){
+
+        $dataTableContent = <<<XYZ
+
+        <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="datable-annotations" data-widget-editbutton="false" data-widget-sortable="true">
+
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2> Annotations </h2>
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+
+                        <table id="annotation_datatable_fixed_column" class="table table-striped table-bordered" width="100%">
+
+                            <thead>
+                                <tr>
+                                    <th class="hasinput">
+                                        <input class="form-control" placeholder="Filter ID" type="text"/>
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filter Annotation"/>
+                                    </th>
+                                    <th class="hasinput">
+                                        <input class="form-control" placeholder="Filter Genome" type="text" id="annotation-genome"/>
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filter Description"/>
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filter Metadata"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Annotation Name</th>
+                                    <th>Genome</th>
+                                    <th>Description</th>
+                                    <th>Metadata</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+
+                    </div>
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+
+XYZ;
+
+    return $dataTableContent;
+
+
+
+    }
+
+    /* Generating experiment data table content [ Template ] */
+
+    public function experimentDataTableTemplate($where){
+
+        if($where == "workflow"){
+            $diffPlace = "Select";
+            $diffClassName = "selectWorkflowBtn";
+        }
+        else{
+            $diffPlace = "Download";
+            $diffClassName = "downloadBtnTop";
+        }
         $dataTableContent = <<<XYZ
 
         <!-- Widget ID (each widget will need unique ID)-->
@@ -550,7 +765,7 @@ class Deepblue{
                             <thead>
                                 <tr>
                                     <th class="hasinput">
-                                        <button type="button" id="downloadBtnTop" class="btn btn-primary download-btn-size">Download</button>
+                                        <button type="button" id="$diffClassName" class="btn btn-primary download-btn-size">$diffPlace</button>
                                     </th>
                                     <th class="hasinput">
                                         <input class="form-control" placeholder="Filter ID" type="text" id="experiment-id">
@@ -566,7 +781,7 @@ class Deepblue{
                                         <input type="text" class="form-control" placeholder="Filtering Genome" id="experiment-genome" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filtering Epegenetic mark" id="experiment-em" />
+                                        <input type="text" class="form-control" placeholder="Filtering Epegenetic mark" id="experiment-epigenetic_mark" />
                                     </th>
                                     <th class="hasinput">
                                         <input type="text" class="form-control" placeholder="Filter Sample" id="experiment-sample" />
@@ -597,7 +812,7 @@ class Deepblue{
                             </thead>
 
                         </table>
-                        <div class="downloadButtonDiv"><button type="button" id="downloadBtnBottom" class="btn btn-primary">Download</button></div>
+                        <div class="downloadButtonDiv"><button type="button" id="$diffClassName" class="btn btn-primary">$diffPlace</button></div>
 
                     </div>
                     <!-- end widget content -->

@@ -166,3 +166,24 @@ a.morelink {
 .txt-color-black{
     color: #CCC!important;
 }
+.workflowInputs input{
+    width: 14%;
+    height: 33px;
+    margin: 0 5px 0 0;
+}
+.workflowInputs{
+    border:1px solid #CCC;
+    padding: 20px;
+    width: 100%;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+.workflowInputs button{
+    width: 100px;
+    margin: -3px 0 0 0;
+    height: 33px;
+}
+.workflow_additional_inputs{
+    margin:10px 0 0 0;
+}
