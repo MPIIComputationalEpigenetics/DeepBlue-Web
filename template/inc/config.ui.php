@@ -97,6 +97,11 @@ $page_nav = array(
 		"url"=> "ajax/deepblue_view_search.php",
 		"icon" => "fa-search"
 	),
+	"deepblue_workflow" => array(
+		"title" => "Workflow",
+		"url"=> "ajax/deepblue_view_workflow.php",
+		"icon" => "fa-bullhorn"
+	),
 
 /*
 	"smartui" => array(
