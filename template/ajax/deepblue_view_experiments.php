@@ -155,7 +155,7 @@ require_once("inc/init.php");
 	    $('#downloadBtnTop, #downloadBtnBottom').click(function(){
 
 	    	if(selectedElements.length == 0){
-				alert("[ Experiment view ] Please select elements!");
+				alert("Please select elements!");
 			}
 			else{
 				alert(selectedElements);

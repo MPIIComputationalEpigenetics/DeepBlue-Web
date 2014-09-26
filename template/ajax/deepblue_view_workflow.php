@@ -28,7 +28,7 @@ require_once("inc/init.php");
 
 	<div class="col-sm-12">
 
-		<div id="myTabContent1" class="tab-content bg-color-white padding-10">
+		<div id="myWorkflowContent" class="tab-content bg-color-white padding-10 myContentPadding">
 			<div class="tab-pane fade in active" id="s1">
 				<h1> Please, select the data </h1>
 				<br>
@@ -84,6 +84,13 @@ require_once("inc/init.php");
 					</div>
 				</div>
 
+				<!-- Div for list of selected experiments/annotations -->
+
+				<div class='parent_workflow_selected_list' style="display:none;">
+					<h2></h2>
+					<div class='workflow_selected_list'></div>
+				<div>
+
 			</div>
 			<div class='clear'></div>
 		</div>
@@ -104,11 +111,11 @@ require_once("inc/init.php");
 		<div class="modal-body custom-scroll terms-body">
 
 			<div id='modal_for_experiments' style="display:none;">
-				<?php echo $deepBlueObj->experimentDataTableTemplate("workflow"); ?>
+				<?php echo $deepBlueObj->experimentDataTableTemplate('workflow'); ?>
 			</div>
 
 			<div id="modal_for_annotations" style="display:none;">
-				<?php echo $deepBlueObj->annotationDataTableTemplate(); ?>
+				<?php echo $deepBlueObj->annotationDataTableTemplate('workflow'); ?>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">
@@ -138,6 +145,12 @@ require_once("inc/init.php");
 
 		var optionVal = $('#workFlowSelectForm').val();
 
+		/* Reseting all input texts when onchage event triggers */
+
+		$('.workflow_selected_list').empty();
+		$('.parent_workflow_selected_list').hide();
+		$(".workflowInputs input[type='text']").val('');
+
 		if(optionVal == 'experiment'){
 
 			$('#annotSelectedOptionDiv').hide();
@@ -146,6 +159,7 @@ require_once("inc/init.php");
 			$('#modal_for_annotations').hide();
 			$('#modal_for_experiments').show();
 
+
 		}
 		else if(optionVal == 'annotation'){
 			$('#expSelectedOptionDiv').hide();
@@ -153,6 +167,7 @@ require_once("inc/init.php");
 
 			$('#modal_for_experiments').hide();
 			$('#modal_for_annotations').show();
+
 		}
 		else{
 			$('#expSelectedOptionDiv').hide();
@@ -166,7 +181,10 @@ require_once("inc/init.php");
 	//$('.seach-result-title span').click(function(){
 
 	$('#selectWorkflowBtn, #annot_selectWorkflowBtn').unbind('click').bind('click', function (e) {
+
 	//$(document).on("click", '#selectWorkflowBtn, #annot_selectWorkflowBtn', function () {
+
+		var selectedElementsModal = [];
 
 		var optionVal = $('#workFlowSelectForm').val();
 		var workflow_table_id;
@@ -232,7 +250,6 @@ require_once("inc/init.php");
 			phone : 480
 		};
 
-		var selectedElementsModal = [];
 		/* COLUMN FILTER  */
 
 		var jsonString = JSON.stringify(inputDataArray);
@@ -290,8 +307,6 @@ require_once("inc/init.php");
 
 				/* Insert or remove selected or unselected elements */
 
-				//selectedElementsModal = [];
-
 				$( ".downloadCheckBox" ).change(function() {
 					var downloadIdModal = $(this).parent().next().text();
 					var downloadTitleModal = $(this).parent().next().next().text();
@@ -309,7 +324,52 @@ require_once("inc/init.php");
 
 			}
 
+
 		});
+
+		/* Download button :: Getting selected elements */
+
+		$('#selectWorkflowBtnModalTop, #selectWorkflowBtnModalBottom, #select_annot_workflowBtn_top, #select_annot_workflowBtn_bottom').unbind('click').bind('click', function (e) {
+		//$('#selectWorkflowBtnModal').click(function(){
+
+			if(selectedElementsModal.length == 0){
+				alert("Please select elements!");
+			}
+			else{
+				
+				/* Hiding the modal view after clicking selecting */
+				$('#myWorkflowModal').modal('hide');
+				
+				$( ".workflow_selected_list" ).empty();
+				$('.parent_workflow_selected_list h2').text("Selected "+optionVal+"s");
+				$('.parent_workflow_selected_list').show();
+
+				var selected_element_list = "";
+
+				$.each(selectedElementsModal, function(iSelected, itemSelected) {
+					var splitted_values = itemSelected.split('-');
+
+					selected_element_list += '<tr><td>'+splitted_values[0]+'</td><td>'+splitted_values[1]+'</td></tr>';
+					//alert("id : "+splitted_values[0]+" @@ name : "+splitted_values[1]);
+				});				
+
+				$('.workflow_selected_list').append(
+					"<table class='table table-striped search-modal-table-td'>"+
+						"<thead>"+
+						  	"<tr>"+
+						    	"<th>ID</th>"+
+						     	"<th>Name</th>"+
+						  	"</tr>"+
+						"</thead>"+
+						"<tbody>"+ selected_element_list);
+
+				selected_element_list = "";
+
+			}
+
+		});
+
+		//selectedElementsModal = [];
 
 		/* Hide and show experiment metadata */
 
@@ -343,19 +403,6 @@ require_once("inc/init.php");
 
 		});
 
-		/* Download button :: Getting selected elements */
-		$('#downloadBtnTop').click(function(){
-
-			if(selectedElementsModal.length == 0){
-				//alert("( Modal ) Please select elements!");
-				//alert("( length = 0 ) Klikkkkk");
-			}
-			else{
-				//alert(selectedElementsModal);
-				//alert("( length != 0 ) Klikkkkk");
-			}
-
-		});
 
 	});
 

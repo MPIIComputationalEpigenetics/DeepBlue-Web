@@ -42,7 +42,7 @@ require_once("inc/init.php");
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-			<?php echo $deepBlueObj->annotationDataTableTemplate(); ?>
+			<?php echo $deepBlueObj->annotationDataTableTemplate('annotation_view'); ?>
 
 		</article>
 		<!-- WIDGET END -->
@@ -78,7 +78,7 @@ require_once("inc/init.php");
 
 
 		/* COLUMN FILTER  */
-	    var otable = $('#datatable_fixed_column').DataTable({
+	    var otable = $('#annotation_datatable_fixed_column').DataTable({
 
 	        "ajax": "ajax/server_side/annotations_server_processing.php",
 	        "iDisplayLength": 50,
@@ -86,7 +86,7 @@ require_once("inc/init.php");
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
-					responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
+					responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#annotation_datatable_fixed_column'), breakpointDefinition);
 				}
 			},
 			"rowCallback" : function(nRow) {
@@ -102,7 +102,7 @@ require_once("inc/init.php");
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
 	    // Apply the filter
-	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
+	    $("#annotation_datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
 
 	        otable
 	            .column( $(this).parent().index()+':visible' )

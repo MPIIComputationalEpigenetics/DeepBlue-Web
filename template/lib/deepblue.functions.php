@@ -555,7 +555,7 @@ class Deepblue{
 
     /* Generating annotation data table content */
 
-    public function annotationDataTable($genome){
+    public function annotationDataTable($genome, $where){
 
         if($genome == ''){
             if(!$this->client->query("list_genomes", $this->privateUserKey)){
@@ -623,6 +623,10 @@ class Deepblue{
 
         foreach($infoList[0][1] as $value_2){
 
+            if($where == 'workflow'){
+                $tempArr[] = "<input type='checkbox' name='checkboxlist' class='downloadCheckBox'>";
+            }
+            
             $tempArr[] = $value_2['_id'];
             $tempArr[] = $value_2['name'];
             $tempArr[] = $value_2['genome'];
@@ -651,7 +655,25 @@ class Deepblue{
 
     /* Generating annotation data table content [ Template ] */
 
-    public function annotationDataTableTemplate(){
+    public function annotationDataTableTemplate($where){
+
+        if($where == 'workflow'){
+            $diffPlace = "Select";
+            $diff_top_btn = "select_annot_workflowBtn_top";
+            $diff_bottom_btn = "select_annot_workflowBtn_bottom";
+
+            $checkbox_th_top = "<th class='hasinput'><button type='button' id='$diff_top_btn' class='btn btn-primary download-btn-size'>$diffPlace</button></th>";
+            $checkbox_th_bottom = "<div class='downloadButtonDiv'><button type='button' id='$diff_bottom_btn' class='btn btn-primary'>$diffPlace</button></div>";
+            $checkbox_td = "<th>Select</th>";
+
+        }
+        else{
+
+            $checkbox_th_top = "";
+            $checkbox_th_bottom = "";
+            $checkbox_td = "";
+
+        }
 
         $dataTableContent = <<<XYZ
 
@@ -680,6 +702,7 @@ class Deepblue{
 
                             <thead>
                                 <tr>
+                                    $checkbox_th_top
                                     <th class="hasinput">
                                         <input class="form-control" placeholder="Filter ID" type="text"/>
                                     </th>
@@ -697,6 +720,7 @@ class Deepblue{
                                     </th>
                                 </tr>
                                 <tr>
+                                    $checkbox_td
                                     <th>ID</th>
                                     <th>Annotation Name</th>
                                     <th>Genome</th>
@@ -706,6 +730,7 @@ class Deepblue{
                             </thead>
 
                         </table>
+                        $checkbox_th_bottom
 
                     </div>
                     <!-- end widget content -->
@@ -731,11 +756,13 @@ XYZ;
 
         if($where == "workflow"){
             $diffPlace = "Select";
-            $diffClassName = "selectWorkflowBtn";
+            $diff_top_btn = "selectWorkflowBtnModalTop";
+            $diff_bottom_btn = "selectWorkflowBtnModalBottom";
         }
         else{
             $diffPlace = "Download";
-            $diffClassName = "downloadBtnTop";
+            $diff_top_btn = "downloadBtnTop";
+            $diff_bottom_btn = "downloadBtnBottom";
         }
         $dataTableContent = <<<XYZ
 
@@ -765,7 +792,7 @@ XYZ;
                             <thead>
                                 <tr>
                                     <th class="hasinput">
-                                        <button type="button" id="$diffClassName" class="btn btn-primary download-btn-size">$diffPlace</button>
+                                        <button type="button" id="$diff_top_btn" class="btn btn-primary download-btn-size">$diffPlace</button>
                                     </th>
                                     <th class="hasinput">
                                         <input class="form-control" placeholder="Filter ID" type="text" id="experiment-id">
@@ -812,7 +839,7 @@ XYZ;
                             </thead>
 
                         </table>
-                        <div class="downloadButtonDiv"><button type="button" id="$diffClassName" class="btn btn-primary">$diffPlace</button></div>
+                        <div class="downloadButtonDiv"><button type="button" id="$diff_bottom_btn" class="btn btn-primary">$diffPlace</button></div>
 
                     </div>
                     <!-- end widget content -->

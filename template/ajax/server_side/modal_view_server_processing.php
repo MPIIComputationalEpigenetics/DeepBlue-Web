@@ -33,9 +33,6 @@ if(isset($_GET['sendData']) && isset($_GET['sendOptionVal'])){
 
 	if($recievedOptionVal == 'experiment'){
 
-		// $recievedData = $_GET['sendData'];
-		// $recievedData = json_decode($recievedData, true);
-
 		$genome = ($recievedData['genome'] !='' ) ? $recievedData['genome'] : "";
 		$epigenetic_mark = ($recievedData['epigenetic_mark'] !='' ) ? $recievedData['epigenetic_mark'] : "";
 		$sample = ($recievedData['sample'] !='' ) ? $recievedData['sample'] : "";
@@ -47,12 +44,8 @@ if(isset($_GET['sendData']) && isset($_GET['sendOptionVal'])){
 	}
 	else{
 
-		// $recievedData = $_GET['sendData'];
-		// $recievedData = json_decode($recievedData, true);
-
 		$genome = ($recievedData['genome'] !='' ) ? $recievedData['genome'] : "";
-
-		$deepBlueObj->annotationDataTable($genome);
+		$deepBlueObj->annotationDataTable($genome, 'workflow');
 		
 	}
 }
@@ -64,10 +57,5 @@ else{
 	$deepBlueObj->experimentDataTable($type, $title, $genome='', $epigenetic_mark='', $sample='', $technique='', $project='', 'modal_view');
 
 }
-
-// $recievedData = $_GET['sendData'];
-// $recievedOptionVal = $_GET["sendOptionVal"];
-
-// $recievedData = json_decode($recievedData, true);
 
 ?>

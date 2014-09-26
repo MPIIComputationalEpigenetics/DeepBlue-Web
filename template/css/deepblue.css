@@ -187,3 +187,10 @@ a.morelink {
 .workflow_additional_inputs{
     margin:10px 0 0 0;
 }
+.workflow_selected_list{
+    border:1px solid #CCC;
+    margin:25px 0 0 0;
+}
+#myWorkflowContent{
+    padding: 20px !important;
+}

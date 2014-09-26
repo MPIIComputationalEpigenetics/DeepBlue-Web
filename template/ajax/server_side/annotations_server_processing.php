@@ -25,6 +25,6 @@ $deepBlueObj = new Deepblue();
 
 //$client = new IXR_Client($url);
 
-$deepBlueObj->annotationDataTable();
+$deepBlueObj->annotationDataTable('', '');
 
 ?>
