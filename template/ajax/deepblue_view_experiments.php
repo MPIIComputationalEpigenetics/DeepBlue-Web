@@ -148,9 +148,6 @@ require_once("inc/init.php");
 
 	    } );
 
-	    /* Created download button */
-	    //$('#datatable_fixed_column_filter').append('<button type="button" id="downloadBtnTop" class="btn btn-primary">Download</button>');
-
 	    /* Download button :: Getting selected elements */
 	    $('#downloadBtnTop, #downloadBtnBottom').click(function(){
 
