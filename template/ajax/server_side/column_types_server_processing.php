@@ -29,26 +29,43 @@ else{
     $columnList[] = $client->getResponse();
 }
 
+/* Collecting epigenetic mark ids into array */
+$columnIds = array();
+
+foreach ($columnList[0][1] as $column) {
+    $columnIds[] = $column[0];
+}
+
+/* Getting info data about epigenetc marks */
+
+if(!$client->query("info", $columnIds, $user_key)){
+    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{
+    $infoList[] = $client->getResponse();
+}
+
 /* Ordering and generating json file for Datatables */
 
 $orderedDataStr = array();
-$tempArr = array();
 
-foreach($columnList[0][1] as $orderedData){
+foreach($infoList[0][1] as $column_info){
 
-    $splitIntoArrays[] = explode(" ", $orderedData[1]);
+    //print_r($column_info);
 
-    foreach ($splitIntoArrays as $val_1) {
-
-        $tempArr[] = $orderedData[0];
-        $tempArr[] = str_replace("'", "", $val_1[3]);
-        $tempArr[] = str_replace("'", "", $val_1[8]);
-
-        array_push($orderedDataStr, $tempArr);
-        $tempArr = array();
+    $tempArr = array();
+    $tempArr[] = $column_info['name'];
+    $tempArr[] = $column_info['column_type'];
+    $tempArr[] = $column_info['default_value'];
+    if ($column_info['column_type'] == "category") {
+        $tempArr[] = "Acceptable values: " . $column_info['values'];
+    } else if ($column_info['column_type'] == "range") {
+        $tempArr[] = $column_info['minimum'] . " - " . $column_info['maximum'];
+    } else {
+        $tempArr[] = "";
     }
 
-    $splitIntoArrays = array();
+    array_push($orderedDataStr, $tempArr);
 }
 
 echo json_encode(array('data' => $orderedDataStr));
