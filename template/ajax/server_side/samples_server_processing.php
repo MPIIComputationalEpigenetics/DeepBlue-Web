@@ -63,10 +63,9 @@ foreach ($infoList[0][1] as $val_1) {
 
     $tempArr[] = $val_1['_id'];
     $tempArr[] = $val_1['bio_source_name'];
-    $tempArr[] = $val_1['description'];
 
     foreach ($val_1 as $key => $value) {
-        if ($key == "_id" || $key == 'bio_source_name' || $key == 'description' || $key == 'user') {
+        if ($key == "_id" || $key == 'bio_source_name' || $key == 'user' || $key == 'type') {
             continue;
         }
         $tempStr .= '<b>'.$key.'</b> : '.$val_1[$key].'<br/>';

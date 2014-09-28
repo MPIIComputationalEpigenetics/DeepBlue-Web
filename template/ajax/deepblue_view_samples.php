@@ -43,23 +43,9 @@ require_once("inc/init.php");
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-
-
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget jarviswidget-color-blueDark" id="datatable-samples" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
-				<!-- widget options:
-				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-				data-widget-colorbutton="false"
-				data-widget-editbutton="false"
-				data-widget-togglebutton="false"
-				data-widget-deletebutton="false"
-				data-widget-fullscreenbutton="false"
-				data-widget-custombutton="false"
-				data-widget-collapsed="true"
-				data-widget-sortable="false"
-
-				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
 					<h2>Samples </h2>
@@ -91,10 +77,6 @@ require_once("inc/init.php");
 										<input type="text" class="form-control" placeholder="Bio source" />
 									</th>
 
-									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Description" />
-									</th>
-
 									<th class="hasinput" style="width:25%">
 										<input class="form-control" placeholder="Metadata" type="text" />
 									</th>
@@ -103,7 +85,6 @@ require_once("inc/init.php");
 					            <tr>
 				                    <th>Sample ID</th>
 				                    <th>Bio source</th>
-				                    <th>Description</th>
 				                    <th>Metadata</th>
 					            </tr>
 					        </thead>
@@ -133,70 +114,13 @@ require_once("inc/init.php");
 
 <script type="text/javascript">
 
-	/* DO NOT REMOVE : GLOBAL FUNCTIONS!
-	 *
-	 * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-	 *
-	 * // activate tooltips
-	 * $("[rel=tooltip]").tooltip();
-	 *
-	 * // activate popovers
-	 * $("[rel=popover]").popover();
-	 *
-	 * // activate popovers with hover states
-	 * $("[rel=popover-hover]").popover({ trigger: "hover" });
-	 *
-	 * // activate inline charts
-	 * runAllCharts();
-	 *
-	 * // setup widgets
-	 * setup_widgets_desktop();
-	 *
-	 * // run form elements
-	 * runAllForms();
-	 *
-	 ********************************
-	 *
-	 * pageSetUp() is needed whenever you load a page.
-	 * It initializes and checks for all basic elements of the page
-	 * and makes rendering easier.
-	 *
-	 */
-
 	pageSetUp();
-
-	/*
-	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-	 * eg alert("my home function");
-	 *
-	 * var pagefunction = function() {
-	 *   ...
-	 * }
-	 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-	 *
-	 */
 
 	// PAGE RELATED SCRIPTS
 
 	// pagefunction
 	var pagefunction = function() {
 		//console.log("cleared");
-
-		/* // DOM Position key index //
-
-			l - Length changing (dropdown)
-			f - Filtering input (search)
-			t - The Table! (datatable)
-			i - Information (records)
-			p - Pagination (paging)
-			r - pRocessing
-			< and > - div elements
-			<"#id" and > - div with an id
-			<"class" and > - div with a class
-			<"#id.class" and > - div with an id and class
-
-			Also see: http://legacy.datatables.net/usage/features
-		*/
 
 		/* BASIC ;*/
 			var responsiveHelper_dt_basic = undefined;
