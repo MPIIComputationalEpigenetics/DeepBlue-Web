@@ -28,7 +28,7 @@ require_once("inc/init.php");
 
 	<div class="col-sm-12">
 
-		<div id="myWorkflowContent" class="tab-content bg-color-white padding-10 myContentPadding">
+		<div id="myWorkflowContent" class="tab-content bg-color-white padding-10">
 			<div class="tab-pane fade in active" id="s1">
 				<h1> Please, select the data </h1>
 				<br>

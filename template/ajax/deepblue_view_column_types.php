@@ -84,15 +84,15 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="Filter ID" type="text">
+										<input class="form-control" placeholder="ID" type="text">
 									</th>
 
 									<th class="hasinput">
-										<input class="form-control" placeholder="Filter Column Name" type="text">
+										<input class="form-control" placeholder="Column Name" type="text">
 									</th>
 
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Column Types" />
+										<input type="text" class="form-control" placeholder="Column Types" />
 									</th>
 								</tr>
 					            <tr>

@@ -84,16 +84,16 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="Filter ID" type="text"/>
+										<input class="form-control" placeholder="ID" type="text"/>
 									</th>
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Bio Source"/>
+										<input type="text" class="form-control" placeholder="Bio Source"/>
 									</th>
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Descrpition"/>
+										<input type="text" class="form-control" placeholder="Descrpition"/>
 									</th>
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Filter Metadata"/>
+										<input type="text" class="form-control" placeholder="Metadata"/>
 									</th>
 								</tr>
 					            <tr>

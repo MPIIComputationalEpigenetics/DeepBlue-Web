@@ -704,19 +704,19 @@ class Deepblue{
                                 <tr>
                                     $checkbox_th_top
                                     <th class="hasinput">
-                                        <input class="form-control" placeholder="Filter ID" type="text"/>
+                                        <input class="form-control" placeholder="ID" type="text"/>
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filter Annotation"/>
+                                        <input type="text" class="form-control" placeholder="Annotation"/>
                                     </th>
                                     <th class="hasinput">
-                                        <input class="form-control" placeholder="Filter Genome" type="text" id="annotation-genome"/>
+                                        <input class="form-control" placeholder="Genome" type="text" id="annotation-genome"/>
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filter Description"/>
+                                        <input type="text" class="form-control" placeholder="Description"/>
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filter Metadata"/>
+                                        <input type="text" class="form-control" placeholder="Metadata"/>
                                     </th>
                                 </tr>
                                 <tr>
@@ -795,32 +795,32 @@ XYZ;
                                         <button type="button" id="$diff_top_btn" class="btn btn-primary download-btn-size">$diffPlace</button>
                                     </th>
                                     <th class="hasinput">
-                                        <input class="form-control" placeholder="Filter ID" type="text" id="experiment-id">
+                                        <input class="form-control" placeholder="ID" type="text" id="experiment-id">
                                     </th>
 
                                     <th class="hasinput" style="width:20px">
-                                        <input type="text" class="form-control" placeholder="Filter Experiment" id="experiment-name" />
+                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filter Description" id="experiment-description" />
+                                        <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filtering Genome" id="experiment-genome" />
+                                        <input type="text" class="form-control" placeholder="Genome" id="experiment-genome" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filtering Epegenetic mark" id="experiment-epigenetic_mark" />
+                                        <input type="text" class="form-control" placeholder="Epegenetic mark" id="experiment-epigenetic_mark" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filter Sample" id="experiment-sample" />
+                                        <input type="text" class="form-control" placeholder="Sample" id="experiment-sample" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filter Technique" id="experiment-technique" />
+                                        <input type="text" class="form-control" placeholder="Technique" id="experiment-technique" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filter Project" id="experiment-project" />
+                                        <input type="text" class="form-control" placeholder="Project" id="experiment-project" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Filter Meta data" id="experiment-metadata" />
+                                        <input type="text" class="form-control" placeholder="Meta data" id="experiment-metadata" />
                                     </th>
                                 </tr>
                                 <tr>
