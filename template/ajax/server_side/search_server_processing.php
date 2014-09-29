@@ -23,7 +23,6 @@ $client = new IXR_Client($url);
 require_once("../../lib/deepblue.functions.php");
 $deepBlueObj = new Deepblue();
 
-
 if ((!isset($_GET)) || !isset($_GET["text"]) || !isset($_GET["types"])) {
 	return;
 }
@@ -69,13 +68,9 @@ if ($infoList[0][0] == "error" || !isset($infoList[0][1])) {
 
 if($sizeOfItemIds == 1){
     $deepBlueObj->searchResultToJson($infoList[0]);
-    //print_r($deepBlueObj->searchResultToJson($infoList[0]));
 }
 else{
     $deepBlueObj->searchResultToJson($infoList[0][1]);
-    //print_r($deepBlueObj->searchResultToJson($infoList[0][1]));
 }
-
-
 
 ?>
