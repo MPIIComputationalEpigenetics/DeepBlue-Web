@@ -70,7 +70,7 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="ID" type="text">
+										<input class="form-control" placeholder="ID" type="text" />
 									</th>
 
 									<th class="hasinput">

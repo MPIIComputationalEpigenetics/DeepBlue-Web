@@ -54,7 +54,9 @@ foreach($infoList[0][1] as $column_info){
     //print_r($column_info);
 
     $tempArr = array();
+    $tempArr[] = $column_info['_id'];
     $tempArr[] = $column_info['name'];
+    $tempArr[] = $column_info['description'];
     $tempArr[] = $column_info['column_type'];
     $tempArr[] = $column_info['default_value'];
     if ($column_info['column_type'] == "category") {
