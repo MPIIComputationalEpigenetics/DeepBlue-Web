@@ -70,11 +70,19 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
+										<input class="form-control" placeholder="Column Type ID" type="text" />
+									</th>
+
+									<th class="hasinput">
 										<input class="form-control" placeholder="Filter Column Name" type="text">
 									</th>
 
 									<th class="hasinput">
 										<input class="form-control" placeholder="Filter Column Type" type="text">
+									</th>
+
+									<th class="hasinput">
+										<input class="form-control" placeholder="Filter Description" type="text">
 									</th>
 
 									<th class="hasinput">
@@ -87,8 +95,10 @@ require_once("inc/init.php");
 
 								</tr>
 					            <tr>
+					            	<th>Column Type ID</th>
 				                    <th>Name</th>
-				                    <th>Type Name</th>
+				                    <th>Description</th>
+				                    <th>Type</th>
 				                    <th>Default Value</th>
 				                    <th>More Information</th>
 					            </tr>
