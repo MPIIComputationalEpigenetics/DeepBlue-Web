@@ -70,11 +70,19 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="Column Name" type="text">
+										<input class="form-control" placeholder="ID" type="text">
 									</th>
 
 									<th class="hasinput">
-										<input class="form-control" placeholder="Column Type" type="text">
+										<input class="form-control" placeholder="Name" type="text">
+									</th>
+
+									<th class="hasinput">
+										<input class="form-control" placeholder="Description" type="text">
+									</th>
+
+									<th class="hasinput">
+										<input class="form-control" placeholder="Type" type="text">
 									</th>
 
 									<th class="hasinput">
@@ -82,15 +90,17 @@ require_once("inc/init.php");
 									</th>
 
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Extra Info Value" />
+										<input type="text" class="form-control" placeholder="Information" />
 									</th>
 
 								</tr>
 					            <tr>
-				                    <th>Name</th>
-				                    <th>Type Name</th>
+					            	<th>ID</th>
+					            	<th>Name</th>
+				                    <th>Description</th>
+				                    <th>Type</th>
 				                    <th>Default Value</th>
-				                    <th>More Information</th>
+				                    <th>Information</th>
 					            </tr>
 					        </thead>
 
