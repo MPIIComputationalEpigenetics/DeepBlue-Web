@@ -87,9 +87,133 @@ require_once("inc/init.php");
 				<!-- Div for list of selected experiments/annotations -->
 
 				<div class='parent_workflow_selected_list' style="display:none;">
+					<div class='workflow-line'></div>
 					<h2></h2>
 					<div class='workflow_selected_list'></div>
-				<div>
+				</div>
+
+				<!-- Div for operations combo box -->
+
+				<div id='workflow_operations_combobox' style="display:none;">
+					<div class='workflow-line'></div>
+					<h1> Please, select the operations </h1><br>
+					<div class="input-group input-group-lg hidden-mobile">
+						<div class="input-group-btn">
+							<select id="operationSelectForm" class="form-control">
+								<option value='0'> -- Select operations -- </option>
+								<option value='aggregate'>Aggregate</option>
+							  	<option value='filter_regions'>Filter regions</option>
+							  	<option value='get_experiments_by_query'>Get experiments by query</option>
+							  	<option value='get_regions'>Get regions</option>
+							  	<option value='intersection'>Intersection</option>
+							  	<option value='merger_queries'>Merge queries</option>
+							  	<option value='tiling_regions'>Tiling regions</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<!-- Div for aggregate -->
+
+				<div id="aggregate_ComboBox" style="display:none;">
+					<h2>Aggregate</h2>
+					<div class='workflowInputs'>
+						
+						<input type='text' id='aggregate_data_id' placeholder='Data ID'/>
+						<input type='text' id='aggregate_ranges_id' placeholder='Ranges ID'/>
+						<input type='text' id='aggregate_field' placeholder='Field'/>
+						
+						<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
+						
+					</div>					
+				</div>
+
+				<!-- Div for filter regions -->
+
+				<div id="filter_regions_ComboBox" style="display:none;">
+					<h2>Filter regions</h2>
+					<div class='workflowInputs'>
+						
+						<input type='text' id='filter_regions_query_id' placeholder='Query ID'/>
+						<input type='text' id='filter_regions_field' placeholder='Field'/>
+						<input type='text' id='filter_regions_operation' placeholder='Operation'/>
+						<input type='text' id='filter_regions_value' placeholder='Value'/>
+						<input type='text' id='filter_regions_type' placeholder='Type'/>
+						
+						<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
+						
+					</div>					
+				</div>
+
+				<!-- Div for Get experiments by query -->
+
+				<div id="get_experiments_by_query_ComboBox" style="display:none;">
+					<h2>Get experiments by query</h2>
+					<div class='workflowInputs'>
+						
+						<input type='text' id='get_experiments_by_query_id' placeholder='Query ID'/>
+						
+						<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
+						
+					</div>					
+				</div>
+
+				<!-- Div for Get regions -->
+
+				<div id="get_regions_ComboBox" style="display:none;">
+					<h2>Get regions</h2>
+					<div class='workflowInputs'>
+						
+						<input type='text' id='get_regions_query_id' placeholder='Query ID'/>
+						<input type='text' id='get_regions_user_format' placeholder='User format'/>
+						
+						<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
+						
+					</div>					
+				</div>
+
+				<!-- Div for Intersection -->
+
+				<div id="intersection_ComboBox" style="display:none;">
+					<h2>Intersection</h2>
+					<div class='workflowInputs'>
+						
+						<input type='text' id='intersection_query_a_id' placeholder='Query A ID'/>
+						<input type='text' id='intersection_query_b_id' placeholder='Query B ID'/>
+						
+						<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
+						
+					</div>					
+				</div>
+
+				<!-- Div for Merge queries -->
+
+				<div id="merge_queries_ComboBox" style="display:none;">
+					<h2>Merge queries</h2>
+					<div class='workflowInputs'>
+						
+						<input type='text' id='merge_queries_query_a_id' placeholder='Query A ID'/>
+						<input type='text' id='merge_queries_query_b_id' placeholder='Query B ID'/>
+						
+						<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
+						
+					</div>					
+				</div>
+
+				<!-- Div for Tiling regions -->
+
+				<div id="tiling_regions_ComboBox" style="display:none;">
+					<h2>Tiling regions</h2>
+					<div class='workflowInputs'>
+						
+						<input type='text' id='tiling_regions_size' placeholder='Size'/>
+						<input type='text' id='tiling_regions_genome' placeholder='Genome'/>
+						<input type='text' id='tiling_regions_chromosome' placeholder='Chromosome'/>
+						
+						<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
+						
+					</div>					
+				</div>
 
 			</div>
 			<div class='clear'></div>
@@ -141,6 +265,8 @@ require_once("inc/init.php");
 		$("#search_input").focus();
 	};
 
+	/* Select experiment and annotation */
+
 	$('#workFlowSelectForm').change(function(){
 
 		var optionVal = $('#workFlowSelectForm').val();
@@ -172,6 +298,49 @@ require_once("inc/init.php");
 		else{
 			$('#expSelectedOptionDiv').hide();
 			$('#annotSelectedOptionDiv').hide();
+		}
+
+	});
+
+	/* Selecting operations combo box */
+
+	$('#workflow_operations_combobox').change(function(){
+
+		var operationVal = $('#operationSelectForm').val();
+
+		switch (operationVal) {
+			case '0':
+				$('#filter_regions_ComboBox, #aggregate_ComboBox, #get_experiments_by_query_ComboBox, #get_regions_ComboBox, #intersection_ComboBox, #merge_queries_ComboBox, #tiling_regions_ComboBox').hide();
+				break;
+			case 'aggregate':
+				$('#filter_regions_ComboBox, #get_experiments_by_query_ComboBox, #get_regions_ComboBox, #intersection_ComboBox, #merge_queries_ComboBox, #tiling_regions_ComboBox').hide();
+				$('#aggregate_ComboBox').show();
+				break;
+			case 'filter_regions':
+				$('#aggregate_ComboBox, #get_experiments_by_query_ComboBox, #get_regions_ComboBox, #intersection_ComboBox, #merge_queries_ComboBox, #tiling_regions_ComboBox').hide();
+				$('#filter_regions_ComboBox').show();
+				break;
+			case 'get_experiments_by_query':
+				$('#filter_regions_ComboBox, #aggregate_ComboBox, #get_regions_ComboBox, #intersection_ComboBox, #merge_queries_ComboBox, #tiling_regions_ComboBox').hide();
+				$('#get_experiments_by_query_ComboBox').show();
+				break
+			case 'get_regions':
+				$('#filter_regions_ComboBox, #aggregate_ComboBox, #get_experiments_by_query_ComboBox, #intersection_ComboBox, #merge_queries_ComboBox, #tiling_regions_ComboBox').hide();
+				$('#get_regions_ComboBox').show();
+				break
+			case 'intersection':
+				$('#filter_regions_ComboBox, #aggregate_ComboBox, #get_experiments_by_query_ComboBox, #get_regions_ComboBox, #merge_queries_ComboBox, #tiling_regions_ComboBox').hide();
+				$('#intersection_ComboBox').show();
+				break
+			case 'merger_queries':
+				$('#filter_regions_ComboBox, #aggregate_ComboBox, #get_experiments_by_query_ComboBox, #get_regions_ComboBox, #intersection_ComboBox, #tiling_regions_ComboBox').hide();
+				$('#merge_queries_ComboBox').show();
+				break
+			case 'tiling_regions':
+				$('#filter_regions_ComboBox, #aggregate_ComboBox, #get_experiments_by_query_ComboBox, #get_regions_ComboBox, #intersection_ComboBox, #merge_queries_ComboBox').hide();
+				$('#tiling_regions_ComboBox').show();
+				break
+
 		}
 
 	});
@@ -342,7 +511,7 @@ require_once("inc/init.php");
 				
 				$( ".workflow_selected_list" ).empty();
 				$('.parent_workflow_selected_list h2').text("Selected "+optionVal+"s");
-				$('.parent_workflow_selected_list').show();
+				$('.parent_workflow_selected_list, .workflow-line').show();
 
 				var selected_element_list = "";
 
@@ -364,6 +533,10 @@ require_once("inc/init.php");
 						"<tbody>"+ selected_element_list);
 
 				selected_element_list = "";
+
+				/* Displaying operations combo box */
+
+				$('#workflow_operations_combobox, .workflow-line').show();
 
 			}
 

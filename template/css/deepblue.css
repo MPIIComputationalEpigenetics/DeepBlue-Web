@@ -194,3 +194,16 @@ a.morelink {
 #myWorkflowContent{
     padding: 20px !important;
 }
+#workflow_operations_combobox{
+    margin:20px 0 0 0;
+}
+.operationsBtn{
+    width: 200px!important;
+    margin: -3px 0 0 0;
+    height: 33px;
+}
+.workflow-line{
+    border:1px dashed #CCC;
+    margin: 40px 0 20px 0;
+    clear: both;
+}
