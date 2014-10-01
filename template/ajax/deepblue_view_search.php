@@ -52,8 +52,8 @@ require_once("inc/init.php");
 							<li id='Epigenetic Marks'>
 								<a href="javascript:void(0)" id='Epigenetic Marks'>Epigenetic Marks</a>
 							</li>
-							<li id='Bio Sources'>
-								<a href="javascript:void(0)" id='Bio Sources'>Bio Sources</a>
+							<li id='BioSources'>
+								<a href="javascript:void(0)" id='BioSources'>BioSources</a>
 							</li>
 							<li id='Samples'>
 								<a href="javascript:void(0)" id='Samples'>Samples</a>
@@ -413,7 +413,7 @@ require_once("inc/init.php");
 		}
 
 
-		if(type == 'genome' || type == 'technique' || type == 'project' || type == 'epigenetic_mark' || type == 'bio_source'){
+		if(type == 'genome' || type == 'technique' || type == 'project' || type == 'epigenetic_mark' || type == 'biosource'){
 			var text = $(this).text();
 		}
 		else{

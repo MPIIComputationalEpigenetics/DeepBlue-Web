@@ -21,7 +21,7 @@ require_once("../../lib/deepblue.IXR_Library.php");
 
 $client = new IXR_Client($url);
 
-if(!$client->query("list_bio_sources", $user_key)){
+if(!$client->query("list_biosources", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 else{
@@ -62,10 +62,10 @@ $tempStr = "";
 foreach ($infoList[0][1] as $val_1) {
 
     $tempArr[] = $val_1['_id'];
-    $tempArr[] = $val_1['bio_source_name'];
+    $tempArr[] = $val_1['biosource_name'];
 
     foreach ($val_1 as $key => $value) {
-        if ($key == "_id" || $key == 'bio_source_name' || $key == 'user' || $key == 'type') {
+        if ($key == "_id" || $key == 'biosource_name' || $key == 'user' || $key == 'type') {
             continue;
         }
         $tempStr .= '<b>'.$key.'</b> : '.$val_1[$key].'<br/>';

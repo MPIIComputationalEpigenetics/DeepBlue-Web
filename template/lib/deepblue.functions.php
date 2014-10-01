@@ -13,7 +13,6 @@
 *   Created : 25-08-2014
 */
 
-
 /* XML-RPC Library */
 require_once("deepblue.IXR_Library.php");
 
@@ -24,15 +23,10 @@ class Deepblue{
     private $client;
 
 	function __construct() {
-
-		/* Including URL and User Key */
-
-		include("lib.php");
-
+        include("lib.php");
 		$this->privateUrl = $url;
 		$this->privateUserKey = $user_key;
         $this->client = new IXR_Client($this->privateUrl);
-
 	}
 
 	/* Getting API List into Array */
@@ -47,9 +41,7 @@ class Deepblue{
 		else{
 		    $finalCommands[] = $this->client->getResponse();
 		}
-
 		return $finalCommands[0][1];
-
 	}
 
     /* Displaying API List Completly */
@@ -228,8 +220,8 @@ class Deepblue{
         isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["genome"] : $tempArr[] = "";
         isset($val_1["epigenetic_mark"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["epigenetic_mark"] : $tempArr[] = "";
 
-        if(isset($val_1["sample_id"]) && isset($val_1["bio_source_name"])){
-            $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1['bio_source_name']." ( ".$val_1["sample_id"]." )";
+        if(isset($val_1["sample_id"]) && isset($val_1["biosource_name"])){
+            $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1['biosource_name']." ( ".$val_1["sample_id"]." )";
         }
         else{
             $tempArr[] = "";
@@ -351,8 +343,6 @@ class Deepblue{
 
     public function experimentDataTable($type, $title, $wf_genome, $wf_epigenetic_mark, $wf_sampleIds, $wf_technique, $wf_project, $where){
 
-        //$client = new IXR_Client($this->privateUrl);
-
         if($where == 'modal_view' && $type != '' && $title != ''){
 
             switch ($type) {
@@ -450,7 +440,7 @@ class Deepblue{
             $sampleIds = $wf_sampleIds;
             $technique = $wf_technique;
             $project = $wf_project;
-            
+
         }
         else{
             $genome = "";
@@ -626,7 +616,7 @@ class Deepblue{
             if($where == 'workflow'){
                 $tempArr[] = "<input type='checkbox' name='checkboxlist' class='downloadCheckBox'>";
             }
-            
+
             $tempArr[] = $value_2['_id'];
             $tempArr[] = $value_2['name'];
             $tempArr[] = $value_2['genome'];

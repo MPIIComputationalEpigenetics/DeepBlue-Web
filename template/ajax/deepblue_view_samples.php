@@ -74,7 +74,7 @@ require_once("inc/init.php");
 									</th>
 
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Bio source" />
+										<input type="text" class="form-control" placeholder="BioSource" />
 									</th>
 
 									<th class="hasinput" style="width:25%">
@@ -84,7 +84,7 @@ require_once("inc/init.php");
 								</tr>
 					            <tr>
 				                    <th>ID</th>
-				                    <th>Bio source</th>
+				                    <th>BioSource</th>
 				                    <th>Metadata</th>
 					            </tr>
 					        </thead>

@@ -5,7 +5,7 @@
 *   Copyright (c) 2014 Max Planck Institute for Computer Science.
 *   All rights reserved.
 *
-*   File : bio_sources_server_processing.php
+*   File : biosources_server_processing.php
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
@@ -25,7 +25,7 @@ set_time_limit(12000);
 $client = new IXR_Client($url, $timeout = 120000);
 $client = new IXR_Client($url);
 
-if(!$client->query("list_bio_sources", $user_key)){
+if(!$client->query("list_biosources", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 else{

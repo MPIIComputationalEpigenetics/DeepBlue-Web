@@ -14,7 +14,7 @@
 *
 *   ================================================
 *
-*   File : deepblue_view_bio_sources.php
+*   File : deepblue_view_biosources.php
 *
 */
 
@@ -87,7 +87,7 @@ require_once("inc/init.php");
 										<input class="form-control" placeholder="ID" type="text"/>
 									</th>
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Bio Source"/>
+										<input type="text" class="form-control" placeholder="BioSource"/>
 									</th>
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Descrpition"/>
@@ -98,7 +98,7 @@ require_once("inc/init.php");
 								</tr>
 					            <tr>
 				                    <th>ID</th>
-				                    <th>Bio Sources</th>
+				                    <th>BioSources</th>
 				                    <th>Description</th>
 				                    <th>Metadata</th>
 					            </tr>
@@ -208,7 +208,7 @@ require_once("inc/init.php");
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
 
-	        "ajax": "ajax/server_side/bio_sources_server_processing.php",
+	        "ajax": "ajax/server_side/biosources_server_processing.php",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 			"preDrawCallback" : function() {

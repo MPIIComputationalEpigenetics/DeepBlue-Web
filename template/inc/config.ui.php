@@ -69,9 +69,9 @@ $page_nav = array(
 				"title" => "Epigenetic Marks",
 				"url" => "ajax/deepblue_view_epigenetic_marks.php"
 			),
-			"bio_sources" => array(
-				"title" => "Bio Sources",
-				"url" =>"ajax/deepblue_view_bio_sources.php"
+			"biosources" => array(
+				"title" => "BioSources",
+				"url" =>"ajax/deepblue_view_biosources.php"
 			),
 			"samples" => array(
 				"title" => "Samples",
