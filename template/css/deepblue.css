@@ -207,3 +207,30 @@ a.morelink {
     margin: 40px 0 20px 0;
     clear: both;
 }
+.operationSelectForm{
+    width: 72%!important;
+    height: 40px!important;
+    float: left;
+}
+.operation-download-btn{
+    width: 26%!important;
+    height: 40px!important;
+    float: right;
+}
+.info_title{
+    float: left;
+    margin:0 20px 20px 0;
+}
+.info_edit_link{
+    float: left;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 3px 0 0 0;
+    font-size: 15px;
+}
+.operation_combobox_info_append{
+    margin: 20px 0 0 0;
+}
+.info_edit_inputDiv{
+    margin:30px 0 20px 0;
+}
