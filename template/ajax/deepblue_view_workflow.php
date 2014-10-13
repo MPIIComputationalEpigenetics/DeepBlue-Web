@@ -817,8 +817,6 @@ require_once("inc/init.php");
 
 	});
 
-	// end pagefunction
-
 	// run pagefunction on load
 
 	//pagefunction();
