@@ -16,6 +16,10 @@
 /* XML-RPC Library */
 require_once("deepblue.IXR_Library.php");
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
 class Deepblue{
 
 	private $privateUrl;
@@ -247,34 +251,30 @@ class Deepblue{
 
         $tempExpStr = "";
 
-        if($forWhere == 'searchResult'){
-            $tempVar = ', ';
-        }
-        else{
-            $tempVar = '<br/>';
-        }
-
-        foreach ($inputMetadata as $others_metadata_key => $others_metadata_value) {
-            if ($others_metadata_key != '_id' && $others_metadata_key != 'name' && $others_metadata_key != 'genome' &&
-            $others_metadata_key != 'epigenetic_mark' && $others_metadata_key != 'sample_id' &&
-            $others_metadata_key != 'description' && $others_metadata_key != 'type' &&
-            $others_metadata_key != 'done' && $others_metadata_key != 'client_address' && $others_metadata_key != 'format' &&
-            $others_metadata_key != 'upload_end' && $others_metadata_key != 'upload_start' && $others_metadata_key != 'extra_metadata' &&
-            $others_metadata_key != 'technique' && $others_metadata_key != 'project' && $others_metadata_key != 'user'){
-                if($others_metadata_value != ''){
-                    $tempExpStr .= '<b>'.$others_metadata_key.'</b> : '.$others_metadata_value.$tempVar;
+        if(isset($inputMetadata['sample_info'])){
+            $tempExpStr .= "<b>Sample Info</b> <br />";
+            foreach ($inputMetadata['sample_info'] as $extra_metadata_key => $extra_metadata_value) {
+                if(($extra_metadata_value != '') && ($extra_metadata_value != '-')) {
+                    if($extra_metadata_key == 'url'){
+                        $tempExpStr .= "<b>".$extra_metadata_key."</b> : <a href='".$extra_metadata_value."' target='_blank'\>".$extra_metadata_value.'</a>'."<br />";
+                    }
+                    else{
+                        $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value."<br />";
+                    }
                 }
             }
+            $tempExpStr .= "<br />";
         }
 
         if(isset($inputMetadata['extra_metadata'])){
+            $tempExpStr .= "<b>Extra Metadata</b> <br />";
             foreach ($inputMetadata['extra_metadata'] as $extra_metadata_key => $extra_metadata_value) {
-                if($extra_metadata_value != ''){
+                if(($extra_metadata_value != '') && ($extra_metadata_value != '-')) {
                     if($extra_metadata_key == 'url'){
-                        $tempExpStr .= "<b>".$extra_metadata_key."</b> : <a href='".$extra_metadata_value."' target='_blank'\>".$extra_metadata_value.'</a>'.$tempVar;
+                        $tempExpStr .= "<b>".$extra_metadata_key."</b> : <a href='".$extra_metadata_value."' target='_blank'\>".$extra_metadata_value.'</a> <br />';
                     }
                     else{
-                        $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value.$tempVar;
+                        $tempExpStr .= '<b>'.$extra_metadata_key.'</b> : '.$extra_metadata_value."<br />";
                     }
                 }
             }
@@ -624,11 +624,13 @@ class Deepblue{
 
             $tempAnStr.= "<div class='format-small'><b>Format : </b>".$value_2['format']."</div><br/>";
 
+/*
             if(isset($value_2['extra_metadata'])){
                 foreach ($value_2['extra_metadata'] as $key_3 => $value_3) {
                     $tempAnStr .= "<div class='format-small'><b>".$key_3."</b> : ".$value_3."</div><br/>";
                 }
             }
+*/
 
             $tempArr[] = $tempAnStr;
 
