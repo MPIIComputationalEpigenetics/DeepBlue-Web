@@ -22,7 +22,6 @@ require_once("../../lib/deepblue.IXR_Library.php");
 ini_set('memory_limit', '-1');
 set_time_limit(12000);
 
-$client = new IXR_Client($url, $timeout = 120000);
 $client = new IXR_Client($url);
 
 if(!$client->query("list_biosources", $user_key)){
