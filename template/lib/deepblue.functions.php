@@ -524,6 +524,7 @@ class Deepblue{
 
             $tempArr[] = $metadata['genome'];
             $tempArr[] = $metadata['epigenetic_mark'];
+            $tempArr[] = $metadata['sample_info']['biosource_name'];
             $tempArr[] = $metadata['sample_id'];
             $tempArr[] = $metadata['technique'];
             $tempArr[] = $metadata['project'];
@@ -803,6 +804,9 @@ XYZ;
                                         <input type="text" class="form-control" placeholder="Epegenetic mark" id="experiment-epigenetic_mark" />
                                     </th>
                                     <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Biosource" id="experiment-biosource" />
+                                    </th>
+                                    <th class="hasinput">
                                         <input type="text" class="form-control" placeholder="Sample" id="experiment-sample" />
                                     </th>
                                     <th class="hasinput">
@@ -822,6 +826,7 @@ XYZ;
                                     <th>Description</th>
                                     <th>Genome</th>
                                     <th>Epigenetic Mark</th>
+                                    <th>Biosource</th>
                                     <th>Sample</th>
                                     <th>Technique</th>
                                     <th>Project</th>

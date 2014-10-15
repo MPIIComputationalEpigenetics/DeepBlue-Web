@@ -97,6 +97,13 @@ $page_nav = array(
 		"url"=> "ajax/deepblue_view_search.php",
 		"icon" => "fa-search"
 	),
+
+	"biosources_hierarchy" => array(
+		"title" => "BioSources - Hierarchy",
+		"url"=> "ajax/deepblue_view_biosources_hierarchy.php",
+		"icon" => "fa-sitemap"
+	),
+
 	"deepblue_workflow" => array(
 		"title" => "Workflow",
 		"url"=> "ajax/deepblue_view_workflow.php",
