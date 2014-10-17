@@ -34,55 +34,49 @@ foreach ($biosourceList[0][1] as $bioSource) {
         $bioSourceNames[] = array($bioSource[0], $bioSource[1], $bioSource[2], array());
 }
 
+$all_nodes = array();
 $nodes = array();
 foreach($bioSourceNames as $bioSource) {
 	$nodes[$bioSource[1]] = $bioSource;
 }
 
-function exists($biosource, $nodes, $i = 0)
+function exists(&$parent, &$leaf, &$parent_nodes, &$root_nodes)
 {
-	foreach($nodes as $node) {
-		if ($node[1] == $biosource) {
-			return $node;
-		} else {
+	foreach($parent_nodes as &$parent_node) {
+
+		if ($parent_node[1] == $parent) {
+			$parent_node[3][] = &$leaf;
+
+			if (isset($root_nodes[$leaf[1]])) {
+				unset($root_nodes[$leaf[1]]);
+			}
+			return True;
 		}
-		$value = exists($biosource, $node[3], $i+1);
-		if (isset($value)) {
-			return $value;
+		$value = exists($parent, $leaf, $parent_node[3], $root_nodes);
+		if ($value == True) {
+			return True;
 		}
 	}
-	return NULL;
+	return false;
 }
 
 $actual_leaves = $bioSourceNames;
 while (sizeof($actual_leaves) > 0) {
+
 	$new_leaves = array();
-	foreach ($actual_leaves as $leaf) {
+	foreach ($actual_leaves as &$leaf) {
 		if(!$client->query("get_biosource_wider", $leaf[1], $user_key)){
 		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
 	    	$parentsList = $client->getResponse();
 
-	    	foreach($parentsList[1] as $parent) {
-	    		$existing = exists($parent[1], $nodes);
-	    		if (isset($existing)) {
-
-	    			// Summing how many internals experiments it does have
-	    			$existing[2] +=  $leaf[2];
-					$existing[3][] = $leaf;
-
-					// Unset from the root.
-	    			if (isset($nodes[$leaf[1]])) {
-	    				unset($nodes[$leaf[1]]);
-	    			}
-
-	    			// Update
-	    			$nodes[$existing[1]] = $existing;
-
-				} else {
-					$nodes[$parent[1]] = array($parent[0], $parent[1], $leaf[2], array($leaf));
-					$new_leaves[] = array($parent[0], $parent[1], $leaf[2], array($leaf));
+	    	foreach($parentsList[1] as &$parent) {
+	    		$update = exists($parent[1], $leaf, $nodes, $nodes);
+	    		if ($update == false) {
+	    			$all_nodes[$parent[1]] = array($parent[0], $parent[1], 0, array($leaf));
+					$nodes[$parent[1]] = &$all_nodes[$parent[1]];
+					$new_leaves[] = &$all_nodes[$parent[1]];
 					unset($nodes[$leaf[1]]);
 				}
 	    	}
