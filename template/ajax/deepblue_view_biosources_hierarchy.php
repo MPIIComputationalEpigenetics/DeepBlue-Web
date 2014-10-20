@@ -2,10 +2,10 @@
 
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-		<h1 class="page-title txt-color-blueDark"><i class="fa fa-desktop fa-fw "></i>
-			UI Elements
+		<h1 class="page-title txt-color-blueDark"><i class="fa fa-sitemap fa-fw "></i>
+			BioSources
 			<span>>
-			Tree View
+			Hierarchical View
 			</span>
 		</h1>
 	</div>
@@ -17,7 +17,7 @@
 	<div class="row">
 
 		<!-- NEW WIDGET START -->
-		<article class="col-sm-12 col-md-12 col-lg-6">
+		<article class="col-sm-12 col-md-12 col-lg-12">
 
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget jarviswidget-color-blue" id="tree-biosources" data-widget-editbutton="true">
@@ -40,25 +40,113 @@
 
 					<!-- widget content -->
 					<div class="widget-body">
-
-						<div id="biosources-tree">
-
+						<div class="well">
+						 	<div class="row show-grid">
+								<div class="col-md-6">
+									<h3>Please, select the desired BioSources</h3>
+									<div class="input-group">
+	  									<span class="input-group-addon">@</span>
+										<input type="text" value="" class="form-control" id="user_biosource" placeholder="Search biosource by name" />
+									</div>
+									<div id="biosources-tree"> </div>
+								</div>
+								<div class="col-md-6 col-md-offset-0">
+									<h3>Selected BioSouces</h3>
+									<ul class="list-group" id="selected-biosources">
+									</ul>
+								</div>
+							</div>
 						</div>
-
-					<script>
+						<script>
 						var tree_div = $('#biosources-tree');
+						var no_dulicates = true;
+						var li_id_to_biosource = {};
 
-						function create_root(tree, id, name, count, sons, parent_id) {
+						function is_in(name, count, sons, exists) {
+							if (exists.indexOf(name) >= 0) {
+								return true;
+							}
 
-							var li_class = 'biosource-tree-li-'+parent_id+id;
-							var root = tree.append('<ul><li id="'+li_class+'">'+ name+ '</li></ul>');
+							if (count > 0) {
+								return false;
+							}
 
-							var l = $('#'+li_class);
+							if (sons.length == 0) {
+								return true;
+							}
 
-							$.each(sons, function ( index, value ) {
-								create_root(l, value[0], value[1], value[2], value[3], parent_id+value[0]);
+							var sons_is_in = true;
+							$.each(sons, function(index, value) {
+								var r = is_in(value[1], value[2], value[3], exists);
+								if (!r) {
+									sons_is_in = false;
+									return false;
+								}
 							});
+							return sons_is_in;
 						}
+
+						function create_root(tree, id, name, count, sons, parent_id, exists) {
+
+							if (is_in(name, count, sons, exists)) {
+								return;
+							}
+
+							exists.push(name);
+							if (parent_id == "" || count > 0 || sons.length > 1) {
+								var li_class = 'biosource-tree-li-'+parent_id+id;
+
+								biosource = {}
+								biosource.name = name;
+								biosource.count = count;
+								li_id_to_biosource[li_class] = biosource;
+
+								if (count > 0) {
+									var root = tree.append('<ul><li id="'+li_class+'" data-jstree=\'{"name":"'+name+'", "count":'+count+'}\'>'+ name+ " (" + count + ")" + '</li></ul>');
+								}
+								else {
+									var root = tree.append('<ul><li id="'+li_class+'">'+ name + '</li></ul>');
+								}
+								var l = $('#'+li_class);
+								$.each(sons, function ( index, value ) {
+									create_root(l, value[0], value[1], value[2], value[3], parent_id+value[0], exists);
+								});
+							} else {
+								$.each(sons, function ( index, value ) {
+									create_root(tree, value[0], value[1], value[2], value[3], parent_id, exists);
+								});
+							}
+						}
+
+						function select_node(e, data) {
+							var id = data.node.id;
+							var biosource = li_id_to_biosource[id];
+							var name =  biosource.name;
+							var count = biosource.count;
+							if (count > 0) {
+								var id = id + '-list-group-item';
+           						$('#selected-biosources').append('<li id='+id+' class="list-group-item">'+name+'<span class="badge">'+count+'</span></li>');
+           					}
+           					$.each(data.node.children_d, function (index, id_son) {
+           						biosource = li_id_to_biosource[id_son];
+           						var count = biosource.count;
+           						if (count > 0) {
+           							var name =  biosource.name;
+           							var id = id_son + '-list-group-item';
+           							$('#selected-biosources').append('<li id='+id+' class="list-group-item">'+name+'<span class="badge">'+count+'</span></li>');
+           						}
+           					});
+           				}
+
+           				function deselect_node(e, data) {
+							var id = data.node.id;
+							var id = '#' + id + '-list-group-item';
+           					$(id).remove();
+           					$.each(data.node.children_d, function (index, id_son) {
+           						var id_son = "#" + id_son + "-list-group-item";
+           						$(id_son).remove();
+           					});
+           				}
 
 						var request = $.ajax({
 							url: "ajax/server_side/biosources_tree.php",
@@ -66,15 +154,57 @@
 						});
 
 						request.done( function(data) {
+							exists = [];
 							$.each(data.data, function (index, value) {
-								create_root(tree_div, value[0], value[1], value[2], value[3], "");
+								create_root(tree_div, value[0], value[1], value[2], value[3], "", exists);
 							});
-							$('#biosources-tree').jstree();
 
-							$('#biosources-tree').on("changed.jstree", function (e, data) {
-  								console.log(data.selected);
+							$('#biosources-tree').jstree({
+  								"core" : {
+							    "animation" : 1,
+							    "check_callback" : true,
+							    "themes" : { "stripes" : true },
+							    "open_parents": true,
+							  },
+							  "types" : {
+							    "#" : {
+							      "max_children" : 1,
+							      "max_depth" : 4,
+							      "valid_children" : ["root"]
+							    },
+							    "root" : {
+							      "icon" : "/static/3.0.6/assets/images/tree_icon.png",
+							      "valid_children" : ["default"]
+							    },
+							    "default" : {
+							      "valid_children" : ["default","file"]
+							    },
+							    "file" : {
+							      "icon" : "glyphicon glyphicon-file",
+							      "valid_children" : []
+							    }
+							  },
+							  "plugins" : [
+							    "unique","search", "state", "types", "wholerow", "checkbox", "sort"
+							  ]
+							})
+							.bind("select_node.jstree", function (e, data) {
+								select_node(e, data);
+        					})
+        					.bind("deselect_node.jstree", function (e, data) {
+        						deselect_node(e, data);
+        					});
+
+							var to = false;
+							$('#user_biosource').keyup(function () {
+								if(to) { clearTimeout(to); }
+								to = setTimeout(function () {
+									var v = $('#user_biosource').val();
+									$('#biosources-tree').jstree(true).search(v);
+								}, 250);
 							});
-						});
+
+        				});
 
 						request.fail( function(jqXHR, textStatus) {
 							console.log(jqXHR);
