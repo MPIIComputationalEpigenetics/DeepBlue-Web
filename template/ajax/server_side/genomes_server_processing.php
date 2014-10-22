@@ -47,19 +47,14 @@ else{
 $orderedDataStr = array();
 $tempArr = array();
 
-foreach($infoList as $orderedData){
-    foreach ($orderedData as $key_2 => $value_2) {
-        if($key_2 != 'okay'){
-            $tempArr[] = $value_2['_id'];
-            $tempArr[] = $value_2['name'];
-            $tempArr[] = $value_2['description'];
-        }
-    }
-
+foreach($infoList[0][1] as $genome){
+    $tempArr[] = $genome['_id'];
+    $tempArr[] = $genome['name'];
+    $tempArr[] = $genome['description'];
     array_push($orderedDataStr, $tempArr);
     $tempArr = array();
 }
 
-    echo json_encode(array('data' => $orderedDataStr));
+echo json_encode(array('data' => $orderedDataStr));
 
 ?>
