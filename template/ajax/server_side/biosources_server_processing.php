@@ -44,10 +44,7 @@ else{
     $infoList[] = $client->getResponse();
 }
 
-/* Ordering and generating json file for Datatables */
-
 $orderedDataStr = array();
-
 
 foreach($infoList[0][1] as $orderedData){
     $tempArr = array();
