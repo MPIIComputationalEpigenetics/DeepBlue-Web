@@ -42,14 +42,11 @@ else{
     $sampleList[] = $client->getResponse();
 }
 
-/* Collecting epigenetic mark ids into array */
 $sampleIds = array();
 
 foreach ($sampleList[0][1] as $samples) {
     $sampleIds[] = $samples[0];
 }
-
-/* Getting info data about epigenetc marks */
 
 if(!$client->query("info", $sampleIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
@@ -63,7 +60,6 @@ $tempArr = array();
 $tempStr = "";
 
 foreach ($infoList[0][1] as $val_1) {
-
     $tempArr[] = $val_1['_id'];
     $tempArr[] = $val_1['biosource_name'];
 
