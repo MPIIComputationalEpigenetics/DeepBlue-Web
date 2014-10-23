@@ -690,7 +690,7 @@ class Deepblue{
                     <!-- widget content -->
                     <div class="widget-body no-padding">
 
-                        <table id="annotation_datatable_fixed_column" class="table table-striped table-bordered" width="100%">
+                        <table id="annotation_datatable_fixed_column" name='annotation_data_table_1' class="table table-striped table-bordered" width="100%">
 
                             <thead>
                                 <tr>

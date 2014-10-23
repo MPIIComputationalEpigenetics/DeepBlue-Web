@@ -208,7 +208,6 @@ a.morelink {
     clear: both;
 }
 .operationSelectForm{
-    width: 72%!important;
     height: 40px!important;
     float: left;
 }
@@ -233,4 +232,27 @@ a.morelink {
 }
 .info_edit_inputDiv{
     margin:30px 0 20px 0;
+}
+.parent_workflow_selected_list h2{
+    float: left;
+    margin:0 20px 0 0;
+}
+#selected_anno_exp_edit_link{
+    float: left;
+    margin: 7px 0 0 0;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+}
+.info_remove_link{
+    float: right;
+    margin:20px 0 0 0;
+    color: red;
+    font-style: italic;
+    cursor: pointer;
+}
+.steps-select{
+    width: 10%;
+    float: left;
+    margin:0 10px 0 0;
 }
