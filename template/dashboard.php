@@ -20,6 +20,7 @@ YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC. */
 //you can add your custom css in $page_css array.
 //Note: all css files are inside css/ folder
 $page_css[] = "deepblue.css";
+$page_css[] = "jstree/default/style.css";
 include("inc/header.php");
 
 //include left panel (navigation)

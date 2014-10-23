@@ -21,15 +21,18 @@ require_once("../../lib/deepblue.IXR_Library.php");
 
 $client = new IXR_Client($url);
 
-if(!$client->query("list_biosources", $user_key)){
-    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-}
-else{
-    $bioSourceList[] = $client->getResponse();
-}
-
-foreach($bioSourceList[0][1] as $bioSourceName){
-    $bioNames[] = $bioSourceName[1];
+if (isset($_GET) && isset($_GET["biosources"])) {
+    $bioNames[] = $_GET["biosources"];
+} else {
+    if(!$client->query("list_biosources", $user_key)) {
+        die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+    }
+    else {
+        $bioSourceList[] = $client->getResponse();
+        foreach($bioSourceList[0][1] as $bioSourceName) {
+            $bioNames[] = $bioSourceName[1];
+        }
+    }
 }
 
 if(!$client->query("list_samples", $bioNames, (object) null, $user_key)){
@@ -39,14 +42,11 @@ else{
     $sampleList[] = $client->getResponse();
 }
 
-/* Collecting epigenetic mark ids into array */
 $sampleIds = array();
 
 foreach ($sampleList[0][1] as $samples) {
     $sampleIds[] = $samples[0];
 }
-
-/* Getting info data about epigenetc marks */
 
 if(!$client->query("info", $sampleIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
@@ -60,7 +60,6 @@ $tempArr = array();
 $tempStr = "";
 
 foreach ($infoList[0][1] as $val_1) {
-
     $tempArr[] = $val_1['_id'];
     $tempArr[] = $val_1['biosource_name'];
 

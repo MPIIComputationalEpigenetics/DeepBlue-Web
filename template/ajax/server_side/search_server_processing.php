@@ -60,17 +60,11 @@ else{
     $infoList[] = $client->getResponse();
 }
 
-
 if ($infoList[0][0] == "error" || !isset($infoList[0][1])) {
     echo json_encode(array('data' => array()));
     return;
 }
 
-if($sizeOfItemIds == 1){
-    $deepBlueObj->searchResultToJson($infoList[0]);
-}
-else{
-    $deepBlueObj->searchResultToJson($infoList[0][1]);
-}
+$deepBlueObj->searchResultToJson($infoList[0][1]);
 
 ?>
