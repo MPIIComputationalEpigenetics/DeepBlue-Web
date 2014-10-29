@@ -141,13 +141,17 @@
 							});
 
 							request.done( function(data) {
+								var count = 0
 								$.each(data.data, function (index, value) {
 									var node_id = "#" +id + '-list-group-item-sub';
 									var title = "Sample ID : " + value[0];
 
 									var content = '<ol class="dd-list"><li class="dd-item" data-id="' + value[0]+"-li'><div class='dd-handle bg-color-blue txt-color-white'><i>" + value[2] + "</i></div></li></ol>";
 
-									$(node_id).append('<li class="dd-item" data-id="' +get_data_id()+ '"> <div class="dd-handle">'+title+'</div> </li>');
+									$(node_id).append('<li id="'+value[0]+'-li"class="dd-item" data-id="' +get_data_id()+ '"> <div class="dd3-content">'+title+'<span class="pull-right"><span class="onoffswitch"><input type="checkbox" name="'+value[0]+'-selector" class="onoffswitch-checkbox" id="'+value[0]+'-selector"> <label class="onoffswitch-label" for="'+value[0]+'-selector"> <div class="onoffswitch-inner" data-swchon-text="SELECTED" data-swchoff-text="OFF"></div> <div class="onoffswitch-switch"></div> </label>  </span> </div><ol class="dd-list"><li class="dd-item" data-id="3"><div class="dd3-content">'+value[2]+'</div></li></ol></li>');
+
+									$('#selected-biosources-nestable').nestable('setParent', $('#'+value[0]+"-li"));
+									$('#'+value[0]+'-selector').change(function(e) { debugger; alert(e.currentTarget.name);});
 								});
 							});
 
