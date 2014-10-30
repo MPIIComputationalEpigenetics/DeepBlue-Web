@@ -41,7 +41,7 @@
 					<!-- widget content -->
 					<div class="widget-body">
 						 	<div class="row show-grid">
-								<div class="col-md-6">
+								<div class="col-md-6 col-md-offset-0">
 									<h3>Please, select the desired BioSources</h3>
 									<div class="input-group">
 	  									<span class="input-group-addon">@</span>
@@ -56,6 +56,14 @@
 									</div>
 								</div>
 							</div>
+						 	<div class="row show-grid">
+								<div class="col-md-6 col-md-offset-0">
+									<h3>Selected Experiments</h3>
+									<div class="input-group">
+
+									</div>
+								</div>
+							</div>
 
 
 
@@ -66,7 +74,8 @@
 						var no_dulicates = true;
 						var li_id_to_biosource = {};
 						var selected_biosources = [];
-						var biosource_to_samples = {};
+						var biosource_to_sample = {};
+						var selected_samples = []
 
 						var data_id_next = 1;
 						function get_data_id() {
@@ -130,8 +139,46 @@
 							}
 						}
 
-						function insert_sample(id, biosource_name) {
-							selected_biosources[biosource_name] = id;
+						selected_biosources.remove = function () {
+							for( var i = 0, l = arguments.length; i < l; i++ ) {
+								var biosource_id = arguments[i];
+								var index = selected_biosources.indexOf(biosource_id);
+								if (index  > -1) {
+									selected_biosources.splice(index, 1);
+									var samples = biosource_to_sample[biosource_id];
+									delete biosource_to_sample[biosource_id];
+									$.each(samples, function (index, sample) {
+										selected_samples.remove(sample);
+									});
+
+								}
+								// remove experiments with this sample
+							}
+							return this.length;
+						}
+
+						selected_samples.push = function () {
+    						for( var i = 0, l = arguments.length; i < l; i++ ) {
+        						this[this.length] = arguments[i];
+        						//alert(arguments[i]);
+    						}
+    						return this.length;
+						}
+
+						selected_samples.remove = function () {
+							for( var i = 0, l = arguments.length; i < l; i++ ) {
+								var sample_id = arguments[i];
+								var index = selected_samples.indexOf(sample_id);
+								if (index  > -1) {
+									selected_samples.splice(index, 1);
+								}
+								// remove experiments with this sample
+							}
+							return this.length;
+						}
+
+						function insert_biosource(id, biosource_name) {
+							selected_biosources.push(id);
 							var request = $.ajax({
 								url: "ajax/server_side/samples_server_processing.php",
 								dataType: "json",
@@ -141,8 +188,10 @@
 							});
 
 							request.done( function(data) {
+								samples_ids = [];
 								var count = 0
 								$.each(data.data, function (index, value) {
+									samples_ids.push(value[0]);
 									var node_id = "#" +id + '-list-group-item-sub';
 									var title = "Sample ID : " + value[0];
 
@@ -153,7 +202,17 @@
 									$('#selected-biosources-nestable').nestable('setParent', $('#'+value[0]+"-li"));
 									$('#selected-biosources-nestable').nestable('collapseAll');
 
-									$('#'+value[0]+'-selector').change(function(e) { debugger; alert(e.currentTarget.name);});
+									$('#'+value[0]+'-selector').change(function(e) {
+										var name = e.currentTarget.name.split('-')[0];
+										if (e.target.checked) {
+											selected_samples.push(name);
+										} else {
+											selected_samples.remove(name);
+										}
+									});
+									biosource_to_sample[id] = samples_ids;
+
+									selected_samples.push(value[0]);
 								});
 							});
 
@@ -164,20 +223,13 @@
 							});
 						}
 
-						function remove_sample(biosource_name) {
-							var index = selected_biosources.indexOf(biosource_name);
-							if (index  > -1) {
-								selected_biosources.splice(index, 1);
-							}
-						}
-
 						function select_node(e, data) {
 							var id = data.node.id;
 							var biosource = li_id_to_biosource[id];
 							var name =  biosource.name;
 							var count = biosource.count;
 							if (count > 0) {
-								insert_sample(id, name);
+								insert_biosource(id, name);
 								var id = id + '-list-group-item';
 								var id_sub = id + "-sub";
            						$('#selected-biosources').append('<li id="'+id+'" class="dd-item" data-id="'+get_data_id()+'"><div class="dd-handle">'+name+'<em class="pull-right badge" data-placement="left">'+count+'</em></div><ol class="dd-list" id="'+id_sub+'"></ol></li>');
@@ -189,7 +241,7 @@
            						var count = biosource.count;
            						if (count > 0) {
            							var name =  biosource.name;
-           							insert_sample(id_son, name);
+           							insert_biosource(id_son, name);
            							var id = id_son + '-list-group-item';
            							var id_sub = id + "-sub";
            							$('#selected-biosources').append('<li id="'+id+'" data-id="'+get_data_id()+'" class="dd-item"><div class="dd-handle">'+name+'<em class="pull-right badge" data-placement="left" >'+count+'</em></div><ol class="dd-list" id="'+id_sub+'"></ol></li>');
@@ -200,14 +252,13 @@
 
            				function deselect_node(e, data) {
 							var id = data.node.id;
-							biosource = li_id_to_biosource[id];
-							remove_sample(biosource.name);
+							selected_biosources.remove(id);
 							var id = '#' + id + '-list-group-item';
            					$(id).remove();
 
            					$.each(data.node.children_d, function (index, id_son) {
            						biosource = li_id_to_biosource[id_son];
-								remove_sample(biosource.name);
+								selected_biosources.remove(id_son);
            						var id_son = "#" + id_son + "-list-group-item";
            						$(id_son).remove();
            					});
