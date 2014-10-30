@@ -148,9 +148,11 @@
 
 									var content = '<ol class="dd-list"><li class="dd-item" data-id="' + value[0]+"-li'><div class='dd-handle bg-color-blue txt-color-white'><i>" + value[2] + "</i></div></li></ol>";
 
-									$(node_id).append('<li id="'+value[0]+'-li"class="dd-item" data-id="' +get_data_id()+ '"> <div class="dd3-content">'+title+'<span class="pull-right"><span class="onoffswitch"><input type="checkbox" name="'+value[0]+'-selector" class="onoffswitch-checkbox" id="'+value[0]+'-selector"> <label class="onoffswitch-label" for="'+value[0]+'-selector"> <div class="onoffswitch-inner" data-swchon-text="SELECTED" data-swchoff-text="OFF"></div> <div class="onoffswitch-switch"></div> </label>  </span> </div><ol class="dd-list"><li class="dd-item" data-id="3"><div class="dd3-content">'+value[2]+'</div></li></ol></li>');
+									$(node_id).append('<li id="'+value[0]+'-li"class="dd-item" data-id="' +get_data_id()+ '"> <div class="dd3-content">'+title+'<span class="pull-right font-xs">Use Sample<span class="onoffswitch"> <input type="checkbox" name="'+value[0]+'-selector" checked="checked" class="onoffswitch-checkbox" id="'+value[0]+'-selector"> <label class="onoffswitch-label" for="'+value[0]+'-selector"> <div class="onoffswitch-inner" data-swchon-text="YES" data-swchoff-text="NO"></div> <div class="onoffswitch-switch"></div> </label>  </span> </div><ol class="dd-list"><li class="dd-item" data-id="3"><div class="dd3-content">'+value[2]+'</div></li></ol></li>');
 
 									$('#selected-biosources-nestable').nestable('setParent', $('#'+value[0]+"-li"));
+									$('#selected-biosources-nestable').nestable('collapseAll');
+
 									$('#'+value[0]+'-selector').change(function(e) { debugger; alert(e.currentTarget.name);});
 								});
 							});
