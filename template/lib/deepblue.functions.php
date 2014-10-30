@@ -478,14 +478,9 @@ class Deepblue{
 
         $sizeOfItemIds = sizeof($responseList[0][1]);
 
-        if($sizeOfItemIds == 1){
-            $experiment_ids[] = $responseList[0][1][0][0];
-        }
-        else{
-            foreach($responseList[0][1] as $experiment){
-                $experiment_ids[] = $experiment[0];
-            }
 
+        foreach($responseList[0][1] as $experiment){
+            $experiment_ids[] = $experiment[0];
         }
 
         if(!$this->client->query("info", $experiment_ids, $this->privateUserKey)){
