@@ -59,15 +59,63 @@
 						 	<div class="row show-grid">
 								<div class="col-md-6 col-md-offset-0">
 									<h3>Selected Experiments</h3>
-									<div class="input-group">
+										<div class="input-group">
+                  		<table id="experiments_datatable" class="table table-striped table-bordered" width="100%">
+                      	<thead>
+                         	<tr>
+                          	<th class="hasinput">
+                            	<button type="button" id="$diff_top_btn" class="btn btn-primary download-btn-size">Download</button>
+														</th>
+                            <th class="hasinput">
+                                <input class="form-control" placeholder="ID" type="text" id="experiment-id">
+                            </th>
 
-									</div>
+                            <th class="hasinput" style="width:20px">
+                                <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Genome" id="experiment-genome" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Epegenetic mark" id="experiment-epigenetic_mark" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Biosource" id="experiment-biosource" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Sample" id="experiment-sample" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Technique" id="experiment-technique" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Project" id="experiment-project" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Meta data" id="experiment-metadata" />
+                            </th>
+                        	</tr>
+                        	<tr>
+                            <th>Select</th>
+                            <th>ID</th>
+                            <th>Experiment Name</th>
+                            <th>Description</th>
+                            <th>Genome</th>
+                            <th>Epigenetic Mark</th>
+                            <th>Biosource</th>
+                            <th>Sample</th>
+                            <th>Technique</th>
+                            <th>Project</th>
+                            <th>Metadata</th>
+                        	</tr>
+                    		</thead>
+                			</table>
+										</div>
 								</div>
 							</div>
-
-
-
-
 
 						<script>
 						var tree_div = $('#biosources-tree');
@@ -75,7 +123,9 @@
 						var li_id_to_biosource = {};
 						var selected_biosources = [];
 						var biosource_to_sample = {};
-						var selected_samples = []
+						var selected_samples = [];
+						var samples_to_experiments = {};
+						var samples_to_row = {};
 
 						var data_id_next = 1;
 						function get_data_id() {
@@ -139,6 +189,34 @@
 							}
 						}
 
+						function select_experiment(sample_id) {
+							var request = $.ajax({
+								url: "ajax/server_side/list_experiments_server_processing.php",
+								dataType: "json",
+								data : {
+									samples: sample_id
+								}
+							});
+
+							request.done( function(data) {
+								var rows = []
+								var t = $('#experiments_datatable').DataTable();
+								$.each(data.data, function(c, row) {
+									var rownode = t.row.add(row).draw().node();
+									rows.push(rownode);
+									$(rownode).css('color', 'red').animate( { color: 'black' } );
+								});
+								samples_to_row[sample_id] = rows;
+							});
+
+							request.fail( function(jqXHR, textStatus) {
+								console.log(jqXHR);
+			        			console.log('Error: '+ textStatus);
+								alert( textStatus);
+							});
+						}
+
+
 						selected_biosources.remove = function () {
 							for( var i = 0, l = arguments.length; i < l; i++ ) {
 								var biosource_id = arguments[i];
@@ -150,7 +228,6 @@
 									$.each(samples, function (index, sample) {
 										selected_samples.remove(sample);
 									});
-
 								}
 								// remove experiments with this sample
 							}
@@ -160,7 +237,7 @@
 						selected_samples.push = function () {
     						for( var i = 0, l = arguments.length; i < l; i++ ) {
         						this[this.length] = arguments[i];
-        						//alert(arguments[i]);
+        						select_experiment(arguments[i]);
     						}
     						return this.length;
 						}
@@ -172,7 +249,12 @@
 								if (index  > -1) {
 									selected_samples.splice(index, 1);
 								}
-								// remove experiments with this sample
+								var rows = samples_to_row[sample_id];
+								$.each(rows, function(c, row) {
+									var t = $('#experiments_datatable').DataTable();
+									var table_row = t.row(row);
+									table_row.remove().draw(false);
+								});
 							}
 							return this.length;
 						}
@@ -197,7 +279,7 @@
 
 									var content = '<ol class="dd-list"><li class="dd-item" data-id="' + value[0]+"-li'><div class='dd-handle bg-color-blue txt-color-white'><i>" + value[2] + "</i></div></li></ol>";
 
-									$(node_id).append('<li id="'+value[0]+'-li"class="dd-item" data-id="' +get_data_id()+ '"> <div class="dd3-content">'+title+'<span class="pull-right font-xs">Use Sample<span class="onoffswitch"> <input type="checkbox" name="'+value[0]+'-selector" checked="checked" class="onoffswitch-checkbox" id="'+value[0]+'-selector"> <label class="onoffswitch-label" for="'+value[0]+'-selector"> <div class="onoffswitch-inner" data-swchon-text="YES" data-swchoff-text="NO"></div> <div class="onoffswitch-switch"></div> </label>  </span> </div><ol class="dd-list"><li class="dd-item" data-id="3"><div class="dd3-content">'+value[2]+'</div></li></ol></li>');
+									$(node_id).append('<li id="'+value[0]+'-li"class="dd-item" data-id="' +get_data_id()+ '"> <div class="dd3-content">'+title+'<span class="pull-right font-xs">Use this sample <span class="onoffswitch"> <input type="checkbox" name="'+value[0]+'-selector" checked="checked" class="onoffswitch-checkbox" id="'+value[0]+'-selector"> <label class="onoffswitch-label" for="'+value[0]+'-selector"> <div class="onoffswitch-inner" data-swchon-text="YES" data-swchoff-text="NO"></div> <div class="onoffswitch-switch"></div> </label>  </span> </div><ol class="dd-list"><li class="dd-item" data-id="3"><div class="dd3-content">'+value[2]+'</div></li></ol></li>');
 
 									$('#selected-biosources-nestable').nestable('setParent', $('#'+value[0]+"-li"));
 									$('#selected-biosources-nestable').nestable('collapseAll');
@@ -296,6 +378,48 @@
 
 	pageSetUp();
 
+	var experiments_datatable = undefined;
+	var breakpointDefinition = {
+		tablet : 1024,
+		phone : 480
+	};
+
+	function build_experiments_table() {
+		var otable = $('#experiments_datatable').DataTable({
+	    "iDisplayLength": 50,
+	    "autoWidth" : true,
+
+			"preDrawCallback" : function() {
+				if (!experiments_datatable) {
+					experiments_datatable = new ResponsiveDatatablesHelper($('#experiments_datatable'), breakpointDefinition);
+				}
+			},
+			"rowCallback" : function(nRow) {
+				experiments_datatable.createExpandIcon(nRow);
+			},
+			"drawCallback" : function(oSettings) {
+				experiments_datatable.respond();
+			},"fnInitComplete": function(oSettings, json) {
+				$( ".downloadCheckBox" ).change(function() {
+					var downloadId = $(this).parent().next().text();
+					var downloadTitle = $(this).parent().next().next().text();
+					var downloadTotal = downloadId+"-"+downloadTitle;
+
+					var found = $.inArray(downloadTotal, selectedElements);
+
+					if(found < 0){
+						selectedElements.push(downloadTotal);
+						selectedElementsNames.push(downloadTitle);
+					}
+					else{
+						selectedElements.splice(found, 1);
+						selectedElementsNames.push(found, 1);
+					}
+				});
+			}
+	  });
+	}
+
 	function build_tree() {
 			var request = $.ajax({
 			url: "ajax/server_side/biosources_tree.php",
@@ -303,6 +427,8 @@
 		});
 
 		request.done( function(data) {
+			build_experiments_table();
+
 			exists = [];
 			$.each(data.data, function (index, value) {
 				create_root(tree_div, value[0], value[1], value[2], value[3], "", exists);
@@ -364,8 +490,18 @@
 
 	loadScript("js/plugin/jquery-nestable/jquery.nestable.js", function () {
 		loadScript("js/plugin/jstree.js", function() {
-			build_tree();
-			$('#selected-biosources-nestable').nestable({group : 1});
+			loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
+				loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
+					loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
+						loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
+							loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", function() {
+								build_tree();
+								$('#selected-biosources-nestable').nestable({group : 1});
+							});
+						});
+					});
+				});
+			});
 		});
 	});
 
