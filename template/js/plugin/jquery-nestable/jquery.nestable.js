@@ -223,7 +223,7 @@
             });
         },
 
-        collapseAll: function(blah)
+        collapseAll: function()
         {
             var list = this;
             list.el.find(list.options.itemNodeName).each(function() {
