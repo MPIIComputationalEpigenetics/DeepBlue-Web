@@ -40,9 +40,13 @@
 
 					<!-- widget content -->
 					<div class="widget-body">
-						 	<div class="row show-grid">
-								<div class="col-md-6 col-md-offset-0">
-									<h3>Please, select the desired BioSources</h3>
+						 	<div class="row">
+								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
+									<div class="alert alert-info alert-block">
+										<a class="close" data-dismiss="alert" href="#">×</a>
+										<h4 class="alert-heading">BioSources</h4>
+										Please, select the desired BioSources. The selected BioSources will be listed in the list on the right position, where they will also contains their samples.
+									</div>
 									<div class="input-group">
 	  									<span class="input-group-addon">@</span>
 										<input type="text" value="" class="form-control" id="user_biosource" placeholder="Search Biosource" />
@@ -50,15 +54,23 @@
 									<div id="biosources-tree"> </div>
 								</div>
 								<div class="col-md-6 col-md-offset-0">
-									<h3>Selected BioSouces</h3>
+									<div class="alert alert-info alert-block">
+										<a class="close" data-dismiss="alert" href="#">×</a>
+										<h4 class="alert-heading">Samples</h4>
+										Please, verify and select the desired Samples. Click on the Plus symbol to see all samples from a BioSource (+)
+									</div>
 									<div class="dd" id="selected-biosources-nestable">
 										<ol class="dd-list" id="selected-biosources"> </ol>
 									</div>
 								</div>
 							</div>
-						 	<div class="row show-grid">
+						 	<div class="row">
 								<div class="col-md-12 col-md-offset-0">
-									<h3>Selected Experiments</h3>
+									<div class="alert alert-info alert-block">
+										<a class="close" data-dismiss="alert" href="#">×</a>
+										<h4 class="alert-heading">Experiments</h4>
+										All experiments from the selected samples are listed here. Please, mark the ones that you are interested and click on Download button.
+									</div>
 										<div class="input-group">
                   		<table id="experiments_datatable" class="table table-striped table-bordered" width="100%">
                       	<thead>
@@ -113,11 +125,13 @@
                         	</tr>
                     		</thead>
                 			</table>
-										</div>
-								</div>
-							</div>
-
-						<script>
+                			<button type="button" id="downloadExperimentButton" class="btn btn-primary download-btn-size">
+					Download
+				</button>
+						</div>
+					</div>
+				</div>
+<script>
 var tree_div = $('#biosources-tree');
 var no_dulicates = true;
 var li_id_to_biosource = {};
