@@ -20,7 +20,7 @@ $page_title = "DeepBlue Epigenomic Data Server";
 //Note: all css files are inside css/ folder
 $page_css[] = "deepblue.css";
 $no_main_header = true;
-$page_body_prop = array("id"=>"extr-page", "class"=>"animated fadeInDown");
+$page_body_prop = array("id"=>"extr-page");
 include("inc/header.php");
 
 ?>
@@ -35,7 +35,7 @@ include("inc/header.php");
 		<!-- END AJAX-DROPDOWN -->
 	</div>
 
-	<span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Creat account</a> </span>
+	<span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Create account</a> </span>
 
 </header>
 
@@ -65,7 +65,7 @@ include("inc/header.php");
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 				<div class="well no-padding">
-					<form action="<?php echo APP_URL.'/dashboard.php' ?>" id="login-form" class="smart-form client-form">
+					<form action="<?php echo APP_URL.'/php/deepblue-checkuser.php' ?>" id="login-form" class="smart-form client-form" method="post">
 						<header>
 							Sign In
 						</header>
