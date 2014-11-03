@@ -5,15 +5,12 @@
 			<!-- User info -->
 			<div class="login-info">
 				<span> <!-- User image size is adjusted inside CSS, it should stay as is -->
-
-					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+					<a class="menu-item-parent" href="#ajax/profile.php" title="Profile">
 						<img src="<?php echo ASSETS_URL; ?>/img/avatars/deepblue.png" alt="me" class="online" />
 						<span>
-							DeepBlue User
+							<?php echo $_SESSION['user_name'] ?>
 						</span>
-						<i class="fa fa-angle-down"></i>
 					</a>
-
 				</span>
 			</div>
 			<!-- end user info -->
