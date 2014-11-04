@@ -37,6 +37,6 @@ else{
     $infoList[] = $client->getResponse();
 }
 
-$deepBlueObj->searchResultToJson($infoList[0]);
+$deepBlueObj->searchResultToJson($infoList[0][1]);
 
 ?>

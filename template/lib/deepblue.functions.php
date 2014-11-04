@@ -185,38 +185,33 @@ class Deepblue{
     /* Search result to JSON format */
 
     public function searchResultToJson($inputArray){
-
         $orderedDataStr = array();
 
-        foreach ($inputArray as $key_1 => $val_1) {
+        foreach ($inputArray as $info) {
 
             $tempSearchString = '';
             $tempArr = array();
 
-            if($inputArray[$key_1] == 0){
-                continue;
-            }
+            $tempArr[] = $info["_id"];
 
-            $tempArr[] = $val_1["_id"];
-
-            if (isset($val_1["name"])) {
-                $tempArr[] = $val_1["name"];
-            } else if ($val_1["type"] == 'sample') {
-                $tempArr[] = $val_1["biosource_name"];
+            if (isset($info["name"])) {
+                $tempArr[] = $info["name"];
+            } else if ($info["type"] == 'sample') {
+                $tempArr[] = $info["biosource_name"];
             } else {
                 $tempArr[] = "";
             }
 
-            $tempArr[] = isset($val_1["description"]) ? $val_1["description"] : "";
+            $tempArr[] = isset($info["description"]) ? $info["description"] : "";
 
-            if(isset($val_1['extra_metadata'])){
-                $fullMetadata = $this->experimentMetadata($val_1, "searchResult");
+            if(isset($info['extra_metadata'])){
+                $fullMetadata = $this->experimentMetadata($info, "searchResult");
                 $tempArr[] = substr($fullMetadata, 0, -2);
             }
-            else if ($val_1["type"] == 'sample') {
+            else if ($info["type"] == 'sample') {
                 $sampleInfo = "";
-                $sampleInfo .= '<b> Biosource </b> : ' . $val_1['biosource_name'] . "<br />";
-                foreach ($val_1 as $k => $v) {
+                $sampleInfo .= '<b> Biosource </b> : ' . $info['biosource_name'] . "<br />";
+                foreach ($info as $k => $v) {
                     if($v != '' && $v != '-' && $k != 'biosource_name' && $k != 'type' && $k != 'user' && $k != 'source' && $k != '_id') {
                         $sampleInfo .= '<b>'.$k.'</b> : ' . $v . "<br />";
                     }
@@ -226,22 +221,22 @@ class Deepblue{
                 $tempArr[] = "";
             }
 
-            $tempArr[] = $val_1["type"];
-            $tempArr[] = isset($val_1["genome"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$val_1["genome"] : "";
-            $tempArr[] = isset($val_1["epigenetic_mark"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$val_1["epigenetic_mark"] : "";
+            $tempArr[] = $info["type"];
+            $tempArr[] = isset($info["genome"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$info["genome"] : "";
+            $tempArr[] = isset($info["epigenetic_mark"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$info["epigenetic_mark"] : "";
 
-            if(isset($val_1['sample_info'])) {
-                $sample_info = $val_1['sample_info'];
+            if(isset($info['sample_info'])) {
+                $sample_info = $info['sample_info'];
                 $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$sample_info['biosource_name'];
             }
-            else if ($val_1["type"] == 'sample') {
-                $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1['biosource_name']." ( ".$val_1["_id"]." )";
+            else if ($info["type"] == 'sample') {
+                $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$info['biosource_name']." ( ".$info["_id"]." )";
             } else {
-                $tempArr[] = "que merda é";
+                $tempArr[] = "";
             }
 
-            $tempArr[] = isset($val_1["technique"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$val_1["technique"] : "";
-            $tempArr[] = isset($val_1["project"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$val_1["project"] : "";
+            $tempArr[] = isset($info["technique"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$info["technique"] : "";
+            $tempArr[] = isset($info["project"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$info["project"] : "";
 
             array_push($orderedDataStr, $tempArr);
 

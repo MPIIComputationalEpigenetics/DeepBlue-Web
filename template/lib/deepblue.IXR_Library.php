@@ -38,6 +38,7 @@
  * @link       http://scripts.incutio.com/xmlrpc/ Site/manual
  */
 
+ini_set('memory_limit', '-1');
 
 class IXR_Value
 {
