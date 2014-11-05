@@ -834,7 +834,7 @@ require_once("inc/init.php");
 							selectedElementsModal.splice(foundModal, 1);
 						}
 
-						alert("Experiment test : " + selectedElementsModal);
+						//alert("Experiment test : " + selectedElementsModal);
 
 					}
 					else{
@@ -845,7 +845,7 @@ require_once("inc/init.php");
 						//alert(testPrint);
 						//alert('idModal :'+downloadIdModal+'; titleModal : '+downloadTitleModal+'; totalModal : '+downloadTotalModal);
 
-						alert('Enteredddd');
+						//alert('Enteredddd');
 
 						var foundModal_Operation = $.inArray(downloadTotalModal, selected_elements_operation);
 
@@ -875,7 +875,7 @@ require_once("inc/init.php");
 		//$('#selectWorkflowBtnModal').click(function(){
 
 			if(selectedElementsModal.length == 0){
-				alert("1111 Please select elements!");
+				alert("Please select elements!");
 			}
 			else if(this.id == 'experiment_selectWorkflowBtn' || this.id == 'annotation_selectWorkflowBtn'){
 				alert("Clicked exp or annotation button");
@@ -890,7 +890,7 @@ require_once("inc/init.php");
 
 				if(isEdited != 'edited'){
 
-					alert("Test no - 1");
+					//alert("Test no - 1");
 
 					steps_collection.push("Step "+step_number);
 					select_options += "<option>Step "+step_number+"</option>";
@@ -972,7 +972,7 @@ require_once("inc/init.php");
 
 		$(document).on("click", '.operation-select', function () {
 
-			alert("Test the table content : " + selected_elements_operation);
+			//alert("Test the table content : " + selected_elements_operation);
 
 			steps_collection.push("Step "+step_number);
 			select_options += "<option>Step "+step_number+"</option>";
