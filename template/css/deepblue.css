@@ -189,7 +189,7 @@ a.morelink {
 }
 .workflow_selected_list{
     border:1px solid #CCC;
-    margin:25px 0 0 0;
+    margin:25px 0 20px 0;
 }
 #myWorkflowContent{
     padding: 20px !important;
