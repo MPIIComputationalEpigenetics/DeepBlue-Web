@@ -190,54 +190,60 @@ class Deepblue{
 
         foreach ($inputArray as $key_1 => $val_1) {
 
-        $tempSearchString = '';
-        $tempArr = array();
+            $tempSearchString = '';
+            $tempArr = array();
 
-        if($inputArray[$key_1] == 0){
-            continue;
-        }
+            if($inputArray[$key_1] == 0){
+                continue;
+            }
 
-        $tempArr[] = $val_1["_id"];
-        isset($val_1["name"]) ? $tempArr[] = $val_1["name"] : $tempArr[] = current(explode(",", $val_1["description"]));
-        isset($val_1["description"]) ? $tempArr[] = $val_1["description"] : $tempArr[] = "";
+            $tempArr[] = $val_1["_id"];
 
-        if(isset($val_1['extra_metadata'])){
-            $fullMetadata = $this->experimentMetadata($val_1, "searchResult");
-            $tempArr[] = substr($fullMetadata, 0, -2);
-        }
-        else{
-            $tempArr[] = "";
-        }
+            if (isset($val_1["name"])) {
+                $tempArr[] = $val_1["name"];
+            } else if ($val_1["type"] == 'sample') {
+                $tempArr[] = $val_1["biosource_name"];
+            } else {
+                $tempArr[] = "";
+            }
 
-        // if(isset($val_1['extra_metadata'])){
-        //     foreach ($val_1["extra_metadata"] as $key => $value){
-        //         $value = ($value!='') ? $value : 'none';
-        //         $tempSearchString .= "<b>".$key."</b> : ".$value.", ";
-        //     }
-        //     $tempArr[] = substr($tempSearchString, 0, -2);
-        // }
-        // else{
-        //     $tempArr[] = "";
-        // }
+            $tempArr[] = isset($val_1["description"]) ? $val_1["description"] : "";
 
-        $tempArr[] = $val_1["type"];
-        isset($val_1["genome"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["genome"] : $tempArr[] = "";
-        isset($val_1["epigenetic_mark"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["epigenetic_mark"] : $tempArr[] = "";
+            if(isset($val_1['extra_metadata'])){
+                $fullMetadata = $this->experimentMetadata($val_1, "searchResult");
+                $tempArr[] = substr($fullMetadata, 0, -2);
+            }
+            else if ($val_1["type"] == 'sample') {
+                $sampleInfo = "";
+                $sampleInfo .= '<b> Biosource </b> : ' . $val_1['biosource_name'] . "<br />";
+                foreach ($val_1 as $k => $v) {
+                    if($v != '' && $v != '-' && $k != 'biosource_name' && $k != 'type' && $k != 'user' && $k != 'source' && $k != '_id') {
+                        $sampleInfo .= '<b>'.$k.'</b> : ' . $v . "<br />";
+                    }
+                }
+                $tempArr[] = $sampleInfo;
+            } else {
+                $tempArr[] = "";
+            }
 
-        if(isset($val_1["sample_id"]) && isset($val_1["biosource_name"])){
-            $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1['biosource_name']." ( ".$val_1["sample_id"]." )";
-        }
-        else{
-            $tempArr[] = "";
-        }
+            $tempArr[] = $val_1["type"];
+            $tempArr[] = isset($val_1["genome"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$val_1["genome"] : "";
+            $tempArr[] = isset($val_1["epigenetic_mark"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$val_1["epigenetic_mark"] : "";
 
+            if(isset($val_1['sample_info'])) {
+                $sample_info = $val_1['sample_info'];
+                $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$sample_info['biosource_name'];
+            }
+            else if ($val_1["type"] == 'sample') {
+                $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1['biosource_name']." ( ".$val_1["_id"]." )";
+            } else {
+                $tempArr[] = "que merda é";
+            }
 
-        isset($val_1["technique"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["technique"] : $tempArr[] = "";
-        isset($val_1["project"]) ? $tempArr[] = "<i class='fa fa-circle txt-color-black'></i> ".$val_1["project"] : $tempArr[] = "";
+            $tempArr[] = isset($val_1["technique"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$val_1["technique"] : "";
+            $tempArr[] = isset($val_1["project"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$val_1["project"] : "";
 
-        isset($val_1["format"]) ? $tempArr[] = $val_1["format"] : $tempArr[] = "";
-
-        array_push($orderedDataStr, $tempArr);
+            array_push($orderedDataStr, $tempArr);
 
         }
 
@@ -265,6 +271,7 @@ class Deepblue{
             }
             $tempExpStr .= "<br />";
         }
+
 
         if(isset($inputMetadata['extra_metadata'])){
             $tempExpStr .= "<b>Extra Metadata</b> <br />";

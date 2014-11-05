@@ -35,7 +35,7 @@ include("inc/header.php");
 				<!-- END AJAX-DROPDOWN -->
 			</div>
 
-			<span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Creat account</a> </span>
+			<span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Create account</a> </span>
 
 		</header>
 
