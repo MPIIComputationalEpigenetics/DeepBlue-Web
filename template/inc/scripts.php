@@ -80,3 +80,7 @@
 		<script src="<?php echo ASSETS_URL; ?>/js/jquery.plugin.min.js"></script>
 		<script src="<?php echo ASSETS_URL; ?>/js/jquery.more.min.js"></script>
 
+		<!-- Select2.js Multi select dropdown menu -->
+
+		<script src="<?php echo ASSETS_URL; ?>/js/select2.js"></script>
+

@@ -256,3 +256,8 @@ a.morelink {
     float: left;
     margin:0 10px 0 0;
 }
+.multi-select-size{
+    width: 100%;
+    
+    max-height: 100%;
+}
