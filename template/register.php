@@ -30,7 +30,7 @@ include("inc/header.php");
 			<!--<span id="logo"></span>-->
 
 			<div id="logo-group">
-				<span id="logo"> <img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="SmartAdmin"> </span>
+				<span id="logo"> <img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="DeepBlue"> </span>
 
 				<!-- END AJAX-DROPDOWN -->
 			</div>

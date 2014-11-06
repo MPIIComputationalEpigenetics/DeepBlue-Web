@@ -4,29 +4,29 @@
 		<meta charset="utf-8">
 		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-		<title> SmartAdmin </title>
+		<title> DeepBlue </title>
 		<meta name="description" content="">
 		<meta name="author" content="">
 
 		<!-- Use the correct meta names below for your web application
-			 Ref: http://davidbcalhoun.com/2010/viewport-metatag 
-			 
+			 Ref: http://davidbcalhoun.com/2010/viewport-metatag
+
 		<meta name="HandheldFriendly" content="True">
 		<meta name="MobileOptimized" content="320">-->
-		
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<!-- Basic Styles -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">	
+		<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
 
 		<!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
 		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css">
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css">	
-		
+		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css">
+
 		<!-- SmartAdmin RTL Support is under construction-->
-			<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.min.css"> 
-		
+			<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.min.css">
+
 		<!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
 		<link rel="stylesheet" type="text/css" media="screen" href="css/demo.min.css">
 
@@ -82,7 +82,7 @@
 
 		</div>
 
-		<!--================================================== -->	
+		<!--================================================== -->
 
 		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
 		<script src="js/plugin/pace/pace.min.js"></script>
@@ -94,10 +94,10 @@
 	    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 		<script> if (!window.jQuery.ui) { document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');} </script>
 
-		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events 		
+		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
 		<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
 
-		<!-- BOOTSTRAP JS -->		
+		<!-- BOOTSTRAP JS -->
 		<script src="js/bootstrap/bootstrap.min.js"></script>
 
 		<!-- CUSTOM NOTIFICATION -->
@@ -105,37 +105,37 @@
 
 		<!-- JARVIS WIDGETS -->
 		<script src="js/smartwidgets/jarvis.widget.min.js"></script>
-		
+
 		<!-- EASY PIE CHARTS -->
 		<script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
-		
+
 		<!-- SPARKLINES -->
 		<script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
-		
+
 		<!-- JQUERY VALIDATE -->
 		<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
-		
+
 		<!-- JQUERY MASKED INPUT -->
 		<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
-		
+
 		<!-- JQUERY SELECT2 INPUT -->
 		<script src="js/plugin/select2/select2.min.js"></script>
 
 		<!-- JQUERY UI + Bootstrap Slider -->
 		<script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
-		
+
 		<!-- browser msie issue fix -->
 		<script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
-		
+
 		<!-- FastClick: For mobile devices -->
 		<script src="js/plugin/fastclick/fastclick.min.js"></script>
-		
+
 		<!--[if IE 7]>
-			
+
 			<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
-			
+
 		<![endif]-->
-		
+
 		<!-- MAIN APP JS FILE -->
 		<script src="js/app.min.js"></script>
 

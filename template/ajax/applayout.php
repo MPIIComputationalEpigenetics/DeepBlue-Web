@@ -4,7 +4,7 @@
 
 	<!-- col -->
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<h1 class="page-title txt-color-blueDark"><!-- PAGE HEADER --><i class="fa fa-lg fa-fw fa-cube"></i> SmartAdmin Intel <span>>
+		<h1 class="page-title txt-color-blueDark"><!-- PAGE HEADER --><i class="fa fa-lg fa-fw fa-cube"></i> DeepBlue <span>>
 			App Settings </span></h1>
 	</div>
 	<!-- end col -->
@@ -339,7 +339,7 @@ the <section></section> and you can use wells or panels instead
 						<div class="padding-gutter">
 							<div style="background: #f1f1f1;border-radius:3px;overflow: hidden">
 								<div style="width: 100%;height: auto;background:#ddd;font-size:11px;font-weight: bold;padding:13px 10px">
-									<img src="img/logo.png" alt="SmartAdmin" style="width:75px;">
+									<img src="img/logo.png" alt="DeepBlue" style="width:75px;">
 								</div>
 								<div style="width: 25%;height: 296px; background:#949291;" class="pull-left"></div>
 								<div style="width: 75%;height: 255px; background:#f1f1f1;" class="pull-left">
@@ -364,7 +364,7 @@ the <section></section> and you can use wells or panels instead
 
 							<div style="background: #f1f1f1;border-radius:3px;overflow: hidden">
 								<div style="width: 100%;height: auto;background:#ddd;font-size:11px;font-weight: bold;padding:13px 10px">
-									<img src="img/logo.png" alt="SmartAdmin" style="width:75px;">
+									<img src="img/logo.png" alt="DeepBlue" style="width:75px;">
 								</div>
 								<div style="width: 100%;height: 50px; background:#949291;" class="pull-left"></div>
 								<div style="width: 100%;height: 255px; background:#f1f1f1;" class="pull-left">
@@ -442,34 +442,34 @@ the <section></section> and you can use wells or panels instead
 	 */
 
 	pageSetUp();
-	
+
 	/*
 	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
 	 * eg alert("my home function");
-	 * 
+	 *
 	 * var pagefunction = function() {
 	 *   ...
 	 * }
 	 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-	 * 
+	 *
 	 * TO LOAD A SCRIPT:
-	 * var pagefunction = function (){ 
-	 *  loadScript(".../plugin.js", run_after_loaded);	
+	 * var pagefunction = function (){
+	 *  loadScript(".../plugin.js", run_after_loaded);
 	 * }
-	 * 
+	 *
 	 * OR
-	 * 
+	 *
 	 * loadScript(".../plugin.js", run_after_loaded);
 	 */
-	
+
 	// pagefunction
-	
+
 	var pagefunction = function() {
-		
+
 	};
-	
+
 	// end pagefunction
-	
+
 	// run pagefunction on load
 
 	pagefunction();

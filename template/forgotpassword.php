@@ -30,7 +30,7 @@ include("inc/header.php");
 			<!--<span id="logo"></span>-->
 
 			<div id="logo-group">
-				<span id="logo"> <img src="img/logo.png" alt="SmartAdmin"> </span>
+				<span id="logo"> <img src="img/logo.png" alt="DeepBlue"> </span>
 
 				<!-- END AJAX-DROPDOWN -->
 			</div>
@@ -46,7 +46,7 @@ include("inc/header.php");
 
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-						<h1 class="txt-color-red login-header-big">SmartAdmin</h1>
+						<h1 class="txt-color-red login-header-big">DeepBlue</h1>
 						<div class="hero">
 
 							<div class="pull-left login-desc-box-l">

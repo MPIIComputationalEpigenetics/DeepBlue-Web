@@ -92,7 +92,7 @@
                                 <input type="text" class="form-control" placeholder="Genome" id="experiment-genome" />
                             </th>
                             <th class="hasinput">
-                                <input type="text" class="form-control" placeholder="Epegenetic mark" id="experiment-epigenetic_mark" />
+                                <input type="text" class="form-control" placeholder="Epigenetic mark" id="experiment-epigenetic_mark" />
                             </th>
                             <th class="hasinput">
                                 <input type="text" class="form-control" placeholder="Biosource" id="experiment-biosource" />
