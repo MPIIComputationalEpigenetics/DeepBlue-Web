@@ -17,30 +17,9 @@ require_once("inc/init.php");
 
 ?>
 <!-- row -->
-<div class="row">
-
-	<!-- col -->
-	<div class="col-xs-12 col-sm-7 col-md-7">
-		<h1 class="page-title txt-color-blueDark">
-
-			<!-- PAGE HEADER -->
-			<i class="fa-fw fa fa-list-ul"></i>
-				Documentation > API Reference for <?php echo $deepBlueObj->getServerVersion();?>
-		</h1>
-	</div>
-	<!-- end col -->
-
-</div>
-<!-- end row -->
-
-<!--
-	The ID "widget-grid" will start to initialize all widgets below
-	You do not need to use widgets if you dont want to. Simply remove
-	the <section></section> and you can use wells or panels instead
-	-->
 
 <!-- widget grid -->
-<section id="widget-grid" class="">
+<section id="widget-grid-api" class="">
 
 	<!-- row -->
 	<div class="row">
@@ -53,7 +32,7 @@ require_once("inc/init.php");
 
 				<header>
 					<span class="widget-icon"> <i class="fa fa-list-ul"></i> </span>
-					<h2>API Documentation</h2>
+					<h2>API Reference for <?php echo $deepBlueObj->getServerVersion();?></h2>
 
 				</header>
 
