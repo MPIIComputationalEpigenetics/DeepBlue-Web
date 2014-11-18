@@ -15,89 +15,16 @@
 require_once("inc/init.php");
 
 ?>
-<!-- row -->
-<div class="row">
 
-	<!-- col -->
-	<div class="col-xs-12 col-sm-7 col-md-7">
-		<h1 class="page-title txt-color-blueDark">
-
-			<!-- PAGE HEADER -->
-			<i class="fa-fw fa fa-life-ring"></i>
-				API Documentation > DeepBlue Manual
-		</h1>
-	</div>
-	<!-- end col -->
-
-</div>
-<!-- end row -->
-
-<!--
-	The ID "widget-grid" will start to initialize all widgets below
-	You do not need to use widgets if you dont want to. Simply remove
-	the <section></section> and you can use wells or panels instead
-	-->
-
-<!-- widget grid -->
-<section id="widget-grid" class="">
-
-	<!-- row -->
-	<div class="row">
-
-		<!-- NEW WIDGET START -->
-		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget" id="wid-deepblue-api" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
-
-				<header>
-					<span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-					<h2>API Documentation</h2>
-
-				</header>
-
-				<!-- widget div-->
-				<div>
-
-					<!-- widget edit box -->
-					<div class="jarviswidget-editbox">
-						<!-- This area used as dropdown edit box -->
-						<input class="form-control" type="text">
-					</div>
-					<!-- end widget edit box -->
-
-					<!-- widget content -->
-					<div class="apiDiv widget-body">
-						<h1>Manual...</h1>
-					</div>
-					<!-- end widget content -->
-
-				</div>
-				<!-- end widget div -->
-
+<section id="widget-grid-manual" class="">
+	<div>
+		<div class="row">
+			<div class="alert alert-info alert-block">
+				<a class="close" data-dismiss="alert" href="#">×</a>
+				<h4 class="alert-heading">Information</h4>
+				This manual is available directly at <a href="manual/">http://deepblue.mpi-inf.mpg.de/manual</a>
 			</div>
-			<!-- end widget -->
-
-		</article>
-		<!-- WIDGET END -->
-
-	</div>
-
-	<!-- end row -->
-
-	<!-- row -->
-
-	<div class="row">
-
-		<!-- a blank row to get started -->
-		<div class="col-sm-12">
-			<!-- your contents here -->
+			<iframe src="manual/index.html" height="800" width="100%"></iframe>
 		</div>
-
 	</div>
-
-	<!-- end row -->
-
 </section>
-<!-- end widget grid -->
-
