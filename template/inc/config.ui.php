@@ -43,10 +43,21 @@ $page_nav = array(
 		"icon" => "fa-home"
 	),
 
-	"API Documentation" => array(
-		"title" => "API Documentation",
-		"url" => "ajax/deepblue_api_documentation.php",
-		"icon" => "fa-life-ring"
+	"doocumentation" => array(
+		"title" => "Documentation",
+		"icon" => "fa-question",
+		"sub" => array(
+			"API Reference" => array(
+				"title" => "API Reference",
+				"url" => "ajax/deepblue_api_documentation.php",
+				"icon" => "fa-list-ul"
+			),
+			"Manual" => array(
+				"title" => "DeepBlue Manual",
+				"url" => "ajax/deepblue_manual_documentation.php",
+				"icon" => "fa-book"
+			)
+		)
 	),
 
 	"deepblue_tables" => array(

@@ -24,8 +24,8 @@ require_once("inc/init.php");
 		<h1 class="page-title txt-color-blueDark">
 
 			<!-- PAGE HEADER -->
-			<i class="fa-fw fa fa-life-ring"></i>
-				API Documentation > <?php echo $deepBlueObj->getServerVersion();?>
+			<i class="fa-fw fa fa-list-ul"></i>
+				Documentation > API Reference for <?php echo $deepBlueObj->getServerVersion();?>
 		</h1>
 	</div>
 	<!-- end col -->
@@ -52,7 +52,7 @@ require_once("inc/init.php");
 			<div class="jarviswidget" id="wid-deepblue-api" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
 
 				<header>
-					<span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+					<span class="widget-icon"> <i class="fa fa-list-ul"></i> </span>
 					<h2>API Documentation</h2>
 
 				</header>
