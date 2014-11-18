@@ -46,6 +46,12 @@ require_once("inc/init.php");
 					</div>
 					<!-- end widget edit box -->
 
+					<div class="alert alert-info alert-block">
+						<a class="close" data-dismiss="alert" href="#">×</a>
+						<h4 class="alert-heading">Information</h4>
+						This reference guide can be accessed directly at <a href="api.php">http://deepblue.mpi-inf.mpg.de/api.php</a>
+					</div>
+
 					<!-- widget content -->
 					<div class="apiDiv widget-body">
 						<?php $deepBlueObj->displayAPIList();?>
