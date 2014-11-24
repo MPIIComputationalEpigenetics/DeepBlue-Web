@@ -65,7 +65,7 @@ while (sizeof($actual_leaves) > 0) {
 
 	$new_leaves = array();
 	foreach ($actual_leaves as &$leaf) {
-		if(!$client->query("get_biosource_wider", $leaf[1], $user_key)){
+		if(!$client->query("get_biosource_parents", $leaf[1], $user_key)){
 		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
