@@ -119,6 +119,12 @@ $page_nav = array(
 		"title" => "Workflow",
 		"url"=> "ajax/deepblue_view_workflow.php",
 		"icon" => "fa-bullhorn"
+	),
+
+	"feedback" => array(
+		"title" => "Feedback",
+		"url"=> "ajax/deepblue_view_feedback.php",
+		"icon" => "fa-step-backward"
 	)
 );
 
