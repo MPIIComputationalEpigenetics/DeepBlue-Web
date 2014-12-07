@@ -28,8 +28,3 @@ $user_key = '71DZhOKGS4V3fnW2';
 
 
 ?>
-<script type="text/javascript">
-	// allow access to userkey and url from javascript
-	var user_key = "<?php echo $user_key ?>";	
-	var url = "<?php echo $url ?>";
-</script>
