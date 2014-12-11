@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="5" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="5" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -920,21 +920,21 @@
                         <h1 id="working-with-the-data">Working with the Data</h1>
 <p>DeepBlue has the following commands for working with the data:</p>
 <ul>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_regions" target="_blank">select_regions</a> — select experiment regions that match the given parameters</li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_annotations" target="_blank">select_annotations</a> — select annotation regions that match the given parameters</li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-filter_regions" target="_blank">filter_regions</a> — filter the regions</li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-intersection" target="_blank">intersection</a> — return the regions that intersect the regions from another query</li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-merge_queries" target="_blank">merge_queries</a> — merge two queries into one</li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-tiling_regions" target="_blank">tiling_regions</a> — create regions of the given tiling size over the chromosomes</li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_experiments_by_query" target="_blank">get_experiments_by_query</a> — return the Experiment names and IDs of the selected regions</li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-count_regions" target="_blank">count_regions</a> — count the number of regions</li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_regions" target="_blank">get_regions</a> — return the query regions</li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-aggregate" target="_blank">aggregate</a> — get the regions for the given query in the requested BED format</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_regions" target="_blank">select_regions</a> — select experiment regions that match the given parameters</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_annotations" target="_blank">select_annotations</a> — select annotation regions that match the given parameters</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-filter_regions" target="_blank">filter_regions</a> — filter the regions</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-intersection" target="_blank">intersection</a> — return the regions that intersect the regions from another query</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-merge_queries" target="_blank">merge_queries</a> — merge two queries into one</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-tiling_regions" target="_blank">tiling_regions</a> — create regions of the given tiling size over the chromosomes</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_experiments_by_query" target="_blank">get_experiments_by_query</a> — return the Experiment names and IDs of the selected regions</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-count_regions" target="_blank">count_regions</a> — count the number of regions</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_regions" target="_blank">get_regions</a> — return the query regions</li>
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-aggregate" target="_blank">aggregate</a> — get the regions for the given query in the requested BED format</li>
 </ul>
-<p>The usual workflow is to select the data with <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_regions" target="_blank">select_experiments</a> and <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_annotations" target="_blank">select_annotations</a>.
-Next, filter the data with <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-filter_regions" target="_blank">filter_regions</a> or <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-intersection" target="_blank">intersection</a>.
-If necessary, select more data and merge them using the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-merge_queries" target="_blank">merge_queries</a>.
-To view the results; it is possible to get the experiments containing selected data with the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_experiments_by_query" target="_blank">get_experiments_by_query</a>, <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-count_regions" target="_blank">count_regions</a>, or <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_regions" target="_blank">get_regions</a> command (in the BED format), or in a data summary using <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-aggregate" target="_blank">aggregate</a>.</p>
+<p>The usual workflow is to select the data with <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_regions" target="_blank">select_experiments</a> and <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_annotations" target="_blank">select_annotations</a>.
+Next, filter the data with <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-filter_regions" target="_blank">filter_regions</a> or <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-intersection" target="_blank">intersection</a>.
+If necessary, select more data and merge them using the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-merge_queries" target="_blank">merge_queries</a>.
+To view the results; it is possible to get the experiments containing selected data with the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_experiments_by_query" target="_blank">get_experiments_by_query</a>, <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-count_regions" target="_blank">count_regions</a>, or <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_regions" target="_blank">get_regions</a> command (in the BED format), or in a data summary using <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-aggregate" target="_blank">aggregate</a>.</p>
 <p>The use of these commands will be explained in the following sections.</p>
 
                     

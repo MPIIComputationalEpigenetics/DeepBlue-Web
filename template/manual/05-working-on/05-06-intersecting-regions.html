@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="5.6" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="5.6" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -918,7 +918,7 @@
                     <section class="normal" id="section-gitbook_27">
                     
                         <h2 id="intersecting-regions">Intersecting Regions</h2>
-<p>The command <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-intersection" target="_blank">intersection</a> selects the regions that intersect with another set of regions.
+<p>The command <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-intersection" target="_blank">intersection</a> selects the regions that intersect with another set of regions.
 The correct usage is to obtain the regions from experiments that overlap with some annotation, e.g., all sites that overlap with some CpG Island.
 The command has three parameters: the ID of the regions to be filtered, and the ID of the regions to be used for the filtering, and the user key. The result is a query of the regions of the first set that overlap with the regions of the second set:</p>
 <pre><code class="lang-python"><span class="hljs-prompt">&gt;&gt;&gt; </span>(status, cpg_islands) = server.select_annotations(<span class="hljs-string">"CpG Islands"</span>, <span class="hljs-string">"hg19"</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, user_key)

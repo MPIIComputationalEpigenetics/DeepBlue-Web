@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="5.5" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="5.5" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -918,7 +918,7 @@
                     <section class="normal" id="section-gitbook_32">
                     
                         <h2 id="filtering-regions">Filtering Regions</h2>
-<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-filter_regions" target="_blank">filter_regions</a> command is used to filter regions according to their content. This command receives the ID of a query, the region field name that will be filtered, the operation (<code>==</code>, <code>!=</code>, <code>&gt;</code>,<code>&gt;=</code>, <code>&lt;</code>, <code>`&lt;=</code>), and the field type:</p>
+<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-filter_regions" target="_blank">filter_regions</a> command is used to filter regions according to their content. This command receives the ID of a query, the region field name that will be filtered, the operation (<code>==</code>, <code>!=</code>, <code>&gt;</code>,<code>&gt;=</code>, <code>&lt;</code>, <code>`&lt;=</code>), and the field type:</p>
 <p>Example:</p>
 <pre><code class="lang-python"><span class="hljs-prompt">&gt;&gt;&gt; </span>(status, filtered) = server.filter_regions(query_id, <span class="hljs-string">"SCORE"</span>, <span class="hljs-string">"&gt;"</span>,<span class="hljs-string">"5"</span>, <span class="hljs-string">"integer"</span>, user_key)
 <span class="hljs-prompt">&gt;&gt;&gt; </span><span class="hljs-keyword">print</span> server.count_regions(filtered, user_key)

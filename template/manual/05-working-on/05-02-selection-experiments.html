@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="5.2" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="5.2" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -918,11 +918,11 @@
                     <section class="normal" id="section-gitbook_29">
                     
                         <h2 id="selecting-experiments">Selecting Experiments</h2>
-<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_regions" target="_blank">select_regions</a> command is used to access the experiments&#39; data.
-The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_regions" target="_blank">select_regions</a> command is similar to <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_annotations" target="_blank">select_annotations</a>. The difference is that <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_regions" target="_blank">select_regions</a> accepts <code>epigenetic_mark</code>, <code>sample</code>, <code>technique</code>, and <code>project</code> parameters.</p>
+<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_regions" target="_blank">select_regions</a> command is used to access the experiments&#39; data.
+The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_regions" target="_blank">select_regions</a> command is similar to <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_annotations" target="_blank">select_annotations</a>. The difference is that <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_regions" target="_blank">select_regions</a> accepts <code>epigenetic_mark</code>, <code>sample</code>, <code>technique</code>, and <code>project</code> parameters.</p>
 <h3 id="selecting-experiments-example">Selecting Experiments Example</h3>
 <p><em>Example:</em>
-Firstly, we use the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_bio_source_related" target="_blank">get_bio_source_related</a> command to retrieve all biosources related to the term &quot;blood&quot; and then we select only the biosources names from the <code>blood_related</code> list.
+Firstly, we use the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_bio_source_related" target="_blank">get_bio_source_related</a> command to retrieve all biosources related to the term &quot;blood&quot; and then we select only the biosources names from the <code>blood_related</code> list.
 Them, we select all samples that use these biosources and get their IDs.
 Finally, we select all <code>chromosome</code> <em>chr1</em> regions from the experiments that have <code>genome</code> <em>hg19</em>, <code>epigenetic_mark</code> <em>methylation</em> and the found samples and print the chromosome, start, and end of these regions:</p>
 <pre><code class="lang-python">(status, blood_related) = server.get_bio_source_related(<span class="hljs-string">"blood"</span>, user_key)

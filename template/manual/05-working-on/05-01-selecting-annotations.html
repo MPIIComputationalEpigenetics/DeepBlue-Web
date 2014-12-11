@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="5.1" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="5.1" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -918,7 +918,7 @@
                     <section class="normal" id="section-gitbook_33">
                     
                         <h2 id="selecting-annotations">Selecting Annotations</h2>
-<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_annotations" target="_blank">select_annotations</a> command accepts the name of one or more annotations, the genome, chromosomes, and start and end positions. Any combination of these parameters is possible.</p>
+<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_annotations" target="_blank">select_annotations</a> command accepts the name of one or more annotations, the genome, chromosomes, and start and end positions. Any combination of these parameters is possible.</p>
 <p><em>Example 1</em>: Selecting the CpG Island annotation:</p>
 <pre><code class="lang-python">(s, cpg_island) = server.select_annotations(<span class="hljs-string">"Cpg Islands"</span>, <span class="hljs-string">"hg19"</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, user_key)
 </code></pre>
@@ -928,7 +928,7 @@
 <p><em>Example 3</em>: Selecting the <em>hox</em> genes:</p>
 <pre><code class="lang-python">(s, hox_genes) = server.select_annotations(<span class="hljs-string">"Genes"</span>, <span class="hljs-string">"hg19"</span>, <span class="hljs-string">"chr7"</span>, <span class="hljs-number">27130000</span>, <span class="hljs-number">27250000</span>, user_key)
 </code></pre>
-<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_annotations" target="_blank">select_annotations</a> return value is a query identifier (that will be) used in other operations or to retrieve data with the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_regions" target="_blank">get_regions</a> command.</p>
+<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_annotations" target="_blank">select_annotations</a> return value is a query identifier (that will be) used in other operations or to retrieve data with the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_regions" target="_blank">get_regions</a> command.</p>
 
                     
                     </section>

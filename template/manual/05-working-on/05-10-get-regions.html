@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="5.10" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="5.10" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -918,9 +918,9 @@
                     <section class="normal" id="section-gitbook_37">
                     
                         <h2 id="get-regions">Get Regions</h2>
-<p>The command <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_regions" target="_blank">get_regions</a> is used for retrieving sequences from the server.
+<p>The command <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_regions" target="_blank">get_regions</a> is used for retrieving sequences from the server.
 The command parameters are the <code>query_id</code> and the <code>format</code>.</p>
-<p>The format is the name of the fields that were given in the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-add_experiment" target="_blank">add_experiment</a> and <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-add_annotation" target="_blank">add_annotations</a>.</p>
+<p>The format is the name of the fields that were given in the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-add_experiment" target="_blank">add_experiment</a> and <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-add_annotation" target="_blank">add_annotations</a>.</p>
 <p><em>Example:</em> Retrieving all regions from chromosome 1, <em>blood</em> as biosource, <em>methylation</em> as epigenetic mark , and containing the key <em>karyotype</em> with the value <em>cancer</em> in the sample:</p>
 <pre><code class="lang-python">(status, blood_related) = server.get_bio_source_related(<span class="hljs-string">"blood"</span>, user_key)
 blood_related_names = [x[<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> blood_related]

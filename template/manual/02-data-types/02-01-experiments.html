@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="2.1" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="2.1" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -932,7 +932,7 @@ Each experiment is compounded by a region set and associated metadata.</p>
 <li><em>Extra metadata</em> — additional metadata. A key-value dictionary with extra information about the experiment</li>
 <li><em>User</em> — User who inserted the experiment.</li>
 </ul>
-<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-list_experiments" target="_blank">list_experiments</a> command is used to obtain all Experiments that match the given metadata content.
+<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-list_experiments" target="_blank">list_experiments</a> command is used to obtain all Experiments that match the given metadata content.
 This command has the parameters: genome assembly, epigenetic mark, sample ID, technique, project, and <em>user_key</em>.
 All parameters, with the exception of <em>user_key</em>, are optional. Setting a parameter to <em>None</em> means that this parameter will not be used for the experiment selection. For example, it is possible to list all experiments from the genome assembly <em>hg19</em>, by entering the genome assembly and passing an empty string to all other metadata parameters:</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> xmlrpclib

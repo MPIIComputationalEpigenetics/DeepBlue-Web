@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="2.4" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="2.4" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -919,7 +919,7 @@
                     
                         <h2 id="genomes">Genomes</h2>
 <p>The <em>Genomes</em> controlled vocabulary contains the names, descriptions, and chromosome names and sizes of different Genome assemblies, e.g., <em>hg19</em>.
-To begin with, DeepBlue contains the assembly <em>hg19</em>, but new genome assemblies can be inserted easily using the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-add_genome" target="_blank">add_genome</a> command.
+To begin with, DeepBlue contains the assembly <em>hg19</em>, but new genome assemblies can be inserted easily using the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-add_genome" target="_blank">add_genome</a> command.
 The following code example shows how to insert a new genome assembly with the chromosome names and sizes.
 The variable <code>genome_data</code> contains text with the chromosome name and its size on each line.</p>
 <pre><code class="lang-python">genome_data = <span class="hljs-string">"""chr1 1000000
@@ -929,15 +929,15 @@ chrX 100000"""</span>
 <span class="hljs-keyword">print</span> server.add_genome(<span class="hljs-string">"hgX"</span>, <span class="hljs-string">"Example of Genome for the Manual"</span>, genome_data, user_key)
 </code></pre>
 <p>Please be aware that not all users have permission to insert a new genome into DeepBlue.</p>
-<p>The command <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-chromosomes" target="_blank">chromosomes</a> lists all the names and sizes of the chromosomes of a genome assembly:</p>
+<p>The command <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-chromosomes" target="_blank">chromosomes</a> lists all the names and sizes of the chromosomes of a genome assembly:</p>
 <pre><code class="lang-python"><span class="hljs-keyword">print</span> server.chromosomes(<span class="hljs-string">"hgX"</span>, user_key)
 </code></pre>
 <p>The <code>add_genome</code> command also creates an annotation containing all chromosomes and their sizes.
 The annotation name is identical to that of the genome.
-The annotation can be found using the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-list_annotations" target="_blank">list_annotations</a>:</p>
+The annotation can be found using the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-list_annotations" target="_blank">list_annotations</a>:</p>
 <pre><code class="lang-python"><span class="hljs-keyword">print</span> server.list_annotations(<span class="hljs-string">"hgX"</span>, user_key)
 </code></pre>
-<p>Use the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_annotations" target="_blank">select_annotations</a> and <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_regions" target="_blank">get_regions</a> commands to obtain the genome&#39;s annotation:</p>
+<p>Use the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_annotations" target="_blank">select_annotations</a> and <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_regions" target="_blank">get_regions</a> commands to obtain the genome&#39;s annotation:</p>
 <pre><code class="lang-python">(s, chromosomes_annotation) = server.select_annotations(<span class="hljs-string">"hgX"</span>, <span class="hljs-string">"hgX"</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, <span class="hljs-keyword">None</span>, user_key)
 (s, regions) = server.get_regions(chromosomes_annotation, <span class="hljs-string">"CHROMOSOME,START,END"</span>, user_key)
 <span class="hljs-keyword">print</span> regions
@@ -951,13 +951,13 @@ chrX    0    100000
 <h3 id="genomic-sequences">Genomic Sequences</h3>
 <p>DeepBlue also stores genomic sequences from the genome assemblies which can be used for data filtering and analysis.
 The sequences of <code>hg19</code> genome assembly chromosomes are already included in DeepBlue.</p>
-<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-upload_chromosome" target="_blank">upload_chromosome</a> command is used to upload the genomic sequences of other genome assemblies:</p>
+<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-upload_chromosome" target="_blank">upload_chromosome</a> command is used to upload the genomic sequences of other genome assemblies:</p>
 <pre><code class="lang-python"><span class="hljs-comment"># Example sequence!</span>
 data = <span class="hljs-string">"ACTGACTGCG"</span> * <span class="hljs-number">100000</span>
 <span class="hljs-keyword">print</span> server.upload_chromosome(<span class="hljs-string">"hgX"</span>, <span class="hljs-string">"chr1"</span>, data, user_key)
 </code></pre>
 <p>The <a href="../06-sequences/06-01-obtaining-region-sequences">Working with Sequences</a> section discusses how to access and use the genomic sequences.</p>
-<p>A list of all possible commands that can be applied within the genomes controlled vocabulary is available at <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-genomes" target="_blank">DeepBlue API - Inserting and listing Genomes</a>.</p>
+<p>A list of all possible commands that can be applied within the genomes controlled vocabulary is available at <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-genomes" target="_blank">DeepBlue API - Inserting and listing Genomes</a>.</p>
 
                     
                     </section>

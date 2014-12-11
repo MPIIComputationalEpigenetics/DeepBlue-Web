@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="5.3" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="5.3" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -918,7 +918,7 @@
                     <section class="normal" id="section-gitbook_30">
                     
                         <h2 id="experiments-by-query">Experiments by Query</h2>
-<p>In a <a href="05-02-selection-experiments.html">previous section</a>, we selected all experiments that matched a set of parameters. DeepBlue provides the command <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_experiments_by_query" target="_blank">get_experiments_by_query</a> to find out which experiments were selected by the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-select_regions" target="_blank">select_regions</a> command:</p>
+<p>In a <a href="05-02-selection-experiments.html">previous section</a>, we selected all experiments that matched a set of parameters. DeepBlue provides the command <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_experiments_by_query" target="_blank">get_experiments_by_query</a> to find out which experiments were selected by the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-select_regions" target="_blank">select_regions</a> command:</p>
 <pre><code class="lang-python"><span class="hljs-prompt">&gt;&gt;&gt; </span>(status, experiments) = server.get_experiments_by_query(query_id, user_key)
 <span class="hljs-prompt">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> experiment <span class="hljs-keyword">in</span> experiments[:<span class="hljs-number">5</span>]:
 <span class="hljs-prompt">&gt;&gt;&gt; </span>  (status, info) = server.info(experiment[<span class="hljs-number">0</span>], user_key)

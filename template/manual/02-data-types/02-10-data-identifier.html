@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="2.10" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="2.10" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -969,10 +969,10 @@ indicating the data type, and a numeric value.</p>
 </tr>
 </tbody>
 </table>
-<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-info" target="_blank">info</a> command is to inspect the identifier content:</p>
+<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-info" target="_blank">info</a> command is to inspect the identifier content:</p>
 <pre><code class="lang-python">server.info(<span class="hljs-string">"e1"</span>, user_key)
 </code></pre>
-<p>We can use the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-info" target="_blank">info</a> command to view the samples&#39; content:</p>
+<p>We can use the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-info" target="_blank">info</a> command to view the samples&#39; content:</p>
 <pre><code class="lang-python">(s, related) = server.get_bio_source_related(<span class="hljs-string">"blood"</span>, user_key)
 related_names = [x[<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> related] <span class="hljs-comment"># get the BioSource names</span>
 (s, samples) = server.list_samples(related_names, {}, user_key)

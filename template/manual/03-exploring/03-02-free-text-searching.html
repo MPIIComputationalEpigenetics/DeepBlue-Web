@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="3.2" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="3.2" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -919,16 +919,16 @@
                     
                         <h2 id="free-text-search">Free Text Search</h2>
 <p>The listing operations are useful for listing the IDs and names, but not for searching through data content.
-For example, if we wish to search for an <a href="../02-data-types/02-01-experiments.html">Experiment</a> with associated metadata, we must <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-list_experiments" target="_blank">list all the experiments</a>, execute <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-info" target="_blank">info</a> and analyze the result of each experiment.
-Also, the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-list_samples" target="_blank">list_samples</a> command needs the correct metadata content to find the expected sample.
+For example, if we wish to search for an <a href="../02-data-types/02-01-experiments.html">Experiment</a> with associated metadata, we must <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-list_experiments" target="_blank">list all the experiments</a>, execute <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-info" target="_blank">info</a> and analyze the result of each experiment.
+Also, the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-list_samples" target="_blank">list_samples</a> command needs the correct metadata content to find the expected sample.
 In short, it is not an optimal way to search data.
-The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-search" target="_blank">search</a> command is the optimal method for data searching in DeepBluebecause it simplifies the task of finding data.</p>
-<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-search" target="_blank">search</a> command has three parameters: the free text for which to do search, the data type (optional), and the <em>user_key</em>. The data type defines the collection on which the search will be made.
+The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-search" target="_blank">search</a> command is the optimal method for data searching in DeepBluebecause it simplifies the task of finding data.</p>
+<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-search" target="_blank">search</a> command has three parameters: the free text for which to do search, the data type (optional), and the <em>user_key</em>. The data type defines the collection on which the search will be made.
 The available collections are: <em>annotations</em>, <em>biosources</em>, <em>epigenetic_marks</em>, <em>experiments</em>, <em>genomes</em>, <em>projects</em>, <em>samples</em>, <em>sample fields</em>, <em>techniques</em>, <em>tilings</em>, and <em>column_types</em>. Multiple data types can be combined, i.e., it is possible to search for the term &quot;cancer&quot; in all experiments and samples.
 The search command will search for the free text input in all data content.
 This means that the command will look at the data name, description, other data type attributes, and also at the extra metadata.</p>
-<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-search" target="_blank">search</a> command result is a set of tuples, ordered by relevance, containing the data id, data name, and data type. The command returns a maximum of 100 values.
-The command returns a set containing the IDs and names; the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-info" target="_blank">info</a> command offers more information about the retrieved items.</p>
+<p>The <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-search" target="_blank">search</a> command result is a set of tuples, ordered by relevance, containing the data id, data name, and data type. The command returns a maximum of 100 values.
+The command returns a set containing the IDs and names; the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-info" target="_blank">info</a> command offers more information about the retrieved items.</p>
 <p>In the following example, we search for all samples containing either the word &quot;cancer&quot; <strong>or</strong> &quot;blood&quot; in their description:</p>
 <pre><code class="lang-python">server.search(<span class="hljs-string">"cancer blood"</span>, <span class="hljs-string">"samples"</span>, user_key)
 </code></pre>
@@ -954,7 +954,7 @@ Experiments containing all three given words will have higher scores and will ap
 </code></pre>
 <p>Please be aware that the terms inside  <code>\&quot; \&quot;</code> are searched for exactly as they are entered, turning off the default functionality of searching for similar terms.</p>
 <h4 id="more-examples">More Examples</h4>
-<p><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-search" target="_blank">Search</a> can be used together with the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-info" target="_blank">info</a> command:</p>
+<p><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-search" target="_blank">Search</a> can be used together with the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-info" target="_blank">info</a> command:</p>
 <pre><code>python
 (s, result) = server.search(&quot;methylation  -histone -modification cancer &quot;, &quot;experiments&quot;, user_key)
 for r in result[:3]:   # Select first three elements

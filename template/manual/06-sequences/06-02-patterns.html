@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="6.2" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="6.2" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -918,8 +918,8 @@
                     <section class="normal" id="section-gitbook_41">
                     
                         <h2 id="patterns">Patterns</h2>
-<p>The command <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-find_pattern" target="_blank">find_pattern</a> creates an annotation based on a given sequence pattern.
-This command has three parameters: the pattern, in <a href="http://www.boost.org/doc/libs/1_44_0/libs/regex/doc/html/boost_regex/syntax/perl_syntax.html" target="_blank">Perl Regular Expression Syntax</a>, the <code>genome</code>, and a boolean, to specify if the pattern matching will be overlapping or non-overlapping.</p>
+<p>The command <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-find_pattern" target="_blank">find_pattern</a> creates an annotation based on a given sequence pattern.
+This command has three parameters: the pattern, in <a href="http://www.boost.org/doc/libs/1_44_0/libs/regex/doc/php/boost_regex/syntax/perl_syntax.php" target="_blank">Perl Regular Expression Syntax</a>, the <code>genome</code>, and a boolean, to specify if the pattern matching will be overlapping or non-overlapping.</p>
 <p>The difference between overlapping and non-overlapping is as follows: when a non-overlapping pattern is found, the pattern searching continues in the position after the end end of the match. In the case of an  overlapping pattern, the searching process continues one position after the beginning of the match:</p>
 <pre><code class="lang-python">status, _id = server.find_pattern(<span class="hljs-string">"TATA"</span>, <span class="hljs-string">"hg19_only_chr19"</span>, <span class="hljs-keyword">True</span>, user_key)
 <span class="hljs-keyword">print</span> server.info(_id, user_key)

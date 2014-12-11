@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="4.1" data-basepath=".." data-revision="1416318708248">
+    <div class="book"  data-level="4.1" data-basepath=".." data-revision="1418309919162">
     
 
 <div class="book-summary">
@@ -918,7 +918,7 @@
                     <section class="normal" id="section-gitbook_19">
                     
                         <h2 id="inserting-experiments">Inserting Experiments</h2>
-<p>The experiments use all controlled vocabularies for their metadata. For this reason, please make sure that you have included all parameters required by the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-add_experiment" target="_blank">add_experiment</a> command, before inserting a new experiment.</p>
+<p>The experiments use all controlled vocabularies for their metadata. For this reason, please make sure that you have included all parameters required by the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-add_experiment" target="_blank">add_experiment</a> command, before inserting a new experiment.</p>
 <ul>
 <li>Name — experiment name – Unique for each user</li>
 <li>Genome — genome assembly</li>
@@ -931,14 +931,14 @@
 <li>Format — file format description</li>
 <li>Extra metadata — extra information in the key-value format – to include metadata that does not belong to any controlled vocabulary.</li>
 </ul>
-<p>DeepBlue indexes and performs <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-search" target="_blank">searches</a> on all metadata, including the experiment name, controlled vocabulary terms, description and extra metadata.</p>
+<p>DeepBlue indexes and performs <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-search" target="_blank">searches</a> on all metadata, including the experiment name, controlled vocabulary terms, description and extra metadata.</p>
 <p>Two very important fields are the <code>data</code> and <code>format</code>.
-The data must be in the <a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format1" target="_blank">BED</a>, <a href="https://genome.ucsc.edu/goldenPath/help/bedgraph.html" target="_blank">BEDGRAPH</a>, or <a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format6" target="_blank">WIG</a> format. The <code>format</code>field should state which format is being used. If the data is in <em>BED</em> format, the column names must be given. Otherwise, only the format name is needed: <code>bedgraph</code> or <code>wig</code>.</p>
+The data must be in the <a href="http://genome.ucsc.edu/FAQ/FAQformat.php#format1" target="_blank">BED</a>, <a href="https://genome.ucsc.edu/goldenPath/help/bedgraph.php" target="_blank">BEDGRAPH</a>, or <a href="http://genome.ucsc.edu/FAQ/FAQformat.php#format6" target="_blank">WIG</a> format. The <code>format</code>field should state which format is being used. If the data is in <em>BED</em> format, the column names must be given. Otherwise, only the format name is needed: <code>bedgraph</code> or <code>wig</code>.</p>
 <h3 id="bed-data-format">BED Data Format</h3>
-<p>When inserting an experiment in <a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format1" target="_blank">BED</a> format, the  <code>format</code> parameter should describe the data content.
+<p>When inserting an experiment in <a href="http://genome.ucsc.edu/FAQ/FAQformat.php#format1" target="_blank">BED</a> format, the  <code>format</code> parameter should describe the data content.
 The format contains the field names separated by commas (,) where each field must have a <code>name</code> and <code>type</code>. An optional value, named <code>default_value</code>, can be used to indicate the value of this column if some value is missing.
-The <code>default_value</code>is also used in the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-get_regions" target="_blank">get_results</a> when some column that the experiment does not contain is requested.
-Remember that the <a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format1" target="_blank">BED</a> format uses tabs as field separators.</p>
+The <code>default_value</code>is also used in the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-get_regions" target="_blank">get_results</a> when some column that the experiment does not contain is requested.
+Remember that the <a href="http://genome.ucsc.edu/FAQ/FAQformat.php#format1" target="_blank">BED</a> format uses tabs as field separators.</p>
 <p>Let us take at the following BED file:</p>
 <pre><code>chr1    0    100    1.0
 chr1    100    200    1.2
@@ -947,7 +947,7 @@ chr1    400    600    0.2
 </code></pre><p>An acceptable format is:</p>
 <pre><code class="lang-python">format_example_one = <span class="hljs-string">"Chromosome:String,Start:Integer,End:Integer,Value:Double:0.0"</span>
 </code></pre>
-<p>The <code>format_example_one</code> defines a <a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format1" target="_blank">BED</a> format with four fields.
+<p>The <code>format_example_one</code> defines a <a href="http://genome.ucsc.edu/FAQ/FAQformat.php#format1" target="_blank">BED</a> format with four fields.
 We will ignore the content of the field <code>Value</code> when it is &quot;0.0&quot;.
 The field content is first analyzed lexically, i.e., the content of the column, not the value.
 In this case, if the column has &quot;0&quot; as content, it will not be ignored.</p>
@@ -971,21 +971,21 @@ For example, we can rewrite the format defined by <code>&quot;Chromosome:String,
 <p>DeepBlue has the column <em>IGNORE</em> that must be used when the entire column content must be ignored.</p>
 <p>Three commands are available to define a <code>`column_type</code>:</p>
 <ul>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-create_column_type_simple" target="_blank">create_column_type_simple</a> — to create a <code>column_type</code> with simple types: <code>string</code>, <code>integer</code>, and <code>double</code>.<pre><code class="lang-python">server.create_column_type_simple(<span class="hljs-string">"NAME"</span>, <span class="hljs-string">"The Name!"</span>, <span class="hljs-string">"-"</span>, <span class="hljs-string">"string"</span>, user_key)
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-create_column_type_simple" target="_blank">create_column_type_simple</a> — to create a <code>column_type</code> with simple types: <code>string</code>, <code>integer</code>, and <code>double</code>.<pre><code class="lang-python">server.create_column_type_simple(<span class="hljs-string">"NAME"</span>, <span class="hljs-string">"The Name!"</span>, <span class="hljs-string">"-"</span>, <span class="hljs-string">"string"</span>, user_key)
 server.create_column_type_simple(<span class="hljs-string">"VALUE"</span>, <span class="hljs-string">"The Value!"</span>, <span class="hljs-string">"0.0"</span>, <span class="hljs-string">"double"</span>, user_key)
 server.create_column_type_simple(<span class="hljs-string">"POSITION"</span>, <span class="hljs-string">"The Position!"</span>, <span class="hljs-string">"0"</span>, <span class="hljs-string">"integer"</span>, user_key)
 </code></pre>
 </li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-create_column_type_category" target="_blank">create_column_type_category</a> — to create a <code>column_type</code> that accepts a predefined set of values<pre><code class="lang-python">server.create_column_type_simple(<span class="hljs-string">"STRAND"</span>, <span class="hljs-string">"Strand!"</span>, <span class="hljs-string">"."</span>, [<span class="hljs-string">"+"</span>,<span class="hljs-string">"-"</span>], user_key)
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-create_column_type_category" target="_blank">create_column_type_category</a> — to create a <code>column_type</code> that accepts a predefined set of values<pre><code class="lang-python">server.create_column_type_simple(<span class="hljs-string">"STRAND"</span>, <span class="hljs-string">"Strand!"</span>, <span class="hljs-string">"."</span>, [<span class="hljs-string">"+"</span>,<span class="hljs-string">"-"</span>], user_key)
 </code></pre>
 </li>
-<li><a href="http://deepblue.mpi-inf.mpg.de/api.html#api-create_column_type_range" target="_blank">create_column_type_range</a> — to create a <code>`column_type</code> that accepts a value that lies within a given range (value range is inclusive)<pre><code class="lang-python">server.create_column_type_range(<span class="hljs-string">"NORMALIZED_SCORE"</span>, <span class="hljs-string">"Normalized Score"</span>, -<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, user_key)
+<li><a href="http://deepblue.mpi-inf.mpg.de/api.php#api-create_column_type_range" target="_blank">create_column_type_range</a> — to create a <code>`column_type</code> that accepts a value that lies within a given range (value range is inclusive)<pre><code class="lang-python">server.create_column_type_range(<span class="hljs-string">"NORMALIZED_SCORE"</span>, <span class="hljs-string">"Normalized Score"</span>, -<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, user_key)
 </code></pre>
 </li>
 </ul>
 <p>For consistency, please always use capital letters for the <code>Column Type</code> name.</p>
 <p>As DeepBlue already contains pre-defined <code>column_types</code>,  it should hardly be necessary to insert new <code>column_types</code>.
-Use the command <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-list_column_types" target="_blank">list_column_types</a> to list all <code>column_types</code> included in DeepBlue:</p>
+Use the command <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-list_column_types" target="_blank">list_column_types</a> to list all <code>column_types</code> included in DeepBlue:</p>
 <pre><code class="lang-python">(s, columns) = server.list_column_types(user_key)
 <span class="hljs-keyword">for</span> column <span class="hljs-keyword">in</span> columns:
   <span class="hljs-keyword">print</span> column
@@ -994,10 +994,10 @@ Use the command <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-list_column
 <pre><code>milliDel:Integer:0,milliIns:Integer:0,chromosome:String,start:Integer:0,end:Integer:0,strand:String,repName:String,repClass:String
 </code></pre><p>This can be rewritten using <code>column_types</code> as:</p>
 <pre><code>MILLI_DEL,MILLI_INS,CHROMOSOME,START,END,STRAND,REP_NAME,REP_CLASS
-</code></pre><p>The standard <a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format1" target="_blank">BED format</a> has the following specification in DeepBlue:</p>
+</code></pre><p>The standard <a href="http://genome.ucsc.edu/FAQ/FAQformat.php#format1" target="_blank">BED format</a> has the following specification in DeepBlue:</p>
 <pre><code>&#39;NAME,SCORE,STRAND,THICK_START,THICK_END,ITEM_RGB,BLOCK_COUNT,BLOCK_SIZES,BLOCK_STARTS&#39;
-</code></pre><p>It is possible to inspect the experiment format using the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-info" target="_blank">info</a> command.
-In the following example, we <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-search" target="_blank">search</a> for all experiments that contain &quot;methylation&quot; and &quot;blood&quot; in their medatada, get their full information using the <a href="http://deepblue.mpi-inf.mpg.de/api.html#api-info" target="_blank">info</a> command, and print the name and format:</p>
+</code></pre><p>It is possible to inspect the experiment format using the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-info" target="_blank">info</a> command.
+In the following example, we <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-search" target="_blank">search</a> for all experiments that contain &quot;methylation&quot; and &quot;blood&quot; in their medatada, get their full information using the <a href="http://deepblue.mpi-inf.mpg.de/api.php#api-info" target="_blank">info</a> command, and print the name and format:</p>
 <pre><code class="lang-python">(s, experiments) = server.search(<span class="hljs-string">"\"methylation\" \"blood\""</span>, <span class="hljs-string">"experiments"</span>, user_key)
 <span class="hljs-keyword">for</span> experiment <span class="hljs-keyword">in</span> experiments:
     (s, e_info) = server.info(experiment[<span class="hljs-number">0</span>], user_key)
