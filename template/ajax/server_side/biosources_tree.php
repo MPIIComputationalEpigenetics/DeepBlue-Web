@@ -19,8 +19,25 @@ require_once("../../lib/lib.php");
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
 
-$client = new IXR_Client($url);
 
+function get_ontology_id($bs_id, &$client, &$user_key)
+{
+	if(!$client->query("info", $bs_id, $user_key)){
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+	}
+
+	$response = $client->getResponse();
+
+	if ($response[0] == "okay") {
+		$bs_info = $response[1];
+		if (isset($bs_info[0]["extra_metadata"]["url"])) {
+			return $bs_info[0]["extra_metadata"]["url"];
+		}
+	}
+	return "";
+}
+
+$client = new IXR_Client($url);
 if(!$client->query("list_in_use", "biosources", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
@@ -31,7 +48,8 @@ else{
 $bioSourceNames = array();
 
 foreach ($biosourceList[0][1] as $bioSource) {
-        $bioSourceNames[] = array($bioSource[0], $bioSource[1], $bioSource[2], array());
+	$url = get_ontology_id($bioSource[0], $client, $user_key);
+    $bioSourceNames[] = array($bioSource[0], $bioSource[1], $bioSource[2], array(), $url);
 }
 
 $all_nodes = array();
@@ -74,7 +92,8 @@ while (sizeof($actual_leaves) > 0) {
 	    	foreach($parentsList[1] as &$parent) {
 	    		$update = exists($parent[1], $leaf, $nodes, $nodes);
 	    		if ($update == false) {
-	    			$all_nodes[$parent[1]] = array($parent[0], $parent[1], 0, array($leaf));
+	    			$url = get_ontology_id($parent[0], $client, $user_key);
+	    			$all_nodes[$parent[1]] = array($parent[0], $parent[1], 0, array($leaf), $url);
 					$nodes[$parent[1]] = &$all_nodes[$parent[1]];
 					$new_leaves[] = &$all_nodes[$parent[1]];
 					unset($nodes[$leaf[1]]);

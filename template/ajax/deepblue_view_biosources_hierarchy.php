@@ -171,7 +171,7 @@ function is_in(name, count, sons, exists) {
 	return sons_is_in;
 }
 
-function create_root(tree, id, name, count, sons, parent_id, exists) {
+function create_root(tree, id, name, count, sons, parent_id, exists, url) {
 
 	if (is_in(name, count, sons, exists)) {
 		return;
@@ -186,19 +186,27 @@ function create_root(tree, id, name, count, sons, parent_id, exists) {
 		biosource.count = count;
 		li_id_to_biosource[li_class] = biosource;
 
+		if (url.length > 0) {
+			s = url.split("/");
+			ont_name = "  (" + s[s.length-1] + ")";
+		} else {
+			ont_name = "";
+		}
+
+
 		if (count > 0) {
-			var root = tree.append('<ul><li id="'+li_class+'" data-jstree=\'{"name":"'+name+'", "count":'+count+'}\'>'+ name+ " (" + count + ")" + '</li></ul>');
+			var root = tree.append('<ul><li id="'+li_class+'" data-jstree=\'{"name":"'+name+'", "count":'+count+'}\'>'+ name+  ont_name + '</li></ul>');
 		}
 		else {
 			var root = tree.append('<ul><li id="'+li_class+'">'+ name + '</li></ul>');
 		}
 		var l = $('#'+li_class);
 		$.each(sons, function ( index, value ) {
-			create_root(l, value[0], value[1], value[2], value[3], parent_id+value[0], exists);
+			create_root(l, value[0], value[1], value[2], value[3], parent_id+value[0], exists, value[4]);
 		});
 	} else {
 		$.each(sons, function ( index, value ) {
-			create_root(tree, value[0], value[1], value[2], value[3], parent_id, exists);
+			create_root(tree, value[0], value[1], value[2], value[3], parent_id, exists, value[4]);
 		});
 	}
 }
@@ -446,7 +454,7 @@ function deselect_node(e, data) {
 
 			exists = [];
 			$.each(data.data, function (index, value) {
-				create_root(tree_div, value[0], value[1], value[2], value[3], "", exists);
+				create_root(tree_div, value[0], value[1], value[2], value[3], "", exists, value[4]);
 			});
 
 			$('#biosources-tree').jstree({
