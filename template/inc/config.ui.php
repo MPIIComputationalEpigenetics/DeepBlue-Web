@@ -61,7 +61,7 @@ $page_nav = array(
 	),
 
 	"deepblue_tables" => array(
-		"title" => "DeepBlue Data",
+		"title" => "Data Tables",
 		"icon" => "fa-table",
 		"sub" => array(
 			"annotations" => array(
