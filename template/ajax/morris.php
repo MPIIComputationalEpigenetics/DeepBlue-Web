@@ -60,7 +60,7 @@
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Sales Graph</h2>				
+					<h2>Sales Graph</h2>			
 					
 				</header>
 
