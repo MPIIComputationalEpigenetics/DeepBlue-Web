@@ -30,7 +30,7 @@
 	$client = new IXR_Client($url);
 	
 	/* retrieve all the data required for the table */
-	$vocabulary = array("projects","epigenetic_marks", "biosources", "techniques");
+	$vocabulary = array("projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples");
 	$list = array();
 	$total_sum = array();
 	
@@ -47,7 +47,7 @@
 			if ($result[0] =='okay') {
 				$j = 0; // index for each experiment in each controlled vocabulary
 				foreach($result[1] as $item) {
-					$list[$vocab][$j] = array('label' => $item[1], 'data' => $item[2]);
+					$list[$vocab][$j] = array('label' => $item[1], 'value' => $item[2]);
 					$total_sum[$vocab] = $total_sum[$vocab] + $item[2];
 					$j = $j + 1;
 				}
@@ -155,7 +155,7 @@
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Techniques</h2>				
+					<h2>Genomes</h2>				
 					
 				</header>
 
@@ -172,7 +172,7 @@
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 						
-						<div id="techniques-chart" class="chart"></div>
+						<div id="genomes-chart" class="chart"></div>
 						
 					</div>
 					<!-- end widget content -->
@@ -213,7 +213,7 @@
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Genomes</h2>				
+					<h2>Technique</h2>				
 					
 				</header>
 
@@ -230,7 +230,7 @@
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 						
-						<div id="genomes-chart" class="chart"></div>
+						<div id="techniques-chart" class="chart"></div>
 						
 					</div>
 					<!-- end widget content -->
@@ -253,7 +253,7 @@
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			
 			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget" id="wid-id-2" data-widget-editbutton="false">
+			<div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 					
@@ -286,7 +286,7 @@
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 						
-						<div id="epigenetic-marks-chart" class="chart"></div>
+						<div id="epigenetic_marks-chart" class="chart"></div>
 						
 					</div>
 					<!-- end widget content -->
@@ -301,6 +301,60 @@
 	</div>
 	<!-- end row -->
 
+	<div class="row">
+		
+		<!-- NEW WIDGET START -->
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+				<!-- widget options:
+					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+					
+					data-widget-colorbutton="false"	
+					data-widget-editbutton="false"
+					data-widget-togglebutton="false"
+					data-widget-deletebutton="false"
+					data-widget-fullscreenbutton="false"
+					data-widget-custombutton="false"
+					data-widget-collapsed="true" 
+					data-widget-sortable="false"
+					
+				-->
+				<header>
+					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+					<h2>Biosources</h2>				
+					
+				</header>
+
+				<!-- widget div-->
+				<div>
+					
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+						
+					</div>
+					<!-- end widget edit box -->
+					
+					<!-- widget content -->
+					<div class="widget-body no-padding">
+						
+						<div id="biosources-chart" class="chart"></div>
+						
+					</div>
+					<!-- end widget content -->
+					
+				</div>
+				<!-- end widget div -->
+				
+			</div>
+			<!-- end widget -->
+		</article>
+		<!-- WIDGET END -->
+	</div>
+	<!-- end row -->
+	
 </section>
 <!-- end widget grid -->
 
@@ -366,20 +420,7 @@
 
 	pageSetUp();
 	
-	// manage clicks
-	$('#projects-chart').bind("plotclick", function (event, pos, item) {
-        if (item) {
-            lauchModalView(item.series.label, 'project');            
-        }
-    });
-
-	$('#techniques-chart').bind("plotclick", function (event, pos, item) {
-        if (item) { 
-            lauchModalView(item.series.label, 'technique');            
-        }
-    });
-
-    // MODAL VIEW
+	// MODAL VIEW
     
     function lauchModalView(label, vocab) {
 
@@ -538,196 +579,92 @@
 	// PAGE RELATED SCRIPTS
 	var pagefunction = function() {
 
-		/* chart colors default */
-		var $chrt_border_color = "#efefef";
-		var $chrt_grid_color = "#DDD"
-		var $chrt_main = "#E24913";			/* red       */
-		var $chrt_second = "#6595b4";		/* blue      */
-		var $chrt_third = "#FF9F01";		/* orange    */
-		var $chrt_fourth = "#7e9d3a";		/* green     */
-		var $chrt_fifth = "#BD362F";		/* dark red  */
-		var $chrt_mono = "#000";
-
-		/* pie chart default options */
-		var pie_option = {
-			series: {
-				pie: {
-					show: true,
-					innerRadius: 0.5,
-					radius:  1,
-					label: {
-						show: false,						
-					}
-				}
-			},
-			
-			legend: {
-				show: true,
-				noColumns : 1, // number of colums in legend table
-				labelFormatter : null, // fn: string -> string
-				labelBoxBorderColor : "#000", // border color for the little label boxes
-				container : null, // container (as jQuery object) to put legend in, null means default on top of graph
-				position : "ne", // position of default legend container within plot
-				margin : [5, 10], // distance from grid edge to default legend container within plot
-				backgroundColor : "#efefef", // null means auto-detect
-				backgroundOpacity : 1 // set to 0 to avoid background
-			},
-			
-			grid : {
-				hoverable : true,
-				clickable : true
-			}										
-		};
-													
-		/* projects pie chart */
-		if ($('#projects-chart').length) {
-				var placeholder = "#projects-chart";
-				var data = <?php echo json_encode($list['projects']);?>;
-				var option = pie_option;
-				$.plot($(placeholder), data, option);
+		/* projects donut chart */
+		if ($('#projects-chart').length){ 
+			Morris.Donut({
+				  element: 'projects-chart',
+				  data:  <?php echo json_encode($list['projects']);?>,
+				  formatter: function (x) { return x},
+				  resize: true
+				}).on('click', function(i, row){
+					lauchModalView(row['label'], 'project')
+				});
 		}
 		/* end projects pie chart */
 
-		/* techniques pie chart */
+		/* techniques bar chart */
 		if ($('#techniques-chart').length) {
-				var placeholder = "#techniques-chart";
-				var data = <?php echo json_encode($list['techniques']);?>;
-				var option = pie_option;				
-								
-				$.plot($(placeholder), data, option);
+			Morris.Bar({
+				  element: 'techniques-chart',
+				  data: <?php echo json_encode($list['techniques']);?>,
+				  xkey: 'label',
+				  ykeys: ['value'],
+				  labels: "Count",
+				  resize: true
+			}).on('click', function(i, row){
+				lauchModalView(row['label'], 'technique')
+			});			
 		}
 		/* end techniques pie chart */
-		
-		
-		/* bar chart */
-		if ($("#genomes-chart").length) {
 
-			var data1 = [];
-			for (var i = 0; i <= 12; i += 1)
-				data1.push([i, parseInt(Math.random() * 30)]);
-	
-			var data2 = [];
-			for (var i = 0; i <= 12; i += 1)
-				data2.push([i, parseInt(Math.random() * 30)]);
-	
-			var data3 = [];
-			for (var i = 0; i <= 12; i += 1)
-				data3.push([i, parseInt(Math.random() * 30)]);
-	
-			var ds = new Array();
-	
-			ds.push({
-				data : data1,
-				bars : {
-					show : true,
-					barWidth : 0.2,
-					order : 1,
-				}
-			});
-			ds.push({
-				data : data2,
-				bars : {
-					show : true,
-					barWidth : 0.2,
-					order : 2
-				}
-			});
-			ds.push({
-				data : data3,
-				bars : {
-					show : true,
-					barWidth : 0.2,
-					order : 3
-				}
-			});
-	
-			//Display graph
-			$.plot($("#genomes-chart"), ds, {
-				colors : [$chrt_second, $chrt_fourth, "#666", "#BBB"],
-				grid : {
-					show : true,
-					hoverable : true,
-					clickable : true,
-					tickColor : $chrt_border_color,
-					borderWidth : 0,
-					borderColor : $chrt_border_color,
-				},
-				legend : true,
-				tooltip : true,
-				tooltipOpts : {
-					content : "<b>%x</b> = <span>%y</span>",
-					defaultTheme : false
-				}
-	
-			});
-	
+		if ($("#epigenetic_marks-chart").length) {
+			Morris.Bar({
+				  element: 'epigenetic_marks-chart',
+				  data: <?php echo json_encode($list['epigenetic_marks']);?>,
+				  xkey: 'label',
+				  ykeys: ['value'],
+				  labels: "Count",
+				  xLabelAngle: 90,
+				  resize: true
+				}).on('click', function(i, row){
+					lauchModalView(row['label'], 'epigenetic_mark')
+				});
 		}
-		
-		/* end genomes bar chart */
+		/* end epigenetic marks bar chart */
 
+		/* biosources bar chart */
+		if ($("#biosources-chart").length) {
+			Morris.Bar({
+				  element: 'biosources-chart',
+				  data: <?php echo json_encode($list['biosources']);?>,
+				  xkey: 'label',
+				  ykeys: ['value'],
+				  labels: "Count",
+				  xLabelAngle: 90,
+				  resize: true
+			}).on('click', function(i, row){
+				lauchModalView(row['label'], 'biosource')
+			});			
+		}
+		/* end biosources bar chart */
 		
-		/* epigenetic marks bar chart */
-		if ($("#epigenetic-marks-chart").length) {
-
-			var data1 = [];
-			for (var i = 0; i <= 12; i += 1)
-				data1.push([i, parseInt(Math.random() * 30)]);
-	
-			var ds = new Array();
-	
-			ds.push({
-				data : data1,
-				bars : {
-					show : true,
-					barWidth : 0.2,
-					order : 1,
-				}
+		/* genomes donut chart */
+		if ($("#genomes-chart").length) {
+			Morris.Donut({
+				  element: 'genomes-chart',
+				  data:  <?php echo json_encode($list['genomes']);?>,
+				  formatter: function (x) { return x},
+				  resize: true
+			}).on('click', function(i, row){
+				lauchModalView(row['label'], 'genome')
 			});
-	
-			//Display graph
-			//var placeholder = 
-			$.plot($("#epigenetic-marks-chart"), ds, {
-				colors : [$chrt_second, $chrt_fourth, "#666", "#BBB"],
-				grid : {
-					show : true,
-					hoverable : true,
-					clickable : true,
-					tickColor : $chrt_border_color,
-					borderWidth : 0,
-					borderColor : $chrt_border_color,
-				},
-				legend : true,
-				tooltip : true,
-				tooltipOpts : {
-					content : "<b>%x</b> = <span>%y</span>",
-					defaultTheme : false
-				}
-	
-			});
+					
 		}
 		
 		/* end genomes bar chart */		
+
 	}; 	// end pagefunction
 
-	// load all flot plugins
-	loadScript("js/plugin/flot/jquery.flot.cust.min.js", function(){
-		loadScript("js/plugin/flot/jquery.flot.resize.min.js", function(){
-			loadScript("js/plugin/flot/jquery.flot.fillbetween.min.js", function(){
-				loadScript("js/plugin/flot/jquery.flot.orderBar.min.js", function(){
-					loadScript("js/plugin/flot/jquery.flot.pie.min.js", function(){
-						loadScript("js/plugin/flot/jquery.flot.tooltip.min.js", pagefunction);
+	// Load morris dependencies and run pagefunction
+	loadScript("js/plugin/morris/raphael.min.js", function(){
+		loadScript("js/plugin/morris/morris.min.js", function(){		
+			loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
+				loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
+					loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
+						loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
+							loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
+						});
 					});
-				});
-			});
-		});
-	});
-	
-
-	loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
-		loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
-			loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
-				loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
-					loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
 				});
 			});
 		});
