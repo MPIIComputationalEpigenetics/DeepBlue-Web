@@ -46,7 +46,7 @@
         <div class="col-md-4">
           <div class="form-group hidden">
             <label for="userkey" id="usekey-label">User key</label>
-            <input class="form-control" type="text" id="userkey" name="userkey" disabled value="71DZhOKGS4V3fnW2">
+            <input class="form-control" type="text" id="userkey" name="userkey" disabled value="mk8xHba3tqpeRPy4">
           </div>
           <h1 class="txt-color-red login-header-big">Command</h1>
           <hr/>
