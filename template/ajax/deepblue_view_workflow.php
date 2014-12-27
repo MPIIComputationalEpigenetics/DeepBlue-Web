@@ -31,8 +31,10 @@ require_once("inc/init.php");
 		<div id="myWorkflowContent" class="tab-content bg-color-white padding-10">
 			<div class="tab-pane fade in active" id="s1">
 				
-				<div class='workFlowSelectForm_div'>
-					<h1> Please, select the data </h1>
+				<!-- STEP - 0 [ Selecting annotaions or experiments ] -->
+
+				<div id='workFlowSelectForm_div'>
+					<h1> Please, select the data</h1>
 					<br>
 					<div class="input-group input-group-lg hidden-mobile">
 						<div class="input-group-btn">
@@ -42,13 +44,13 @@ require_once("inc/init.php");
 							  	<option value='annotation'>Select annotations</option>
 							</select>
 						</div>
-					</div>
 
-					<!--<h1 class="font-md"> Search Results for <span class="semi-bold">Projects</span><small class="text-danger"> &nbsp;&nbsp;(2,281 results)</small></h1>-->
+						
+					</div>
 
 					<!-- Div for experiment div -->
 
-					<div id="expSelectedOptionDiv" style="display:none;">
+					<div id="experimentSelectedOptionDiv" style="display:none;">
 						<h2>Experiment</h2>
 						<div class='workflowInputs'>
 							<!-- <input type='text' id='exp_workflow_experiment' placeholder='Experiment name'/> -->
@@ -62,7 +64,7 @@ require_once("inc/init.php");
 								<input type='text' id='exp_workflow_chromosome' placeholder='Chromosome'/>
 								<input type='text' id='exp_workflow_start' placeholder='Start'/>
 								<input type='text' id='exp_workflow_end' placeholder='End'/>
-								<button type="button" id="selectWorkflowBtn" class="exp_selectWorkflowBtn btn btn-primary download-btn-size" data-toggle='modal' data-target='#myWorkflowModal'>Select</button>
+								<button type="button" id="experiment_selectWorkflowBtn" class="exp_selectWorkflowBtn btn btn-primary download-btn-size" data-toggle='modal' data-target='#myWorkflowModal'>Select</button>
 							</div>
 							
 						</div>					
@@ -70,17 +72,15 @@ require_once("inc/init.php");
 
 					<!-- Div for annotations div -->
 
-					<div id="annotSelectedOptionDiv" style="display:none;">
+					<div id="annotationSelectedOptionDiv" style="display:none;">
 						<h2>Annotation</h2>
 						<div class='workflowInputs'>
-							<!--<input type='text' id='annot_workflow_annotation' placeholder='Annotation name'/> -->
 							<input type='text' id='annot_workflow_genome' placeholder='Genome'/>
-							<!--<input type='text' id='annot_workflow_description' placeholder='Description'/> -->
 							<div class='workflow_additional_inputs'>
 								<input type='text' id='exp_workflow_chromosome' placeholder='Chromosome'/>
 								<input type='text' id='exp_workflow_start' placeholder='Start'/>
 								<input type='text' id='exp_workflow_end' placeholder='End'/>
-								<button type="button" id="annot_selectWorkflowBtn" class="annot_selectWorkflowBtn btn btn-primary download-btn-size" data-toggle='modal' data-target='#myWorkflowModal'>Select</button>
+								<button type="button" id="annotation_selectWorkflowBtn" class="annot_selectWorkflowBtn btn btn-primary download-btn-size" data-toggle='modal' data-target='#myWorkflowModal'>Select</button>
 							</div>
 
 						</div>
@@ -94,197 +94,10 @@ require_once("inc/init.php");
 					<div class='workflow_selected_list'></div>
 				</div>
 
-				<div class='operation_combobox_append'>
+				<!-- Operation combobox parent div -->
 
+				<div id='operation_combobox_append'>
 					<div class='operation_combobox_info_append'></div>
-					<div id='operation_combobox_1'>
-					<!-- Div for operations combo box -->
-
-					<div class='workflow_operations_combobox' style="display:none;">
-						<div class='workflow-line'></div>
-						<h1> Please, select the operation or download the data </h1><br>
-						<div class="input-group input-group-lg hidden-mobile">
-							<div class="input-group-btn">
-								<select id='operationSelectForm_1' class="operationSelectForm form-control">
-									<option value='0'> -- Select operations -- </option>
-									<option value='experiment'>Select experiments</option>
-							  		<option value='annotation'>Select annotations</option>
-									<option value='aggregate'>Aggregate</option>
-									<option value='count_regions'>Count regions</option>
-								  	<option value='filter_regions'>Filter regions</option>
-								  	<option value='get_experiments_by_query'>Get experiments by query</option>
-								  	<option value='get_regions'>Get regions</option>
-								  	<option value='intersection'>Intersection</option>
-								  	<option value='merge_queries'>Merge queries</option>
-								  	<option value='tiling_regions'>Tiling regions</option>
-								</select>
-								<!-- <button type="button" id="operations_download_data_1" class="btn btn-primary operation-download-btn">Download</button> -->
-							</div>
-						</div>
-					</div>
-
-					<!-- Div for experiment div -->
-
-					<div id="experiment_ComboBox_1" style="display:none;">
-						<h2>Experiment</h2>
-						<div class='workflowInputs'>
-							<input type='text' id='experiment_genome' placeholder='Genome'/>
-							<input type='text' id='experiment_epigenetic_mark' placeholder='Epigenetic mark'/>
-							<input type='text' id='experiment_sample' placeholder='Sample'/>
-							<input type='text' id='experiment_technique' placeholder='Technique'/>
-							<input type='text' id='experiment_project' placeholder='Project'/>
-
-							<div class='workflow_additional_inputs'>
-								<input type='text' id='experiment_chromosome' placeholder='Chromosome'/>
-								<input type='text' id='experiment_start' placeholder='Start'/>
-								<input type='text' id='experiment_end' placeholder='End'/>
-								<button type="button" name="experiment" id="experiment_selectWorkflowBtn_1" class="exp_selectWorkflowBtn operation-modal-view btn btn-primary download-btn-size" data-toggle='modal' data-target='#myWorkflowModal'>Select</button>
-							</div>
-							
-						</div>					
-					</div>
-
-					<!-- Div for annotations div -->
-
-					<div id="annotation_ComboBox_1" style="display:none;">
-						<h2>Annotation</h2>
-						<div class='workflowInputs'>
-							
-							<input type='text' id='annotation_genome' placeholder='Genome'/>
-							<div class='workflow_additional_inputs'>
-								<input type='text' id='annotation_chromosome' placeholder='Chromosome'/>
-								<input type='text' id='annotation_start' placeholder='Start'/>
-								<input type='text' id='annotation_end' placeholder='End'/>
-								<button type="button" name="annotation" id="annotation_selectWorkflowBtn_1" class="annot_selectWorkflowBtn operation-modal-view btn btn-primary download-btn-size" data-toggle='modal' data-target='#myWorkflowModal'>Select</button>
-							</div>
-
-						</div>
-					</div>
-
-					<!-- Div for aggregate -->
-
-					<div id="aggregate_ComboBox_1" style="display:none;">
-						<h2>Aggregate</h2>
-						<div class='workflowInputs' id='aggregation_inputs'>
-							
-							<select name='Data_ID' class='steps-select form-control' id='aggregate_data_id_1'></select>
-							<!--<input type='text' name='Data_ID' id='aggregate_data_id' placeholder='Data ID'/>-->
-							
-							<select name='Ranges_ID' class='steps-select form-control' id='aggregate_ranges_id_1'></select>
-							<!--<input type='text' name='Ranges_ID' id='aggregate_ranges_id' placeholder='Ranges ID'/>-->
-							<input type='text' name='Field' id='aggregate_field' placeholder='Field'/>
-							
-							<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
-							
-						</div>					
-					</div>
-
-					<!-- Div for count regions -->
-
-					<div id="count_regions_ComboBox_1" style="display:none;">
-						<h2>Count regions</h2>
-						<div class='workflowInputs' id='count_regions_inputs'>
-							
-							<select name='Query_ID' class='steps-select form-control' id='count_regions_query_id_1'></select>
-							<!--<input type='text' name='Query_ID' id='count_regions_query_id' placeholder='Query ID'/>-->
-							
-							<button type="button" class="btn btn-primary directly_download">Download</button>
-							
-						</div>					
-					</div>
-
-					<!-- Div for filter regions -->
-
-					<div id="filter_regions_ComboBox_1" style="display:none;">
-						<h2>Filter regions</h2>
-						<div class='workflowInputs' id='filter_regions_inputs'>
-							
-							<select name='Query_ID' class='steps-select form-control' id='filter_regions_query_id_1'></select>
-							<!-- <input type='text' name='Query_ID' id='filter_regions_query_id' placeholder='Query ID'/> -->
-							<input type='text' name='Field' id='filter_regions_field' placeholder='Field'/>
-							<input type='text' name='Operation' id='filter_regions_operation' placeholder='Operation'/>
-							<input type='text' name='Value' id='filter_regions_value' placeholder='Value'/>
-							<input type='text' name='Type' id='filter_regions_type' placeholder='Type'/>
-							
-							<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
-							
-						</div>					
-					</div>
-
-					<!-- Div for Get experiments by query -->
-
-					<div id="get_experiments_by_query_ComboBox_1" style="display:none;">
-						<h2>Get experiments by query</h2>
-						<div class='workflowInputs' id='get_experiment_by_query_inputs'>
-							
-							<select name='Query_ID' class='steps-select form-control' id='get_experiments_by_query_id_1'></select>
-							<!-- <input type='text' name='Query_ID' id='get_experiments_by_query_id' placeholder='Query ID'/> -->
-							
-							<button type="button" class="btn btn-primary directly_download">Download</button>
-							
-						</div>					
-					</div>
-
-					<!-- Div for Get regions -->
-
-					<div id="get_regions_ComboBox_1" style="display:none;">
-						<h2>Get regions</h2>
-						<div class='workflowInputs' id='get_regions_inputs'>
-							
-							<select name='Query_ID' class='steps-select form-control' id='get_regions_query_id_1'></select>
-							<!-- <input type='text' name='Query_ID' id='get_regions_query_id' placeholder='Query ID'/> -->
-							<input type='text' name='User_format' id='get_regions_user_format' placeholder='User format'/>
-							
-							<button type="button" class="btn btn-primary directly_download">Download</button>
-							
-						</div>					
-					</div>
-
-					<!-- Div for Intersection -->
-
-					<div id="intersection_ComboBox_1" style="display:none;">
-						<h2>Intersection</h2>
-						<div class='workflowInputs' id='intersection_inputs'>
-							
-							<select name='Query_A_ID' class='steps-select form-control' id='intersection_query_a_id_1'></select>
-							<select name='Query_B_ID' class='steps-select form-control' id='intersection_query_b_id_1'></select>
-							
-							<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
-							
-						</div>					
-					</div>
-
-					<!-- Div for Merge queries -->
-
-					<div id="merge_queries_ComboBox_1" style="display:none;">
-						<h2>Merge queries</h2>
-						<div class='workflowInputs' id='merge_queries_inputs'>
-							
-							<select name='Query_A_ID' class='steps-select form-control' id='merge_queries_query_a_id_1'></select>
-							<select name='Query_B_ID' class='steps-select form-control' id='merge_queries_query_b_id_1'></select>
-							
-							<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
-							
-						</div>					
-					</div>
-
-					<!-- Div for Tiling regions -->
-
-					<div id="tiling_regions_ComboBox_1" style="display:none;">
-						<h2>Tiling regions</h2>
-						<div class='workflowInputs' id='tiling_regions_inputs'>
-							
-							<input type='text' name='Size' id='tiling_regions_size' placeholder='Size'/>
-							<input type='text' name='Genome' id='tiling_regions_genome' placeholder='Genome'/>
-							<input type='text' name='Chromosome' id='tiling_regions_chromosome' placeholder='Chromosome'/>
-							
-							<button type="button" class="btn btn-primary operationsBtn">Apply Operation</button>
-							
-						</div>					
-					</div>
-
-					</div>
-					
 				</div>
 
 			</div>
@@ -328,79 +141,368 @@ require_once("inc/init.php");
 
 	pageSetUp();
 
-	// PAGE RELATED SCRIPTS
-
-	// pagefunction
-
 	var pagefunction = function() {
 
-		$("#search_input").focus();
+		//$("#search_input").focus();
 	};
 
-	/* Define steps number */
+	/* Display/Hide proper datatable content in html ( Display: none/show ) */
 
-	var step_number = 1;
+	function showSelectedModal(showModal, hideModal){
+		if(showModal != undefined && hideModal != undefined){
+			$(showModal).show();
+			$(hideModal).hide();
+		}
+		else{
+			alert("Missed data table id argument");
+		}
+	}
 
-	/* Steps collection array */
+	/* Step - 1 :: Shows properly selected option div ( Experiments or Annotations ) */
 
-	var steps_collection = new Array();
+	function showSelectedOption(elm, experiment, annotation, exp_modal, ann_modal){
+		var selected_val = elm.val();
 
-	/* Collection of select options */
+		if(selected_val == undefined || experiment == undefined || annotation == undefined){
+			alert("Missed arguments");
+			return;
+		}
 
-	var select_options = '';
-
-	/* Select experiment and annotation */
-
-	$('#workFlowSelectForm').change(function(){
-
-		var optionVal = $('#workFlowSelectForm').val();
-
-		/* Reseting all input texts when onchage event triggers */
-
-		$('.workflow_selected_list').empty();
-		$('.parent_workflow_selected_list').hide();
-		$(".workflowInputs input[type='text']").val('');
-
-		if(optionVal == 'experiment'){
-
-			$('#annotSelectedOptionDiv').hide();
-			$('#expSelectedOptionDiv').show();
-
-			$('#modal_for_annotations').hide();
-			$('#modal_for_experiments').show();			
+		switch(selected_val){
+			case 'experiment':
+				$(annotation_div).hide();
+				$(experiment_div).show();
+				showSelectedModal(exp_modal, ann_modal);
+				break;
+			case 'annotation':
+				$(experiment_div).hide();
+				$(annotation_div).show();
+				showSelectedModal(ann_modal, exp_modal);
+				break;
+			default:
+				$(experiment_div).hide();
+				$(annotation_div).hide();
+				alert("Please select experiment or annotation!");
 
 		}
-		else if(optionVal == 'annotation'){
+	}
 
-			$('#expSelectedOptionDiv').hide();
-			$('#annotSelectedOptionDiv').show();
+	/* This function gets all input text values which user typed for 
+	 * filtering ( genome name, sample name, technique and ... ) and returns 
+	 * array with all values
+	 */
 
-			$('#modal_for_experiments').hide();
-			$('#modal_for_annotations').show();
+	function get_textInput_values(selectedInputs){
+
+		/* Collect all input text values into array */
+		var inputDataArray = {};
+
+		$.each(selectedInputs, function(iterationNum, iterationVal) {
+			var splitted_values = iterationVal.id.split('_');
+			var var_name = "";
+					
+			$.each(splitted_values, function(iNum_2, iVal_2){
+				
+				if(iNum_2 != 0 && iNum_2 != 1){
+					var_name += iVal_2+'_';
+				}
+			});
+
+			var_name = var_name.slice(0,-1);			
+
+			if(var_name == 'chromosome' || var_name == 'start' || var_name == 'end'){				
+				return false;
+			}
+
+			inputDataArray[var_name] = iterationVal.value;
+
+		});
+
+		return inputDataArray;
+			
+	}
+
+	function get_chrome_start_end(selectedInputs){
+
+		var chrome_start_end = [];
+
+		$.each(selectedInputs, function(iterationNum, iterationVal) {
+			var splitted_values = iterationVal.id.split('_');
+			var var_name = "";
+					
+			$.each(splitted_values, function(iNum_2, iVal_2){
+				
+				if(iNum_2 != 0 && iNum_2 != 1){
+					var_name += iVal_2+'_';
+				}
+			});
+
+			var_name = var_name.slice(0,-1);			
+
+			if(var_name == 'chromosome' || var_name == 'start' || var_name == 'end'){				
+				if(iterationVal.value != ''){
+					chrome_start_end.push(iterationVal.value);
+				}
+			}
+
+		});
+
+		return chrome_start_end;
+
+	}
+
+	/*	This function checks input text value array which filtered 
+	 *	values are entered by user ( Not always all filtered values 
+	 * 	will be entered ) and saves into array these filtered values.
+	 */
+
+	function get_not_empty_values(inputValue){
+		var notEmptyValues = [];
+		var key;
+
+		for(key in inputValue){
+			if(inputValue[key] != ''){
+				notEmptyValues.push(key);
+			}
+		}
+
+		return notEmptyValues;
+	}
+
+	
+	/* 	Collect selected Experiments or Annotations into array 
+	 * 	( from DataTable with checkboxes )
+	 */
+
+	function collect_selected_elements(element, total_collected_array){
+
+		var selected_id = $(element).parent().next().text();
+		var selected_title = $(element).parent().nextAll().eq(1).text();
+		var selected_total_value = selected_id+"|-|"+selected_title;
+
+		var found = $.inArray(selected_total_value, total_collected_array);
+
+		if($(element).is(':checked')){
+			total_collected_array.push(selected_total_value);
+		}
+		else{
+			total_collected_array.splice(found, 1);
+		}
+
+		return total_collected_array;
+
+	}
+
+	/* This method we use when we want to load DataTable content from server */
+
+	var total_collected_array = [];
+
+	function dataTable_load_data(table_id, inputValues, optionVal, isEdited){
+
+		/* Reset all input values in Datatable */
+
+		$( table_id + ' .hasinput input').val("");
+		$( table_id + ' .hasinput input').prop('disabled', false);
+
+
+		/* BASIC */
+		var responsiveHelper_dt_basic = undefined;
+		var responsiveHelper_datatable_fixed_column = undefined;
+		var responsiveHelper_datatable_col_reorder = undefined;
+		var responsiveHelper_datatable_tabletools = undefined;
+
+		var breakpointDefinition = {
+			tablet : 1024,
+			phone : 480
+		};
+
+		/* COLUMN FILTER  */
+
+		var jsonString = JSON.stringify(inputValues);
+
+		var otable = $(table_id).DataTable({
+
+		    "ajax": {
+		    "url": "ajax/server_side/modal_view_server_processing.php",
+		    "data": function ( d ) {
+		       		d.sendOptionVal = optionVal;
+		       		d.sendData = jsonString;
+		       	}
+		    },
+		    "iDisplayLength": 50,
+		    "autoWidth" : true,
+		    "bDestroy": true,
+			"preDrawCallback" : function() {
+				// Initialize the responsive datatables helper once.
+				if (!responsiveHelper_datatable_fixed_column) {
+					responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper(table_id, breakpointDefinition);
+				}
+			},
+			"rowCallback" : function(nRow) {
+				responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
+			},
+			"drawCallback" : function(oSettings) {
+				responsiveHelper_datatable_fixed_column.respond();
+			},
+			"fnInitComplete": function(oSettings, json) {
+
+
+				/* 	In this part, we get all filled input ids and values
+				 *	and put values into DataTable and disable this input text
+				 */
+
+				var notEmptyVals = get_not_empty_values(inputValues);
+
+				$.each(notEmptyVals, function(iNum_3, iVal_3){
+
+					$("#"+optionVal+"-"+iVal_3).val(inputValues[iVal_3]);
+					$("#"+optionVal+"-"+iVal_3).prop('disabled', true);
+
+				});
+
+				/* 	Triggers when user selects checkboxes in experiments
+				 * 	or annotation DataTable for collecting selected elements.
+				 */
+
+				if(isEdited == 'false'){
+					total_collected_array = [];
+					$(table_id+' .downloadCheckBox').prop('checked', false);
+				}
+
+				$(table_id+' .downloadCheckBox').change(function(){
+					collect_selected_elements(this, total_collected_array);
+				});
+
+				/* 	This code helps us to check checkboxes when we click
+				 *	edit link and we can see previous checked elements.
+				 */
+
+				if(isEdited != 'false'){
+			 		$.each(isEdited, function(idNum, idVal) {
+						$(table_id+" #"+idVal).prop('checked', true);
+					});
+				}
+
+			}
+
+		});
+
+		return otable;
+
+	}
+
+	/* Apply DataTable filtering */
+
+	function apply_filer(table_id, otable){
+		$(table_id + " thead th input[type=text]").on( 'keyup change', function () {
+
+		    otable
+		        .column( $(this).parent().index()+':visible' )
+		        .search( this.value )
+		        .draw();
+
+		});
+	}
+
+	/* This method we use for showing Datatable content depending on what
+	 * was selected from combobox.
+	 */
+
+	function dataTable_content_show(show_type, allInputs, table_id, isEdited){
+
+		switch(show_type){
+			case 'experiment':
+				
+				/* Getting all text input values */
+
+				var exp_input_values = get_textInput_values(allInputs);
+				var otable = dataTable_load_data(table_id, exp_input_values, 'experiment', isEdited);
+				apply_filer(table_id, otable);
+
+				break;
+			case 'annotation':
+
+				/* Getting all text input values */
+
+				var anno_input_values = get_textInput_values(allInputs);
+				var otable = dataTable_load_data(table_id, anno_input_values, 'annotation', isEdited);
+				apply_filer(table_id, otable);
+
+				break;
+			default:
+				alert("Not valid Datatable content");
+		}
+
+	}
+
+	/*	This method builds table from selected elements ( Gets selected experiments 
+	 *	or annotations from collected array ) 
+	 */
+
+	function build_table(inputCollectedArr, append_div, steps_number, data_table_show_id){
+
+		var selected_element_list = "";
+		var linkOn;
+
+ 		$.each(inputCollectedArr, function(iNum_4, iValue_4) {
+			
+			var splitted_values = iValue_4.split('|-|');
+			selected_element_list += '<tr><td>'+splitted_values[0]+'</td><td>'+splitted_values[1]+'</td></tr>';
+		});
+
+		if(data_table_show_id == 'experiment' || data_table_show_id == 'annotation'){
+			linkOn = "";
+		}
+		else{
+			linkOn = "<a class='selected_anno_exp_edit_link' id='selected_anno_exp_edit_link_"+steps_number+"'>Edit</a>";
+		}
+
+		if(steps_number != 1){
+
+			append_div.append(
+			"<div class='infos' id='info_"+steps_number+"'>"+
+			"<h2>Selected "+data_table_show_id+"s [ Step "+steps_number+" ]</h2>"+linkOn+
+			"<a class='info_remove_link' id='info_remove_"+steps_number+"'>Remove</a><br/>"+
+			"<div class='workflow_selected_list'>"+
+			"<table class='table table-striped search-modal-table-td'>"+
+				"<thead>"+
+				  	"<tr>"+
+				    	"<th>ID</th>"+
+				     	"<th>Name</th>"+
+				  	"</tr>"+
+				"</thead>"+
+				"<tbody>"+ selected_element_list +
+			"</div></div>");
 
 		}
 		else{
-			$('#expSelectedOptionDiv').hide();
-			$('#annotSelectedOptionDiv').hide();
+
+			append_div.append(
+			"<table class='table table-striped search-modal-table-td'>"+
+				"<thead>"+
+				  	"<tr>"+
+				    	"<th>ID</th>"+
+				     	"<th>Name</th>"+
+				  	"</tr>"+
+				"</thead>"+
+				"<tbody>"+ selected_element_list);
 		}
 
-	});
+	}
 
-	/* Selecting operations combo box */
+	/* Operation combobox show only selected */
 
-	//$('.operation_combobox_append select').unbind('click').bind('click', function (e) {
-	$(document).on("change", '.operation_combobox_append .workflow_operations_combobox select', function () {
+	function show_only_selected(this_element){
 
-		//alert('test for change');
-
-		var selectElementId = this.id;
+		var selectElementId = this_element;
 		var selectCollection = '';
 
 		var operationVal = $('#'+selectElementId).val();
-		var getCounter = selectElementId.split('_');
+		var getCounter = selectElementId.split('_');	
 
-		$('#'+selectElementId).parents().eq(3).children().each(function () {
+		$('#operation_combobox_'+getCounter[1]).children().each(function () {
 			var thisId = this.id;
+
 		    if(thisId != '' && thisId != operationVal+'_ComboBox_'+getCounter[1]){
 		    	selectCollection += '#'+thisId+', ';
 		    }
@@ -410,45 +512,294 @@ require_once("inc/init.php");
 
 		$(selectCollection).hide();
 
-		/* Appending steps into select combobox  */
-
-		if(selectElementId == 'operationSelectForm_1'){
-			$('#'+operationVal+'_ComboBox_'+getCounter[1]+' select').append(select_options);
-		}
-
 		/* Displaying selected operation */
 
 		$('#'+operationVal+'_ComboBox_'+getCounter[1]).show();
 
-		if(operationVal == 'experiment' || operationVal == 'annotation'){
-			if(operationVal == 'experiment'){
-				$('#modal_for_annotations').hide();
-				$('#modal_for_experiments').show();	
+	}
+
+	/* Getting selected element ids only ids! */
+
+	function get_selected_ids(total_array){
+
+		var selected_ids = [];
+
+		$.each(total_array, function(iNum_5, iValue_5) {
+			var splitted_values = iValue_5.split('|-|');
+			selected_ids.push(splitted_values[0]);
+		});
+
+		return selected_ids;
+
+	}
+
+	/* Info edit link */
+
+	function info_edit_link(this_element){
+
+		$(this_element).hide();
+		
+		var info_div_id = $(this_element).parent().attr('id');
+		var info_edit_input_div = $('#'+info_div_id+' div').attr('id');
+		var info_table = $('#'+info_div_id+' table').attr('id');
+		
+		$('#'+info_table).hide();
+		$('#'+info_edit_input_div).show();
+
+	}
+
+	/* Save changes after editing the selected operations table */
+
+	function info_edit_save(this_element){
+
+		$('.info_edit_link').show();
+		var table_id = $(this_element).parents().eq(1).attr('id');
+		
+		var table_tr = $('#'+table_id+' table .table_values');
+
+		$(this_element).parent().children().each(function (e, data_1) {
+		    if(this.type != 'button'){
+
+		    	table_tr.children().each(function (f, data_2) {
+
+		    		if(data_1.name == data_2.className){
+		    			$('#'+table_id+' table .table_values .'+data_2.className).text(data_1.value);
+		    		}
+		    	});
+		    }
+		});
+
+		/* Hide edit inputs and show table */
+
+		$('#'+table_id+' table').next().hide();
+		$('#'+table_id+' table').show();
+
+	}
+
+	/* Update step numebers */
+
+	function update_steps(select_element, steps_collection){
+
+		select_element.children().each(function (i, v) {
+			if(v.id != ''){
+
+				$("#"+v.id+" .has-select-options").find("option").remove();
+				$("#"+v.id+" .has-select-options").append(steps_collection);
 			}
-			else{
-				$('#modal_for_annotations').show();
-				$('#modal_for_experiments').hide();
-			}
+
+		});
+	}
+
+	/* Total step collector method */
+
+	function total_collector(collecter_array, selected_item, current_step, parameters, chromosome, start, end){
+
+		var parameters_array = []
+		$.each(parameters, function(iN, iV) {
+			
+			var splitted_values = iV.split('|-|');
+			parameters_array.push(splitted_values[1]);
+		});
+
+		collecter_array.push(["select_"+selected_item, "Step "+current_step, [parameters_array], chromosome, start, end ]);
+
+		return collecter_array;
+
+	}
+
+	/* Step - 1 :: Selecting experiments or annotations */
+
+	var total_steps_collector = [];
+	var step_numbers = 0;
+	var select_options = "";
+
+	var step_1 = $("#workFlowSelectForm");
+	var step_1_parent_div = $('#workFlowSelectForm_div');
+
+	var experiment_div = $("#experimentSelectedOptionDiv");
+	var annotation_div = $("#annotationSelectedOptionDiv");
+	var experiment_table_modal = $('#modal_for_experiments');
+	var annotation_table_modal = $('#modal_for_annotations');
+
+	var exp_and_annot_select_btn = $('.exp_selectWorkflowBtn, .annot_selectWorkflowBtn');
+	var dataTable_show_id;
+	var workflow_table_id;
+	var select_buttons = $('#exp_select_btn_top, #exp_select_btn_bottom, #annot_select_btn_top, #annot_select_btn_bottom');
+	var modal_dialog_div = $('#myWorkflowModal');
+	var selected_elements_table_1 = $(".workflow_selected_list");
+
+	var edit_link_1 = $('#selected_anno_exp_edit_link');
+
+	var meta_data_more_view = $('.exp-metadata-more-view');
+
+	var operation_combobox_div = ".workflow_operations_combobox";
+	var operation_combobox_select = $(".operation_combobox_append .workflow_operations_combobox select");
+	var operation_combobox_append = $('#operation_combobox_append');
+
+	var remove_link = $('.info_remove_link');
+
+	var info_append_div = $('.operation_combobox_info_append');
+
+	/* Hide and show experiment metadata */
+
+	var isShow = false;
+	meta_data_more_view.click(function(){
+		if(isShow == false){
+			$(this).prev().show(1000);
+			$(this).text("-- Hide --");
+			isShow = true;
+		}
+		else{
+			$(this).prev().hide(1000);
+			$(this).text("-- View metadata --");
+			isShow = false;
+		}
+	});
+	
+	/* Triggers when experiment or annotation select option changes */
+
+	step_1.change(function(){
+		showSelectedOption(step_1, experiment_div, annotation_div, experiment_table_modal, annotation_table_modal);
+		
+		dataTable_show_id = step_1.val();
+	});
+
+	/* Triggers when "select" button pressed ( "select" before DataTable displays ) */
+	
+	var allInputs;
+
+	$(document).on("click", '.exp_selectWorkflowBtn, .annot_selectWorkflowBtn', function () {
+		
+		/* Selecting all input text elements */
+
+		allInputs = $("#"+dataTable_show_id+"SelectedOptionDiv .workflowInputs input:text");
+		workflow_table_id = "#"+dataTable_show_id+"_datatable_fixed_column";
+
+		var isEdited = edit_link_1.prev().attr('class');
+		
+		if(isEdited != 'edited'){
+
+			dataTable_content_show(dataTable_show_id, allInputs, workflow_table_id, 'false');
+
+		}
+		else{
+			var selected_ids = get_selected_ids(total_collected_array);			
+			dataTable_content_show(dataTable_show_id, allInputs, workflow_table_id, selected_ids);
 		}
 
 	});
 
-	/* Click apply button */
-	var counter = 1;
+	/* 	This click event triggers when user clicks "select" button in DataTable 
+	 *	after experiments or annotations checkboxes checked
+	 */
+
+	 select_buttons.click(function(){
+
+	 	if(total_collected_array.length != 0){
+
+	 		/* Hide modal window after clicking select */
+	 		modal_dialog_div.modal('hide');
+
+	 		var isEdited = edit_link_1.prev().attr('class');
+
+	 		if((step_numbers == 0) || ( step_numbers == 1 && isEdited == 'edited')){
+
+		 		/* Make empty selected list div */
+		 		selected_elements_table_1.empty();
+
+		 		if(isEdited != 'edited'){
+		 			selected_elements_table_1.parent().find("h2").text("Selected "+dataTable_show_id+"s [ Step "+ ++step_numbers +" ]");
+
+		 			select_options += "<option>Step "+step_numbers+"</option>";
+		 			var chse = get_chrome_start_end(allInputs);
+		 			
+		 			/* Total collecter ( Collects all selected items ) */
+		 			total_collector(total_steps_collector, dataTable_show_id, step_numbers, total_collected_array, chse[0], chse[1], chse[2]);
+
+		 			operation_combobox_template(operation_combobox_append, step_numbers, select_options);
+		 		}
+
+		 		selected_elements_table_1.parent().show();
+
+		 		/* Build table from selected elements */
+		 		build_table(total_collected_array, selected_elements_table_1, step_numbers);
+
+		 		step_1_parent_div.hide();
+		 		$(operation_combobox_div).show(); // displays select combobox
+
+	 		}
+		 	else{
+
+		 		/* Hiding the modal view after clicking select */
+				$('#myWorkflowModal').modal('hide');
+
+
+		 		/* Put "Remove" link to the last selected operation div */
+		
+				$("#info_edit_"+step_numbers+", #info_remove_"+step_numbers+', .operation_combobox').remove();
+
+				++step_numbers;
+
+				select_options += "<option>Step "+step_numbers+"</option>";
+
+				var chse = get_chrome_start_end(allInputs);
+				
+				/* Total collecter ( Collects all selected items ) */
+		 		total_collector(total_steps_collector, dataTable_show_id, step_numbers, total_collected_array, chse[0], chse[1], chse[2]);
+
+				/* Build table from selected elements */
+		 		build_table(total_collected_array, info_append_div, step_numbers, dataTable_show_id);
+
+		 		operation_combobox_template(operation_combobox_append, step_numbers, select_options);
+
+		 	}
+
+	 	}
+	 	else{
+	 		alert("Please select elements!");
+	 	}
+
+	 });
+
+	/* Edit Experiments or Annotations after selecting */
+
+	edit_link_1.click(function(){
+
+		$(this).prev().addClass('edited');
+		selected_elements_table_1.parent().hide();
+		step_1_parent_div.show();		
+
+	});
+
+	/* Edit Experiments or Annotations after selecting ( From operation select menu ) */
+
+	$('.selected_anno_exp_edit_link').click(function(){
+		this.parent().remove();
+
+	});
+
+	/* 	Operation combobox select, this part of code triggers when user changes
+	 *	"select" form
+	 */
+
+	$(document).on("change", '#operation_combobox_append .workflow_operations_combobox select', function () {
+		show_only_selected(this.id);
+	});
+
+	/* Operation combobox :: Triggers when "Apply Operation" button click */
 
 	$(document).on("click", '.workflowInputs .operationsBtn', function () {
-
+		
 		/* Put "Remove" link to the last selected operation div */
-
-		$('.info_remove_link').remove();
+		
+		$(".info_remove_link, #info_edit_"+step_numbers+", #selected_anno_exp_edit_link, #selected_anno_exp_edit_link_"+step_numbers).remove();
 
 		/* Hide operation combobox div after clicking 'Apply operation' button */
-
+		
 		var operation_combobox_id = $(this).parents().eq(2).attr('id');
 		$('#'+operation_combobox_id).hide();
 
 		var operation_input_html = $(this).parent();
-		//operation_input_html = $.parseHTML(operation_input_html);attr('id', newValue);
 		
 		operation_input_html.find('button').attr('class', 'btn btn-primary operation_edit_save');
 		operation_input_html.find('button').text('Save');
@@ -457,43 +808,88 @@ require_once("inc/init.php");
 		var infoTitle = $(this).parent().prev().html();
 		var infoTh = '';
 		var infoBody = '';
+		var val_collection_array = [];
 
 		$('#'+loopId).children().each(function () {
 		    if(this.type != 'button'){
 		    	var info_input_val = $('#'+this.id).val();
 		    	var className_replaced = this.name.replace(" ", "_");
 
+		    	val_collection_array.push(info_input_val);
+
 		    	infoTh += "<th>"+this.name+"</th>";
 		    	infoBody += "<td class='"+className_replaced+"'>"+ info_input_val + "</td>";
 		    }
 		});
 
-		steps_collection.push('Step '+step_number);
+		++step_numbers;
 
-		$.each(steps_collection, function(step_ids, step_names) {
-			if(select_options.indexOf(step_names) === -1){
-				select_options += "<option>"+step_names+"</option>";
-			}
-		});
+		select_options += "<option>Step "+step_numbers+"</option>";
 
-		$('.operation_combobox_info_append').append("<div id='info_"+counter+"'>"+
-			"<h1 class='info_title'>"+infoTitle+" [ Step "+ step_number++ +" ]</h1><a class='info_edit_link' id='info_edit_"+counter+"'>Edit</a><a class='info_remove_link' id='info_remove_"+counter+"'>Remove</a><br/>"+
-			"<table id='info_table_"+counter+"' class='table table-bordered search-modal-table-td'>"+
+		/* Total collecter ( Collects all selected items ) */
+		total_steps_collector.push(["select_"+infoTitle, "Step "+step_numbers, [val_collection_array]]);		
+
+		$('.operation_combobox_info_append').append("<div id='info_"+ step_numbers +"'>"+
+			"<h1 class='info_title'>"+infoTitle+" [ Step "+ step_numbers +" ]</h1><a class='info_edit_link' id='info_edit_"+step_numbers+"'>Edit</a><a class='info_remove_link' id='info_remove_"+step_numbers+"'>Remove</a><br/>"+
+			"<table id='info_table_"+step_numbers+"' class='table table-bordered search-modal-table-td'>"+
 						"<thead>"+
 						  	"<tr>"+infoTh+"</tr>"+
 						"</thead>"+
 						"<tbody><tr class='table_values'>"+infoBody+"</tr></tbody></table>"+
-			"<div class='info_edit_inputDiv workflowInputs' id='info_edit_input_"+counter+"' style='display:none;'>"+operation_input_html.html()+"</div>"+
+			"<div class='info_edit_inputDiv workflowInputs' id='info_edit_input_"+step_numbers+"' style='display:none;'>"+operation_input_html.html()+"</div>"+
 			"</div>");
 
-		counter++;
+		operation_combobox_template(operation_combobox_append, step_numbers, select_options);
+		
+	});
 
-		//alert("Operations button clicked");
-		//var idName = $(this).parent().attr('id');
-		//var disableIds = "";
-		// var operationSelectForm = "operationSelectForm_"+ counter++;
-		// $('#operationSelectForm').attr('id', operationSelectForm);
-		$('.operation_combobox_append').append("<div id='operation_combobox_"+counter+"'><!-- Div for operations combo box -->"+
+	/* Info edit link */
+	
+	$(document).on("click", '.info_edit_link', function () {
+
+		info_edit_link(this);
+
+	});
+
+	/* Save changes after editing the selected operations table */
+
+	$(document).on("click", '.operation_edit_save', function () {
+
+		info_edit_save(this);
+
+	});
+
+	/* Remove last wrong entered opertion */
+
+	$(document).on("click", '.info_remove_link', function () {
+
+		var splitted_values = this.id.split('_');
+		var remove_number = splitted_values[2];
+
+		select_options = select_options.replace("<option>Step "+remove_number+"</option>", "");
+		step_numbers--;
+		
+		var remove_div_id = $(this).parent().attr('id');
+		$('#'+remove_div_id+', #operation_combobox_'+step_numbers).remove();
+
+
+		var select_div = $('#operation_combobox_'+step_numbers);
+		var update_div_elements = $('#operation_combobox_'+remove_number);
+
+		update_div_elements.remove();
+		operation_combobox_template(operation_combobox_append, step_numbers, select_options);
+
+		/* Updates all select options after removing */
+
+		update_steps(update_div_elements, select_options);
+
+	});
+
+	/* Operation combobox div HTML Template */
+
+	function operation_combobox_template(append_div, counter, select_options){
+
+		append_div.append("<div class='operation_combobox' id='operation_combobox_"+counter+"'><!-- Div for operations combo box -->"+
 
 		"<div class='workflow_operations_combobox'>"+
 			"<div class='workflow-line'></div>"+
@@ -562,8 +958,8 @@ require_once("inc/init.php");
 			"<h2>Aggregate</h2>"+
 			"<div class='workflowInputs' id='aggregation_inputs_"+counter+"'>"+
 				
-				"<select class='steps-select form-control' name='Data_ID' id='aggregate_data_id_"+counter+"'>"+select_options+"</select>"+
-				"<select name='Ranges_ID' class='steps-select form-control' id='aggregate_ranges_id_"+counter+"'>"+select_options+"</select>"+
+				"<select class='steps-select form-control has-select-options' name='Data_ID' id='aggregate_data_id_"+counter+"'>"+select_options+"</select>"+
+				"<select name='Ranges_ID' class='steps-select form-control has-select-options' id='aggregate_ranges_id_"+counter+"'>"+select_options+"</select>"+
 				"<input type='text' name='Field' id='aggregate_field_"+counter+"' placeholder='Field'/>"+
 							
 				"<button type='button' class='btn btn-primary operationsBtn'>Apply Operation</button>"+
@@ -576,7 +972,7 @@ require_once("inc/init.php");
 		"<div id='count_regions_ComboBox_"+counter+"' style='display:none;'>"+
 			"<h2>Count regions</h2>"+
 			"<div class='workflowInputs' id='count_regions_inputs'>"+
-				"<select name='Query_ID' class='steps-select form-control' id='count_regions_query_id_"+counter+"'>"+select_options+"</select>"+
+				"<select name='Query_ID' class='steps-select form-control has-select-options' id='count_regions_query_id_"+counter+"'>"+select_options+"</select>"+
 				"<button type='button' class='btn btn-primary directly_download'>Download</button>"+
 			"</div>"+
 		"</div>"+
@@ -587,7 +983,7 @@ require_once("inc/init.php");
 			"<h2>Filter regions</h2>"+
 			"<div class='workflowInputs' id='filter_regions_inputs_"+counter+"'>"+
 
-				"<select name='Query_ID' class='steps-select form-control' id='count_regions_query_id_"+counter+"'>"+select_options+"</select>"+
+				"<select name='Query_ID' class='steps-select form-control has-select-options' id='count_regions_query_id_"+counter+"'>"+select_options+"</select>"+
 				"<input type='text' name='Field' id='filter_regions_field_"+counter+"' placeholder='Field'/>"+
 				"<input type='text' name='Operation' id='filter_regions_operation_"+counter+"' placeholder='Operation'/>"+
 				"<input type='text' name='Value' id='filter_regions_value_"+counter+"' placeholder='Value'/>"+
@@ -603,7 +999,7 @@ require_once("inc/init.php");
 		"<div id='get_experiments_by_query_ComboBox_"+counter+"' style='display:none;'>"+
 			"<h2>Get experiments by query</h2>"+
 			"<div class='workflowInputs' id='get_experiment_by_query_inputs_"+counter+"'>"+
-				"<select name='Query_ID' class='steps-select form-control' id='get_experiments_by_query_id_"+counter+"'>"+select_options+"</select>"+
+				"<select name='Query_ID' class='steps-select form-control has-select-options' id='get_experiments_by_query_id_"+counter+"'>"+select_options+"</select>"+
 				"<button type='button' class='btn btn-primary directly_download'>Download</button>"+
 			"</div>"+				
 		"</div>"+
@@ -613,7 +1009,7 @@ require_once("inc/init.php");
 		"<div id='get_regions_ComboBox_"+counter+"' style='display:none;''>"+
 			"<h2>Get regions</h2>"+
 			"<div class='workflowInputs' id='get_regions_inputs_"+counter+"'>"+
-				"<select name='Query_ID' class='steps-select form-control' id='get_regions_query_id_"+counter+"'>"+select_options+"</select>"+
+				"<select name='Query_ID' class='steps-select form-control has-select-options' id='get_regions_query_id_"+counter+"'>"+select_options+"</select>"+
 				"<input type='text' name='User_format' id='get_regions_user_format_"+counter+"' placeholder='User format'/>"+
 				"<button type='button' class='btn btn-primary directly_download'>Download</button>"+
 							
@@ -625,8 +1021,8 @@ require_once("inc/init.php");
 		"<div id='intersection_ComboBox_"+counter+"' style='display:none;'>"+
 			"<h2>Intersection</h2>"+
 			"<div class='workflowInputs' id='intersection_inputs_"+counter+"'>"+
-				"<select name='Query_A_ID' class='steps-select form-control' id='intersection_query_a_id_"+counter+"'>"+select_options+"</select>"+
-				"<select name='Query_B_ID' class='steps-select form-control' id='intersection_query_b_id_"+counter+"'>"+select_options+"</select>"+
+				"<select name='Query_A_ID' class='steps-select form-control has-select-options' id='intersection_query_a_id_"+counter+"'>"+select_options+"</select>"+
+				"<select name='Query_B_ID' class='steps-select form-control has-select-options' id='intersection_query_b_id_"+counter+"'>"+select_options+"</select>"+
 				"<button type='button' class='btn btn-primary operationsBtn'>Apply Operation</button>"+
 							
 			"</div>"+			
@@ -637,8 +1033,8 @@ require_once("inc/init.php");
 		"<div id='merge_queries_ComboBox_"+counter+"' style='display:none;'>"+
 			"<h2>Merge queries</h2>"+
 			"<div class='workflowInputs' id='merge_queries_inputs_"+counter+"'>"+
-				"<select name='Query_A_ID' class='steps-select form-control' id='merge_queries_query_a_id_"+counter+"'>"+select_options+"</select>"+
-				"<select name='Query_B_ID' class='steps-select form-control' id='merge_queries_query_b_id_"+counter+"'>"+select_options+"</select>"+
+				"<select name='Query_A_ID' class='steps-select form-control has-select-options' id='merge_queries_query_a_id_"+counter+"'>"+select_options+"</select>"+
+				"<select name='Query_B_ID' class='steps-select form-control has-select-options' id='merge_queries_query_b_id_"+counter+"'>"+select_options+"</select>"+
 				"<button type='button' class='btn btn-primary operationsBtn'>Apply Operation</button>"+
 							
 			"</div>"+				
@@ -657,468 +1053,8 @@ require_once("inc/init.php");
 			"</div>"+			
 		"</div></div>");
 
-	});
+	}
 
-	/* Search result :: Displaying modal view after clicking to the select */
-
-	$('.exp_selectWorkflowBtn, .annot_selectWorkflowBtn').unbind('click').bind('click', function (e) {
-
-	//alert('Test - 2');
-
-	//$('.workflow_operations_combobox').show(); // need to remove from here !!!
-
-	//$(document).on("click", '#selectWorkflowBtn, #annot_selectWorkflowBtn', function () {
-
-		var selectedElementsModal = [];
-		var selected_elements_operation = [];
-
-		var button_id = $(this).attr('id');
-
-		if(button_id == 'annot_selectWorkflowBtn' || button_id == 'selectWorkflowBtn'){
-			var optionVal = $('#workFlowSelectForm').val();
-		}
-		else{
-			var optionVal = $(this).attr('name');
-		}
-
-		var workflow_table_id;
-
-		//alert('optionVal : ' + optionVal);
-
-		if(optionVal == 'experiment'){
-
-			//alert("test - 3 :: experiment");
-
-			workflow_table_id = '#datatable_fixed_column';
-
-			//var experiment = $('#exp_workflow_experiment').val();
-			var genome = $('#exp_workflow_genome').val();
-			var epigenetic_mark = $('#exp_workflow_epigenetic_mark').val();
-			var sample = $('#exp_workflow_sample').val();
-			var technique = $('#exp_workflow_technique').val();
-			var project = $('#exp_workflow_project').val();
-			//var description = $('#exp_workflow_description').val();
-
-			var inputDataArray = {};
-			
-			inputDataArray['genome'] = genome;
-			inputDataArray['epigenetic_mark'] = epigenetic_mark;
-			inputDataArray['sample'] = sample;
-			inputDataArray['technique'] = technique;
-			inputDataArray['project'] = project;
-
-			var notEmptyValues = new Array();
-			var key;
-
-			for(key in inputDataArray){
-			  	if(inputDataArray[key] != ''){
-					notEmptyValues.push(key);
-				}
-			}
-
-			//optionVal = '';
-		}
-		else if(optionVal == 'annotation'){
-
-			//alert("test - 3 :: annotation");
-
-			workflow_table_id = '#annotation_datatable_fixed_column';
-
-			//var annotation = $('#annot_workflow_annotation').val();
-			var genome = $('#annot_workflow_genome').val();
-
-			var inputDataArray = {};
-			inputDataArray['genome'] = genome;
-
-			//optionVal = '';
-
-		}
-		else{
-			alert("not selected!");
-		}
-
-		/* Reset all input values */
-
-		$('.hasinput input').val("");
-		$('.hasinput input').prop('disabled', false);
-
-		/* BASIC */
-		var responsiveHelper_dt_basic = undefined;
-		var responsiveHelper_datatable_fixed_column = undefined;
-		var responsiveHelper_datatable_col_reorder = undefined;
-		var responsiveHelper_datatable_tabletools = undefined;
-
-		var breakpointDefinition = {
-			tablet : 1024,
-			phone : 480
-		};
-
-		/* COLUMN FILTER  */
-
-		var jsonString = JSON.stringify(inputDataArray);
-
-		//alert('print workflow id : ' + workflow_table_id);
-
-		var otable = $(workflow_table_id).DataTable({
-
-		    "ajax": {
-		    "url": "ajax/server_side/modal_view_server_processing.php",
-		    "data": function ( d ) {
-		       		d.sendOptionVal = optionVal;
-		       		d.sendData = jsonString;
-		       	}
-		    },
-		    "iDisplayLength": 50,
-		    "autoWidth" : true,
-		    "bDestroy": true,
-			"preDrawCallback" : function() {
-				// Initialize the responsive datatables helper once.
-				if (!responsiveHelper_datatable_fixed_column) {
-					responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
-				}
-			},
-			"rowCallback" : function(nRow) {
-				responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
-			},
-			"drawCallback" : function(oSettings) {
-				responsiveHelper_datatable_fixed_column.respond();
-			},
-			"fnInitComplete": function(oSettings, json) {
-
-				/* Collecting all not empty input text values and disable them */
-
-				if(optionVal == 'experiment'){
-
-					var notEmptyValCollect = "";
-
-					
-
-					var selectTableInputs = notEmptyValCollect.slice(0,-2);		
-					$(selectTableInputs).prop('disabled', true);
-
-				}
-				else{
-					if(genome != ''){
-
-						$('#annotation-genome').val(genome);
-						$('#annotation-genome').prop('disabled', true);
-
-					}
-				}	
-
-				/* Insert or remove selected or unselected elements */
-
-				$( ".downloadCheckBox" ).change(function() {
-
-					var table_name = $(this).parents().eq(3).attr('name');
-
-					var downloadIdModal = $(this).parent().next().text();
-					var downloadTitleModal = $(this).parent().next().next().text();
-					var downloadTotalModal = downloadIdModal+"-"+downloadTitleModal;
-
-					if(table_name == 'annotation_data_table_0' || table_name == 'experiment-table'){
-
-						// var downloadIdModal = $(this).parent().next().text();
-						// var downloadTitleModal = $(this).parent().next().next().text();
-						// var downloadTotalModal = downloadIdModal+"-"+downloadTitleModal;
-
-						//alert(testPrint);
-						//alert('idModal :'+downloadIdModal+'; titleModal : '+downloadTitleModal+'; totalModal : '+downloadTotalModal);
-
-						var foundModal = $.inArray(downloadTotalModal, selectedElementsModal);
-
-						if(foundModal < 0){
-							selectedElementsModal.push(downloadTotalModal);
-						}
-						else{
-							selectedElementsModal.splice(foundModal, 1);
-						}
-
-						//alert("Experiment test : " + selectedElementsModal);
-
-					}
-					else{
-
-						//alert('Test != annotation_data_table_1');
-						//selectedElementsModal = [];
-
-						//alert(testPrint);
-						//alert('idModal :'+downloadIdModal+'; titleModal : '+downloadTitleModal+'; totalModal : '+downloadTotalModal);
-
-						//alert('Enteredddd');
-
-						var foundModal_Operation = $.inArray(downloadTotalModal, selected_elements_operation);
-
-						if(foundModal_Operation < 0){
-							selected_elements_operation.push(downloadTotalModal);
-						}
-						else{
-							selected_elements_operation.splice(foundModal_Operation, 1);
-						}
-
-						//alert("If ga kirdi : " + selected_elements_operation);
-
-					}
-
-				});
-
-			}
-
-
-		});
-
-
-		/* Download button :: Getting selected elements */
-
-		//$('#selectWorkflowBtnModalTop, #selectWorkflowBtnModalBottom, #select_annot_workflowBtn_top, #select_annot_workflowBtn_bottom').unbind('click').bind('click', function (e) {
-		$(document).on("click", '#selectWorkflowBtnModalTop, #selectWorkflowBtnModalBottom, #select_annot_workflowBtn_top, #select_annot_workflowBtn_bottom', function () {
-		//$('#selectWorkflowBtnModal').click(function(){
-
-			if(selectedElementsModal.length == 0){
-				alert("Please select elements!");
-			}
-			else if(this.id == 'experiment_selectWorkflowBtn' || this.id == 'annotation_selectWorkflowBtn'){
-				alert("Clicked exp or annotation button");
-			}
-			else{
-
-				var isEdited = $('#selected_anno_exp_edit_link').prev().attr('class');
-				
-				/* Hiding the modal view after clicking select */
-				$('#myWorkflowModal').modal('hide');
-				$( ".workflow_selected_list" ).empty();
-
-				if(isEdited != 'edited'){
-
-					//alert("Test no - 1");
-
-					steps_collection.push("Step "+step_number);
-					select_options += "<option>Step "+step_number+"</option>";
-					$('.parent_workflow_selected_list h2').text("Selected "+optionVal+"s [ Step "+ step_number++ +" ]");
-
-				}
-				
-				$('.parent_workflow_selected_list').show();
-
-				var selected_element_list = "";
-
-				$.each(selectedElementsModal, function(iSelected, itemSelected) {
-					var splitted_values = itemSelected.split('-');
-
-					selected_element_list += '<tr><td>'+splitted_values[0]+'</td><td>'+splitted_values[1]+'</td></tr>';
-					//alert("id : "+splitted_values[0]+" @@ name : "+splitted_values[1]);
-				});
-
-				$('.workflow_selected_list').append(
-					"<table class='table table-striped search-modal-table-td'>"+
-						"<thead>"+
-						  	"<tr>"+
-						    	"<th>ID</th>"+
-						     	"<th>Name</th>"+
-						  	"</tr>"+
-						"</thead>"+
-						"<tbody>"+ selected_element_list);
-
-				//selected_element_list = "";
-
-				/* Displaying operations combo box */
-
-				$('.workflow_operations_combobox').show(); //!!!!! edited
-
-				/* Hide workflow select form div for displaying selected experiment/annotations list */
-
-				//$('#operation_combobox_1')
-				$('.workFlowSelectForm_div').hide();
-				$('.operation_combobox_append').show();
-				//$('#modal_for_experiments, #modal_for_annotations').css('display:none');
-
-			}
-
-		});
-
-		//selectedElementsModal = [];
-
-		/* Hide and show experiment metadata */
-
-		var isShow = false;
-		$(document).on("click", '.exp-metadata-more-view', function () {
-			//var metadata = $(this).prev();
-			if(isShow == false){
-				$(this).prev().show(1000);
-				$(this).text("-- Hide --");
-				isShow = true;
-			}
-			else{
-				$(this).prev().hide(1000);
-				$(this).text("-- View metadata --");
-				isShow = false;
-			}
-
-		});
-
-
-		// custom toolbar
-		$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
-
-		// Apply the filter
-		$("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-
-		    otable
-		        .column( $(this).parent().index()+':visible' )
-		        .search( this.value )
-		        .draw();
-
-		});
-
-		$(document).on("click", '.operation-select', function () {
-
-			//alert("Test the table content : " + selected_elements_operation);
-
-			steps_collection.push("Step "+step_number);
-			select_options += "<option>Step "+step_number+"</option>";
-
-			/* Hiding the modal view after clicking select */
-			$('#myWorkflowModal').modal('hide');
-
-			var selected_operation_elements = "";	
-
-			$.each(selected_elements_operation, function(iSelected_operation, itemSelected_operation) {
-				var splitted_operation_values = itemSelected_operation.split('-');
-
-				selected_operation_elements += '<tr><td>'+splitted_operation_values[0]+'</td><td>'+splitted_operation_values[1]+'</td></tr>';
-				//alert("id : "+splitted_operation_values[0]+" @@ name : "+splitted_operation_values[1]);
-
-				selected_elements_operation = jQuery.grep(selected_elements_operation, function(removeElement) {
-				  return removeElement != itemSelected_operation;
-				});
-			});			
-
-
-			$('.operation_combobox_info_append').append("<div id='info_"+counter+"'>"+
-			
-			"<!-- Div for list of selected experiments/annotations -->"+
-				"<div class='parent_workflow_selected_list'>"+
-					"<h2>Selected "+optionVal+"s [ Step "+ step_number++ +" ]</h2><a id='selected_anno_exp_edit_link'>Edit</a><br/>"+
-					"<div class='workflow_selected_list'>"+
-
-					"<table class='table table-striped search-modal-table-td'>"+
-					"<thead>"+
-						"<tr>"+
-							"<th>ID</th>"+
-							"<th>Name</th>"+
-						"</tr>"+
-					"</thead>"+
-					"<tbody>"+ selected_operation_elements +
-
-					"</div>"+
-				"</div>"+
-			"</div>"
-			);
-
-			selected_operation_elements = "";
-			//selected_elements_operation = "";
-
-			$('.info_remove_link').remove();
-			$('#'+optionVal+'_ComboBox_'+counter).hide();
-			$('#operationSelectForm_'+counter).prop('selectedIndex', 0);
-			$('#'+optionVal+'_ComboBox_'+counter+' .workflowInputs input:text').value('1111');
-
-		});
-
-
-	});
-
-	/* Info edit link */
-	
-	$(document).on("click", '.info_edit_link', function () {
-
-		$(this).hide();
-		
-		var info_div_id = $(this).parent().attr('id');
-		var info_edit_input_div = $('#'+info_div_id+' div').attr('id');
-		var info_table = $('#'+info_div_id+' table').attr('id');
-		
-		$('#'+info_table).hide();
-		$('#'+info_edit_input_div).show();
-
-	});
-
-	/* Save changes after editing the selected operations table */
-
-	$(document).on("click", '.operation_edit_save', function () {
-
-		$('.info_edit_link').show();
-		var table_id = $(this).parents().eq(1).attr('id');
-		
-		var table_tr = $('#'+table_id+' table .table_values');
-
-		$(this).parent().children().each(function (e, data_1) {
-		    if(this.type != 'button'){
-
-		    	table_tr.children().each(function (f, data_2) {
-
-		    		if(data_1.name == data_2.className){
-		    			$('#'+table_id+' table .table_values .'+data_2.className).text(data_1.value);
-		    		}
-		    	});
-		    }
-		});
-
-		/* Hide edit inputs and show table */
-
-		$('#'+table_id+' table').next().hide();
-		$('#'+table_id+' table').show();
-
-	});
-
-	/* Edit Experiments or Annotations after selecting */
-
-	$(document).on("click", '#selected_anno_exp_edit_link', function () {
-
-		//alert("Edid clicked");
-		$('.operation_combobox_append').hide();
-
-		$(this).prev().addClass('edited');
-
-		$('.parent_workflow_selected_list').hide();
-		$('.workFlowSelectForm_div').show();
-	});
-
-	// $(document).on("click", '.operation-download-btn', function () {
-	// 	alert("Steps : "+steps_collection);
-	// });
-
-	/* Remove last wrong entered opertion */
-
-	$(document).on("click", '.info_remove_link', function () {
-		var remove_div_id = $(this).parent().attr('id');
-		$('#'+remove_div_id).remove();
-		step_number--;
-
-	});
-
-	/* Operation experiment and annotation select :: Modal view display */
-
-	$(document).on("click", '.operation-modal-view', function () {
-
-		//alert('#select_annot_workflowBtn_top_'+counter);
-
-		$('#myWorkflowModal').find(':checked').each(function() {
-		   $(this).removeAttr('checked');
-		});
-
-		$('#select_annot_workflowBtn_top').attr('id','select_annot_workflowBtn_top_'+counter);
-		$('#select_annot_workflowBtn_top_'+counter).addClass('operation-select');
-
-		$('#select_annot_workflowBtn_top_'+counter).parents().eq(3).attr('name','annotation_data_table_'+counter);
-
-	});
-
-	// #select_annot_workflowBtn_top_1
-	
-	// run pagefunction on load
-
-	//pagefunction();
 
 	// load related plugins
 

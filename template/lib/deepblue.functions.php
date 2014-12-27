@@ -519,7 +519,7 @@ class Deepblue{
 
             $tempArr = array();
 
-            $tempArr[] = "<input type='checkbox' name='checkboxlist' class='downloadCheckBox'>";
+            $tempArr[] = "<input type='checkbox' name='checkboxlist' id='".$metadata['_id']."' class='downloadCheckBox'>";
             $tempArr[] = $metadata['_id'];
             $tempArr[] = $metadata['name'];
             $tempArr[] = $metadata['description'];
@@ -617,7 +617,7 @@ class Deepblue{
         foreach($infoList[0][1] as $value_2){
 
             if($where == 'workflow'){
-                $tempArr[] = "<input type='checkbox' name='checkboxlist' class='downloadCheckBox'>";
+                $tempArr[] = "<input type='checkbox' name='checkboxlist' id='".$value_2['_id']."' class='downloadCheckBox'>";
             }
 
             $tempArr[] = $value_2['_id'];
@@ -654,8 +654,8 @@ class Deepblue{
 
         if($where == 'workflow'){
             $diffPlace = "Select";
-            $diff_top_btn = "select_annot_workflowBtn_top";
-            $diff_bottom_btn = "select_annot_workflowBtn_bottom";
+            $diff_top_btn = "annot_select_btn_top";
+            $diff_bottom_btn = "annot_select_btn_bottom";
 
             $checkbox_th_top = "<th class='hasinput'><button type='button' id='$diff_top_btn' class='btn btn-primary download-btn-size'>$diffPlace</button></th>";
             $checkbox_th_bottom = "<div class='downloadButtonDiv'><button type='button' id='$diff_bottom_btn' class='btn btn-primary'>$diffPlace</button></div>";
@@ -751,8 +751,8 @@ XYZ;
 
         if($where == "workflow"){
             $diffPlace = "Select";
-            $diff_top_btn = "selectWorkflowBtnModalTop";
-            $diff_bottom_btn = "selectWorkflowBtnModalBottom";
+            $diff_top_btn = "exp_select_btn_top";
+            $diff_bottom_btn = "exp_select_btn_bottom";
         }
         else{
             $diffPlace = "Download";
