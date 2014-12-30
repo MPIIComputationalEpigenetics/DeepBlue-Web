@@ -745,6 +745,24 @@ XYZ;
 
     }
 
+    /* Prepare result to JSON format for cloning */
+    
+    public function cloneResultToJson($inputArray){
+    	
+    	$return = array();
+    	$return['ID'] = $inputArray[0]['_id'];
+    	$return['Experiment Name'] = $inputArray[0]['name'];
+    	$return['Genome'] = $inputArray[0]['genome'];
+    	$return['Epigenetic mark'] = $inputArray[0]['epigenetic_mark'];
+    	$return['Sample'] = $inputArray[0]['sample_info']['biosource_name'];
+    	$return['Technique'] = $inputArray[0]['technique'];
+    	$return['Project'] = $inputArray[0]['project'];
+    	$return['Description'] = $inputArray[0]['description'];
+    	$return['Columns'] = $inputArray[0]['columns'];
+    	$return['Extra Metadata'] = $inputArray[0]['extra_metadata']; 
+    	echo json_encode(array('data' => $return));
+    }
+    
     /* Generating experiment data table content [ Template ] */
 
     public function experimentDataTableTemplate($where){

@@ -115,6 +115,12 @@ $page_nav = array(
 		"icon" => "fa-sitemap"
 	),
 
+	"clone" => array(
+			"title" => "Clone",
+			"url"=> "ajax/deepblue_clone_dataset.php",
+			"icon" => "fa-adjust"
+	),
+		
 	"deepblue_workflow" => array(
 		"title" => "Workflow",
 		"url"=> "ajax/deepblue_view_workflow.php",
