@@ -20,16 +20,13 @@ require_once("../../lib/lib.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 $client = new IXR_Client($url);
 
-/* DeepBlue Class */
-require_once("../../lib/deepblue.functions.php");
-$deepBlueObj = new Deepblue();
-
 if ((!isset($_GET)) || !isset($_GET["getId"])) {
 	return;
 }
 
 $getId = $_GET["getId"];
 
+/* retrieve experiment information */
 if(!$client->query("info", $getId, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
@@ -37,6 +34,21 @@ else{
     $infoList[] = $client->getResponse();
 }
 
-$deepBlueObj->cloneResultToJson($infoList[0][1]);
+$result = array();
 
+$experiment = $infoList[0][1][0];
+$info['id'] = $experiment['_id'];
+$info['experiment'] = $experiment['name'];
+$info['genome'] = $experiment['genome'];
+$info['epigenetic_mark'] = $experiment['epigenetic_mark'];
+$info['sample'] = $experiment['sample_id']." (".$experiment['sample_info']['biosource_name'].")";
+$info['technique'] = $experiment['technique'];
+$info['project'] = $experiment['project'];
+$info['description'] = $experiment['description'];
+$info['Columns'] = $experiment['columns'];
+$info['Extra Metadata'] = $experiment['extra_metadata'];
+
+$result['info'] = $info;
+
+echo json_encode(array('data' => $result));
 ?>

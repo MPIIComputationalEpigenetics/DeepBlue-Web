@@ -77,9 +77,27 @@ require_once("inc/init.php");
 
 	// PAGE RELATED SCRIPTS
 	// pagefunction
-
+	var suggestions;
 	var pagefunction = function() {
 		$("#search_input").focus();
+		var dataRequest = $.ajax({
+			url: "ajax/server_side/clone_get_data_server_processing.php",
+			dataType: "json",
+			data : {
+			}
+		});
+
+		dataRequest.done(function(data) {
+			suggestions = data.data;
+			//suggestions[term] = ['sample','epigenetic_mark','technique','project'];
+		});
+
+		dataRequest.fail( function(jqXHR, textStatus) {
+			console.log(jqXHR);
+	        console.log('Error: '+ textStatus);
+			alert( "error" );
+		});
+				
 	};
 
 	function search_function() {
@@ -212,12 +230,41 @@ require_once("inc/init.php");
 				html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
 				break
 			default:
-				html = "<tr><td class='search-modal-table'>" + i + "</td>";
-				if (i == 'ID') 
-					html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "' disabled></td></tr>";
-				else
-					html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
-				break;
+				switch (i) {
+					case 'id':
+						html = "<tr><td class='search-modal-table'>ID</td>";
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "' disabled></td></tr>";
+						break;
+					case 'experiment':
+						html = "<tr><td class='search-modal-table'>Experiment Name</td>";						
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
+						break;
+					case 'genome':
+						html = "<tr><td class='search-modal-table'>Genome</td>";						
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "' disabled></td></tr>";
+						break;
+					case 'epigenetic_mark':
+						html = "<tr><td class='search-modal-table'>Epigenetic Mark</td>";						
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
+						break;
+					case 'sample':
+						html = "<tr><td class='search-modal-table'>Sample</td>";						
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
+						break;
+					case 'technique':
+						html = "<tr><td class='search-modal-table'>Technique</td>";						
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
+						break;						
+					case 'project':
+						html = "<tr><td class='search-modal-table'>Project</td>";						
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
+						break;
+					case 'description':
+						html = "<tr><td class='search-modal-table'>Description</td>";						
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
+						break;						
+					default:
+				}	
 		}
 		return html;
 	}
@@ -241,7 +288,7 @@ require_once("inc/init.php");
 			$('#modal_for_experiment').empty();
 			var tableHTML = '<h4>Experiment Info</h4><hr/>'
 			tableHTML = tableHTML + "<table class='table table-striped table-hover'><tbody>";
-			$.each(data.data, function(i, item) {
+			$.each(data.data['info'], function(i, item) {
 				if (i == 'Columns') {
 					sect = 'columns';
 					tableHTML = tableHTML + "</tbody></table>";
@@ -264,17 +311,44 @@ require_once("inc/init.php");
 				else {
 					sect = 'info';
 					tableHTML = tableHTML + buildHTML(i, item, sect);
-				}				
+				}
 			});
+			
 			$('#modal_for_experiment').append(tableHTML + columnsTableHTML + metadataHTML);
-
+			
 			$('.modal-title').text("Clone Experiment");
 			$('.modal-content').addClass( "modalViewSingleInfo" );
 			$('#modal_for_experiment').show();
 
+			var tags = ['sample','epigenetic_mark','technique','project'];
+			suggested = false;
+			for (i in tags) {
+				tag = tags[i];
+				//suggestions[tag] = ['sample','epigenetic_mark','technique','project'];
+				$("#" + tag).autocomplete({
+					autoFocus: true,
+					lookup: suggestions[tag],
+					//lookup: tags, //suggestions[tag],
+					onSelect: function(s) {$(item).closest(".search-modal-name").removeClass('has-error');},
+					onInvalidateSelection: function () {$(item).closest(".search-modal-name").addClass('has-error');}
+				});
+
+				$("#" + tag).focus(function() {
+					item = this;
+					term = item.id;
+					if (suggestions[item] == undefined) {
+								
+					}
+				});					
+				
+				$("#" + tag).change(function() {
+						item = this;
+						$(item).closest(".search-modal-name").addClass('has-error');
+				});				
+			}
+
 			/* Printing experiment or anotation id and name in modal view when user clicks Download button
 			*/
-
 			$('#cloneExperimentButton').unbind('click').bind('click', function (e) {
 				var modal_id = $('.search-modal-id').text();
 				var modal_name = $('.search-modal-name').text();
@@ -441,7 +515,6 @@ require_once("inc/init.php");
 	});
 
 	// load related plugins
-
 	loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
 		loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
 			loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
@@ -451,7 +524,6 @@ require_once("inc/init.php");
 			});
 		});
 	});
-
 
 	
 
