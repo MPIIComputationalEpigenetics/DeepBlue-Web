@@ -23,9 +23,7 @@ require_once("inc/init.php");
 ?>
 
 <div class="row">
-
 	<div class="col-sm-12">
-
 		<div id="myTabContent1" class="tab-content bg-color-white padding-10">
 			<div class="tab-pane fade in active" id="s1">
 				<h1> Clone <span id="seach-type-title" class="semi-bold">Experiments</span></h1>
@@ -38,7 +36,6 @@ require_once("inc/init.php");
 						</button>
 					</div>
 				</div>
-
 				<div id="tempSearchResult"></div>
 			</div>
 			<div class='clear'></div>
@@ -83,23 +80,21 @@ require_once("inc/init.php");
 		var dataRequest = $.ajax({
 			url: "ajax/server_side/clone_get_data_server_processing.php",
 			dataType: "json",
-			data : {
-			}
+			data : {}
 		});
 
 		dataRequest.done(function(data) {
 			suggestions = data.data;
-			//suggestions[term] = ['sample','epigenetic_mark','technique','project'];
 		});
 
 		dataRequest.fail( function(jqXHR, textStatus) {
 			console.log(jqXHR);
-	        console.log('Error: '+ textStatus);
+      console.log('Error: '+ textStatus);
 			alert( "error" );
 		});
-				
 	};
 
+	// function to implement search
 	function search_function() {
 		$search = $('#search_input').val();
 
@@ -136,7 +131,6 @@ require_once("inc/init.php");
 			}
 
 			/* Make metadata short with MORE button */
-
 			$('.searchMetadata').more({
 				length: 160,
 				moreText: 'More', // Display text for more link
@@ -147,10 +141,10 @@ require_once("inc/init.php");
 
 		request.fail( function(jqXHR, textStatus) {
 			console.log(jqXHR);
-	        console.log('Error: '+ textStatus);
+      console.log('Error: '+ textStatus);
 			alert( "error" );
 		});
-	};
+	}; // end search function
 
 	$("#search_bt").button().click(search_function);
 
@@ -186,7 +180,8 @@ require_once("inc/init.php");
 		}
 		return html;
 	}
-	
+
+	// table contruction for display of the information
   function buildTableHTML(i, item) {
 		var html = "<tr><td class='search-modal-table'>" + i + ":</td>";		
 		switch (i) {
@@ -260,8 +255,8 @@ require_once("inc/init.php");
 						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
 						break;
 					case 'description':
-						html = "<tr><td class='search-modal-table'>Description</td>";						
-						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
+						html = "<tr><td class='search-modal-table'>Description</td>";
+						html = html + "<td class='search-modal-name'><textarea class='form-control' id='" + i + "' placeholder='" + item + "'></textarea></td></tr>";
 						break;						
 					default:
 				}	
@@ -270,13 +265,13 @@ require_once("inc/init.php");
 	}
 	
 	/* Search result :: Displaying modal view after clicking the title */
+	$(document).off("click",'.seach-result-title span');
 	$(document).on("click", '.seach-result-title span', function () {
-
 		$('#search_input').val($search);
 		var type = this.className;
 		var getId = $(this).prev().text();
 
-		var infoRequest = $.ajax({
+		var cloneInfoRequest = $.ajax({
 			url: "ajax/server_side/clone_get_info_server_processing.php",
 			dataType: "json",
 			data : {
@@ -284,7 +279,7 @@ require_once("inc/init.php");
 			}
 		});
 
-		infoRequest.done( function(data) {
+		cloneInfoRequest.done( function(data) {
 			$('#modal_for_experiment').empty();
 			var tableHTML = '<h4>Experiment Info</h4><hr/>'
 			tableHTML = tableHTML + "<table class='table table-striped table-hover'><tbody>";
@@ -315,7 +310,6 @@ require_once("inc/init.php");
 			});
 			
 			$('#modal_for_experiment').append(tableHTML + columnsTableHTML + metadataHTML);
-			
 			$('.modal-title').text("Clone Experiment");
 			$('.modal-content').addClass( "modalViewSingleInfo" );
 			$('#modal_for_experiment').show();
@@ -324,31 +318,20 @@ require_once("inc/init.php");
 			suggested = false;
 			for (i in tags) {
 				tag = tags[i];
-				//suggestions[tag] = ['sample','epigenetic_mark','technique','project'];
 				$("#" + tag).autocomplete({
 					autoFocus: true,
 					lookup: suggestions[tag],
-					//lookup: tags, //suggestions[tag],
 					onSelect: function(s) {$(item).closest(".search-modal-name").removeClass('has-error');},
 					onInvalidateSelection: function () {$(item).closest(".search-modal-name").addClass('has-error');}
 				});
 
-				$("#" + tag).focus(function() {
-					item = this;
-					term = item.id;
-					if (suggestions[item] == undefined) {
-								
-					}
-				});					
-				
 				$("#" + tag).change(function() {
-						item = this;
-						$(item).closest(".search-modal-name").addClass('has-error');
+					item = this;
+					$(item).closest(".search-modal-name").addClass('has-error');
 				});				
 			}
 
-			/* Printing experiment or anotation id and name in modal view when user clicks Download button
-			*/
+			// Printing experiment or anotation id and name in modal view when user clicks Clone button
 			$('#cloneExperimentButton').unbind('click').bind('click', function (e) {
 				var modal_id = $('.search-modal-id').text();
 				var modal_name = $('.search-modal-name').text();
@@ -367,25 +350,20 @@ require_once("inc/init.php");
 
 				request.fail( function(jqXHR, textStatus) {
 					console.log(jqXHR);
-	        		console.log('Error: '+ textStatus);
+       		console.log('Error: '+ textStatus);
 					alert( "error" );
 				});
-
 				alert("Id: "+modal_id+"\nName: "+modal_name);
 			});
-
 		});
 
-		infoRequest.fail( function(jqXHR, textStatus) {
-
+		cloneInfoRequest.fail( function(jqXHR, textStatus) {
 			console.log(jqXHR);
-	        console.log('Error: '+ textStatus);
-
+      console.log('Error: '+ textStatus);
 			alert( "Error in experiment modal view" );
 		});
 		
 		/* Hide and show experiment metadata */
-
 		var isShow = false;
 		$(document).on("click", '.exp-metadata-more-view', function () {
 			//var metadata = $(this).prev();
@@ -399,11 +377,9 @@ require_once("inc/init.php");
 				$(this).text("-- View metadata --");
 				isShow = false;
 			}
-
 		});
 
 		/* Reset all input values */
-
 		$('.hasinput input').val("");
 		$('.hasinput input').prop('disabled', false);
 
@@ -422,7 +398,6 @@ require_once("inc/init.php");
 		/* COLUMN FILTER  */
 
 		var otable = $('#datatable_fixed_column').DataTable({
-
 		    "ajax": {
 		    "url": "ajax/server_side/modal_view_server_processing.php",
 		    "data": function ( d ) {
@@ -479,9 +454,6 @@ require_once("inc/init.php");
 				$(inputName).prop('disabled', true);
 
 				/* Insert or remove selected or unselected elements */
-
-				//selectedElementsModal = [];
-
 				$( ".downloadCheckBox" ).change(function() {
 					var downloadIdModal = $(this).parent().next().text();
 					var downloadTitleModal = $(this).parent().next().next().text();
@@ -496,11 +468,8 @@ require_once("inc/init.php");
 						selectedElementsModal.splice(foundModal, 1);
 					}
 				});
-
 			}
-
 		});
-
 
 		// custom toolbar
 		$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
@@ -524,8 +493,4 @@ require_once("inc/init.php");
 			});
 		});
 	});
-
-	
-
-	
 </script>

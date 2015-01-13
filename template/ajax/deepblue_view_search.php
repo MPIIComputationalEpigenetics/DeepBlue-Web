@@ -236,6 +236,7 @@ require_once("inc/init.php");
 	});
 
 	/* Search result :: Displaying modal view after clicking the title */
+	$(document).off("click",'.seach-result-title span');
 	$(document).on("click", '.seach-result-title span', function () {
 
 		$('#search_input').val($search);
