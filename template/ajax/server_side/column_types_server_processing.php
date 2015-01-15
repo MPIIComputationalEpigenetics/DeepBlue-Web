@@ -58,9 +58,8 @@ foreach($infoList[0][1] as $column_info){
     $tempArr[] = $column_info['name'];
     $tempArr[] = $column_info['description'];
     $tempArr[] = $column_info['column_type'];
-    $tempArr[] = $column_info['default_value'];
     if ($column_info['column_type'] == "category") {
-        $tempArr[] = "Acceptable values: " . $column_info['values'];
+        $tempArr[] = "Acceptable Items: " . $column_info['items'];
     } else if ($column_info['column_type'] == "range") {
         $tempArr[] = $column_info['minimum'] . " - " . $column_info['maximum'];
     } else {
