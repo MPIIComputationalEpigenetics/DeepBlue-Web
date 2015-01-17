@@ -20,89 +20,49 @@ require_once("../../lib/lib.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 $client = new IXR_Client($url);
 
-if ((!isset($_GET)) || !isset($_GET["caller"])) {
-	return;
+/* retrieve list of all epigenetic marks */
+if(!$client->query("list_epigenetic_marks", $user_key)){
+	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{
+	$emList[] = $client->getResponse();
 }
 
-$caller = $_GET["caller"];
-$term = $_GET["term"];
+/* retrieve list of all biosources */
+if(!$client->query("list_biosources", $user_key)){
+	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{
+	$bioList[] = $client->getResponse();
+}
+
+/* retrieve list of all techniques */
+if(!$client->query("list_techniques", $user_key)){
+	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{
+	$tqList[] = $client->getResponse();
+}
+
+/* retrieve list of all projects */
+if(!$client->query("list_projects", $user_key)){
+	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
+else{
+	$prList[] = $client->getResponse();
+}
 
 $lists = array();
+$lists['epigenetic_mark'] = $emList[0][1];
+$lists['sample'] = $bioList[0][1];
+$lists['technique'] = $tqList[0][1];
+$lists['project'] = $prList[0][1];
 
-/* decallerine list to retrieve based on caller */
-switch ($caller) {
-	case 'epigenetic_mark':
-		/* retrieve list of all epigenetic marks */
-		if(!$client->query("list_epigenetic_marks", $user_key)){
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-		else{
-			$emList[] = $client->getResponse();
-		}
-		$lists['epigenetic_mark'] = $emList[0][1];
-		break;
-	case 'sample':
-		/* retrieve list of all samples */
-		if(!$client->query("list_in_use", 'samples', $user_key)){
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-		else{
-			$samples[] = $client->getResponse();
-			$sampleIds = array();
-			foreach ($samples[0][1] as $sample) {
-				$sampleIds[] = $sample[0];
-			}
-		}
-		
-		/* retrieve list of all biosources */
-		$smList = array();
-		if(!$client->query("info", $sampleIds, $user_key)){
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-		else{
-			$infoList[] = $client->getResponse();
-			$i = 0;
-			foreach ($infoList[0][1] as $sample) {
-				$smList[$i][0] = $sample['biosource_name'];
-				$smList[$i][1] = $sample['_id'];
-				$i = $i + 1;
-			}
-		}
-		$lists['sample'] = $smList;
-		break;
-	case 'technique':
-		/* retrieve list of all techniques */
-		if(!$client->query("list_techniques", $user_key)){
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-		else{
-			$tqList[] = $client->getResponse();
-		}
-		$lists['technique'] = $tqList[0][1];
-		break;
-	case 'project':
-		/* retrieve list of all projects */
-		if(!$client->query("list_projects", $user_key)){
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-		else{
-			$prList[] = $client->getResponse();
-		}
-		$lists['project'] = $prList[0][1];
-		break;
-	default:
-}
-
-$j = 0;
-$pattern = '@'.$term.'@i';
-$result = array(); 
-for ($i = 0; $i < count($lists[$caller]); $i++) {
-	if (preg_match($pattern, $lists[$caller][$i][1]) == 1 || preg_match($pattern, $lists[$caller][$i][0]) == 1) {
-		$result[$j]['label'] = $lists[$caller][$i][1].' ('.$lists[$caller][$i][0].')';
-		$result[$j]['value'] = $lists[$caller][$i][1];
-		$j = $j + 1;		
+foreach($lists as $term => $value) {
+	for ($i = 0; $i < count($lists[$term]); $i++) {
+		$result[$term][$i]['data'] = $lists[$term][$i][0];
+	  $result[$term][$i]['value'] = $lists[$term][$i][1];
 	}
-	if ($j >= 6) break;
 }
-echo json_encode($result);
+echo json_encode(array('data' => $result));
 ?>
