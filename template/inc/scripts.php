@@ -24,9 +24,6 @@
 		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
 		<script src="<?php echo ASSETS_URL; ?>/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
 
-		<!-- JQUERY AUTOCOMPLETE -->
-		<script src="<?php echo ASSETS_URL; ?>/js/libs/jquery.autocomplete.js"></script>
-		
 		<!-- BOOTSTRAP JS -->
 		<script src="<?php echo ASSETS_URL; ?>/js/bootstrap/bootstrap.min.js"></script>
 
