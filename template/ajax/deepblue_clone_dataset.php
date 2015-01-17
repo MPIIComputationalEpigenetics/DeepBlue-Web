@@ -74,24 +74,8 @@ require_once("inc/init.php");
 
 	// PAGE RELATED SCRIPTS
 	// pagefunction
-	var suggestions;
 	var pagefunction = function() {
 		$("#search_input").focus();
-		var dataRequest = $.ajax({
-			url: "ajax/server_side/clone_get_data_server_processing.php",
-			dataType: "json",
-			data : {}
-		});
-
-		dataRequest.done(function(data) {
-			suggestions = data.data;
-		});
-
-		dataRequest.fail( function(jqXHR, textStatus) {
-			console.log(jqXHR);
-      console.log('Error: '+ textStatus);
-			alert( "error" );
-		});
 	};
 
 	// function to implement search
@@ -221,8 +205,9 @@ require_once("inc/init.php");
 				break;
 			case 'extra_metadata':
 				// check length and change to text area
-				html = "<tr><td class='search-modal-table'>" + i + ":</td>";
-				html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + "'></td></tr>";
+				html = "<tr><td class='search-modal-table'><input type='input' class='form-control' id='" + i + "_label' placeholder='" + i + "'></td>";
+				html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + 
+				"'></td><td><button type='button' class='close' aria-hidden='true'>&times;</button></td></tr>";
 				break
 			default:
 				switch (i) {
@@ -302,6 +287,8 @@ require_once("inc/init.php");
 					for (key in item) {
 						metadataHTML = metadataHTML + buildHTML(key, item[key], sect);
 					}
+					// one more time
+					metadataHTML = metadataHTML + buildHTML('New Key', 'New Value', sect);
 				}
 				else {
 					sect = 'info';
@@ -315,19 +302,39 @@ require_once("inc/init.php");
 			$('#modal_for_experiment').show();
 
 			var tags = ['sample','epigenetic_mark','technique','project'];
-			suggested = false;
+			var current;
+			var cache = {};
 			for (i in tags) {
 				tag = tags[i];
 				$("#" + tag).autocomplete({
+					source : function( request, response ) {
+	          var term = request.term;
+	          if ( term in cache ) {
+	            response( cache[ term ] );
+	            return;
+	          }
+	          var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id + "&term=" + term;
+	          $.getJSON( url, request, function( data, status, xhr ) {
+	            cache[ term ] = data;
+	            response( data );
+	          })
+					},
+					appendTo : "#modal_for_experiment",
 					autoFocus: true,
-					lookup: suggestions[tag],
-					onSelect: function(s) {$(item).closest(".search-modal-name").removeClass('has-error');},
-					onInvalidateSelection: function () {$(item).closest(".search-modal-name").addClass('has-error');}
+					focus: function( event, ui ) { return false;},
+					minLength: 2,
+					select: function( event, ui ) {
+						$(current).closest(".search-modal-name").removeClass('has-error'); 
+					},
+					change: function( event, ui ) {
+						if (ui.item == null) {
+							$(current).closest(".search-modal-name").addClass('has-error');
+						}
+					}
 				});
 
-				$("#" + tag).change(function() {
-					item = this;
-					$(item).closest(".search-modal-name").addClass('has-error');
+				$("#" + tag).focus(function() {
+					current = this;
 				});				
 			}
 
