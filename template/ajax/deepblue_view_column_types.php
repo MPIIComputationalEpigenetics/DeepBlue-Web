@@ -86,10 +86,6 @@ require_once("inc/init.php");
 									</th>
 
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Default Value" />
-									</th>
-
-									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Information" />
 									</th>
 
@@ -99,7 +95,6 @@ require_once("inc/init.php");
 					            	<th>Name</th>
 				                    <th>Description</th>
 				                    <th>Type</th>
-				                    <th>Default Value</th>
 				                    <th>Information</th>
 					            </tr>
 					        </thead>
