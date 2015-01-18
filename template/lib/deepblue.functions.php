@@ -24,13 +24,14 @@ class Deepblue{
 
 	private $privateUrl;
 	private $privateUserKey;
-    private $client;
+  private $client;
 
 	function __construct() {
-        include("lib.php");
+    include("lib.php");
 		$this->privateUrl = $url;
 		$this->privateUserKey = $user_key;
-        $this->client = new IXR_Client($this->privateUrl);
+    $this->client = new IXR_Client($this->privateUrl);
+		
 	}
 
 	/* Getting API List into Array */
@@ -746,25 +747,36 @@ XYZ;
     }
 
     /* Prepare result to JSON format for cloning */
-    
     public function cloneResultToJson($inputArray){
-    	
-    	$return = array();
-    	$return['ID'] = $inputArray[0]['_id'];
-    	$return['Experiment Name'] = $inputArray[0]['name'];
-    	$return['Genome'] = $inputArray[0]['genome'];
-    	$return['Epigenetic mark'] = $inputArray[0]['epigenetic_mark'];
-    	$return['Sample'] = $inputArray[0]['sample_info']['biosource_name'];
-    	$return['Technique'] = $inputArray[0]['technique'];
-    	$return['Project'] = $inputArray[0]['project'];
-    	$return['Description'] = $inputArray[0]['description'];
-    	$return['Columns'] = $inputArray[0]['columns'];
-    	$return['Extra Metadata'] = $inputArray[0]['extra_metadata']; 
-    	echo json_encode(array('data' => $return));
+    	$result = array();
+    	foreach($inputArray as $term => $value) {
+    		if ($term == 'info') {
+    			$info = array();
+	    		$experiment = $inputArray['info'][0];
+	    		
+	    		$info['id'] = $experiment['_id'];
+	    		$info['experiment'] = $experiment['name'];
+	    		$info['genome'] = $experiment['genome'];
+	    		$info['epigenetic_mark'] = $experiment['epigenetic_mark'];
+	    		$info['sample'] = $experiment['sample_id']." (".$experiment['sample_info']['biosource_name'].")";
+	    		$info['technique'] = $experiment['technique'];
+	    		$info['project'] = $experiment['project'];
+	    		$info['description'] = $experiment['description'];
+	    		$info['Columns'] = $experiment['columns'];
+	    		$info['Extra Metadata'] = $experiment['extra_metadata'];
+	    		$result['info'] = $info;
+    		}
+    		else {
+    			for ($i = 0; $i < count($inputArray[$term]); $i++) {
+    				$result[$term][$i]['data'] = $inputArray[$term][$i][0];
+    				$result[$term][$i]['value'] = $inputArray[$term][$i][1];
+    			}
+    		}    		
+    	}    		
+    	echo json_encode(array('data' => $result));
     }
     
     /* Generating experiment data table content [ Template ] */
-
     public function experimentDataTableTemplate($where){
 
         if($where == "workflow"){

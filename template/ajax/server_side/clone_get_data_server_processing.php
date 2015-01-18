@@ -39,7 +39,7 @@ switch ($caller) {
 		else{
 			$emList[] = $client->getResponse();
 		}
-		$lists['epigenetic_mark'] = $emList[0][1];
+		$lists = $emList[0][1];
 		break;
 	case 'sample':
 		/* retrieve list of all samples */
@@ -68,7 +68,7 @@ switch ($caller) {
 				$i = $i + 1;
 			}
 		}
-		$lists['sample'] = $smList;
+		$lists = $smList;
 		break;
 	case 'technique':
 		/* retrieve list of all techniques */
@@ -78,7 +78,7 @@ switch ($caller) {
 		else{
 			$tqList[] = $client->getResponse();
 		}
-		$lists['technique'] = $tqList[0][1];
+		$lists = $tqList[0][1];
 		break;
 	case 'project':
 		/* retrieve list of all projects */
@@ -88,18 +88,41 @@ switch ($caller) {
 		else{
 			$prList[] = $client->getResponse();
 		}
-		$lists['project'] = $prList[0][1];
+		$lists = $prList[0][1];
 		break;
 	default:
+		/* retrieve list of all columns */
+		if(!$client->query("list_column_types", $user_key)){
+			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+		}
+		else{
+			$coList[] = $client->getResponse();
+			$type = explode("44", $caller)[1];
+			if ($type == 'range') {
+				$type = 'category';
+			}
+			$pattern = '@'.$type.'@i';
+			$i = 0;
+			foreach ($coList[0][1] as $column) {
+				if (preg_match($pattern, $column[1]) == 1) {
+					$strList[$i][0] = $type;
+					$strList[$i][1] = explode("'", $column[1])[1];
+					$i = $i + 1;
+//					echo json_encode($strList);
+				}				
+			}
+		}
+		$lists = $strList;		
+		break;		
 }
 
 $j = 0;
 $pattern = '@'.$term.'@i';
-$result = array(); 
-for ($i = 0; $i < count($lists[$caller]); $i++) {
-	if (preg_match($pattern, $lists[$caller][$i][1]) == 1 || preg_match($pattern, $lists[$caller][$i][0]) == 1) {
-		$result[$j]['label'] = $lists[$caller][$i][1].' ('.$lists[$caller][$i][0].')';
-		$result[$j]['value'] = $lists[$caller][$i][1];
+$result = [];
+for ($i = 0; $i < count($lists); $i++) {
+	if (preg_match($pattern, $lists[$i][0]) == 1 || preg_match($pattern, $lists[$i][1]) == 1) {
+		$result[$j]['label'] = $lists[$i][1].' ('.$lists[$i][0].')';
+		$result[$j]['value'] = $lists[$i][1];
 		$j = $j + 1;		
 	}
 	if ($j >= 6) break;
