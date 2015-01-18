@@ -147,6 +147,12 @@ require_once("inc/init.php");
 		}
 	});
 
+	/* store value whe the input loses focus */
+	function storeVal() {
+		alert(this.value);
+		cloneData['Extra Metadata'][this.id] = this.name
+	}
+	
 	function buildHTML(i, item, section) {
 		var html;
 		switch (section) {
@@ -170,7 +176,7 @@ require_once("inc/init.php");
 				// check length and change to text area
 				html = "<tr><td class='search-modal-table'><input type='input' class='form-control' id='" + i + "_label' placeholder='" + i + "'></td>";
 				html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + 
-				"'></td><td><button type='button' class='close' aria-hidden='true'>&times;</button></td></tr>";
+				"' onblur='storeVal()'></td><td><button type='button' class='close' aria-hidden='true'>&times;</button></td></tr>";
 				break
 			default:
 				switch (i) {
@@ -232,6 +238,8 @@ require_once("inc/init.php");
 			var tableHTML = '<h4>Experiment Info</h4><hr/>'
 			var columns = [];
 			tableHTML = tableHTML + "<table class='table table-striped table-hover'><tbody>";
+			var cloneData = data.data['info'];
+			var colTemp = {};
 			$.each(data.data['info'], function(i, item) {
 				if (i == 'Columns') {
 					sect = 'columns';
@@ -239,6 +247,7 @@ require_once("inc/init.php");
 					columnsTableHTML = '<h4>Columns</h4><hr/>';
 					columnsTableHTML = columnsTableHTML + "<table class='table table-striped table-hover'><tbody>";
 					for (j in item) {
+						colTemp[item[j]['name']] = item[j]['name'];
 						columns[j] = item[j]['name'] + '44' + item[j]['column_type'];
 						columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], sect);
 					}
@@ -260,7 +269,10 @@ require_once("inc/init.php");
 					tableHTML = tableHTML + buildHTML(i, item, sect);
 				}
 			});
-			
+
+			cloneData['Columns'] = colTemp;
+			cloneData['sample'] = cloneData['sample'].split(' ')[0];
+
 			$('#modal_for_experiment').append(tableHTML + columnsTableHTML + metadataHTML);
 			$('.modal-title').text("Clone Experiment");
 			$('.modal-content').addClass( "modalViewSingleInfo" );
@@ -272,16 +284,17 @@ require_once("inc/init.php");
 			var cache = {};
 			for (i in tags) {
 				tag = tags[i];
+				cache[tag] = {};
 				$("#" + tag).autocomplete({
 					source : function( request, response ) {
 	          var term = request.term;
-	          if ( term in cache ) {
-	            response( cache[ term ] );
+	          if ( term in cache[current.id] ) {
+	            response( cache[current.id][ term ] );
 	            return;
 	          }
 	          var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id;
 	          $.getJSON( url, request, function( data, status, xhr ) {
-	            cache[ term ] = data;
+	            cache[current.id][ term ] = data;
 	            response( data );
 	          })
 					},
@@ -290,10 +303,18 @@ require_once("inc/init.php");
 					focus: function( event, ui ) { return false;},
 					minLength: 2,
 					select: function( event, ui ) {
-						$(current).closest(".search-modal-name").removeClass('has-error'); 
+						$(current).closest(".search-modal-name").removeClass('has-error');
+						if ($.inArray(current.id, columns) > -1) {
+							coln = (current.id).split("44")[0];
+							cloneData['Columns'][coln] = ui.item.value;
+						}
+						else {
+							cloneData[current.id] = ui.item.value;
+						}						
 					},
 					change: function( event, ui ) {
 						if (ui.item == null) {
+							$(current).value = "";
 							$(current).closest(".search-modal-name").addClass('has-error');
 						}
 					}
@@ -301,24 +322,33 @@ require_once("inc/init.php");
 
 				$("#" + tag).focus(function() {
 					current = this;
-				});				
+				});
 			}
+
+			// add listener for experiment name input field (to save values immediately)
+			$("#experiment").blur(function() {
+				cloneData[this.id] = this.value;
+			});
 
 			// Printing experiment or anotation id and name in modal view when user clicks Clone button
 			$('#cloneExperimentButton').unbind('click').bind('click', function (e) {
 				var modal_id = $('.search-modal-id').text();
 				var modal_name = $('.search-modal-name').text();
-
 				var request = $.ajax({
-					url: "ajax/server_side/select_regions_server_processing.php",
+					url: "ajax/server_side/clone_data_server_processing.php",
 					dataType: "json",
 					data : {
-						experiments_names : [modal_name],
+						data : cloneData
 					}
 				});
 
 				request.done( function(data) {
-					window.location.href = 'ajax/server_side/get_regions_server_processing.php?query_id='+data.query_id;
+					if (data[0][0] == 'okay') {
+						alert("Cloning Successful: " + data[0][1]);
+					}
+					else {
+						alert("Cloning Failed: " + data[0][1]);
+					}					
 				});
 
 				request.fail( function(jqXHR, textStatus) {
@@ -326,7 +356,6 @@ require_once("inc/init.php");
        		console.log('Error: '+ textStatus);
 					alert( "error" );
 				});
-				alert("Id: "+modal_id+"\nName: "+modal_name);
 			});
 		});
 
