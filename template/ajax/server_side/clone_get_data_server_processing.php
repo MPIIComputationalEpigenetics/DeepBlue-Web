@@ -125,7 +125,7 @@ for ($i = 0; $i < count($lists); $i++) {
 		$result[$j]['value'] = $lists[$i][1];
 		$j = $j + 1;		
 	}
-	if ($j >= 6) break;
+	if ($caller == 'sample' && $j >= 10) break;
 }
 echo json_encode($result);
 ?>

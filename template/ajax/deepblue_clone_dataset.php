@@ -74,6 +74,10 @@ require_once("inc/init.php");
 
 	// PAGE RELATED SCRIPTS
 	// pagefunction
+	var deletedrows = [];
+	var clonemetadata = [];
+	var clonemetakey = [];
+	
 	var pagefunction = function() {
 		$("#search_input").focus();
 	};
@@ -125,7 +129,7 @@ require_once("inc/init.php");
 
 		request.fail( function(jqXHR, textStatus) {
 			console.log(jqXHR);
-      console.log('Error: '+ textStatus);
+      		console.log('Error: '+ textStatus);
 			alert( "error" );
 		});
 	}; // end search function
@@ -147,13 +151,42 @@ require_once("inc/init.php");
 		}
 	});
 
-	/* store value whe the input loses focus */
-	function storeVal() {
-		alert(this.value);
-		cloneData['Extra Metadata'][this.id] = this.name
+	/* save key or value of the metadata */
+	function saveMetaData() {
+		var id = event.target.id.split('_');
+		var type = id[0];
+		var idx = id[1];
+
+		if (type == 'val') {
+			clonemetadata[idx] = event.target.value;
+		//	alert(clonemetadata);
+		}
+		else {
+			clonemetakey[idx] = event.target.value;
+	//		alert(clonemetakey);	
+		}
+	}
+
+	/* add metadata */
+	function addMetadata() {
+		//alert(count(cloneData['Extra Metadata']));
+		//alert(cursize);
+		var newrow = buildHTML("Enter Key", "Enter Value", "extra_metadata", newMeta);
+		$('#metaclone tr:last').after(newrow);
+		clonemetakey[newMeta] = "New key " + newMeta;
+		clonemetadata[newMeta] = "New Value " + newMeta;
+		newMeta =  newMeta + 1;
 	}
 	
-	function buildHTML(i, item, section) {
+	/* delete metadata */
+	function removeMetadata() {
+		var idx = event.target.id.split("_").pop();
+		deletedrows.push(parseInt(idx));
+		//alert(deletedrows);
+		$("#row_" + idx).remove();
+	}
+		
+	function buildHTML(i, item, section, counter) {
 		var html;
 		switch (section) {
 			case 'columns':
@@ -174,9 +207,9 @@ require_once("inc/init.php");
 				break;
 			case 'extra_metadata':
 				// check length and change to text area
-				html = "<tr><td class='search-modal-table'><input type='input' class='form-control' id='" + i + "_label' placeholder='" + i + "'></td>";
-				html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "' placeholder='" + item + 
-				"' onblur='storeVal()'></td><td><button type='button' class='close' aria-hidden='true'>&times;</button></td></tr>";
+				html = "<tr id='row_" + counter + "'><td class='search-modal-table'><input type='input' class='form-control' id='key_" + counter + "' placeholder='" + i + "' onblur='saveMetaData()'></td>";
+				html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='val_" + counter + "' placeholder='" + item + 
+				"' onchange='saveMetaData()'></td><td><button id='del_" + counter + "' type='button' class='close' aria-hidden='true' onclick='removeMetadata()'>&times;</button></td></tr>";
 				break
 			default:
 				switch (i) {
@@ -237,36 +270,41 @@ require_once("inc/init.php");
 			$('#modal_for_experiment').empty();
 			var tableHTML = '<h4>Experiment Info</h4><hr/>'
 			var columns = [];
-			tableHTML = tableHTML + "<table class='table table-striped table-hover'><tbody>";
-			var cloneData = data.data['info'];
+			tableHTML = tableHTML + "<table id='infoclone' class='table table-striped table-hover'><tbody>";
+			cloneData = data.data['info'];
 			var colTemp = {};
 			$.each(data.data['info'], function(i, item) {
 				if (i == 'Columns') {
 					sect = 'columns';
 					tableHTML = tableHTML + "</tbody></table>";
 					columnsTableHTML = '<h4>Columns</h4><hr/>';
-					columnsTableHTML = columnsTableHTML + "<table class='table table-striped table-hover'><tbody>";
+					columnsTableHTML = columnsTableHTML + "<table id='formatclone' class='table table-striped table-hover'><tbody>";
 					for (j in item) {
 						colTemp[item[j]['name']] = item[j]['name'];
 						columns[j] = item[j]['name'] + '44' + item[j]['column_type'];
-						columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], sect);
+						columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], sect, 0);
 					}
 				}
 				else if (i == 'Extra Metadata') {
 					sect = 'extra_metadata';
 					columnsTableHTML = columnsTableHTML + "</tbody></table>";
 					metadataHTML = '<h4>Extra Metadata</h4><hr/>';
-					metadataHTML = metadataHTML + "<table class='table table-striped table-hover'><tbody>";
+					metadataHTML = metadataHTML + "<table id='metaclone' class='table table-striped table-hover'><tbody>";
 					var key, value;
+					var j = 1;
 					for (key in item) {
-						metadataHTML = metadataHTML + buildHTML(key, item[key], sect);
+						metadataHTML = metadataHTML + buildHTML(key, item[key], sect, j);
+						clonemetakey[j] = key;
+						clonemetadata[j] = item[key];
+						j = j + 1;
 					}
 					// one more time
-					metadataHTML = metadataHTML + buildHTML('New Key', 'New Value', sect);
+					newMeta = j;
+					metadataHTML = metadataHTML + "</tbody></table>" + "<button type='button' id='addmetabutton' class='btn btn-success pull-right' onclick='addMetadata()'>New</button><br/><br/><br/>"					
 				}
 				else {
 					sect = 'info';
-					tableHTML = tableHTML + buildHTML(i, item, sect);
+					tableHTML = tableHTML + buildHTML(i, item, sect, 0);
 				}
 			});
 
@@ -287,21 +325,21 @@ require_once("inc/init.php");
 				cache[tag] = {};
 				$("#" + tag).autocomplete({
 					source : function( request, response ) {
-	          var term = request.term;
-	          if ( term in cache[current.id] ) {
-	            response( cache[current.id][ term ] );
-	            return;
-	          }
-	          var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id;
-	          $.getJSON( url, request, function( data, status, xhr ) {
-	            cache[current.id][ term ] = data;
-	            response( data );
-	          })
+			          var term = request.term;
+			          	if ( term in cache[current.id] ) {
+			            	response( cache[current.id][ term ] );
+			            	return;
+			          	}
+			          	var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id;
+			          	$.getJSON( url, request, function( data, status, xhr ) {
+			            	cache[current.id][ term ] = data;
+			            	response( data );
+			          	})
 					},
 					appendTo : "#modal_for_experiment",
 					autoFocus: true,
 					focus: function( event, ui ) { return false;},
-					minLength: 2,
+					minLength: 0,
 					select: function( event, ui ) {
 						$(current).closest(".search-modal-name").removeClass('has-error');
 						if ($.inArray(current.id, columns) > -1) {
@@ -332,8 +370,14 @@ require_once("inc/init.php");
 
 			// Printing experiment or anotation id and name in modal view when user clicks Clone button
 			$('#cloneExperimentButton').unbind('click').bind('click', function (e) {
-				var modal_id = $('.search-modal-id').text();
-				var modal_name = $('.search-modal-name').text();
+				var tempMeta = {};
+				for (j = 1; j < newMeta; j++) {
+					if (deletedrows.indexOf(j) == -1) {
+						tempMeta[clonemetakey[j]] = clonemetadata[j];
+					}
+				}
+				cloneData['Extra Metadata'] = tempMeta;
+				
 				var request = $.ajax({
 					url: "ajax/server_side/clone_data_server_processing.php",
 					dataType: "json",
@@ -353,7 +397,7 @@ require_once("inc/init.php");
 
 				request.fail( function(jqXHR, textStatus) {
 					console.log(jqXHR);
-       		console.log('Error: '+ textStatus);
+		       		console.log('Error: '+ textStatus);
 					alert( "error" );
 				});
 			});
@@ -361,7 +405,7 @@ require_once("inc/init.php");
 
 		cloneInfoRequest.fail( function(jqXHR, textStatus) {
 			console.log(jqXHR);
-      console.log('Error: '+ textStatus);
+     	 	console.log('Error: '+ textStatus);
 			alert( "Error in experiment modal view" );
 		});
 		

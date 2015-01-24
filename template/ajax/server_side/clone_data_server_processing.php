@@ -34,7 +34,13 @@ $technique = $data["technique"];
 $project = $data["project"];
 $description = $data["description"];
 $format = implode(',', array_values($data["Columns"]));
-$extra_metadata = (Object)Null;//$data["Extra Metadata"];
+
+if (isset($data["Extra Metadata"])) {	
+	$extra_metadata = $data["Extra Metadata"]; //(Object)Null;//
+}
+else {
+	$extra_metadata = (Object)Null;
+}
 
 if(!$client->query("clone_dataset", $id, $name, $epigenetic_mark, $sample, $technique, $project, $description, $format, $extra_metadata, $user_key)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
