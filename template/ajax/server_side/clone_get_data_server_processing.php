@@ -31,6 +31,16 @@ $lists = array();
 
 /* decallerine list to retrieve based on caller */
 switch ($caller) {
+	case 'experiment':
+		/* retrieve list of all epigenetic marks */
+		if(!$client->query("list_experiments", '','','','','', $user_key)){
+			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+		}
+		else{
+			$epList[] = $client->getResponse();
+		}
+		$lists = $epList[0][1];
+		break;
 	case 'epigenetic_mark':
 		/* retrieve list of all epigenetic marks */
 		if(!$client->query("list_epigenetic_marks", $user_key)){
