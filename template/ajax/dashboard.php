@@ -22,41 +22,8 @@
 	
 	/* DeepBlue Class */
 	require_once("../lib/deepblue.functions.php");
-	$deepBlueObj = new Deepblue();	
+	$deepBlueObj = new Deepblue();
 	
-	/* include IXR Library for RPC-XML */
-	require_once("../lib/deepblue.IXR_Library.php");
-	
-	$client = new IXR_Client($url);
-	
-	/* retrieve all the data required for the table */
-	$vocabulary = array("projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples");
-	$list = array();
-	$total_sum = array();
-	
-	foreach ($vocabulary as $vocab) {
-		$list[$vocab] = array(); // index for each controlled vocabulary
-		$total_sum[$vocab] = 0; // total experiments in each vocabulary - would be the same value
-		
-		if(!$client->query("list_in_use", $vocab, $user_key)){
-				die('An error occurred - '.$client->getErrorCode().": ".$client->getErrorMessage());
-		}
-		else{
-			$result = $client->getResponse();
-			/* check if query returned a valid result */
-			if ($result[0] =='okay') {
-				$j = 0; // index for each experiment in each controlled vocabulary
-				foreach($result[1] as $item) {
-					$list[$vocab][$j] = array('label' => $item[1], 'value' => $item[2]);
-					$total_sum[$vocab] = $total_sum[$vocab] + $item[2];
-					$j = $j + 1;
-				}
-			}
-			else {
-				die('An error occured - '.$result[0].': '.$result[1]);
-			}
-		}
-	}
 ?>
 
 <div class="row">
@@ -69,7 +36,7 @@
 	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
 		<ul id="sparks" class="">
 			<li class="sparks-info">
-				<h5> Total Experiments <span class="txt-color-blue"><?php echo json_encode($total_sum['projects']);?></span></h5>
+				<h5> Total Experiments <span id="total_sum" class="txt-color-blue"></span></h5>
 			</li>
 			<li class="sparks-info">
 				<h5> Number of Users <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;3</span></h5>
@@ -435,6 +402,7 @@
 
 		/* Hide and show experiment metadata */
 		var isShow = false;
+		var last = null;
 		$(document).on("click", '.exp-metadata-more-view', function () {
 			//var metadata = $(this).prev();
 			if(isShow == false){
@@ -578,12 +546,52 @@
 		
 	// PAGE RELATED SCRIPTS
 	var pagefunction = function() {
-
+		
+		var list = [];
+		var total_sum = [];
+		var vocab;
+		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
+		var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+		if (list_in_use == null) {
+			setTimeout(function() {
+				list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+				pagefunction();
+			}, 3000);
+		}
+		
+		for (i in vocabulary) {
+			vocab = vocabulary[i];
+			list[vocab] = []; // index for each controlled vocabulary
+			total_sum[vocab] = 0; // total experiments in each vocabulary - would be the same value
+			othersvalue = 0;
+			
+			var currentvocab = list_in_use[vocab]
+			var count = 0;
+			var exc = 0;
+			for (j in currentvocab) {
+				if (currentvocab[j][2] > 20) {
+					list[vocab][count] = {'label' : currentvocab[j][1], 'value' : currentvocab[j][2]};
+					count = count + 1;
+				}
+				else {
+					exc = exc + 1;
+					othersvalue = othersvalue + currentvocab[j][2];
+				}
+				var otherslabel = exc + " others with count < 20";
+				if (othersvalue > 0) {
+					list[vocab][count] = {'label' : otherslabel, 'value' : othersvalue};
+				}
+				total_sum[vocab] = total_sum[vocab] + currentvocab[j][2];
+			}
+		}
+		/* total experiment sum */
+		$("#total_sum").text(total_sum['projects']);
+		
 		/* projects donut chart */
 		if ($('#projects-chart').length){ 
 			Morris.Donut({
 				  element: 'projects-chart',
-				  data:  <?php echo json_encode($list['projects']);?>,
+				  data:  list['projects'],
 				  formatter: function (x) { return x},
 				  resize: true
 				}).on('click', function(i, row){
@@ -596,7 +604,7 @@
 		if ($('#techniques-chart').length) {
 			Morris.Bar({
 				  element: 'techniques-chart',
-				  data: <?php echo json_encode($list['techniques']);?>,
+				  data: list['techniques'],
 				  xkey: 'label',
 				  ykeys: ['value'],
 				  labels: "Count",
@@ -610,7 +618,7 @@
 		if ($("#epigenetic_marks-chart").length) {
 			Morris.Bar({
 				  element: 'epigenetic_marks-chart',
-				  data: <?php echo json_encode($list['epigenetic_marks']);?>,
+				  data: list['epigenetic_marks'],
 				  xkey: 'label',
 				  ykeys: ['value'],
 				  labels: "Count",
@@ -626,7 +634,7 @@
 		if ($("#biosources-chart").length) {
 			Morris.Bar({
 				  element: 'biosources-chart',
-				  data: <?php echo json_encode($list['biosources']);?>,
+				  data: list['biosources'],
 				  xkey: 'label',
 				  ykeys: ['value'],
 				  labels: "Count",
@@ -642,7 +650,7 @@
 		if ($("#genomes-chart").length) {
 			Morris.Donut({
 				  element: 'genomes-chart',
-				  data:  <?php echo json_encode($list['genomes']);?>,
+				  data:  list['genomes'],
 				  formatter: function (x) { return x},
 				  resize: true
 			}).on('click', function(i, row){
@@ -656,13 +664,15 @@
 	}; 	// end pagefunction
 
 	// Load morris dependencies and run pagefunction
-	loadScript("js/plugin/morris/raphael.min.js", function(){
-		loadScript("js/plugin/morris/morris.min.js", function(){		
-			loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
-				loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
-					loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
-						loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
-							loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
+	loadScript("js/deepblue.js", function(){
+		loadScript("js/plugin/morris/raphael.min.js", function(){
+			loadScript("js/plugin/morris/morris.min.js", function(){		
+				loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
+					loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
+						loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
+							loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
+								loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
+							});
 						});
 					});
 				});
