@@ -118,7 +118,6 @@ switch ($caller) {
 					$strList[$i][0] = $type;
 					$strList[$i][1] = explode("'", $column[1])[1];
 					$i = $i + 1;
-//					echo json_encode($strList);
 				}				
 			}
 		}
@@ -135,7 +134,7 @@ for ($i = 0; $i < count($lists); $i++) {
 		$result[$j]['value'] = $lists[$i][1];
 		$j = $j + 1;		
 	}
-	if ($caller == 'sample' && $j >= 10) break;
+	if ($caller == 'sample' && $j >= 15) break;
 }
 echo json_encode($result);
 ?>

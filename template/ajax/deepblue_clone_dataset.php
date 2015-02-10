@@ -23,30 +23,118 @@ require_once("inc/init.php");
 ?>
 
 <div class="row">
-	<div class="col-sm-12">
-		<div id="myTabContent1" class="tab-content bg-color-white padding-10">
-			<div class="tab-pane fade in active" id="s1">
-				<h1> Clone <span id="seach-type-title" class="semi-bold">Experiments</span></h1>
-				<br>
-				<div class="input-group input-group-lg hidden-mobile">
-					<input id="clone_input" class="form-control input-lg" type="text" placeholder="Find Experiment to clone ..." />
-					<div class="input-group-btn">
-						<button type="button" id="clone_bt" class="btn btn-default">
-							&nbsp;&nbsp;&nbsp;<i class="fa fa-recycle"></i>&nbsp;&nbsp;&nbsp;
-						</button>
+	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+		<h1 class="page-title txt-color-blueDark"><i class="fa fa-recycle "></i>
+			Clone
+		</h1>
+	</div>
+</div>
+<!-- widget grid -->
+<section id="widget-grid" class="">
+	<!-- row -->
+	<div class="row">
+
+		<!-- NEW WIDGET START -->
+		<article class="col-sm-12 col-md-12 col-lg-12">
+
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget jarviswidget-color-blue" id="tree-biosources" data-widget-editbutton="true">
+
+				<header>
+					<span class="widget-icon"> <i class="fa fa-recycle"></i> </span>
+					<h2>Clone Filter</h2>
+
+				</header>
+
+				<!-- widget div-->
+				<div>
+
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+
 					</div>
+					<!-- end widget edit box -->
+
+					<!-- widget content -->
+					<div class="widget-body">
+						 	<div class="row">
+								<div class="col-md-12 col-md-offset-0">
+									<div class="alert alert-info alert-block">
+										<a class="close" data-dismiss="alert" href="#">×</a>
+										<h4 class="alert-heading">Filter by Experiment Name or ID</h4>
+										Enter experiment name or id and click on Clone button. Suitable for single cloning task.
+									</div>
+									<div class="input-group">
+										<input id="clone_input" class="form-control" type="text" placeholder="Experiment ID or Name ..." />
+										<div class="input-group-btn">
+											<button type="button" id="clone_bt" class="btn btn-default">
+												&nbsp;&nbsp;&nbsp;<i class="fa fa-recycle"></i>&nbsp;&nbsp;&nbsp;
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<hr>
+						 	<div class="row">
+								<div class="col-md-12 col-md-offset-0" style="padding-bottom: 20px;">
+									<div class="alert alert-info alert-block">
+										<a class="close" data-dismiss="alert" href="#">×</a>
+										<h4 class="alert-heading">Filter by Metadata</h4>
+										Please, select the desired metadata. The selected project, genome, epigenetic_marks, technique, sample is used to filter the experiments for cloning.
+									</div>
+								</div>
+								<div class="col-md-2 col-md-offset-0">
+									<input type="text" value="" class="form-control" id="user_project" placeholder="Filter by Project" />
+								</div>
+								<div class="col-md-2 col-md-offset-0">
+									<input type="text" value="" class="form-control" id="user_epigenetic_mark" placeholder="Filter by Epigenetic marks" />
+								</div>		
+								<div class="col-md-2 col-md-offset-0">
+									<input type="text" value="" class="form-control" id="user_genome" placeholder="Filter by Genomes" />
+								</div>		
+								<div class="col-md-2 col-md-offset-0">
+									<input type="text" value="" class="form-control" id="user_technique" placeholder="Filter by Techniques" />
+								</div>		
+								<div class="col-md-2 col-md-offset-0">
+									<input type="text" value="" class="form-control" id="user_biosource" placeholder="Filter by Biosources" />
+								</div>		
+								<div class="col-md-2 col-md-offset-0">
+									<div class="input-group">
+										<input id="user_sample" class="form-control" type="text"   placeholder="Filter by Samples" />
+										<div class="input-group-btn">
+											<button type="button" id="clone_bt" class="btn btn-default">
+												&nbsp;&nbsp;&nbsp;<i class="fa fa-recycle"></i>&nbsp;&nbsp;&nbsp;
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+					</div>
+					<!-- end widget content -->
 				</div>
-				<div id="tempSearchResult"></div>
-				<div id="cloneButtonGroup" class="modal-footer" style="display:none;" >
-					<button type="button" id="cloneExperimentButton" class="btn btn-primary download-btn-size">
-						Clone
-					</button>
-					<button type="button" id="closeExperimentButton" class="btn btn-default">
-						Close
-					</button>
-				</div>
+				<!-- end widget div -->
+
 			</div>
-			<div class='clear'></div>
+			<!-- end widget -->
+
+		</article>
+		<!-- WIDGET END -->
+	</div>
+	<!-- end row -->
+</section>
+<!-- end widget grid -->
+
+<div id="clone_display" class="tab-content bg-color-white padding-10" style="display: none">
+	<div class="tab-pane fade in active" id="s1">
+		<div id="tempSearchResult"></div>
+		<div id="cloneButtonGroup" class="modal-footer" >
+			<button type="button" id="cloneExperimentButton" class="btn btn-primary download-btn-size">
+				Clone
+			</button>
+			<button type="button" id="closeExperimentButton" class="btn btn-default">
+				Close
+			</button>
 		</div>
 	</div>
 </div>
@@ -67,8 +155,9 @@ require_once("inc/init.php");
 
 	$("#clone_bt").button().click(search_function);
 	var cache = {};
+	var suggestions = JSON.parse(localStorage.getItem('all_experiments'));
 	$('#clone_input').autocomplete({
-		source : function( request, response ) {
+		source : suggestions['experiment'],/*function( request, response ) {
           var term = request.term;
           	if ( term in cache ) {
             	response( cache[ term ] );
@@ -79,7 +168,7 @@ require_once("inc/init.php");
             	cache[ term ] = data;
             	response( data );
           	})
-		},
+		},*/
 		//appendTo : "#modal_for_experiment",
 		autoFocus: true,
 		focus: function( event, ui ) { return false;},
@@ -115,6 +204,7 @@ require_once("inc/init.php");
 			return;
 		}
 
+		var suggestions = JSON.parse(localStorage.getItem('all_experiments'));
 		var cloneInfoRequest = $.ajax({
 			url: "ajax/server_side/clone_get_info_server_processing.php",
 			dataType: "json",
@@ -157,7 +247,7 @@ require_once("inc/init.php");
 					}
 					// one more time
 					newMeta = j;
-					metadataHTML = metadataHTML + "</tbody></table>" + "<button type='button' id='addmetabutton' class='btn btn-success pull-right' onclick='addMetadata()'>New</button><br/><br/><br/>"					
+					metadataHTML = metadataHTML + "</tbody></table>" + "<button type='button' id='addmetabutton' class='btn btn-success' onclick='addMetadata()'>Add Metadata</button><br/><br/><br/>"					
 				}
 				else {
 					sect = 'info';
@@ -169,9 +259,8 @@ require_once("inc/init.php");
 			cloneData['sample'] = cloneData['sample'].split(' ')[0];
 
 			$( "#tempSearchResult" ).append(tableHTML + columnsTableHTML + metadataHTML);
-			//$('.modal-title').text("Clone Experiment");
-			//$('.modal-content').addClass( "modalViewSingleInfo" );
-			$("#cloneButtonGroup").show();
+			$("#clone_display").show();
+			$("#widget-grid").hide();
 			
 			var vocabs = ['sample','epigenetic_mark','technique','project'] 
 			var tags = vocabs.concat(columns);
@@ -182,7 +271,7 @@ require_once("inc/init.php");
 				cache[tag] = {};
 				$("#" + tag).autocomplete({
 					source : function( request, response ) {
-			          var term = request.term;
+			          	var term = request.term;
 			          	if ( term in cache[current.id] ) {
 			            	response( cache[current.id][ term ] );
 			            	return;
@@ -227,6 +316,7 @@ require_once("inc/init.php");
 
 			// Clone experiment
 			$('#cloneExperimentButton').unbind('click').bind('click', function (e) {
+				var list_in_use = JSON.parse(localStorage.getItem("list_in_use"));
 				var tempMeta = {};
 				for (j = 1; j < newMeta; j++) {
 					if (deletedrows.indexOf(j) == -1) {
@@ -268,7 +358,8 @@ require_once("inc/init.php");
 
 		$('#closeExperimentButton').unbind('click').bind('click', function (e) {
 			$( "#tempSearchResult" ).empty();
-			$("#cloneButtonGroup").hide();		
+			$("#clone_display").hide();
+			$("#widget-grid").show();		
 		});			
 
 	}; // end search function

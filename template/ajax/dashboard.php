@@ -553,6 +553,7 @@
 		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
 		var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 		if (list_in_use == null) {
+			// if locally stored item not yet available, wait a little and check again
 			setTimeout(function() {
 				list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 				pagefunction();
@@ -664,15 +665,13 @@
 	}; 	// end pagefunction
 
 	// Load morris dependencies and run pagefunction
-	loadScript("js/deepblue.js", function(){
-		loadScript("js/plugin/morris/raphael.min.js", function(){
-			loadScript("js/plugin/morris/morris.min.js", function(){		
-				loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
-					loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
-						loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
-							loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
-								loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
-							});
+	loadScript("js/plugin/morris/raphael.min.js", function(){
+		loadScript("js/plugin/morris/morris.min.js", function(){		
+			loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
+				loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
+					loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
+						loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
+							loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
 						});
 					});
 				});

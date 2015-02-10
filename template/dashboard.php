@@ -51,10 +51,12 @@ include("inc/nav.php");
 <!-- END FOOTER -->
 
 <!-- ==========================CONTENT ENDS HERE ========================== -->
-
 <?php
 	//include required scripts
 	include("inc/scripts.php");
 	//include footer
 	// include("inc/google-analytics.php");
 ?>
+
+<!-- include script to load deepblue data -->
+<script src="<?php echo ASSETS_URL; ?>/js/deepblue.js"></script>
