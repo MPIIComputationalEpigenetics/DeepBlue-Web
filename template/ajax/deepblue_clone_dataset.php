@@ -105,7 +105,7 @@ require_once("inc/init.php");
 								</div>
 								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
 									<div class="input-group-btn">
-										<button type="button" id="filter_bt" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+										<button type="button" id="filter_bt" class="btn btn-primary">
 											&nbsp;&nbsp;<i class="fa fa-recycle"></i> &nbsp;&nbsp;Filter Experiments
 										</button>
 									</div>
@@ -163,14 +163,6 @@ require_once("inc/init.php");
 						<!-- WIDGET END -->
 				
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" id="cloneExperimentButton" class="btn btn-primary download-btn-size">
-						Clone
-					</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						Close
-					</button>
 				</div>
 			</div><!-- /.modal-body -->
 		</div><!-- /.modal-content -->
@@ -252,11 +244,37 @@ require_once("inc/init.php");
 				expId = exp.split(' ')[1];
 				getId = expId.substring(1, expId.length-1);
 				if (event.target.id == "user_biosource") {
-					// user ajax to pull samples
-					// clear the samples field
+					$("#user_sample").prop('disabled', false);
+
+					// autocomplete for the samples field
+					filterdata[event.target.id] = ui.item.value;
+					$("#user_sample").autocomplete({
+						source : "ajax/server_side/list_biosource_samples.php?biosource=" + filterdata[event.target.id],
+						autoFocus: true,
+						focus: function( event, ui ) { return false;},
+						minLength: 0,
+						select: function( event, ui ) {
+							// enable clone button
+							getId = ui.item.label;
+							$(event.target).closest(".col-md-6").removeClass('has-error');
+							
+							filterdata[event.target.id] = ui.item.value;
+							filter = true;
+						},
+						change: function( event, ui ) {
+							if (ui.item == null && event.target.value != "") {
+								$(event.target).closest(".col-md-6").addClass('has-error');
+								filter = false;
+							}
+							if (event.target.value == "") {
+								$(event.target).closest(".col-md-6").removeClass('has-error');
+								filterdata[event.target.id] = "";
+								filter = true;	
+							}
+						}
+					});
 				}
 				$(event.target).closest(".col-md-6").removeClass('has-error');
-				
 				filterdata[event.target.id] = ui.item.value;
 				filter = true;
 			},
@@ -265,31 +283,25 @@ require_once("inc/init.php");
 					$(event.target).closest(".col-md-6").addClass('has-error');
 					filter = false;
 				}
-				else {
+				if (event.target.value == "") {
 					$(event.target).closest(".col-md-6").removeClass('has-error');
+					filterdata[event.target.id] = "";
 					filter = true;
-				}				
+				}
 			}
 		});		
 	}
 
+	
+
 	// show tooltip over the samples input field to indicate that the biosource must be filled to enable it
-	$('#user_sample').tooltip({'trigger':'focus', 'title': 'First select a biosource from the biosource field'});
+	//$('#user_sample').tooltip({'trigger':'focus', 'title': 'First select a biosource from the biosource field'});
 
 	// add click event listener to the filter button
 	$("#filter_bt").button().click(filter_function);
 	
-	/*
-	todo:
-		temp: display clone for only the first result ---> tuesday evening
-		result wud be pushed to a modal view showing select checkbox, expID and expName
-		implement function to select
-		implement function to clone
-		
-*/
-
 	function filter_function() {
-		
+
 		/* Check if auto-complete suggestion is selected */
 		$( "#error_div2" ).empty();	
 		if(filter == false){
@@ -297,6 +309,10 @@ require_once("inc/init.php");
 			return;
 		}
 
+		/* clear selections */
+		selectedElements = [];
+		selectedElementsNames = [];
+		
 		/* retrieve the list of experience based on filter */
 		$('#datatable_fixed_column').dataTable().fnDestroy();
 
@@ -360,6 +376,7 @@ require_once("inc/init.php");
 		
 		// launch a modal view to allow selection of experiments
 		$('#modal_for_experiment').show();
+		$('#myModal').modal('show');
 	}
 	
 	function search_function() {		
@@ -645,7 +662,7 @@ require_once("inc/init.php");
 		tablet : 1024,
 		phone : 480
 	};
-	
+
 	var selectedElements = [];
 	var selectedElementsNames = [];
 	
