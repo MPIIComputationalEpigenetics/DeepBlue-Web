@@ -73,43 +73,45 @@ require_once("inc/init.php");
 											</button>
 										</div>
 									</div>
+									<div id="error_div"></div>
 								</div>
 							</div>
 							<hr>
-						 	<div class="row">
-								<div class="col-md-12 col-md-offset-0" style="padding-bottom: 20px;">
+							<div class="row">
+								<div class="col-md-12 col-md-offset-0">
 									<div class="alert alert-info alert-block">
 										<a class="close" data-dismiss="alert" href="#">×</a>
 										<h4 class="alert-heading">Filter by Metadata</h4>
 										Please, select the desired metadata. The selected project, genome, epigenetic_marks, technique, sample is used to filter the experiments for cloning.
 									</div>
 								</div>
-								<div class="col-md-2 col-md-offset-0">
-									<input type="text" value="" class="form-control" id="user_project" placeholder="Filter by Project" />
+								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
+									<input type="text" value="" class="form-control" id="user_project" placeholder="Filter by Project" />									
 								</div>
-								<div class="col-md-2 col-md-offset-0">
-									<input type="text" value="" class="form-control" id="user_epigenetic_mark" placeholder="Filter by Epigenetic marks" />
-								</div>		
-								<div class="col-md-2 col-md-offset-0">
-									<input type="text" value="" class="form-control" id="user_genome" placeholder="Filter by Genomes" />
-								</div>		
-								<div class="col-md-2 col-md-offset-0">
-									<input type="text" value="" class="form-control" id="user_technique" placeholder="Filter by Techniques" />
-								</div>		
-								<div class="col-md-2 col-md-offset-0">
-									<input type="text" value="" class="form-control" id="user_biosource" placeholder="Filter by Biosources" />
-								</div>		
-								<div class="col-md-2 col-md-offset-0">
-									<div class="input-group">
-										<input id="user_sample" class="form-control" type="text"   placeholder="Filter by Samples" />
-										<div class="input-group-btn">
-											<button type="button" id="clone_bt" class="btn btn-default">
-												&nbsp;&nbsp;&nbsp;<i class="fa fa-recycle"></i>&nbsp;&nbsp;&nbsp;
-											</button>
-										</div>
+								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
+									<input type="text" value="" class="form-control" id="user_epigenetic_mark" placeholder="Filter by Epigenetic marks" />									
+								</div>
+								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
+									<input type="text" value="" class="form-control" id="user_genome" placeholder="Filter by Genomes" />									
+								</div>
+								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
+									<input type="text" value="" class="form-control" id="user_technique" placeholder="Filter by Techniques" />									
+								</div>
+								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
+									<input type="text" value="" class="form-control" id="user_biosource" placeholder="Filter by Biosources" />									
+								</div>				
+								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
+									<input id="user_sample" class="form-control" type="text"   placeholder="Filter by Samples" disabled/>									
+								</div>
+								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
+									<div class="input-group-btn">
+										<button type="button" id="filter_bt" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+											&nbsp;&nbsp;<i class="fa fa-recycle"></i> &nbsp;&nbsp;Filter Experiments
+										</button>
 									</div>
 								</div>
 							</div>
+							<div id="error_div2"></div>
 					</div>
 					<!-- end widget content -->
 				</div>
@@ -139,6 +141,42 @@ require_once("inc/init.php");
 	</div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modelSearchExperimentInfo" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="modalSearchExperimenentInfo">Experiment Info</h4>
+			</div>
+			<div class="modal-body custom-scroll terms-body">
+				<div id='modal_for_experiment' style="display:none;">
+					<!-- row -->
+					<div class="row">
+				
+						<!-- NEW WIDGET START -->
+						<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<?php echo $deepBlueObj->experimentMinimizedDataTableTemplate('clone'); ?>
+						</article>
+						<!-- WIDGET END -->
+				
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="cloneExperimentButton" class="btn btn-primary download-btn-size">
+						Clone
+					</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Close
+					</button>
+				</div>
+			</div><!-- /.modal-body -->
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script type="text/javascript">
 	pageSetUp();
 
@@ -148,28 +186,17 @@ require_once("inc/init.php");
 	var clonemetadata = [];
 	var clonemetakey = [];
 	var clone = false;
-
+	
 	var pagefunction = function() {
 		$("#clone_input").focus();
 	};
 
 	$("#clone_bt").button().click(search_function);
+	
 	var cache = {};
-	var suggestions = JSON.parse(localStorage.getItem('all_experiments'));
+	var suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
 	$('#clone_input').autocomplete({
-		source : suggestions['experiment'],/*function( request, response ) {
-          var term = request.term;
-          	if ( term in cache ) {
-            	response( cache[ term ] );
-            	return;
-          	}
-          	var url = "ajax/server_side/clone_get_data_server_processing.php?caller=experiment";
-          	$.getJSON( url, request, function( data, status, xhr ) {
-            	cache[ term ] = data;
-            	response( data );
-          	})
-		},*/
-		//appendTo : "#modal_for_experiment",
+		source : suggestions1['experiment'],
 		autoFocus: true,
 		focus: function( event, ui ) { return false;},
 		minLength: 3,
@@ -179,32 +206,176 @@ require_once("inc/init.php");
 			expId = exp.split(' ')[1];
 			getId = expId.substring(1, expId.length-1);
 			clone = true;
+			$(event.target).closest(".input-group").removeClass('has-error');
 		},
 		change: function( event, ui ) {
-			if (ui.item == null) {
+			if (ui.item == null && event.target.value != "") {
+				$(event.target).closest(".input-group").addClass('has-error');
 				clone = false;
-			}		
+			}
+			if (event.target.value == "") {
+				$(event.target).closest(".input-group").removeClass('has-error');
+				clone = true;
+			}
 		}
 	});
+
+	var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+	var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes']
+	var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome']
+	var vocabname;
+	var vocabid;
+	var count;
+	var filter = true;
+	filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':""};
+	
+	var suggestion2 = [];	
+	for (i in vocabnames) {
+		vocabname = vocabnames[i];
+		vocabid = vocabids[i];
+		suggestion2[vocabname] = []; // index for each controlled vocabulary
+		count = 0
+		var currentvocab = list_in_use[vocabname]
+		for (j in currentvocab) {
+			suggestion2[vocabname][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};
+			count = count + 1;
+		}
+		
+		$(vocabid).autocomplete({
+			source : suggestion2[vocabname],
+			autoFocus: true,
+			focus: function( event, ui ) { return false;},
+			minLength: 0,
+			select: function( event, ui ) {
+				// enable clone button
+				exp = ui.item.label;
+				expId = exp.split(' ')[1];
+				getId = expId.substring(1, expId.length-1);
+				if (event.target.id == "user_biosource") {
+					// user ajax to pull samples
+					// clear the samples field
+				}
+				$(event.target).closest(".col-md-6").removeClass('has-error');
+				
+				filterdata[event.target.id] = ui.item.value;
+				filter = true;
+			},
+			change: function( event, ui ) {
+				if (ui.item == null && event.target.value != "") {
+					$(event.target).closest(".col-md-6").addClass('has-error');
+					filter = false;
+				}
+				else {
+					$(event.target).closest(".col-md-6").removeClass('has-error');
+					filter = true;
+				}				
+			}
+		});		
+	}
+
+	// show tooltip over the samples input field to indicate that the biosource must be filled to enable it
+	$('#user_sample').tooltip({'trigger':'focus', 'title': 'First select a biosource from the biosource field'});
+
+	// add click event listener to the filter button
+	$("#filter_bt").button().click(filter_function);
+	
+	/*
+	todo:
+		temp: display clone for only the first result ---> tuesday evening
+		result wud be pushed to a modal view showing select checkbox, expID and expName
+		implement function to select
+		implement function to clone
+		
+*/
+
+	function filter_function() {
+		
+		/* Check if auto-complete suggestion is selected */
+		$( "#error_div2" ).empty();	
+		if(filter == false){
+			$( "#error_div2" ).append( "<div class='search-results clearfix'><h2>Error in selection. Please select from the suggestion or leave empty.</h2></div>");
+			return;
+		}
+
+		/* retrieve the list of experience based on filter */
+		$('#datatable_fixed_column').dataTable().fnDestroy();
+
+		/* COLUMN FILTER  */
+		var otable = $('#datatable_fixed_column').DataTable({
+		    "ajax": {
+			    "url" : "ajax/server_side/list_all_experiment_table.php",
+			    "data" : {
+				    "projects" : filterdata['user_project'],
+					"epigenetic_marks" : filterdata['user_epigenetic_mark'],
+					"techniques" : filterdata['user_technique'],
+					"samples" : filterdata['user_sample'],
+					"genomes" : filterdata['user_genome'] 
+			    }
+		    },
+		    "iDisplayLength": 50,
+		    "autoWidth" : true,
+			"preDrawCallback" : function() {
+				// Initialize the responsive datatables helper once.
+				if (!responsiveHelper_datatable_fixed_column) {
+					responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
+				}
+			},
+			"rowCallback" : function(nRow) {
+				responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
+			},
+			"drawCallback" : function(oSettings) {
+				responsiveHelper_datatable_fixed_column.respond();
+			},"fnInitComplete": function(oSettings, json) {
+		
+				/* Insert or remove selected or unselected elements */
+				$( ".downloadCheckBox" ).change(function() {
+					var downloadId = $(this).parent().next().text();
+					var downloadTitle = $(this).parent().next().next().text();
+		
+					var found = $.inArray(downloadId, selectedElements);		
+					if(found < 0){
+						selectedElements.push(downloadId);
+						selectedElementsNames.push(downloadTitle);
+					}
+					else{
+						selectedElements.splice(found, 1);
+						selectedElementsNames.push(found, 1);
+					}
+				});
+		    }
+		});
+		
+		// custom toolbar
+		$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+
+	    /* Apply the filter */
+	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
+
+	        otable
+	            .column( $(this).parent().index()+':visible' )
+	            .search( this.value )
+	        .draw();
+
+	    });
+		
+		// launch a modal view to allow selection of experiments
+		$('#modal_for_experiment').show();
+	}
 	
 	function search_function() {		
 
 		/* Checking search value is empty or not */
 		$search = $('#clone_input').val();
-		if($search == ''){
-			$( "#tempSearchResult" ).empty();
-			$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>Search text cannot be empty!</h2></div>");
-			return;
-		}
 
+		/* clear error div */
+		$( "#error_div" ).empty();
+		
 		/* Check if auto-complete suggestion is selected */	
 		if(clone == false){
-			$( "#tempSearchResult" ).empty();
-			$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>Experiment does not exist. Select from the suggested experiments.</h2></div>");
+			$( "#error_div" ).append( "<div class='search-results clearfix'><h2>Experiment does not exist. Please select from the suggestion.</h2></div>");
 			return;
 		}
 
-		var suggestions = JSON.parse(localStorage.getItem('all_experiments'));
 		var cloneInfoRequest = $.ajax({
 			url: "ajax/server_side/clone_get_info_server_processing.php",
 			dataType: "json",
@@ -265,20 +436,20 @@ require_once("inc/init.php");
 			var vocabs = ['sample','epigenetic_mark','technique','project'] 
 			var tags = vocabs.concat(columns);
 			var current;
-			var cache = {};
+			var cache2 = {};
 			for (i in tags) {
 				tag = tags[i];
-				cache[tag] = {};
+				cache2[tag] = {};
 				$("#" + tag).autocomplete({
 					source : function( request, response ) {
 			          	var term = request.term;
-			          	if ( term in cache[current.id] ) {
-			            	response( cache[current.id][ term ] );
+			          	if ( term in cache2[current.id] ) {
+			            	response( cache2[current.id][ term ] );
 			            	return;
 			          	}
 			          	var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id;
 			          	$.getJSON( url, request, function( data, status, xhr ) {
-			            	cache[current.id][ term ] = data;
+			            	cache2[current.id][ term ] = data;
 			            	response( data );
 			          	})
 					},
@@ -463,4 +634,46 @@ require_once("inc/init.php");
 		}
 		return html;
 	}
+
+	/* BASIC ;*/
+	var responsiveHelper_dt_basic = undefined;
+	var responsiveHelper_datatable_fixed_column = undefined;
+	var responsiveHelper_datatable_col_reorder = undefined;
+	var responsiveHelper_datatable_tabletools = undefined;
+
+	var breakpointDefinition = {
+		tablet : 1024,
+		phone : 480
+	};
+	
+	var selectedElements = [];
+	var selectedElementsNames = [];
+	
+    /* Download button :: Getting selected elements */
+    $('#cloneBtnTop, #cloneBtnBottom').click(function(){
+
+    	if(selectedElements.length == 0){
+			alert("Please select experiments!");
+		}
+		else{
+
+			// temp: use only the first experiment
+			getId = selectedElements[0];
+			clone = true;
+			search_function();
+			$('#myModal').modal('toggle');
+			
+		}
+    });
+
+	// load related plugins
+	loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
+		loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
+			loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
+				loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
+					loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
+				});
+			});
+		});
+	});
 </script>

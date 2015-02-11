@@ -883,6 +883,84 @@ XYZ;
         return $dataTableContent;
     }
 
+    /* Generating a minimized experiment data table content [ Template ] */
+    public function experimentMinimizedDataTableTemplate($where){
+    
+    	if($where == "workflow"){
+    		$diffPlace = "Select";
+    		$diff_top_btn = "exp_select_btn_top";
+    		$diff_bottom_btn = "exp_select_btn_bottom";
+    	}
+    	elseif ($where == "clone") {
+    		$diffPlace = "Clone";
+    		$diff_top_btn = "cloneBtnTop";
+    		$diff_bottom_btn = "cloneBtnBottom";
+    	}
+    	else {
+    		$diffPlace = "Download";
+    		$diff_top_btn = "downloadBtnTop";
+    		$diff_bottom_btn = "downloadBtnBottom";
+    	}
+    	$dataTableContent = <<<XYZ
+    
+        <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-blueDark" id="datable-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+    
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>Experiments </h2>
+    
+                </header>
+    
+                <!-- widget div-->
+                <div>
+    
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+    
+                    </div>
+                    <!-- end widget edit box -->
+    
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+    
+                        <table id="datatable_fixed_column" name='experiment-table' class="table table-striped table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="hasinput" style="width:10%">
+                                        <button type="button" id="$diff_top_btn" class="btn btn-primary download-btn-size">$diffPlace</button>
+                                    </th>
+                                    <th class="hasinput" style="width:20%">
+                                        <input class="form-control" placeholder="ID" type="text" id="experiment-id">
+                                    </th>
+    
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Experiment Name" id="experiment-name" />
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Select</th>
+                                    <th>ID</th>
+                                    <th>Experiment Name</th>
+                                </tr>
+                            </thead>
+    
+                        </table>
+                        <div class="downloadButtonDiv"><button type="button" id="$diff_bottom_btn" class="btn btn-primary">$diffPlace</button></div>
+    
+                    </div>
+                    <!-- end widget content -->
+    
+                </div>
+                <!-- end widget div -->
+    
+            </div>
+            <!-- end widget -->
+XYZ;
+    
+    	return $dataTableContent;
+    }
 }
 
 
