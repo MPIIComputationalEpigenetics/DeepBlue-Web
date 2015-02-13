@@ -780,16 +780,20 @@ XYZ;
     public function experimentDataTableTemplate($where){
 
         if($where == "workflow"){
-            $diffPlace = "Select";
-            $diff_top_btn = "exp_select_btn_top";
-            $diff_bottom_btn = "exp_select_btn_bottom";
-        }
-        else{
-            $diffPlace = "Download";
-            $diff_top_btn = "downloadBtnTop";
-            $diff_bottom_btn = "downloadBtnBottom";
-        }
-        $dataTableContent = <<<XYZ
+    		$diffPlace = "Select";
+    		$diff_top_btn = "exp_select_btn_top";
+    		$diff_bottom_btn = "exp_select_btn_bottom";
+    	}
+    	elseif ($where == "clone") {
+    		$diffPlace = "Clone";
+    		$diff_top_btn = "cloneBtnTop";
+    		$diff_bottom_btn = "cloneBtnBottom";
+    	}
+    	else {
+    		$diffPlace = "Download";
+    		$diff_top_btn = "downloadBtnTop";
+    		$diff_bottom_btn = "downloadBtnBottom";
+    	}        $dataTableContent = <<<XYZ
 
         <!-- Widget ID (each widget will need unique ID)-->
             <div class="jarviswidget jarviswidget-color-blueDark" id="datable-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">

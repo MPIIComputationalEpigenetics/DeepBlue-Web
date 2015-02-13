@@ -158,7 +158,7 @@ require_once("inc/init.php");
 				
 						<!-- NEW WIDGET START -->
 						<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<?php echo $deepBlueObj->experimentMinimizedDataTableTemplate('clone'); ?>
+							<?php echo $deepBlueObj->experimentDataTableTemplate('clone'); ?>
 						</article>
 						<!-- WIDGET END -->
 				
@@ -255,10 +255,11 @@ require_once("inc/init.php");
 						minLength: 0,
 						select: function( event, ui ) {
 							// enable clone button
-							getId = ui.item.label;
+							exp = ui.item.label;
+							getId = exp.split(' : ')[0];
 							$(event.target).closest(".col-md-6").removeClass('has-error');
 							
-							filterdata[event.target.id] = ui.item.value;
+							filterdata[event.target.id] = getId;
 							filter = true;
 						},
 						change: function( event, ui ) {
@@ -652,6 +653,24 @@ require_once("inc/init.php");
 		return html;
 	}
 
+	/* Hide and show experiment metadata */
+
+	var isShow = false;
+	$(document).on("click", '.exp-metadata-more-view', function () {
+		//var metadata = $(this).prev();
+		if(isShow == false){
+			$(this).prev().show(1000);
+			$(this).text("-- Hide --");
+			isShow = true;
+		}
+		else{
+			$(this).prev().hide(1000);
+			$(this).text("-- View metadata --");
+			isShow = false;
+		}
+
+	});
+	
 	/* BASIC ;*/
 	var responsiveHelper_dt_basic = undefined;
 	var responsiveHelper_datatable_fixed_column = undefined;

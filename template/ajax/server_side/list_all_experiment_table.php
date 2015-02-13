@@ -19,6 +19,9 @@ require_once("../../lib/deepblue.IXR_Library.php");
 
 $client = new IXR_Client($url);
 
+/* DeepBlue Class */
+require_once("../../lib/deepblue.functions.php");
+$deepBlueObj = new Deepblue();
 
 // check for request
 if (isset($_GET) && isset($_GET["genomes"])) {
@@ -51,27 +54,10 @@ if (isset($_GET) && isset($_GET["techniques"])) {
 	return;
 }
 
-/* retrieve list of all experiments */
-// list_experiments ( genome, epigenetic_mark, sample, technique, project, user key )
-if(!$client->query("list_experiments", $genomes, $epigenetic_marks, $samples, $techniques, $projects, $user_key)){
-	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-}
-else{
-	$epList[] = $client->getResponse();
-}
-$lists = $epList[0][1];
+$deepBlueObj->experimentDataTable($type='', $title='', $genomes, $epigenetic_marks, $samples, $techniques, $projects, 'workflow');
 
 
-$vocabs = array('experiment');
-$metadata = array();
-
-
-for ($i = 0; $i < count($lists); $i++) {
-	$metadata[$i] = array();
-	$metadata[$i][0] = "<input type='checkbox' name='checkboxlist' id='".$lists[$i][0]."' class='downloadCheckBox'>";
-	$metadata[$i][1] = $lists[$i][0];
-	$metadata[$i][2] = $lists[$i][1];
-}
-
-echo json_encode(array('data' => $metadata));
 ?>
+
+
+

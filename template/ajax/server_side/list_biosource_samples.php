@@ -33,8 +33,22 @@ else {
 }
 
 $lists = array();
+$details = "";
+$metadata = ['_id', 'biosource', 'biosource_name'];
+
 for ($i = 0; $i < count($response[1]); $i++) {
-	$lists[$i] = $response[1][$i][0];
+	if (array_key_exists('description', $response[1][$i][1])) {
+		$details = substr($response[1][$i][1]['description'], 0, 75);
+	}
+	else {
+		foreach($response[1][$i][1] as $key => $data) {
+			if (!(in_array($key, $metadata))) {
+				$details = $details.''.$key.' : '.$data.'; ';
+			}
+		}
+	}
+	$lists[$i] = $response[1][$i][0].' : '.substr($details, 0, 75).'...';
+	$details = "";
 }
 
 echo json_encode($lists);
