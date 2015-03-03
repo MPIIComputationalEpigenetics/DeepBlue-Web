@@ -175,9 +175,11 @@ require_once("inc/init.php");
 	// PAGE RELATED SCRIPTS
 	// pagefunction
 	var deletedrows = [];
+	var deletedrowskeys = [];
 	var clonemetadata = [];
 	var clonemetakey = [];
 	var clone = false;
+	var batch = false;
 	
 	var pagefunction = function() {
 		$("#clone_input").focus();
@@ -196,7 +198,7 @@ require_once("inc/init.php");
 			// enable clone button
 			exp = ui.item.label;
 			expId = exp.split(' ')[1];
-			getId = expId.substring(1, expId.length-1);
+			getId = [expId.substring(1, expId.length-1)];
 			clone = true;
 			$(event.target).closest(".input-group").removeClass('has-error');
 		},
@@ -395,10 +397,16 @@ require_once("inc/init.php");
 		}
 
 		var cloneInfoRequest = $.ajax({
-			url: "ajax/server_side/clone_get_info_server_processing.php",
+			url: "ajax/server_side/clone_batch_get_info_server_processing.php",
 			dataType: "json",
 			data : {
-				getId : getId
+				getId : getId,
+				batch: batch,
+			    projects : filterdata['user_project'],
+				epigenetic_marks : filterdata['user_epigenetic_mark'],
+				techniques : filterdata['user_technique'],
+				samples : filterdata['user_sample'],
+				genomes : filterdata['user_genome']				
 			}
 		});
 
@@ -420,10 +428,11 @@ require_once("inc/init.php");
 						columns[j] = item[j]['name'] + '44' + item[j]['column_type'];
 						columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], sect, 0);
 					}
+					columnsTableHTML = columnsTableHTML + "</tbody></table>" + "<button type='button' id='addcolbutton' class='btn btn-success' onclick='addColumn()'>Add Column</button><br/><br/><br/>"
 				}
 				else if (i == 'Extra Metadata') {
 					sect = 'extra_metadata';
-					columnsTableHTML = columnsTableHTML + "</tbody></table>";
+					//columnsTableHTML = columnsTableHTML + "</tbody></table>";
 					metadataHTML = '<h4>Extra Metadata</h4><hr/>';
 					metadataHTML = metadataHTML + "<table id='metaclone' class='table table-striped table-hover'><tbody>";
 					var key, value;
@@ -445,8 +454,12 @@ require_once("inc/init.php");
 			});
 
 			cloneData['Columns'] = colTemp;
-			cloneData['sample'] = cloneData['sample'].split(' ')[0];
-
+			
+			// perform only in single cloning, batch cloning does not pad sample id with biosource name
+			if (!batch) {
+				cloneData['sample'] = cloneData['sample'].split(' ')[0];
+			}
+			
 			$( "#tempSearchResult" ).append(tableHTML + columnsTableHTML + metadataHTML);
 			$("#clone_display").show();
 			$("#widget-grid").hide();
@@ -471,7 +484,6 @@ require_once("inc/init.php");
 			            	response( data );
 			          	})
 					},
-					appendTo : "#modal_for_experiment",
 					autoFocus: true,
 					focus: function( event, ui ) { return false;},
 					minLength: 0,
@@ -483,7 +495,7 @@ require_once("inc/init.php");
 						}
 						else {
 							cloneData[current.id] = ui.item.value;
-						}						
+						}
 					},
 					change: function( event, ui ) {
 						if (ui.item == null) {
@@ -513,22 +525,31 @@ require_once("inc/init.php");
 					}
 				}
 				cloneData['Extra Metadata'] = tempMeta;
-				
+				$('#cloneExperimentButton').attr('disabled','disabled');
 				var request = $.ajax({
-					url: "ajax/server_side/clone_data_server_processing.php",
+					url: "ajax/server_side/clone_batch_data_server_processing.php",
 					dataType: "json",
 					data : {
-						data : cloneData
+						data : cloneData,
+						deleted : deletedrowskeys
 					}
 				});
 
 				request.done( function(data) {
-					if (data[0][0] == 'okay') {
-						alert("Cloning Successful: " + data[0][1]);
+					var report = "";
+					for (l = 0; l < data.length; l++) {
+						if (data[l][0] == 'okay') {
+							report = report + "Experiment " + getId[l] + " cloning Successful: " + data[l][1] + "\n";
+						}
+						else {
+							report = report + "Experiment " + getId[l] + " cloning Failed: " + data[l][1] + "\n";
+						}
 					}
-					else {
-						alert("Cloning Failed: " + data[0][1]);
-					}					
+					alert(report);
+					$( "#tempSearchResult" ).empty();
+					$("#clone_display").hide();
+					$("#widget-grid").show();
+					$('#cloneExperimentButton').removeAttr('disabled');
 				});
 
 				request.fail( function(jqXHR, textStatus) {
@@ -564,17 +585,27 @@ require_once("inc/init.php");
 		//	alert(clonemetadata);
 		}
 		else {
+			deletedrowskeys.push(clonemetakey[idx]);
 			clonemetakey[idx] = event.target.value;
-	//		alert(clonemetakey);	
+			//		alert(clonemetakey);	
 		}
 	}
 
+	/* add column */
+	function addColumn() {
+		// implement adding additional column
+	}
+	
 	/* add metadata */
 	function addMetadata() {
 		//alert(count(cloneData['Extra Metadata']));
-		//alert(cursize);
 		var newrow = buildHTML("Enter Key", "Enter Value", "extra_metadata", newMeta);
-		$('#metaclone tr:last').after(newrow);
+		if (newMeta == 1) {
+			$('#metaclone tbody').append(newrow);
+		}
+		else {
+			$('#metaclone tr:last').after(newrow);
+		}
 		clonemetakey[newMeta] = "New key " + newMeta;
 		clonemetadata[newMeta] = "New Value " + newMeta;
 		newMeta =  newMeta + 1;
@@ -584,6 +615,7 @@ require_once("inc/init.php");
 	function removeMetadata() {
 		var idx = event.target.id.split("_").pop();
 		deletedrows.push(parseInt(idx));
+		deletedrowskeys.push(clonemetakey[idx]);
 		//alert(deletedrows);
 		$("#row_" + idx).remove();
 	}
@@ -694,7 +726,8 @@ require_once("inc/init.php");
 		else{
 
 			// temp: use only the first experiment
-			getId = selectedElements[0];
+			getId = selectedElements;
+			batch = true;
 			clone = true;
 			search_function();
 			$('#myModal').modal('toggle');
