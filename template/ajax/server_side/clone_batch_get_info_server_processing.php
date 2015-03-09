@@ -102,7 +102,7 @@ for ($i = 0; $i < count($getIds); $i++) {
 		$info['project'] = '(Multiple Values)';
 	
 	if ($i > 0) {
-		$info['experiment'] = '(Multiple Values)';
+		$info['experiment'] = 'Multiple Selection: Enter suffix to be appended to the experiment names for the clones. Default is "clone"';
 		$info['description'] = '(Multiple Values)';
 
 		$info['Extra Metadata'] = array_intersect_key($info['Extra Metadata'], $experiment['extra_metadata']);

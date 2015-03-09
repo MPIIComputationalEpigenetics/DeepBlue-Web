@@ -220,6 +220,7 @@ require_once("inc/init.php");
 	var vocabname;
 	var vocabid;
 	var count;
+	var newcolcount = 0;
 	var filter = true;
 	filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':""};
 	
@@ -328,7 +329,7 @@ require_once("inc/init.php");
 					"epigenetic_marks" : filterdata['user_epigenetic_mark'],
 					"techniques" : filterdata['user_technique'],
 					"samples" : filterdata['user_sample'],
-					"genomes" : filterdata['user_genome'] 
+					"genomes" : filterdata['user_genome']
 			    }
 		    },
 		    "iDisplayLength": 50,
@@ -413,7 +414,7 @@ require_once("inc/init.php");
 		cloneInfoRequest.done( function(data) {
 			$( "#tempSearchResult" ).empty();
 			var tableHTML = '<br/><h4>Experiment Info</h4><hr/>'
-			var columns = [];
+			columns = [];
 			tableHTML = tableHTML + "<table id='infoclone' class='table table-striped table-hover'><tbody>";
 			cloneData = data.data['info'];
 			var colTemp = {};
@@ -425,10 +426,10 @@ require_once("inc/init.php");
 					columnsTableHTML = columnsTableHTML + "<table id='formatclone' class='table table-striped table-hover'><tbody>";
 					for (j in item) {
 						colTemp[item[j]['name']] = item[j]['name'];
-						columns[j] = item[j]['name'] + '44' + item[j]['column_type'];
+						columns[j] = item[j]['name'] + 'xyz123abc' + item[j]['column_type'];
 						columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], sect, 0);
 					}
-					columnsTableHTML = columnsTableHTML + "</tbody></table>" + "<button type='button' id='addcolbutton' class='btn btn-success' onclick='addColumn()'>Add Column</button><br/><br/><br/>"
+					columnsTableHTML = columnsTableHTML + "</tbody></table>" + "<button type='button' id='addcolbutton' class='btn btn-success' onclick='addColumn()'>Add Calculated Column</button><br/><br/><br/>"
 				}
 				else if (i == 'Extra Metadata') {
 					sect = 'extra_metadata';
@@ -464,7 +465,7 @@ require_once("inc/init.php");
 			$("#clone_display").show();
 			$("#widget-grid").hide();
 			
-			var vocabs = ['sample','epigenetic_mark','technique','project'] 
+			var vocabs = ['sample','epigenetic_mark','technique','project']
 			var tags = vocabs.concat(columns);
 			var current;
 			var cache2 = {};
@@ -490,7 +491,7 @@ require_once("inc/init.php");
 					select: function( event, ui ) {
 						$(current).closest(".search-modal-name").removeClass('has-error');
 						if ($.inArray(current.id, columns) > -1) {
-							coln = (current.id).split("44")[0];
+							coln = (current.id).split("xyz123abc")[0];
 							cloneData['Columns'][coln] = ui.item.value;
 						}
 						else {
@@ -594,6 +595,40 @@ require_once("inc/init.php");
 	/* add column */
 	function addColumn() {
 		// implement adding additional column
+		newcolcount = newcolcount + 1;
+		var colId = "CALCULATED_COLUMN" + newcolcount + "xyz123abc" + "calculated";
+		var newrow = buildHTML("CALCULATED_COLUMN" + newcolcount, "calculated", "columns", 0);
+		cloneData['Columns']["CALCULATED_COLUMN" + newcolcount] = "calculated";
+		
+		$('#formatclone tr:last').after(newrow);
+		$("#" + colId).autocomplete({
+			source : function( request, response ) {
+	          	var term = request.term;
+	          	var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id;
+	          	$.getJSON( url, request, function( data, status, xhr ) {
+	            	response( data );
+	          	})
+			},
+			autoFocus: true,
+			focus: function( event, ui ) { return false;},
+			minLength: 0,
+			select: function( event, ui ) {
+				$(current).closest(".search-modal-name").removeClass('has-error');
+				coln = (current.id).split("xyz123abc")[0];
+				cloneData['Columns'][coln] = ui.item.value;
+			},
+			change: function( event, ui ) {
+				if (ui.item == null) {
+					$(current).value = "";
+					$(current).closest(".search-modal-name").addClass('has-error');
+				}
+			}
+		});
+
+		$("#" + colId).focus(function() {
+			current = this;
+//			alert(current.id);			
+		});
 	}
 	
 	/* add metadata */
@@ -627,16 +662,16 @@ require_once("inc/init.php");
 				html = "<tr><td class='search-modal-table'>" + i + " (" + item + ")</td>";	
 				switch (i) {
 					case 'CHROMOSOME': 
-						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "44" + item + "' placeholder='" + i + "' disabled></td></tr>"
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "' disabled></td></tr>"
 						break;
 					case 'START':
-						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "44" + item + "' placeholder='" + i + "' disabled></td></tr>"
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "' disabled></td></tr>"
 						break;
 					case 'END':
-						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "44" + item + "' placeholder='" + i + "' disabled></td></tr>"
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "' disabled></td></tr>"
 						break;
 					default:
-						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "44" + item + "' placeholder='" + i + "'></td></tr>"
+						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "'></td></tr>"
 				}
 				break;
 			case 'extra_metadata':

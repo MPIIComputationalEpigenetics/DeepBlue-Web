@@ -107,9 +107,13 @@ switch ($caller) {
 		}
 		else{
 			$coList[] = $client->getResponse();
-			$type = explode("44", $caller)[1];
+			//echo json_encode($coList);
+			$type = explode("xyz123abc", $caller)[1];
 			if ($type == 'range') {
 				$type = 'category';
+			}
+			if ($type == 'calculated') {
+				$type = 'code';
 			}
 			$pattern = '@'.$type.'@i';
 			$i = 0;

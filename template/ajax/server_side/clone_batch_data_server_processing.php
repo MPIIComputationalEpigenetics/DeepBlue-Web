@@ -49,8 +49,13 @@ for ($i = 0; $i < count($ids); $i++) {
 	$experiment = $infoList[0][1][0];
 	
 	// update the experiment name
-	$name = $experiment['name'].'_clone';
-
+	$name = $experiment['name'].'_'.$data['experiment'];
+	if ($data["experiment"] == $experiment['name'])
+		$name = $experiment['name'].'_clone';
+	
+	if ($data["experiment"] == 'Multiple Selection: Enter suffix to be appended to the experiment names for the clones. Default is "clone"')
+		$name = $experiment['name'].'_clone';
+	
 	// update the experiment epigenetic_mark	
 	if ($data["epigenetic_mark"] == "(Multiple Values)")
 		$epigenetic_mark = $experiment['epigenetic_mark'];
@@ -84,12 +89,16 @@ for ($i = 0; $i < count($ids); $i++) {
 	// updating the experiment column
 	$j = 0;
 	foreach ($data['Columns'] as $key => $value) {
-		if ($key != $value) {
+		if ($key != $value && strcmp(substr($key,0,17),'CALCULATED_COLUMN') != 0) {
 			$experiment['columns'][$j]['name'] = $value;
+		}
+		if (substr($key,0,17) == 'CALCULATED_COLUMN') {
+			$experiment['columns'][] = ["column_type"=>"calculated","name"=>$value];
 		}
 		$j = $j + 1;
 	}
 	
+	// add new calculated columns
 	$format = $experiment['columns'][0]['name'];
 	for ($j = 1; $j < count($experiment['columns']); $j++) {
 		$format = $format.','.$experiment['columns'][$j]['name'];
