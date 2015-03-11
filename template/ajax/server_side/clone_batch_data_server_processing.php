@@ -142,9 +142,7 @@ for ($i = 0; $i < count($ids); $i++) {
 	}
 	
 	$infoList = null;
-	// check if any fails and throw error
 }
 
 echo json_encode($clone);
-//echo json_encode($format);
 ?>

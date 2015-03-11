@@ -131,11 +131,11 @@ require_once("inc/init.php");
 	<div class="tab-pane fade in active" id="s1">
 		<div id="tempSearchResult"></div>
 		<div id="cloneButtonGroup" class="modal-footer" >
-			<button type="button" id="cloneExperimentButton" class="btn btn-primary download-btn-size">
-				Clone
-			</button>
 			<button type="button" id="closeExperimentButton" class="btn btn-default">
 				Close
+			</button>
+			<button type="button" id="cloneExperimentButton" class="btn btn-primary download-btn-size">
+				Clone
 			</button>
 		</div>
 	</div>
@@ -222,7 +222,7 @@ require_once("inc/init.php");
 	var count;
 	var newcolcount = 0;
 	var filter = true;
-	filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':"",'user_biosource':[]};
+	filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':"",'user_biosource':""};
 	
 	var suggestion2 = [];	
 	for (i in vocabnames) {
@@ -248,11 +248,10 @@ require_once("inc/init.php");
 				getId = expId.substring(1, expId.length-1);
 				if (event.target.id == "user_biosource") {
 					$("#user_sample").prop('disabled', false);
-					filterdata[event.target.id] = ui.item.value;
 					
 					// autocomplete for the samples field
 					$("#user_sample").autocomplete({
-						source : "ajax/server_side/list_form_biosource_samples.php?biosource=" + filterdata[event.target.id],
+						source : "ajax/server_side/list_form_biosource_samples.php?biosource=" + ui.item.value,
 						autoFocus: true,
 						focus: function( event, ui ) { return false;},
 						minLength: 0,
@@ -277,23 +276,6 @@ require_once("inc/init.php");
 							}
 						}
 					});
-
-					// retrieve all samples for the selected biosource
-					var request1 = $.ajax({
-						url: "ajax/server_side/list_biosource_samples.php?biosource=" + filterdata[event.target.id],
-						dataType: "json"
-					});
-					
-					request1.done( function(data) {
-						filterdata[event.target.id] = data;
-					});
-					
-					request1.fail( function(jqXHR, textStatus) {
-						console.log(jqXHR);
-					    console.log('Error: '+ textStatus);
-						alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
-					});
-					
 				}
 				
 				$(event.target).closest(".col-md-6").removeClass('has-error');
@@ -303,6 +285,7 @@ require_once("inc/init.php");
 			change: function( event, ui ) {
 				if (event.target.id == "user_biosource") {
 					$("#user_sample").val("");
+					filterdata["user_sample"] = "";
 				}
 				
 				if (ui.item == null && event.target.value != "") {
@@ -319,12 +302,17 @@ require_once("inc/init.php");
 	}
 
 	
-
-	// show tooltip over the samples input field to indicate that the biosource must be filled to enable it
-	//$('#user_sample').tooltip({'trigger':'focus', 'title': 'First select a biosource from the biosource field'});
-
 	// add click event listener to the filter button
 	$("#filter_bt").button().click(filter_function);
+
+	/* Trigger searching with pressing ENTER Key */
+	$("#user_epigenetic_mark, #user_project, #user_biosource, #user_sample, #user_technique, #user_genome").keyup(function(event){
+		if(event.keyCode == 13){
+		    filter_function();
+		    isSelected = 1;
+		}
+	});
+	
 	
 	function filter_function() {
 
@@ -473,6 +461,7 @@ require_once("inc/init.php");
 				}
 				else {
 					sect = 'info';
+					alert(i)
 					tableHTML = tableHTML + buildHTML(i, item, sect, 0);
 				}
 			});
@@ -485,6 +474,10 @@ require_once("inc/init.php");
 			}
 			
 			$( "#tempSearchResult" ).append(tableHTML + columnsTableHTML + metadataHTML);
+
+			// show tooltip over the samples input field to indicate that the experiment name should be changed
+			$('#experiment').tooltip({'trigger':'focus', 'title': 'Experiment name would be appended with "_clone" if unchanged'});
+					
 			$("#clone_display").show();
 			$("#widget-grid").hide();
 			
@@ -564,15 +557,15 @@ require_once("inc/init.php");
 					for (l = 0; l < data.length; l++) {
 						if (data[l][0] == 'okay') {
 							report = report + "Experiment " + getId[l] + " cloning Successful: " + data[l][1] + "\n";
+							$( "#tempSearchResult" ).empty();
+							$("#clone_display").hide();
+							$("#widget-grid").show();							
 						}
 						else {
 							report = report + "Experiment " + getId[l] + " cloning Failed: " + data[l][1] + "\n";
 						}
 					}
 					alert(report);
-					$( "#tempSearchResult" ).empty();
-					$("#clone_display").hide();
-					$("#widget-grid").show();
 					$('#cloneExperimentButton').removeAttr('disabled');
 				});
 
