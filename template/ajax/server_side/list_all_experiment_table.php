@@ -44,7 +44,7 @@ if (isset($_GET) && isset($_GET["biosources"])) {
 		$biosource[] = $_GET["biosources"];
 		
 		if(!$client1->query("list_samples", $biosource, (Object)Null, $user_key)){
-			die('An error occurred - '.$client1->getErrorCode().":".$client2->getErrorMessage());
+			die('An error occurred - '.$client1->getErrorCode().":".$client1->getErrorMessage());
 		}
 		else {
 			$response1 = $client1->getResponse();
