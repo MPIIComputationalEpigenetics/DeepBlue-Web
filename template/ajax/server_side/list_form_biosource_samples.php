@@ -18,7 +18,7 @@ require_once("../../lib/lib.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 
 if (isset($_GET) && isset($_GET["biosource"])) {
-    $biosource[] = $_GET["biosource"];
+	$biosource[] = $_GET["biosource"];
 } else {
 	return;
 }
@@ -46,12 +46,26 @@ for ($i = 0; $i < count($response1[1]); $i++) {
 	$samplesin[] = $response1[1][$i][0];
 }
 
+
 $lists = array();
+$details = "";
+$metadata = ['_id', 'biosource', 'biosource_name'];
 $j = 0;
 for ($i = 0; $i < count($response[1]); $i++) {
 	if (in_array($response[1][$i][0], $samplesin)) {
-		$lists[$j] = $response[1][$i][0];
+		if (array_key_exists('description', $response[1][$i][1])) {
+			$details = substr($response[1][$i][1]['description'], 0, 75);
+		}
+		else {
+			foreach($response[1][$i][1] as $key => $data) {
+				if (!(in_array($key, $metadata))) {
+					$details = $details.''.$key.' : '.$data.'; ';
+				}
+			}
+		}
+		$lists[$j] = $response[1][$i][0].' : '.substr($details, 0, 75).'...';
 		$j = $j + 1;
+		$details = "";
 	}
 }
 

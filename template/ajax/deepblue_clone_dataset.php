@@ -222,7 +222,7 @@ require_once("inc/init.php");
 	var count;
 	var newcolcount = 0;
 	var filter = true;
-	filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':""};
+	filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':"",'user_biosource':[]};
 	
 	var suggestion2 = [];	
 	for (i in vocabnames) {
@@ -248,11 +248,11 @@ require_once("inc/init.php");
 				getId = expId.substring(1, expId.length-1);
 				if (event.target.id == "user_biosource") {
 					$("#user_sample").prop('disabled', false);
-
-					// autocomplete for the samples field
 					filterdata[event.target.id] = ui.item.value;
+					
+					// autocomplete for the samples field
 					$("#user_sample").autocomplete({
-						source : "ajax/server_side/list_biosource_samples.php?biosource=" + filterdata[event.target.id],
+						source : "ajax/server_side/list_form_biosource_samples.php?biosource=" + filterdata[event.target.id],
 						autoFocus: true,
 						focus: function( event, ui ) { return false;},
 						minLength: 0,
@@ -277,12 +277,34 @@ require_once("inc/init.php");
 							}
 						}
 					});
+
+					// retrieve all samples for the selected biosource
+					var request1 = $.ajax({
+						url: "ajax/server_side/list_biosource_samples.php?biosource=" + filterdata[event.target.id],
+						dataType: "json"
+					});
+					
+					request1.done( function(data) {
+						filterdata[event.target.id] = data;
+					});
+					
+					request1.fail( function(jqXHR, textStatus) {
+						console.log(jqXHR);
+					    console.log('Error: '+ textStatus);
+						alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+					});
+					
 				}
+				
 				$(event.target).closest(".col-md-6").removeClass('has-error');
 				filterdata[event.target.id] = ui.item.value;
 				filter = true;
 			},
 			change: function( event, ui ) {
+				if (event.target.id == "user_biosource") {
+					$("#user_sample").val("");
+				}
+				
 				if (ui.item == null && event.target.value != "") {
 					$(event.target).closest(".col-md-6").addClass('has-error');
 					filter = false;
@@ -329,7 +351,8 @@ require_once("inc/init.php");
 					"epigenetic_marks" : filterdata['user_epigenetic_mark'],
 					"techniques" : filterdata['user_technique'],
 					"samples" : filterdata['user_sample'],
-					"genomes" : filterdata['user_genome']
+					"genomes" : filterdata['user_genome'],
+					"biosources" : filterdata['user_biosource']
 			    }
 		    },
 		    "iDisplayLength": 50,

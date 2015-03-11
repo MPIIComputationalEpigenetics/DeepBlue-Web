@@ -36,8 +36,19 @@ if (isset($_GET) && isset($_GET["epigenetic_marks"])) {
 	return;
 }
 
+if (isset($_GET) && isset($_GET["biosources"])) {
+	$biosources[] = $_GET["biosources"];
+} else {
+	return;
+}
+
 if (isset($_GET) && isset($_GET["samples"])) {
-	$samples[] = $_GET["samples"];
+	if (strcmp($_GET['samples'], "") == 0)  {
+		$samples = $biosources[0];		
+	}
+	else {
+		$samples = $_GET['samples'];
+	}
 } else {
 	return;
 }

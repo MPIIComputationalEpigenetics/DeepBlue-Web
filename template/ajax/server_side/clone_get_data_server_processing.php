@@ -53,31 +53,21 @@ switch ($caller) {
 		break;
 	case 'sample':
 		/* retrieve list of all samples */
-		if(!$client->query("list_in_use", 'samples', $user_key)){
+		if(!$client->query("list_samples", '', (Object)Null, $user_key)){
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
 			$samples[] = $client->getResponse();
 			$sampleIds = array();
-			foreach ($samples[0][1] as $sample) {
-				$sampleIds[] = $sample[0];
-			}
-		}
-		
-		/* retrieve list of all biosources */
-		$smList = array();
-		if(!$client->query("info", $sampleIds, $user_key)){
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-		else{
-			$infoList[] = $client->getResponse();
 			$i = 0;
-			foreach ($infoList[0][1] as $sample) {
-				$smList[$i][0] = $sample['biosource_name'];
-				$smList[$i][1] = $sample['_id'];
+			foreach ($samples[0][1] as $sample) {
+				$smList[$i][1] = $sample[0];
+				$smList[$i][0] = $sample[1]['biosource_name'];
 				$i = $i + 1;
 			}
+				
 		}
+		
 		$lists = $smList;
 		break;
 	case 'technique':
@@ -119,8 +109,14 @@ switch ($caller) {
 			$i = 0;
 			foreach ($coList[0][1] as $column) {
 				if (preg_match($pattern, $column[1]) == 1) {
-					$strList[$i][0] = $type;
-					$strList[$i][1] = explode("'", $column[1])[1];
+					if ($type == 'code') {
+						$strList[$i][0] = explode(":", $column[1])[3];
+						$strList[$i][1] = explode("'", $column[1])[1];
+					}
+					else {
+						$strList[$i][0] = $type;
+						$strList[$i][1] = explode("'", $column[1])[1];
+					}
 					$i = $i + 1;
 				}				
 			}
@@ -138,7 +134,7 @@ for ($i = 0; $i < count($lists); $i++) {
 		$result[$j]['value'] = $lists[$i][1];
 		$j = $j + 1;		
 	}
-	if ($caller == 'sample' && $j >= 15) break;
+	if ($caller == 'sample' && $j >= 30) break;
 }
 echo json_encode($result);
 ?>
