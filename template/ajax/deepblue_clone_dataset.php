@@ -461,7 +461,6 @@ require_once("inc/init.php");
 				}
 				else {
 					sect = 'info';
-					alert(i)
 					tableHTML = tableHTML + buildHTML(i, item, sect, 0);
 				}
 			});
