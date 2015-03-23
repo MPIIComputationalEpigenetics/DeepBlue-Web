@@ -32,7 +32,12 @@ else {
 	$deleted = [];
 }
 
-
+if (isset($_GET["removedColn"])) {
+	$removedColn = $_GET["removedColn"];
+}
+else {
+	$removedColn = [];
+}
 $ids = explode("; ", $data["id"], -1);
 
 for ($i = 0; $i < count($ids); $i++) {
@@ -92,16 +97,20 @@ for ($i = 0; $i < count($ids); $i++) {
 		if ($key != $value && strcmp(substr($key,0,17),'CALCULATED_COLUMN') != 0) {
 			$experiment['columns'][$j]['name'] = $value;
 		}
+		// add new calculated columns
 		if (substr($key,0,17) == 'CALCULATED_COLUMN') {
 			$experiment['columns'][] = ["column_type"=>"calculated","name"=>$value];
 		}
 		$j = $j + 1;
 	}
 	
-	// add new calculated columns
+
 	$format = $experiment['columns'][0]['name'];
 	for ($j = 1; $j < count($experiment['columns']); $j++) {
-		$format = $format.','.$experiment['columns'][$j]['name'];
+		// check if a calculated column has been removed		
+		if (!in_array($experiment['columns'][$j]['name'], $removedColn)) {
+			$format = $format.','.$experiment['columns'][$j]['name'];
+		}
 	}
 	
 	// updating the metadata

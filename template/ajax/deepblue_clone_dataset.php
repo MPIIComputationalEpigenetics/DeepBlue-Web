@@ -22,6 +22,14 @@
 require_once("inc/init.php");
 ?>
 
+<style>
+	.ui-autocomplete {
+		max-height : 200px;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+</style>
+
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark"><i class="fa fa-recycle "></i>
@@ -176,6 +184,7 @@ require_once("inc/init.php");
 	// pagefunction
 	var deletedrows = [];
 	var deletedrowskeys = [];
+	var removedColn = [];
 	var clonemetadata = [];
 	var clonemetakey = [];
 	var clone = false;
@@ -306,7 +315,7 @@ require_once("inc/init.php");
 	$("#filter_bt").button().click(filter_function);
 
 	/* Trigger searching with pressing ENTER Key */
-	$("#user_epigenetic_mark, #user_project, #user_biosource, #user_sample, #user_technique, #user_genome").keyup(function(event){
+	$("#user_epigenetic_mark, #user_project, #user_biosource, #user_sample, #user_technique, #user_genome").keypress(function(event){
 		if(event.keyCode == 13){
 		    filter_function();
 		    isSelected = 1;
@@ -424,7 +433,7 @@ require_once("inc/init.php");
 
 		cloneInfoRequest.done( function(data) {
 			$( "#tempSearchResult" ).empty();
-			var tableHTML = '<br/><h4>Experiment Info</h4><hr/>'
+			var tableHTML = '<h2>Experiment Info</h2><div id="error_div3"><p style="color:red">* For experiment name, enter suffix to be appended to the original experiment name(s)</p></div><hr/>'
 			columns = [];
 			tableHTML = tableHTML + "<table id='infoclone' class='table table-striped table-hover'><tbody>";
 			cloneData = data.data['info'];
@@ -433,19 +442,28 @@ require_once("inc/init.php");
 				if (i == 'Columns') {
 					sect = 'columns';
 					tableHTML = tableHTML + "</tbody></table>";
-					columnsTableHTML = '<h4>Columns</h4><hr/>';
+					columnsTableHTML = '<h2>Columns</h2><div id="error_div4"><p style="color:red">* Only matching columns (by name and type) across all experiment(s) are displayed for editing</p></div><hr/>';
 					columnsTableHTML = columnsTableHTML + "<table id='formatclone' class='table table-striped table-hover'><tbody>";
+					var k = 1;
+					calccoln = [];
 					for (j in item) {
 						colTemp[item[j]['name']] = item[j]['name'];
 						columns[j] = item[j]['name'] + 'xyz123abc' + item[j]['column_type'];
-						columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], sect, 0);
+						if (item[j]['column_type'] == 'code' || item[j]['column_type'] == 'calculated') {
+							calccoln[k] = item[j]['name']; 
+							columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], 'calculated_columns', k);
+							k = k + 1;
+						}
+						else {
+							columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], sect, 0);
+						}
 					}
 					columnsTableHTML = columnsTableHTML + "</tbody></table>" + "<button type='button' id='addcolbutton' class='btn btn-success' onclick='addColumn()'>Add Calculated Column</button><br/><br/><br/>"
 				}
 				else if (i == 'Extra Metadata') {
 					sect = 'extra_metadata';
 					//columnsTableHTML = columnsTableHTML + "</tbody></table>";
-					metadataHTML = '<h4>Extra Metadata</h4><hr/>';
+					metadataHTML = '<h2>Extra Metadata</h2><div id="error_div5"><p style="color:red">* Only matching metadata names across all experiment(s) are displayed for editing</p></div><hr/>';
 					metadataHTML = metadataHTML + "<table id='metaclone' class='table table-striped table-hover'><tbody>";
 					var key, value;
 					var j = 1;
@@ -547,7 +565,8 @@ require_once("inc/init.php");
 					dataType: "json",
 					data : {
 						data : cloneData,
-						deleted : deletedrowskeys
+						deleted : deletedrowskeys,
+						removedColn : removedColn
 					}
 				});
 
@@ -572,6 +591,7 @@ require_once("inc/init.php");
 					console.log(jqXHR);
 		       		console.log('Error: '+ textStatus);
 					alert( "error" );
+					$('#cloneExperimentButton').removeAttr('disabled');					
 				});
 			});
 		});
@@ -598,12 +618,10 @@ require_once("inc/init.php");
 
 		if (type == 'val') {
 			clonemetadata[idx] = event.target.value;
-		//	alert(clonemetadata);
 		}
 		else {
 			deletedrowskeys.push(clonemetakey[idx]);
 			clonemetakey[idx] = event.target.value;
-			//		alert(clonemetakey);	
 		}
 	}
 
@@ -612,9 +630,11 @@ require_once("inc/init.php");
 		// implement adding additional column
 		newcolcount = newcolcount + 1;
 		var colId = "CALCULATED_COLUMN" + newcolcount + "xyz123abc" + "calculated";
-		var newrow = buildHTML("CALCULATED_COLUMN" + newcolcount, "calculated", "columns", 0);
+		var newrow = buildHTML("CALCULATED_COLUMN" + newcolcount, "calculated", "calculated_columns", newcolcount);
 		cloneData['Columns']["CALCULATED_COLUMN" + newcolcount] = "calculated";
-		
+		calccoln[newcolcount] = "CALCULATED_COLUMN" + newcolcount;
+
+		/* add new row for a calculated column and include autocomplete*/
 		$('#formatclone tr:last').after(newrow);
 		$("#" + colId).autocomplete({
 			source : function( request, response ) {
@@ -642,7 +662,6 @@ require_once("inc/init.php");
 
 		$("#" + colId).focus(function() {
 			current = this;
-//			alert(current.id);			
 		});
 	}
 	
@@ -666,27 +685,39 @@ require_once("inc/init.php");
 		var idx = event.target.id.split("_").pop();
 		deletedrows.push(parseInt(idx));
 		deletedrowskeys.push(clonemetakey[idx]);
-		//alert(deletedrows);
 		$("#row_" + idx).remove();
 	}
-		
+
+	/* delete calculated column */
+	function removeCalculatedColumn() {
+		var idx = event.target.id.split("_").pop();
+		delete cloneData['Columns'][calccoln[idx]];
+		removedColn.push(calccoln[idx]);
+		$("#calc_" + idx).remove();
+	}
+	
 	function buildHTML(i, item, section, counter) {
 		var html;
 		switch (section) {
+			case 'calculated_columns':
+				html = "<tr id='calc_" + counter + "'><td class='search-modal-table'>" + i + " (" + item + ")</td>";
+				html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "'></td>" + 
+				"<td><button id='delc_" + counter + "' type='button' class='close' aria-hidden='true' onclick='removeCalculatedColumn()'>&times;</button></td></tr>";
+				break
 			case 'columns':
-				html = "<tr><td class='search-modal-table'>" + i + " (" + item + ")</td>";	
+				html = "<tr><td class='search-modal-table'>" + i + " (" + item + ")</td>";
 				switch (i) {
 					case 'CHROMOSOME': 
-						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "' disabled></td></tr>"
+						html = html + "<td colspan=2 class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "' disabled></td></tr>"
 						break;
 					case 'START':
-						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "' disabled></td></tr>"
+						html = html + "<td colspan=2 class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "' disabled></td></tr>"
 						break;
 					case 'END':
-						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "' disabled></td></tr>"
+						html = html + "<td colspan=2 class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "' disabled></td></tr>"
 						break;
 					default:
-						html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "'></td></tr>"
+						html = html + "<td colspan=2 class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "'></td></tr>"
 				}
 				break;
 			case 'extra_metadata':
