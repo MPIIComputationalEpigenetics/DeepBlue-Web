@@ -28,6 +28,7 @@ $caller = $_GET["caller"];
 $term = $_GET["term"];
 
 $lists = array();
+$calculated = false;
 
 /* decallerine list to retrieve based on caller */
 switch ($caller) {
@@ -103,6 +104,7 @@ switch ($caller) {
 				$type = 'category';
 			}
 			if ($type == 'calculated') {
+				$calculated = true;
 				$type = 'code';
 			}
 			$pattern = '@'.$type.'@i';
@@ -128,11 +130,16 @@ switch ($caller) {
 $j = 0;
 $pattern = '@'.$term.'@i';
 $result = [];
+
 for ($i = 0; $i < count($lists); $i++) {
 	if (preg_match($pattern, $lists[$i][0]) == 1 || preg_match($pattern, $lists[$i][1]) == 1) {
 		$result[$j]['label'] = $lists[$i][1].' ('.$lists[$i][0].')';
 		$result[$j]['value'] = $lists[$i][1];
-		$j = $j + 1;		
+		if ($calculated) {
+			$result[$j]['label'] = $lists[$i][1].' ('.$lists[$i][0].')';
+			$result[$j]['value'] = $lists[$i][0];
+		}
+		$j = $j + 1;
 	}
 	if ($caller == 'sample' && $j >= 30) break;
 }

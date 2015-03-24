@@ -38,6 +38,7 @@ $j = 0;
 $meta_avail = [];
 $k = 0;
 
+
 for ($i = 0; $i < count($getIds); $i++) {
 	if(!$client->query("info", $getIds[$i], $user_key)){
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
@@ -52,6 +53,7 @@ for ($i = 0; $i < count($getIds); $i++) {
 	if ($i == 0) {
 		$info['id'] = "";
 		$info['experiment'] = $experiment['name'];
+		$names = $experiment['name'];
 
 		if ($genomes != "")
 			$info['genome'] = $genomes;
@@ -85,7 +87,10 @@ for ($i = 0; $i < count($getIds); $i++) {
 	}	
 	
 	$info['id'] = $info['id'].$experiment['_id']."; ";
-	
+	if ($i > 0) {
+		$names = $names.", ".$experiment['name'];
+	}
+
 	if ($experiment['genome'] != $info['genome'])
 		$info['genome'] = '(Multiple Values)';
 	
@@ -102,7 +107,7 @@ for ($i = 0; $i < count($getIds); $i++) {
 		$info['project'] = '(Multiple Values)';
 	
 	if ($i > 0) {
-		$info['experiment'] = 'Multiple Selection: Enter suffix to be appended to the experiment names for the clones. Default is "clone"';
+		$info['experiment'] = '(Multiple Values)';
 		$info['description'] = '(Multiple Values)';
 
 		$info['Extra Metadata'] = array_intersect_key($info['Extra Metadata'], $experiment['extra_metadata']);
@@ -117,7 +122,9 @@ for ($i = 0; $i < count($getIds); $i++) {
 		
 		for ($j = 0; $j < $length; $j++) {
 			if ($temp['Columns'][$j]['name'] == $experiment['columns'][$j]['name']) {
-				$info['Columns'][$j] = $temp['Columns'][$j];
+				if ($temp['Columns'][$j]['column_type'] == $experiment['columns'][$j]['column_type']) {
+					$info['Columns'][$j] = $temp['Columns'][$j];
+				}
 			}
 		}
 		$temp['Columns'] = $info['Columns'];
@@ -126,5 +133,6 @@ for ($i = 0; $i < count($getIds); $i++) {
 
 $result = array();
 $result['info'] = $info;
+$result['names'] = $names;
 echo json_encode(array('data' => $result));
 ?>

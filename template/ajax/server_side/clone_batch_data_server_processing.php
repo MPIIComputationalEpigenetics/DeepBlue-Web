@@ -55,11 +55,6 @@ for ($i = 0; $i < count($ids); $i++) {
 	
 	// update the experiment name
 	$name = $experiment['name'].'_'.$data['experiment'];
-	if ($data["experiment"] == $experiment['name'])
-		$name = $experiment['name'].'_clone';
-	
-	if ($data["experiment"] == 'Multiple Selection: Enter suffix to be appended to the experiment names for the clones. Default is "clone"')
-		$name = $experiment['name'].'_clone';
 	
 	// update the experiment epigenetic_mark	
 	if ($data["epigenetic_mark"] == "(Multiple Values)")

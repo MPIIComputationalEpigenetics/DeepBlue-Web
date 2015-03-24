@@ -314,7 +314,15 @@ require_once("inc/init.php");
 	// add click event listener to the filter button
 	$("#filter_bt").button().click(filter_function);
 
-	/* Trigger searching with pressing ENTER Key */
+	/* Trigger single experiment search with presssing ENTER key */
+	$("#clone_input").keypress(function(event){
+		if(event.keyCode == 13){
+		    search_function();
+		    isSelected = 1;
+		}
+	});
+
+	/* Trigger searching using filter with pressing ENTER Key */
 	$("#user_epigenetic_mark, #user_project, #user_biosource, #user_sample, #user_technique, #user_genome").keypress(function(event){
 		if(event.keyCode == 13){
 		    filter_function();
@@ -433,7 +441,7 @@ require_once("inc/init.php");
 
 		cloneInfoRequest.done( function(data) {
 			$( "#tempSearchResult" ).empty();
-			var tableHTML = '<h2>Experiment Info</h2><div id="error_div3"><p style="color:red">* For experiment name, enter suffix to be appended to the original experiment name(s)</p></div><hr/>'
+			var tableHTML = '<h2>Experiment Info</h2><p> The following experiments will be cloned: ' + data.data['names'] + '</p><div id="error_div3"><p style="color:green">* The new experiment name must be different. Enter suffix to be appended to the original experiment name(s)</p></div><hr/>'
 			columns = [];
 			tableHTML = tableHTML + "<table id='infoclone' class='table table-striped table-hover'><tbody>";
 			cloneData = data.data['info'];
@@ -442,7 +450,7 @@ require_once("inc/init.php");
 				if (i == 'Columns') {
 					sect = 'columns';
 					tableHTML = tableHTML + "</tbody></table>";
-					columnsTableHTML = '<h2>Columns</h2><div id="error_div4"><p style="color:red">* Only matching columns (by name and type) across all experiment(s) are displayed for editing</p></div><hr/>';
+					columnsTableHTML = '<h2>Columns</h2><div id="error_div4"><p style="color:green">* Only matching columns (by name and type) across all experiment(s) are displayed for editing</p></div><hr/>';
 					columnsTableHTML = columnsTableHTML + "<table id='formatclone' class='table table-striped table-hover'><tbody>";
 					var k = 1;
 					calccoln = [];
@@ -463,7 +471,7 @@ require_once("inc/init.php");
 				else if (i == 'Extra Metadata') {
 					sect = 'extra_metadata';
 					//columnsTableHTML = columnsTableHTML + "</tbody></table>";
-					metadataHTML = '<h2>Extra Metadata</h2><div id="error_div5"><p style="color:red">* Only matching metadata names across all experiment(s) are displayed for editing</p></div><hr/>';
+					metadataHTML = '<h2>Extra Metadata</h2><div id="error_div5"><p style="color:green">* Only matching metadata names across all experiment(s) are displayed for editing</p></div><hr/>';
 					metadataHTML = metadataHTML + "<table id='metaclone' class='table table-striped table-hover'><tbody>";
 					var key, value;
 					var j = 1;
@@ -483,6 +491,7 @@ require_once("inc/init.php");
 				}
 			});
 
+			cloneData['experiment'] = "";
 			cloneData['Columns'] = colTemp;
 			
 			// perform only in single cloning, batch cloning does not pad sample id with biosource name
@@ -492,9 +501,6 @@ require_once("inc/init.php");
 			
 			$( "#tempSearchResult" ).append(tableHTML + columnsTableHTML + metadataHTML);
 
-			// show tooltip over the samples input field to indicate that the experiment name should be changed
-			$('#experiment').tooltip({'trigger':'focus', 'title': 'Experiment name would be appended with "_clone" if unchanged'});
-					
 			$("#clone_display").show();
 			$("#widget-grid").hide();
 			
@@ -551,6 +557,16 @@ require_once("inc/init.php");
 
 			// Clone experiment
 			$('#cloneExperimentButton').unbind('click').bind('click', function (e) {
+
+				if (cloneData['experiment'] == "") {
+					$('#experiment').closest(".search-modal-name").addClass('has-error');
+					$('#experiment').focus();
+					return;
+				}
+				else {
+					$('#experiment').closest(".search-modal-name").removeClass('has-error');
+				}
+
 				var list_in_use = JSON.parse(localStorage.getItem("list_in_use"));
 				var tempMeta = {};
 				for (j = 1; j < newMeta; j++) {
@@ -650,7 +666,8 @@ require_once("inc/init.php");
 			select: function( event, ui ) {
 				$(current).closest(".search-modal-name").removeClass('has-error');
 				coln = (current.id).split("xyz123abc")[0];
-				cloneData['Columns'][coln] = ui.item.value;
+				cloneData['Columns'][coln] = ui.item.label.split(" (")[0];
+				$("#" + current.name).text(cloneData['Columns'][coln] + " (calculated)");
 			},
 			change: function( event, ui ) {
 				if (ui.item == null) {
@@ -700,8 +717,8 @@ require_once("inc/init.php");
 		var html;
 		switch (section) {
 			case 'calculated_columns':
-				html = "<tr id='calc_" + counter + "'><td class='search-modal-table'>" + i + " (" + item + ")</td>";
-				html = html + "<td class='search-modal-name'><input type='input' class='form-control' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "'></td>" + 
+				html = "<tr id='calc_" + counter + "'><td id='calc_name_" + counter + "' class='search-modal-table'>" + i + " (" + item + ")</td>";
+				html = html + "<td class='search-modal-name'><input type='input' class='form-control' name='calc_name_" + counter + "' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "'></td>" + 
 				"<td><button id='delc_" + counter + "' type='button' class='close' aria-hidden='true' onclick='removeCalculatedColumn()'>&times;</button></td></tr>";
 				break
 			case 'columns':
