@@ -902,7 +902,9 @@ require_once("inc/init.php");
 
 			// temp: use only the first experiment
 			getId = selectedElements;
-			batch = true;
+			if (selectedElements.length > 1) {
+				batch = true;
+			}
 			clone = true;
 			search_function();
 			$('#myModal').modal('toggle');
