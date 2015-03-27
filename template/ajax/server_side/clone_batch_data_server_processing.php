@@ -54,8 +54,11 @@ for ($i = 0; $i < count($ids); $i++) {
 	$experiment = $infoList[0][1][0];
 	
 	// update the experiment name
-	$name = $experiment['name'].'_'.$data['experiment'];
-	
+	if (count($ids) >  1)
+		$name = $experiment['name'].'_'.$data['experiment'];
+	else 
+		$name = $data['experiment'];
+
 	// update the experiment epigenetic_mark	
 	if ($data["epigenetic_mark"] == "(Multiple Values)")
 		$epigenetic_mark = $experiment['epigenetic_mark'];
