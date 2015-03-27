@@ -133,6 +133,9 @@ require_once("inc/init.php");
 	        "sAjaxSource": "api/datatable",
 	        "fnServerParams": function ( aoData ) {
       			aoData.push( { "name": "collection", "value": "epigenetic_marks" } );
+      			aoData.push( { "name": "col_0", "value": "_id"} );
+      			aoData.push( { "name": "col_1", "value": "name"} );
+      			aoData.push( { "name": "col_2", "value": "description"} );
     			},
 	        //"sServerMethod": "POST",
 	        "iDisplayLength": 50,
