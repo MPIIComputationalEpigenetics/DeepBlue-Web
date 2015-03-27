@@ -135,19 +135,82 @@ require_once("inc/init.php");
 </section>
 <!-- end widget grid -->
 
-<div id="clone_display" class="tab-content bg-color-white padding-10" style="display: none">
+<!-- <div id="clone_display" class="tab-content bg-color-white padding-10" style="display: none">
 	<div class="tab-pane fade in active" id="s1">
-		<div id="tempSearchResult"></div>
-		<div id="cloneButtonGroup" class="modal-footer" >
-			<button type="button" id="closeExperimentButton" class="btn btn-default">
-				Close
-			</button>
-			<button type="button" id="cloneExperimentButton" class="btn btn-primary download-btn-size">
-				Clone
-			</button>
-		</div>
+ -->		
+<section id="clone_display" style="display:none;">
+	<!-- row -->
+	<div class="row">
+
+		<!-- NEW WIDGET START -->
+		<article class="col-sm-12 col-md-12 col-lg-12">
+
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget jarviswidget-color-blue" id="tree-biosources" data-widget-editbutton="true">
+
+				<header>
+					<span class="widget-icon"> <i class="fa fa-recycle"></i> </span>
+					<h2>Clone Experiments</h2>
+				</header>
+
+				<!-- widget div-->
+				<div>
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+					</div>
+					<!-- end widget edit box -->
+
+					<!-- widget content -->
+					<div class="widget-body">
+					 	<div class="row">
+							<div class="col-md-12 col-md-offset-0">
+								<div id="infoDesc" class="alert alert-info alert-block">
+									<a class="close" data-dismiss="alert" href="#">×</a>
+									<h4 class="alert-heading">Info</h4>									
+								</div>
+								<div id="infoResult"></div>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-md-12 col-md-offset-0">
+								<div id="columnDesc" class="alert alert-info alert-block">
+									<a class="close" data-dismiss="alert" href="#">×</a>
+									<h4 class="alert-heading">Format</h4>
+								</div>
+								<div id="columnResult"></div>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-md-12 col-md-offset-0">
+								<div id="metadataDesc" class="alert alert-info alert-block">
+									<a class="close" data-dismiss="alert" href="#">×</a>
+									<h4 class="alert-heading">Metadata</h4>
+								</div>
+								<div id="metadataResult"></div>
+							</div>
+						</div>	
+						<div id="cloneButtonGroup" class="modal-footer" >
+							<button type="button" id="closeExperimentButton" class="btn btn-default">
+								Close
+							</button>
+							<button type="button" id="cloneExperimentButton" class="btn btn-primary download-btn-size">
+								Clone
+							</button>
+						</div>
+					</div>
+					<!-- end widget content -->
+				</div>
+				<!-- end widget div -->
+			</div>
+			<!-- end widget -->
+		</article>
+		<!-- WIDGET END -->
 	</div>
-</div>
+	<!-- end row -->
+</section>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modelSearchExperimentInfo" aria-hidden="true">
@@ -163,13 +226,11 @@ require_once("inc/init.php");
 				<div id='modal_for_experiment' style="display:none;">
 					<!-- row -->
 					<div class="row">
-				
 						<!-- NEW WIDGET START -->
 						<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<?php echo $deepBlueObj->experimentDataTableTemplate('clone'); ?>
 						</article>
 						<!-- WIDGET END -->
-				
 					</div>
 				</div>
 			</div><!-- /.modal-body -->
@@ -440,18 +501,14 @@ require_once("inc/init.php");
 		});
 
 		cloneInfoRequest.done( function(data) {
-			$( "#tempSearchResult" ).empty();
-			var tableHTML = '<h2>Experiment Info</h2><p> The following experiments will be cloned: ' + data.data['names'] + '</p><div id="error_div3"><p style="color:green">* The new experiment name must be different. Enter suffix to be appended to the original experiment name(s)</p></div><hr/>'
 			columns = [];
-			tableHTML = tableHTML + "<table id='infoclone' class='table table-striped table-hover'><tbody>";
+			infoResult = "<table id='infoclone' class='table table-striped table-hover'><tbody>";
 			cloneData = data.data['info'];
 			var colTemp = {};
 			$.each(data.data['info'], function(i, item) {
 				if (i == 'Columns') {
 					sect = 'columns';
-					tableHTML = tableHTML + "</tbody></table>";
-					columnsTableHTML = '<h2>Columns</h2><div id="error_div4"><p style="color:green">* Only matching columns (by name and type) across all experiment(s) are displayed for editing</p></div><hr/>';
-					columnsTableHTML = columnsTableHTML + "<table id='formatclone' class='table table-striped table-hover'><tbody>";
+					columnResult = "<table id='formatclone' class='table table-striped table-hover'><tbody>";
 					var k = 1;
 					calccoln = [];
 					for (j in item) {
@@ -459,48 +516,58 @@ require_once("inc/init.php");
 						columns[j] = item[j]['name'] + 'xyz123abc' + item[j]['column_type'];
 						if (item[j]['column_type'] == 'code' || item[j]['column_type'] == 'calculated') {
 							calccoln[k] = item[j]['name']; 
-							columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], 'calculated_columns', k);
+							columnResult = columnResult + buildHTML(item[j]['name'], item[j]['column_type'], 'calculated_columns', k);
 							k = k + 1;
 						}
 						else {
-							columnsTableHTML = columnsTableHTML + buildHTML(item[j]['name'], item[j]['column_type'], sect, 0);
+							columnResult = columnResult + buildHTML(item[j]['name'], item[j]['column_type'], sect, 0);
 						}
 					}
-					columnsTableHTML = columnsTableHTML + "</tbody></table>" + "<button type='button' id='addcolbutton' class='btn btn-success' onclick='addColumn()'>Add Calculated Column</button><br/><br/><br/>"
+					columnResult = columnResult + "</tbody></table>" + "<button type='button' id='addcolbutton' class='btn btn-success' onclick='addColumn()'>Add Calculated Column</button><br/><br/><br/>";
+					$("#columnResult").append(columnResult);
+					$("#columnDesc").append("<p>Please edit the experiments columns to be updated in the new experiment</p>");
 				}
 				else if (i == 'Extra Metadata') {
 					sect = 'extra_metadata';
-					//columnsTableHTML = columnsTableHTML + "</tbody></table>";
-					metadataHTML = '<h2>Extra Metadata</h2><div id="error_div5"><p style="color:green">* Only matching metadata names across all experiment(s) are displayed for editing</p></div><hr/>';
-					metadataHTML = metadataHTML + "<table id='metaclone' class='table table-striped table-hover'><tbody>";
+					metadataResult = "<table id='metaclone' class='table table-striped table-hover'><tbody>";
 					var key, value;
 					var j = 1;
 					for (key in item) {
-						metadataHTML = metadataHTML + buildHTML(key, item[key], sect, j);
+						metadataResult = metadataResult + buildHTML(key, item[key], sect, j);
 						clonemetakey[j] = key;
 						clonemetadata[j] = item[key];
 						j = j + 1;
 					}
 					// one more time
 					newMeta = j;
-					metadataHTML = metadataHTML + "</tbody></table>" + "<button type='button' id='addmetabutton' class='btn btn-success' onclick='addMetadata()'>Add Metadata</button><br/><br/><br/>"					
+					metadataResult = metadataResult + "</tbody></table>" + "<button type='button' id='addmetabutton' class='btn btn-success' onclick='addMetadata()'>Add Metadata</button><br/><br/><br/>";
+					$("#metadataResult").append(metadataResult);
+					$("#metadataDesc").append("<p>Please edit the experiments metadata to be updated in the new experiment</p>");
 				}
 				else {
 					sect = 'info';
-					tableHTML = tableHTML + buildHTML(i, item, sect, 0);
+					infoResult = infoResult + buildHTML(i, item, sect, 0);
 				}
 			});
+			$( "#infoResult" ).append(infoResult);
+			$("#infoDesc").append("<p>Experiment(s): " + data.data['names'] + "</p>");
+
 
 			cloneData['experiment'] = "";
 			cloneData['Columns'] = colTemp;
 			
 			// perform only in single cloning, batch cloning does not pad sample id with biosource name
 			if (!batch) {
-				cloneData['sample'] = cloneData['sample'].split(' ')[0];
+				cloneData['sample'] = cloneData['sample'].split(' ')[0];				
+			}
+			else {
+				$("#infoDesc").append("<p>Multiple experiments selected for cloning. For experiment name, enter suffix to be appended to original experiment name</p>");
+				$("#columnDesc").append("<p>Multiple experiments selected for cloning. Only matching columns (by name and type) across all experiment(s) are displayed for editing</p>");
+
+				$("#metadataDesc").append("<p>Multiple experiments selected for cloning. Only matching metadata names across all experiment(s) are displayed for editing</p>");
+
 			}
 			
-			$( "#tempSearchResult" ).append(tableHTML + columnsTableHTML + metadataHTML);
-
 			$("#clone_display").show();
 			$("#widget-grid").hide();
 			
@@ -591,7 +658,9 @@ require_once("inc/init.php");
 					for (l = 0; l < data.length; l++) {
 						if (data[l][0] == 'okay') {
 							report = report + "Experiment " + getId[l] + " cloning Successful: " + data[l][1] + "\n";
-							$( "#tempSearchResult" ).empty();
+							//$( "#tempSearchResult" ).empty();
+							$("#infoResult").empty(); $("#columnResult").empty(); $("#metadataResult" ).empty();
+							infoResult = ""; columnResult = ""; metadataResult = "";
 							$("#clone_display").hide();
 							$("#widget-grid").show();							
 						}
@@ -619,7 +688,8 @@ require_once("inc/init.php");
 		});
 
 		$('#closeExperimentButton').unbind('click').bind('click', function (e) {
-			$( "#tempSearchResult" ).empty();
+			$("#infoResult").empty(); $("#columnResult").empty(); $("#metadataResult" ).empty();
+			infoResult = ""; columnResult = ""; metadataResult = "";
 			$("#clone_display").hide();
 			$("#widget-grid").show();		
 		});			
@@ -680,6 +750,13 @@ require_once("inc/init.php");
 		$("#" + colId).focus(function() {
 			current = this;
 		});
+
+		$("#" + colId).keydown(function(event) {
+			event.preventDefault();
+			if(event.keyCode == 8){
+				$("#" + colId).val('');
+			}        	
+    	});
 	}
 	
 	/* add metadata */
@@ -718,7 +795,7 @@ require_once("inc/init.php");
 		switch (section) {
 			case 'calculated_columns':
 				html = "<tr id='calc_" + counter + "'><td id='calc_name_" + counter + "' class='search-modal-table'>" + i + " (" + item + ")</td>";
-				html = html + "<td class='search-modal-name'><input type='input' class='form-control' name='calc_name_" + counter + "' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "'></td>" + 
+				html = html + "<td class='search-modal-name'><input type='text' class='form-control' name='calc_name_" + counter + "' id='" + i + "xyz123abc" + item + "' placeholder='" + i + "'></td>" + 
 				"<td><button id='delc_" + counter + "' type='button' class='close' aria-hidden='true' onclick='removeCalculatedColumn()'>&times;</button></td></tr>";
 				break
 			case 'columns':

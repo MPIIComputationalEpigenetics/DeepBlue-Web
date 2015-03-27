@@ -16,9 +16,9 @@ if ($email == "deepblue@mpi-inf.mpg.de" && $password == "mpi123") {
 	$_SESSION['user_name'] = "User Name";
 	$_SESSION['user_key'] = '1234';
 	$_SESSION['time'] = time();
-	header("Location: " . $APP_URL. "/dashboard.php");
+	header("Location:  ../dashboard.php");
 	die();
 } else {
-	header("Location: " . $APP_URL. "/index.php");
+	header("Location: ../index.php");
 }
 ?>

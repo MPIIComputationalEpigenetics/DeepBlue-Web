@@ -1,1 +1,5 @@
 template/.metadata/*.*
+template/ajax/server_side/old/*.*
+template/ajax/old/*.*
+template/php/deepblue-checkuser.php
+template/php/deepblue-checkuser.php
