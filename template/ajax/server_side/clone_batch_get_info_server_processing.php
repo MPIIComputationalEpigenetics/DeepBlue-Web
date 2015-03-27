@@ -107,7 +107,7 @@ for ($i = 0; $i < count($getIds); $i++) {
 		$info['project'] = '(Multiple Values)';
 	
 	if ($i > 0) {
-		$info['experiment'] = '(Multiple Values)';
+		$info['experiment'] = 'Enter Suffix';
 		$info['description'] = '(Multiple Values)';
 
 		$info['Extra Metadata'] = array_intersect_key($info['Extra Metadata'], $experiment['extra_metadata']);

@@ -194,7 +194,7 @@ require_once("inc/init.php");
 						</div>	
 						<div id="cloneButtonGroup" class="modal-footer" >
 							<button type="button" id="closeExperimentButton" class="btn btn-default">
-								Close
+								Back to Selection
 							</button>
 							<button type="button" id="cloneExperimentButton" class="btn btn-primary download-btn-size">
 								Clone
