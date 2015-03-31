@@ -397,7 +397,7 @@
 
 		var type = vocab;
 		var text = label;
-		
+
 		// there was a special case to handle SAMPLES
 
 		/* Hide and show experiment metadata */
@@ -548,6 +548,8 @@
 	var pagefunction = function() {
 		
 		var list = [];
+		var list2 = [];
+		var page = [];
 		var total_sum = [];
 		var vocab;
 		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
@@ -563,25 +565,40 @@
 		for (i in vocabulary) {
 			vocab = vocabulary[i];
 			list[vocab] = []; // index for each controlled vocabulary
+			page[vocab] = []; // index for each page or view
 			total_sum[vocab] = 0; // total experiments in each vocabulary - would be the same value
 			othersvalue = 0;
 			
 			var currentvocab = list_in_use[vocab]
-			var count = 0;
-			var exc = 0;
+			var ct = 0;
+			var pg = 0;
+
 			for (j in currentvocab) {
-				if (currentvocab[j][2] > 20) {
-					list[vocab][count] = {'label' : currentvocab[j][1], 'value' : currentvocab[j][2]};
-					count = count + 1;
+				// shorten the label 
+				if (currentvocab[j][1].length > 15) {
+					currentvocab[j][1] = currentvocab[j][1].substr(0, 15);
 				}
-				else {
-					exc = exc + 1;
-					othersvalue = othersvalue + currentvocab[j][2];
+
+				// divide into pages of size 20
+				list[vocab][ct] = {'label' : currentvocab[j][1], 'value' : currentvocab[j][2]};
+				ct = ct + 1;
+
+				if (ct ==  20) {
+					list[vocab][ct] = {'label' : 'Next Page:', 'value' : (pg + 1)};
 				}
-				var otherslabel = exc + " others with count < 20";
-				if (othersvalue > 0) {
-					list[vocab][count] = {'label' : otherslabel, 'value' : othersvalue};
+				page[vocab][pg] = list[vocab];
+				
+				if (ct ==  20) {
+					list[vocab] = [];
+					ct = 0;
+					pg = pg + 1;	
+					if (pg > 0) {
+						list[vocab][ct] = {'label' : 'Prev Page:', 'value' : (pg - 1)};
+						ct = ct + 1;
+					}
 				}
+
+				//list[vocab][ct] = {'label' : otherslabel, 'value' : othersvalue};
 				total_sum[vocab] = total_sum[vocab] + currentvocab[j][2];
 			}
 		}
@@ -608,7 +625,7 @@
 				  data: list['techniques'],
 				  xkey: 'label',
 				  ykeys: ['value'],
-				  labels: "Count",
+				  labels: ['No'],
 				  resize: true
 			}).on('click', function(i, row){
 				lauchModalView(row['label'], 'technique')
@@ -617,45 +634,63 @@
 		/* end techniques pie chart */
 
 		if ($("#epigenetic_marks-chart").length) {
-			Morris.Bar({
+			var ebar = Morris.Bar({
 				  element: 'epigenetic_marks-chart',
-				  data: list['epigenetic_marks'],
+				  data: page['epigenetic_marks'][0],
 				  xkey: 'label',
 				  ykeys: ['value'],
-				  labels: "Count",
-				  xLabelAngle: 90,
+				  labels: ['No'],
+				  xLabelAngle: 270,
 				  resize: true
-				}).on('click', function(i, row){
-					lauchModalView(row['label'], 'epigenetic_mark')
-				});
+			});
+			ebar.on('click', function(i, row){
+				if ((row['label'] == 'Next Page:') || (row['label'] == 'Prev Page:')) {
+					ebar.setData(page['epigenetic_marks'][row['value']]);
+				}
+				else{
+					lauchModalView(row['label'], 'epigenetic_mark')	
+				}
+			});
 		}
 		/* end epigenetic marks bar chart */
 
 		/* biosources bar chart */
 		if ($("#biosources-chart").length) {
-			Morris.Bar({
+			var bbar = Morris.Bar({
 				  element: 'biosources-chart',
-				  data: list['biosources'],
+				  data: page['biosources'][0],
 				  xkey: 'label',
 				  ykeys: ['value'],
-				  labels: "Count",
-				  xLabelAngle: 90,
+				  labels: ['No'],
+				  xLabelAngle: 270,
 				  resize: true
-			}).on('click', function(i, row){
-				lauchModalView(row['label'], 'biosource')
+				});
+			bbar.on('click', function(i, row){
+				if ((row['label'] == 'Next Page:') || (row['label'] == 'Prev Page:')) {
+					bbar.setData(page['biosources'][row['value']]);
+				}
+				else{
+					lauchModalView(row['label'], 'biosource')	
+				}
 			});			
 		}
 		/* end biosources bar chart */
 		
 		/* genomes donut chart */
 		if ($("#genomes-chart").length) {
-			Morris.Donut({
+			var gbar = Morris.Donut({
 				  element: 'genomes-chart',
-				  data:  list['genomes'],
+				  data:  page['genomes'][0],
 				  formatter: function (x) { return x},
 				  resize: true
-			}).on('click', function(i, row){
-				lauchModalView(row['label'], 'genome')
+			});
+			gbar.on('click', function(i, row){
+				if ((row['label'] == 'Next Page:') || (row['label'] == 'Prev Page:')) {
+					gbar.setData(page['genome'][row['value']]);
+				}
+				else{
+					lauchModalView(row['label'], 'genome')	
+				}
 			});
 					
 		}
