@@ -204,6 +204,14 @@
 					
 				</div>
 				<!-- end widget div -->
+				<footer>
+					<button type="button" id="tech_prev_page" class="btn btn-primary" style="float:left" disabled>
+						Previous Page
+					</button>
+					<button type="button" id="tech_next_page" class="btn btn-primary" style="float:right">
+						Next Page
+					</button>
+				</footer>
 				
 			</div>
 			<!-- end widget -->
@@ -260,6 +268,14 @@
 					
 				</div>
 				<!-- end widget div -->
+				<footer>
+					<button type="button" id="epi_prev_page" class="btn btn-primary" style="float:left"  disabled>
+						Previous Page
+					</button>
+					<button type="button" id="epi_next_page" class="btn btn-primary" style="float:right">
+						Next Page
+					</button>
+				</footer>
 				
 			</div>
 			<!-- end widget -->
@@ -313,6 +329,14 @@
 					<!-- end widget content -->
 					
 				</div>
+				<footer>
+					<button type="button" id="bio_prev_page" class="btn btn-primary" style="float:left" disabled>
+						Previous Page
+					</button>
+					<button type="button" id="bio_next_page" class="btn btn-primary" style="float:right">
+						Next Page
+					</button>
+				</footer>
 				<!-- end widget div -->
 				
 			</div>
@@ -388,7 +412,111 @@
 	pageSetUp();
 	
 	// MODAL VIEW
-    
+	
+	// global variable
+	var curPageHolder = ['technique','biosource','epigenetic_mark'];
+	curPageHolder['biosource'] = 0;
+	curPageHolder['epigenetic_mark'] = 0;
+	curPageHolder['technique'] = 0;
+	var ebar; var bbar; var gbar; var tbar;
+	var page = [];
+	var counter = 0;
+
+	//
+
+	// bind functions to command buttons
+	$("#tech_next_page, #bio_next_page, #epi_next_page, #tech_prev_page, #bio_prev_page, #epi_prev_page").button().click(function(event){
+		// switch case based on id
+		switch (event.target.id) {
+			case 'tech_next_page':
+				counter = curPageHolder['technique'];
+				if (counter == 0) {
+					$("#tech_prev_page").prop('disabled', false);
+				}
+				if (counter < page['techniques'].length - 1) {
+					curPageHolder['technique'] = curPageHolder['technique'] + 1;
+					counter = curPageHolder['technique'];
+					tbar.setData(page['techniques'][counter]);
+				}
+				if (counter == page['techniques'].length -1) {
+					$("#tech_next_page").prop('disabled', true);
+				}
+				break;
+			case 'tech_prev_page':
+				counter = curPageHolder['technique'];
+				if (counter == page['technique'].length - 1) {
+					$("#tech_next_page").prop('disabled', false);
+				}
+				if (counter > 0) {
+					curPageHolder['technique'] = curPageHolder['technique'] - 1;
+					counter = curPageHolder['technique'];
+					tbar.setData(page['techniques'][counter]);
+				}
+				if (counter == 0) {
+					$("#tech_prev_page").prop('disabled', true);
+				}
+				break;
+			case 'bio_next_page':
+				counter = curPageHolder['biosource'];
+				if (counter == 0) {
+					$("#bio_prev_page").prop('disabled', false);
+				}
+				if (counter < page['biosources'].length - 1) {
+					curPageHolder['biosource'] = curPageHolder['biosource'] + 1;
+					counter = curPageHolder['biosource'];
+					bbar.setData(page['biosources'][counter]);
+				}
+				if (counter == page['biosources'].length -1) {
+					$("#bio_next_page").prop('disabled', true);
+				}
+				break;
+			case 'bio_prev_page':
+				counter = curPageHolder['biosource'];
+				if (counter == page['biosources'].length - 1) {
+					$("#bio_next_page").prop('disabled', false);
+				}
+				if (counter > 0) {
+					curPageHolder['biosource'] = curPageHolder['biosource'] - 1;
+					counter = curPageHolder['biosource'];
+					bbar.setData(page['biosources'][counter]);
+				}
+				if (counter == 0) {
+					$("#bio_prev_page").prop('disabled', true);
+				}
+				break;
+			case 'epi_next_page':
+				counter = curPageHolder['epigenetic_mark'];
+				if (counter == 0) {
+					$("#epi_prev_page").prop('disabled', false);
+				}
+				if (counter < page['epigenetic_marks'].length - 1) {
+					curPageHolder['epigenetic_mark'] = curPageHolder['epigenetic_mark'] + 1;
+					counter = curPageHolder['epigenetic_mark'];
+					ebar.setData(page['epigenetic_marks'][counter]);
+				}
+				if (counter == page['epigenetic_marks'].length -1) {
+					$("#epi_next_page").prop('disabled', true);
+				}
+				break;
+			case 'epi_prev_page':
+				counter = curPageHolder['epigenetic_mark'];
+				if (counter == page['epigenetic_marks'].length - 1) {
+					$("#epi_next_page").prop('disabled', false);
+				}
+				if (counter > 0) {
+					curPageHolder['epigenetic_mark'] = curPageHolder['epigenetic_mark'] - 1;
+					counter = curPageHolder['epigenetic_mark'];
+					ebar.setData(page['epigenetic_marks'][counter]);
+				}
+				if (counter == 0) {
+					$("#epi_prev_page").prop('disabled', true);
+				}
+				break;
+		}
+			// increment the page counter
+			// bbar.setData(page['biosources'][counter]);
+	});
+
     function lauchModalView(label, vocab) {
 
 		$('.modal-content').removeClass( "modalViewSingleInfo" );
@@ -546,10 +674,8 @@
 		
 	// PAGE RELATED SCRIPTS
 	var pagefunction = function() {
-		
+
 		var list = [];
-		var list2 = [];
-		var page = [];
 		var total_sum = [];
 		var vocab;
 		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
@@ -582,26 +708,23 @@
 				// divide into pages of size 20
 				list[vocab][ct] = {'label' : currentvocab[j][1], 'value' : currentvocab[j][2]};
 				ct = ct + 1;
-
-				if (ct ==  20) {
-					list[vocab][ct] = {'label' : 'Next Page:', 'value' : (pg + 1)};
-				}
 				page[vocab][pg] = list[vocab];
-				
+
 				if (ct ==  20) {
 					list[vocab] = [];
 					ct = 0;
 					pg = pg + 1;	
-					if (pg > 0) {
-						list[vocab][ct] = {'label' : 'Prev Page:', 'value' : (pg - 1)};
-						ct = ct + 1;
-					}
 				}
 
 				//list[vocab][ct] = {'label' : otherslabel, 'value' : othersvalue};
 				total_sum[vocab] = total_sum[vocab] + currentvocab[j][2];
 			}
 		}
+
+		if (page['techniques'].length == 1) $("#tech_next_page").prop('disabled', true);
+		if (page['epigenetic_marks'].length == 1) $("#epi_next_page").prop('disabled', true);
+		if (page['biosources'].length == 1) $("#bio_next_page").prop('disabled', true);
+
 		/* total experiment sum */
 		$("#total_sum").text(total_sum['projects']);
 		
@@ -620,21 +743,22 @@
 
 		/* techniques bar chart */
 		if ($('#techniques-chart').length) {
-			Morris.Bar({
+			tbar = Morris.Bar({
 				  element: 'techniques-chart',
-				  data: list['techniques'],
+				  data: page['techniques'][0],
 				  xkey: 'label',
 				  ykeys: ['value'],
 				  labels: ['No'],
 				  resize: true
-			}).on('click', function(i, row){
+			})
+			tbar.on('click', function(i, row){
 				lauchModalView(row['label'], 'technique')
-			});			
+			});		
 		}
 		/* end techniques pie chart */
 
 		if ($("#epigenetic_marks-chart").length) {
-			var ebar = Morris.Bar({
+			ebar = Morris.Bar({
 				  element: 'epigenetic_marks-chart',
 				  data: page['epigenetic_marks'][0],
 				  xkey: 'label',
@@ -643,20 +767,16 @@
 				  xLabelAngle: 270,
 				  resize: true
 			});
+			
 			ebar.on('click', function(i, row){
-				if ((row['label'] == 'Next Page:') || (row['label'] == 'Prev Page:')) {
-					ebar.setData(page['epigenetic_marks'][row['value']]);
-				}
-				else{
-					lauchModalView(row['label'], 'epigenetic_mark')	
-				}
+				lauchModalView(row['label'], 'epigenetic_mark')	
 			});
 		}
 		/* end epigenetic marks bar chart */
 
 		/* biosources bar chart */
 		if ($("#biosources-chart").length) {
-			var bbar = Morris.Bar({
+			bbar = Morris.Bar({
 				  element: 'biosources-chart',
 				  data: page['biosources'][0],
 				  xkey: 'label',
@@ -664,35 +784,24 @@
 				  labels: ['No'],
 				  xLabelAngle: 270,
 				  resize: true
-				});
+			});
+			
 			bbar.on('click', function(i, row){
-				if ((row['label'] == 'Next Page:') || (row['label'] == 'Prev Page:')) {
-					bbar.setData(page['biosources'][row['value']]);
-				}
-				else{
-					lauchModalView(row['label'], 'biosource')	
-				}
+				lauchModalView(row['label'], 'biosource')
 			});			
 		}
 		/* end biosources bar chart */
 		
 		/* genomes donut chart */
 		if ($("#genomes-chart").length) {
-			var gbar = Morris.Donut({
+			Morris.Donut({
 				  element: 'genomes-chart',
-				  data:  page['genomes'][0],
+				  data:  list['genomes'],
 				  formatter: function (x) { return x},
 				  resize: true
+			}).on('click', function(i, row){
+				lauchModalView(row['label'], 'genome')
 			});
-			gbar.on('click', function(i, row){
-				if ((row['label'] == 'Next Page:') || (row['label'] == 'Prev Page:')) {
-					gbar.setData(page['genome'][row['value']]);
-				}
-				else{
-					lauchModalView(row['label'], 'genome')	
-				}
-			});
-					
 		}
 		
 		/* end genomes bar chart */		
