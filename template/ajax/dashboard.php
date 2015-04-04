@@ -710,7 +710,7 @@
 				ct = ct + 1;
 				page[vocab][pg] = list[vocab];
 
-				if (ct ==  20) {
+				if (ct ==  30) {
 					list[vocab] = [];
 					ct = 0;
 					pg = pg + 1;	
