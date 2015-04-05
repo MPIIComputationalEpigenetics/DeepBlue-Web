@@ -195,24 +195,24 @@
 					<!-- end widget edit box -->
 					
 					<!-- widget content -->
-					<div class="widget-body no-padding">
+					<div class="col-sm-2" style="text-align:center;">
+						<button type="button" id="tech_prev_page" class="btn btn-primary" disabled>
+							Previous Page
+						</button>
+					</div>
+					<div class="widget-body no-padding col-sm-8">
 						
 						<div id="techniques-chart" class="chart"></div>
 						
 					</div>
 					<!-- end widget content -->
-					
+					<div class="col-sm-2" style="text-align:center;">
+						<button type="button" id="tech_next_page" class="btn btn-primary">
+							Next Page
+						</button>
+					</div>
 				</div>
 				<!-- end widget div -->
-				<footer>
-					<button type="button" id="tech_prev_page" class="btn btn-primary" style="float:left" disabled>
-						Previous Page
-					</button>
-					<button type="button" id="tech_next_page" class="btn btn-primary" style="float:right">
-						Next Page
-					</button>
-				</footer>
-				
 			</div>
 			<!-- end widget -->
 		</article>
@@ -257,26 +257,25 @@
 						
 					</div>
 					<!-- end widget edit box -->
-					
+					<div class="col-sm-2" style="text-align:center;">
+						<button type="button" id="epi_prev_page" class="btn btn-primary"  disabled>
+							Previous Page
+						</button>
+					</div>
 					<!-- widget content -->
-					<div class="widget-body no-padding">
+					<div class="widget-body no-padding col-sm-8">
 						
 						<div id="epigenetic_marks-chart" class="chart"></div>
 						
 					</div>
 					<!-- end widget content -->
-					
+					<div class="col-sm-2" style="text-align:center;">		
+						<button type="button" id="epi_next_page" class="btn btn-primary">
+							Next Page
+						</button>
+					</div>
 				</div>
 				<!-- end widget div -->
-				<footer>
-					<button type="button" id="epi_prev_page" class="btn btn-primary" style="float:left"  disabled>
-						Previous Page
-					</button>
-					<button type="button" id="epi_next_page" class="btn btn-primary" style="float:right">
-						Next Page
-					</button>
-				</footer>
-				
 			</div>
 			<!-- end widget -->
 		</article>
@@ -319,24 +318,24 @@
 						
 					</div>
 					<!-- end widget edit box -->
-					
+					<div class="col-sm-2" style="text-align:center;">		
+						<button type="button" id="bio_prev_page" class="btn btn-primary"disabled>
+							Previous Page
+						</button>
+					</div>
 					<!-- widget content -->
-					<div class="widget-body no-padding">
+					<div class="widget-body no-padding col-sm-8">
 						
 						<div id="biosources-chart" class="chart"></div>
 						
 					</div>
 					<!-- end widget content -->
-					
+					<div class="col-sm-2" style="text-align:center;">		
+						<button type="button" id="bio_next_page" class="btn btn-primary">
+							Next Page
+						</button>
+					</div>					
 				</div>
-				<footer>
-					<button type="button" id="bio_prev_page" class="btn btn-primary" style="float:left" disabled>
-						Previous Page
-					</button>
-					<button type="button" id="bio_next_page" class="btn btn-primary" style="float:right">
-						Next Page
-					</button>
-				</footer>
 				<!-- end widget div -->
 				
 			</div>
@@ -748,7 +747,7 @@
 				  data: page['techniques'][0],
 				  xkey: 'label',
 				  ykeys: ['value'],
-				  labels: ['No'],
+				  labels: ['Count'],
 				  resize: true
 			})
 			tbar.on('click', function(i, row){
@@ -763,7 +762,7 @@
 				  data: page['epigenetic_marks'][0],
 				  xkey: 'label',
 				  ykeys: ['value'],
-				  labels: ['No'],
+				  labels: ['Count'],
 				  xLabelAngle: 270,
 				  resize: true
 			});
@@ -781,7 +780,7 @@
 				  data: page['biosources'][0],
 				  xkey: 'label',
 				  ykeys: ['value'],
-				  labels: ['No'],
+				  labels: ['Count'],
 				  xLabelAngle: 270,
 				  resize: true
 			});
