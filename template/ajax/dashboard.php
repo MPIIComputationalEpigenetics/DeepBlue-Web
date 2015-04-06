@@ -195,19 +195,19 @@
 					<!-- end widget edit box -->
 					
 					<!-- widget content -->
-					<div class="col-sm-2" style="text-align:center;">
+					<div class="col-sm-1 no-padding">
 						<button type="button" id="tech_prev_page" class="btn btn-primary" disabled>
 							Previous Page
 						</button>
 					</div>
-					<div class="widget-body no-padding col-sm-8">
+					<div class="widget-body col-sm-10">
 						
 						<div id="techniques-chart" class="chart"></div>
 						
 					</div>
 					<!-- end widget content -->
-					<div class="col-sm-2" style="text-align:center;">
-						<button type="button" id="tech_next_page" class="btn btn-primary">
+					<div class="col-sm-1 no-padding" style="float:right;" >
+						<button type="button" id="tech_next_page" class="btn btn-primary" style="float:right;">
 							Next Page
 						</button>
 					</div>
@@ -257,20 +257,20 @@
 						
 					</div>
 					<!-- end widget edit box -->
-					<div class="col-sm-2" style="text-align:center;">
+					<div class="col-sm-1 no-padding">
 						<button type="button" id="epi_prev_page" class="btn btn-primary"  disabled>
 							Previous Page
 						</button>
 					</div>
 					<!-- widget content -->
-					<div class="widget-body no-padding col-sm-8">
+					<div class="widget-body col-sm-10">
 						
 						<div id="epigenetic_marks-chart" class="chart"></div>
 						
 					</div>
 					<!-- end widget content -->
-					<div class="col-sm-2" style="text-align:center;">		
-						<button type="button" id="epi_next_page" class="btn btn-primary">
+					<div class="col-sm-1 no-padding" style="float:right;" >
+						<button type="button" id="epi_next_page" class="btn btn-primary" style="float:right;">
 							Next Page
 						</button>
 					</div>
@@ -310,7 +310,7 @@
 				</header>
 
 				<!-- widget div-->
-				<div>
+				<div >
 					
 					<!-- widget edit box -->
 					<div class="jarviswidget-editbox">
@@ -318,20 +318,20 @@
 						
 					</div>
 					<!-- end widget edit box -->
-					<div class="col-sm-2" style="text-align:center;">		
-						<button type="button" id="bio_prev_page" class="btn btn-primary"disabled>
+					<div class="col-sm-1 no-padding" >		
+						<button type="button" id="bio_prev_page" class="btn btn-primary" disabled>
 							Previous Page
 						</button>
 					</div>
 					<!-- widget content -->
-					<div class="widget-body no-padding col-sm-8">
+					<div class="widget-body col-sm-10">
 						
 						<div id="biosources-chart" class="chart"></div>
 						
 					</div>
 					<!-- end widget content -->
-					<div class="col-sm-2" style="text-align:center;">		
-						<button type="button" id="bio_next_page" class="btn btn-primary">
+					<div class="col-sm-1 no-padding" style="float:right;" >
+						<button type="button" id="bio_next_page" class="btn btn-primary" style="float:right;">
 							Next Page
 						</button>
 					</div>					
