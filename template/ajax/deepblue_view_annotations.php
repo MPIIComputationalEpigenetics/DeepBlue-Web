@@ -79,8 +79,17 @@ require_once("inc/init.php");
 
 		/* COLUMN FILTER  */
 	    var otable = $('#annotation_datatable_fixed_column').DataTable({
-
-	        "ajax": "ajax/server_side/annotations_server_processing.php",
+	    	"bServerSide": true,
+	        "sAjaxSource": "api/datatable",
+	        "fnServerParams": function ( aoData ) {
+      			aoData.push( { "name": "collection", "value": "annotations" } );
+      			aoData.push( { "name": "col_0", "value": "_id"} );
+      			aoData.push( { "name": "col_1", "value": "name"} );
+      			aoData.push( { "name": "col_2", "value": "genome"} );
+      			aoData.push( { "name": "col_3", "value": "description"} );
+      			aoData.push( { "name": "col_4", "value": "extra_metadata"} );
+    		},
+	        //"sServerMethod": "POST",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 			"preDrawCallback" : function() {

@@ -8,9 +8,8 @@
 *   Authors :
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
-*   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
 *
-*   Created : 21-08-2014
+*   Created : 07.04.2015
 *
 *   ================================================
 *
@@ -135,8 +134,15 @@ require_once("inc/init.php");
 
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
-
-	        "ajax": "ajax/server_side/samples_server_processing.php",
+	    	"bServerSide": true,
+	        "sAjaxSource": "api/datatable",
+	        "fnServerParams": function ( aoData ) {
+      			aoData.push( { "name": "collection", "value": "samples" } );
+      			aoData.push( { "name": "col_0", "value": "_id"} );
+      			aoData.push( { "name": "col_1", "value": "biosource_name"} );
+      			aoData.push( { "name": "col_2", "value": "extra_metadata"} );
+    		},
+	        //"sServerMethod": "POST",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 			"preDrawCallback" : function() {

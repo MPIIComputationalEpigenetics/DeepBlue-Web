@@ -99,11 +99,7 @@ $page_nav = array(
 			"column_types" => array(
 				"title" => "Column types",
 				"url" => "ajax/deepblue_view_column_types.php"
-			),
-			"epigenetic_marks_new" => array(
-				"title" => "New Epigenetic Marks",
-				"url" => "ajax/deepblue_view_epigenetic_marks_new.php"
-			),
+			)
 		)
 	),
 

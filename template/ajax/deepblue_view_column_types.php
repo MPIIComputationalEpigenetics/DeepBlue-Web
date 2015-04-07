@@ -142,8 +142,17 @@ require_once("inc/init.php");
 
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
-
-	        "ajax": "ajax/server_side/column_types_server_processing.php",
+	    	"bServerSide": true,
+	        "sAjaxSource": "api/datatable",
+	        "fnServerParams": function ( aoData ) {
+      			aoData.push( { "name": "collection", "value": "column_types" } );
+      			aoData.push( { "name": "col_0", "value": "_id"} );
+      			aoData.push( { "name": "col_1", "value": "name"} );
+      			aoData.push( { "name": "col_2", "value": "description"} );
+      			aoData.push( { "name": "col_3", "value": "column_type"} );
+      			aoData.push( { "name": "col_4", "value": "info"} );
+    		},
+	        //"sServerMethod": "POST",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
 			"preDrawCallback" : function() {
