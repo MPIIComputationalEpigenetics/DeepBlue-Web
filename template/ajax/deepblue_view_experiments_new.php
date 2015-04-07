@@ -133,12 +133,12 @@ require_once("inc/init.php");
 		$(document).on("click", '.exp-metadata-more-view', function () {
 			//var metadata = $(this).prev();
 			if(isShow == false){
-				$(this).prev().show(1000);
+				$(this).prev().show(10);
 				$(this).text("-- Hide --");
 				isShow = true;
 			}
 			else{
-				$(this).prev().hide(1000);
+				$(this).prev().hide(10);
 				$(this).text("-- View metadata --");
 				isShow = false;
 			}
