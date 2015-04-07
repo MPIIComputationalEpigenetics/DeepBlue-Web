@@ -36,20 +36,12 @@ require_once("inc/init.php");
 <!-- widget grid -->
 <section id="widget-grid" class="">
 
-	<!-- row -->
 	<div class="row">
-
-		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<?php echo $deepBlueObj->experimentDataTableTemplate('experiments_view'); ?>
 		</article>
-		<!-- WIDGET END -->
-
 	</div>
 
-	<!-- end row -->
-
-	<!-- end row -->
 </section>
 <!-- end widget grid -->
 
