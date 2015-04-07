@@ -2,18 +2,18 @@
 
 /**
 *   DeepBlue Epigenomic Data Server
-*   Copyright (c) 2015 Max Planck Institute for Computer Science.
+*   Copyright (c) 2014 Max Planck Institute for Computer Science.
 *   All rights reserved.
 *
 *   Authors :
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *
-*   Created : 07-04-2014
+*   Created : 07.04.2015
 *
 *   ================================================
 *
-*   File : deepblue_view_biosources.php
+*   File : deepblue_view_samples.php
 *
 */
 
@@ -27,7 +27,7 @@ require_once("inc/init.php");
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark">
 			<i class="fa fa-table fa-fw "></i>
-				Data Tables > BioSources
+				Data Tables > Samples
 			</span>
 		</h1>
 	</div>
@@ -42,17 +42,16 @@ require_once("inc/init.php");
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-
-
 			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget jarviswidget-color-blueDark" id="datatable-biosource" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+			<div class="jarviswidget jarviswidget-color-blueDark" id="datatable-samples" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
 
 				<header>
 					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-					<h2>BioSources</h2>
+					<h2>Samples </h2>
 
 				</header>
 
+				<!-- widget div-->
 				<div>
 
 					<!-- widget edit box -->
@@ -70,22 +69,21 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="ID" type="text"/>
+										<input class="form-control" placeholder="ID" type="text" />
 									</th>
+
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="BioSource"/>
+										<input type="text" class="form-control" placeholder="BioSource" />
 									</th>
-									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Descrpition"/>
+
+									<th class="hasinput" style="width:25%">
+										<input class="form-control" placeholder="Metadata" type="text" />
 									</th>
-									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Metadata"/>
-									</th>
+
 								</tr>
 					            <tr>
 				                    <th>ID</th>
-				                    <th>BioSources</th>
-				                    <th>Description</th>
+				                    <th>BioSource</th>
 				                    <th>Metadata</th>
 					            </tr>
 					        </thead>
@@ -117,9 +115,11 @@ require_once("inc/init.php");
 
 	pageSetUp();
 
+	// PAGE RELATED SCRIPTS
 
 	// pagefunction
 	var pagefunction = function() {
+		//console.log("cleared");
 
 		/* BASIC ;*/
 			var responsiveHelper_dt_basic = undefined;
@@ -137,11 +137,10 @@ require_once("inc/init.php");
 	    	"bServerSide": true,
 	        "sAjaxSource": "api/datatable",
 	        "fnServerParams": function ( aoData ) {
-      			aoData.push( { "name": "collection", "value": "biosources" } );
+      			aoData.push( { "name": "collection", "value": "samples" } );
       			aoData.push( { "name": "col_0", "value": "_id"} );
-      			aoData.push( { "name": "col_1", "value": "name"} );
-      			aoData.push( { "name": "col_2", "value": "description"} );
-      			aoData.push( { "name": "col_3", "value": "extra_metadata"} );
+      			aoData.push( { "name": "col_1", "value": "biosource_name"} );
+      			aoData.push( { "name": "col_2", "value": "extra_metadata"} );
     		},
 	        //"sServerMethod": "POST",
 	        "iDisplayLength": 50,
