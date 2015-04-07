@@ -129,6 +129,23 @@ require_once("inc/init.php");
 
 	var pagefunction = function() {
 
+		var isShow = false;
+		$(document).on("click", '.exp-metadata-more-view', function () {
+			//var metadata = $(this).prev();
+			if(isShow == false){
+				$(this).prev().show(1000);
+				$(this).text("-- Hide --");
+				isShow = true;
+			}
+			else{
+				$(this).prev().hide(1000);
+				$(this).text("-- View metadata --");
+				isShow = false;
+			}
+
+		});
+
+
 		/* BASIC ;*/
 			var responsiveHelper_dt_basic = undefined;
 			var responsiveHelper_datatable_fixed_column = undefined;
