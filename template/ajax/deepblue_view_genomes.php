@@ -46,19 +46,7 @@ require_once("inc/init.php");
 
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget jarviswidget-color-blueDark" id="datable-genomes" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
-				<!-- widget options:
-				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-				data-widget-colorbutton="false"
-				data-widget-editbutton="false"
-				data-widget-togglebutton="false"
-				data-widget-deletebutton="false"
-				data-widget-fullscreenbutton="false"
-				data-widget-custombutton="false"
-				data-widget-collapsed="true"
-				data-widget-sortable="false"
-
-				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
 					<h2>Genomes </h2>
@@ -140,73 +128,11 @@ require_once("inc/init.php");
 
 <script type="text/javascript">
 
-	/* DO NOT REMOVE : GLOBAL FUNCTIONS!
-	 *
-	 * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
-	 *
-	 * // activate tooltips
-	 * $("[rel=tooltip]").tooltip();
-	 *
-	 * // activate popovers
-	 * $("[rel=popover]").popover();
-	 *
-	 * // activate popovers with hover states
-	 * $("[rel=popover-hover]").popover({ trigger: "hover" });
-	 *
-	 * // activate inline charts
-	 * runAllCharts();
-	 *
-	 * // setup widgets
-	 * setup_widgets_desktop();
-	 *
-	 * // run form elements
-	 * runAllForms();
-	 *
-	 ********************************
-	 *
-	 * pageSetUp() is needed whenever you load a page.
-	 * It initializes and checks for all basic elements of the page
-	 * and makes rendering easier.
-	 *
-	 */
-
 	pageSetUp();
 
-	/*
-	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
-	 * eg alert("my home function");
-	 *
-	 * var pagefunction = function() {
-	 *   ...
-	 * }
-	 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
-	 *
-	 */
 
-	// PAGE RELATED SCRIPTS
-
-	// pagefunction
 	var pagefunction = function() {
 
-		//console.log("cleared");
-
-		/* // DOM Position key index //
-
-			l - Length changing (dropdown)
-			f - Filtering input (search)
-			t - The Table! (datatable)
-			i - Information (records)
-			p - Pagination (paging)
-			r - pRocessing
-			< and > - div elements
-			<"#id" and > - div with an id
-			<"class" and > - div with a class
-			<"#id.class" and > - div with an id and class
-
-			Also see: http://legacy.datatables.net/usage/features
-		*/
-
-		/* BASIC ;*/
 			var responsiveHelper_dt_basic = undefined;
 			var responsiveHelper_datatable_fixed_column = undefined;
 			var responsiveHelper_datatable_col_reorder = undefined;
@@ -219,10 +145,14 @@ require_once("inc/init.php");
 
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
-
-	        "ajax": "ajax/server_side/genomes_server_processing.php",
-	        "iDisplayLength": 50,
-	        "autoWidth" : true,
+	    	"bServerSide": true,
+	        "sAjaxSource": "api/datatable",
+	        "fnServerParams": function ( aoData ) {
+      			aoData.push( { "name": "collection", "value": "genomes" } );
+      			aoData.push( { "name": "col_0", "value": "_id"} );
+      			aoData.push( { "name": "col_1", "value": "name"} );
+      			aoData.push( { "name": "col_2", "value": "description"} );
+    		},
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {

@@ -203,10 +203,14 @@ require_once("inc/init.php");
 
 		/* COLUMN FILTER  */
 	    var otable = $('#datatable_fixed_column').DataTable({
-
-	        "ajax": "ajax/server_side/techniques_server_processing.php",
-	        "iDisplayLength": 50,
-	        "autoWidth" : true,
+	    	"bServerSide": true,
+	        "sAjaxSource": "api/datatable",
+	        "fnServerParams": function ( aoData ) {
+      			aoData.push( { "name": "collection", "value": "techniques" } );
+      			aoData.push( { "name": "col_0", "value": "_id"} );
+      			aoData.push( { "name": "col_1", "value": "name"} );
+      			aoData.push( { "name": "col_2", "value": "description"} );
+    		},
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
