@@ -2,7 +2,7 @@
 
 /**
 *   DeepBlue Epigenomic Data Server
-*   Copyright (c) 2014 Max Planck Institute for Computer Science.
+*   Copyright (c) 2015 Max Planck Institute for Computer Science.
 *   All rights reserved.
 *
 *   Authors :
