@@ -55,7 +55,7 @@ include("inc/nav.php");
 	//include required scripts
 	include("inc/scripts.php");
 	//include footer
-	// include("inc/google-analytics.php");
+	include("inc/google-analytics.php");
 ?>
 
 <!-- include script to load deepblue data -->
