@@ -43,22 +43,12 @@ $page_nav = array(
 		"icon" => "fa-home"
 	),
 
-	"doocumentation" => array(
-		"title" => "Documentation",
-		"icon" => "fa-question",
-		"sub" => array(
-			"API Reference" => array(
-				"title" => "API Reference",
-				"url" => "ajax/deepblue_api_documentation.php",
-				"icon" => "fa-list-ul"
-			),
-			"Manual" => array(
-				"title" => "DeepBlue Manual",
-				"url" => "ajax/deepblue_manual_documentation.php",
-				"icon" => "fa-book"
-			)
-		)
+	"search" => array(
+		"title" => "Search",
+		"url"=> "ajax/deepblue_view_search.php",
+		"icon" => "fa-search"
 	),
+
 
 	"deepblue_tables" => array(
 		"title" => "Data Tables",
@@ -103,28 +93,45 @@ $page_nav = array(
 		)
 	),
 
-	"search" => array(
-		"title" => "Search",
-		"url"=> "ajax/deepblue_view_search.php",
-		"icon" => "fa-search"
-	),
-
 	"biosources_hierarchy" => array(
 		"title" => "BioSources - Hierarchy",
 		"url"=> "ajax/deepblue_view_biosources_hierarchy.php",
 		"icon" => "fa-sitemap"
 	),
 
-	"clone" => array(
-			"title" => "Clone",
-			"url"=> "ajax/deepblue_clone_dataset.php",
-			"icon" => "fa-adjust"
+	"data_curation" => array(
+		"title" => "Data Curation",
+		"icon" => "fa-edit",
+		"sub" => array(
+			"clone" => array(
+				"title" => "Experiments Cloning",
+				"url"=> "ajax/deepblue_clone_dataset.php",
+				"icon" => "fa-copy"
+			)
+		)
 	),
 
 	"deepblue_workflow" => array(
 		"title" => "Workflow",
 		"url"=> "ajax/deepblue_view_workflow.php",
 		"icon" => "fa-bullhorn"
+	),
+
+	"documentation" => array(
+		"title" => "Documentation",
+		"icon" => "fa-question",
+		"sub" => array(
+			"API Reference" => array(
+				"title" => "API Reference",
+				"url" => "ajax/deepblue_api_documentation.php",
+				"icon" => "fa-list-ul"
+			),
+			"Manual" => array(
+				"title" => "DeepBlue Manual",
+				"url" => "ajax/deepblue_manual_documentation.php",
+				"icon" => "fa-book"
+			)
+		)
 	),
 
 	"feedback" => array(
