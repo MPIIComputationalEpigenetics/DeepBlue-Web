@@ -197,7 +197,7 @@
 					<!-- widget content -->
 					<div class="col-sm-1 no-padding">
 						<button type="button" id="tech_prev_page" class="btn btn-primary" disabled>
-							Previous Page
+							<i class="fa fa-backward"></i>
 						</button>
 					</div>
 					<div class="widget-body col-sm-10">
@@ -208,7 +208,7 @@
 					<!-- end widget content -->
 					<div class="col-sm-1 no-padding" style="float:right;" >
 						<button type="button" id="tech_next_page" class="btn btn-primary" style="float:right;">
-							Next Page
+							<i class="fa fa-forward"></i>
 						</button>
 					</div>
 				</div>
@@ -259,7 +259,7 @@
 					<!-- end widget edit box -->
 					<div class="col-sm-1 no-padding">
 						<button type="button" id="epi_prev_page" class="btn btn-primary"  disabled>
-							Previous Page
+							<i class="fa fa-backward"></i>
 						</button>
 					</div>
 					<!-- widget content -->
@@ -271,7 +271,7 @@
 					<!-- end widget content -->
 					<div class="col-sm-1 no-padding" style="float:right;" >
 						<button type="button" id="epi_next_page" class="btn btn-primary" style="float:right;">
-							Next Page
+							<i class="fa fa-forward"></i>
 						</button>
 					</div>
 				</div>
@@ -311,33 +311,26 @@
 
 				<!-- widget div-->
 				<div >
-					
-					<!-- widget edit box -->
-					<div class="jarviswidget-editbox">
-						<!-- This area used as dropdown edit box -->
-						
+				<!-- widget content -->
+					<div class="widget-body col-sm-12">
+						<div id="biosources-chart" class="chart" style="text-align:middle"></div>
 					</div>
-					<!-- end widget edit box -->
-					<div class="col-sm-1 no-padding" >		
+					<div style="text-align:center; margin-bottom: 5px">
 						<button type="button" id="bio_prev_page" class="btn btn-primary" disabled>
-							Previous Page
+							<i class="fa fa-backward"></i>
+						</button>
+						<button type="button" id="bio_sort_amt_page" class="btn btn-primary">
+							<i class="fa fa-sort-amount-desc"></i>
+						</button>
+						<button type="button" id="bio_sort_alp_page" class="btn btn-primary">
+							<i class="fa fa-sort-alpha-desc"></i>
+						</button>						
+						<button type="button" id="bio_next_page" class="btn btn-primary">
+							<i class="fa fa-forward"></i>
 						</button>
 					</div>
-					<!-- widget content -->
-					<div class="widget-body col-sm-10">
-						
-						<div id="biosources-chart" class="chart"></div>
-						
-					</div>
-					<!-- end widget content -->
-					<div class="col-sm-1 no-padding" style="float:right;" >
-						<button type="button" id="bio_next_page" class="btn btn-primary" style="float:right;">
-							Next Page
-						</button>
-					</div>					
 				</div>
 				<!-- end widget div -->
-				
 			</div>
 			<!-- end widget -->
 		</article>
@@ -699,10 +692,6 @@
 			var pg = 0;
 
 			for (j in currentvocab) {
-				// shorten the label 
-				if (currentvocab[j][1].length > 15) {
-					currentvocab[j][1] = currentvocab[j][1].substr(0, 15);
-				}
 
 				// divide into pages of size 20
 				list[vocab][ct] = {'label' : currentvocab[j][1], 'value' : currentvocab[j][2]};
