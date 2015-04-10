@@ -29,13 +29,21 @@ foreach ($request[0] as $vocab) {
 	if(!$client->query("list_in_use", $vocab, $user_key)){
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
-	$response = $client->getResponse();
-	
-	usort($response[1], function($a, $b) {
+	$response['alp'] = $client->getResponse();
+
+	usort($response['alp'][1], function($a, $b) {
 		return strcasecmp($a[1], $b[1]);
 	});
-	
-	$listInUse[$vocab] = $response[1];
+
+	$response['amt'] = $response['alp'];
+		
+	usort($response['amt'][1], function($a, $b) {
+		return $a[2] > $b[2];
+	});
+
+
+	$listInUse[$vocab]['amt'] = $response['amt'][1];
+	$listInUse[$vocab]['alp'] = $response['alp'][1];
 }
 echo json_encode(array($listInUse));
 ?>
