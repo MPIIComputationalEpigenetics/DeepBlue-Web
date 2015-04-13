@@ -471,95 +471,122 @@
 	curPageHolder['technique'] = 0;
 	var ebar; var bbar; var gbar; var tbar;
 	var page = [];
+	var sort = 'alp';
 	var counter = 0;
 
-	//
-
-	// bind functions to command buttons
-	//$("#tech_next_page, #bio_next_page, #epi_next_page, #tech_prev_page, #bio_prev_page, #epi_prev_page").button().click(clickEvent());
-		// switch case based on id
 	function navPage() {
 		var btn = event.target.id;
+		alert(btn);
 		switch (btn) {
+			case 'tech_sort_amt_page':
+				sort = 'amt';
+				tbar.setData(page['techniques'][sort][0]);
+				curPageHolder['technique'] = 0;
+				break;
+			case 'tech_sort_alp_page':
+				sort = 'alp';
+				tbar.setData(page['techniques'][sort][0]);
+				curPageHolder['technique'] = 0;
+				break;
 			case 'tech_next_page':
 				counter = curPageHolder['technique'];
 				if (counter == 0) {
 					$("#tech_prev_page").prop('disabled', false);
 				}
-				if (counter < page['techniques'].length - 1) {
+				if (counter < page['techniques'][sort].length - 1) {
 					curPageHolder['technique'] = curPageHolder['technique'] + 1;
 					counter = curPageHolder['technique'];
-					tbar.setData(page['techniques'][counter]);
+					tbar.setData(page['techniques'][sort][counter]);
 				}
-				if (counter == page['techniques'].length -1) {
+				if (counter == page['techniques'][sort].length -1) {
 					$("#tech_next_page").prop('disabled', true);
 				}
 				break;
 			case 'tech_prev_page':
 				counter = curPageHolder['technique'];
-				if (counter == page['technique'].length - 1) {
+				if (counter == page['technique'][sort].length - 1) {
 					$("#tech_next_page").prop('disabled', false);
 				}
 				if (counter > 0) {
 					curPageHolder['technique'] = curPageHolder['technique'] - 1;
 					counter = curPageHolder['technique'];
-					tbar.setData(page['techniques'][counter]);
+					tbar.setData(page['techniques'][sort][counter]);
 				}
 				if (counter == 0) {
 					$("#tech_prev_page").prop('disabled', true);
 				}
+				break;
+			case 'bio_sort_amt_page':
+				sort = 'amt';
+				bbar.setData(page['biosources'][sort][0]);
+				curPageHolder['biosource'] = 0;
+				break;
+			case 'bio_sort_alp_page':
+				sort = 'alp';
+				bbar.setData(page['biosources'][sort][0]);
+				curPageHolder['biosource'] = 0;
 				break;
 			case 'bio_next_page':
 				counter = curPageHolder['biosource'];
 				if (counter == 0) {
 					$("#bio_prev_page").prop('disabled', false);
 				}
-				if (counter < page['biosources'].length - 1) {
+				if (counter < page['biosources'][sort].length - 1) {
 					curPageHolder['biosource'] = curPageHolder['biosource'] + 1;
 					counter = curPageHolder['biosource'];
-					bbar.setData(page['biosources'][counter]);
+					bbar.setData(page['biosources'][sort][counter]);
 				}
-				if (counter == page['biosources'].length -1) {
+				if (counter == page['biosources'][sort].length -1) {
 					$("#bio_next_page").prop('disabled', true);
 				}
 				break;
 			case 'bio_prev_page':
 				counter = curPageHolder['biosource'];
-				if (counter == page['biosources'].length - 1) {
+				if (counter == page['biosources'][sort].length - 1) {
 					$("#bio_next_page").prop('disabled', false);
 				}
 				if (counter > 0) {
 					curPageHolder['biosource'] = curPageHolder['biosource'] - 1;
 					counter = curPageHolder['biosource'];
-					bbar.setData(page['biosources'][counter]);
+					bbar.setData(page['biosources'][sort][counter]);
 				}
 				if (counter == 0) {
 					$("#bio_prev_page").prop('disabled', true);
 				}
+				break;
+			case 'epi_sort_amt_page':
+				sort = 'amt';
+				ebar.setData(page['epigenetic_marks'][sort][0]);
+				curPageHolder['epigenetic_mark'] = 0;
+				break;
+			case 'epi_sort_alp_page':
+				sort = 'alp'
+				ebar.setData(page['epigenetic_marks'][sort][0]);
+				curPageHolder['epigenetic_mark'] = 0;
 				break;
 			case 'epi_next_page':
 				counter = curPageHolder['epigenetic_mark'];
 				if (counter == 0) {
 					$("#epi_prev_page").prop('disabled', false);
 				}
-				if (counter < page['epigenetic_marks'].length - 1) {
+				if (counter < page['epigenetic_marks'][sort].length - 1) {
 					curPageHolder['epigenetic_mark'] = curPageHolder['epigenetic_mark'] + 1;
 					counter = curPageHolder['epigenetic_mark'];
-					ebar.setData(page['epigenetic_marks'][counter]);
+					ebar.setData(page['epigenetic_marks'][sort][counter]);
 				}
-				if (counter == page['epigenetic_marks'].length -1) {
+				if (counter == page['epigenetic_marks'][sort].length -1) {
 					$("#epi_next_page").prop('disabled', true);
 				}
 				break;
 			case 'epi_prev_page':
 				counter = curPageHolder['epigenetic_mark'];
-				if (counter == page['epigenetic_marks'].length - 1) {
+				if (counter == page['epigenetic_marks'][sort].length - 1) {
 					$("#epi_next_page").prop('disabled', false);
 				}
 				if (counter > 0) {
 					curPageHolder['epigenetic_mark'] = curPageHolder['epigenetic_mark'] - 1;
 					counter = curPageHolder['epigenetic_mark'];
-					ebar.setData(page['epigenetic_marks'][counter]);
+					ebar.setData(page['epigenetic_marks'][sort][counter]);
 				}
 				if (counter == 0) {
 					$("#epi_prev_page").prop('disabled', true);
@@ -754,35 +781,47 @@
 		for (i in vocabulary) {
 			vocab = vocabulary[i];
 			list[vocab] = []; // index for each controlled vocabulary
+			list[vocab]['alp'] = [];
+			list[vocab]['amt'] = [];
+
 			page[vocab] = []; // index for each page or view
+			page[vocab]['alp'] = [];
+			page[vocab]['amt'] = [];
+			
 			total_sum[vocab] = 0; // total experiments in each vocabulary - would be the same value
 			othersvalue = 0;
 			
-			var currentvocab = list_in_use[vocab]['alp'];
+			var currentvocab = [];
+			currentvocab['alp'] = list_in_use[vocab]['alp'];
+			currentvocab['amt'] = list_in_use[vocab]['amt'];
+			
 			var ct = 0;
 			var pg = 0;
 
-			for (j in currentvocab) {
-
+			for (j=0; j < currentvocab['alp'].length; j++) {
 				// divide into pages of size 35
-				list[vocab][ct] = {'label' : currentvocab[j][1], 'value' : currentvocab[j][2]};
+				list[vocab]['alp'][ct] = {'label' : currentvocab['alp'][j][1], 'value' : currentvocab['alp'][j][2]};
+				list[vocab]['amt'][ct] = {'label' : currentvocab['amt'][j][1], 'value' : currentvocab['amt'][j][2]};
+
 				ct = ct + 1;
-				page[vocab][pg] = list[vocab];
+				page[vocab]['alp'][pg] = list[vocab]['alp'];
+				page[vocab]['amt'][pg] = list[vocab]['amt'];
 
 				if (ct ==  35) {
-					list[vocab] = [];
+					list[vocab]['alp'] = [];
+					list[vocab]['amt'] = [];
 					ct = 0;
-					pg = pg + 1;	
+					pg = pg + 1;
 				}
 
 				//list[vocab][ct] = {'label' : otherslabel, 'value' : othersvalue};
-				total_sum[vocab] = total_sum[vocab] + currentvocab[j][2];
+				total_sum[vocab] = total_sum[vocab] + currentvocab['alp'][j][2];
 			}
 		}
 
-		if (page['techniques'].length == 1) $("#tech_next_page").prop('disabled', true);
-		if (page['epigenetic_marks'].length == 1) $("#epi_next_page").prop('disabled', true);
-		if (page['biosources'].length == 1) $("#bio_next_page").prop('disabled', true);
+		if (page['techniques']['alp'].length == 1) $("#tech_next_page").prop('disabled', true);
+		if (page['epigenetic_marks']['alp'].length == 1) $("#epi_next_page").prop('disabled', true);
+		if (page['biosources']['alp'].length == 1) $("#bio_next_page").prop('disabled', true);
 
 		/* total experiment sum */
 		$("#total_sum").text(total_sum['projects']);
@@ -791,7 +830,7 @@
 		if ($('#projects-chart').length){ 
 			Morris.Donut({
 				  element: 'projects-chart',
-				  data:  list['projects'],
+				  data:  list['projects']['alp'],
 				  formatter: function (x) { return x},
 				  resize: true
 				}).on('click', function(i, row){
@@ -804,7 +843,7 @@
 		if ($('#techniques-chart').length) {
 			tbar = Morris.Bar({
 				  element: 'techniques-chart',
-				  data: page['techniques'][0],
+				  data: page['techniques']['alp'][0],
 				  xkey: 'label',
 				  ykeys: ['value'],
 				  labels: ['Count'],
@@ -819,7 +858,7 @@
 		if ($("#epigenetic_marks-chart").length) {
 			ebar = Morris.Bar({
 				  element: 'epigenetic_marks-chart',
-				  data: page['epigenetic_marks'][0],
+				  data: page['epigenetic_marks']['alp'][0],
 				  xkey: 'label',
 				  ykeys: ['value'],
 				  labels: ['Count'],
@@ -837,7 +876,7 @@
 		if ($("#biosources-chart").length) {
 			bbar = Morris.Bar({
 				  element: 'biosources-chart',
-				  data: page['biosources'][0],
+				  data: page['biosources']['alp'][0],
 				  xkey: 'label',
 				  ykeys: ['value'],
 				  labels: ['Count'],
@@ -855,7 +894,7 @@
 		if ($("#genomes-chart").length) {
 			Morris.Donut({
 				  element: 'genomes-chart',
-				  data:  list['genomes'],
+				  data:  list['genomes']['alp'],
 				  formatter: function (x) { return x},
 				  resize: true
 			}).on('click', function(i, row){
