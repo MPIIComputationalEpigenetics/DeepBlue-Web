@@ -59,7 +59,7 @@ require_once("inc/init.php");
                     <!-- widget content -->
                     <div class="widget-body no-padding">
 
-                        <table id="datatable_fixed_column" name='experiment-table' class="table table-striped table-bordered" width="100%">
+                        <table id="datatable_fixed_column" name='experiment-table' class="table table-striped table-bordered table-hover" width="100%">
                             <thead>
                                 <tr>
                                     <th class="hasinput">
@@ -122,6 +122,101 @@ require_once("inc/init.php");
 
 </section>
 <!-- end widget grid -->
+
+
+
+<section id="widget-grid" class="">
+
+	<div class="row">
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			    <div class="jarviswidget jarviswidget-color-blueDark" id="datable-selected-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>Selected Experiments </h2>
+
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+
+                        <table id="datatable_selected_column" name='experiment-table' class="table table-striped table-bordered table-hover" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="hasinput">
+                                        <input class="form-control" placeholder="ID" type="text" id="experiment-id">
+                                    </th>
+
+                                    <th class="hasinput" style="width:20px">
+                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Genome" id="experiment-genome" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Epigenetic mark" id="experiment-epigenetic_mark" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Biosource" id="experiment-biosource" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Sample" id="experiment-sample" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Technique" id="experiment-technique" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Project" id="experiment-project" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Meta data" id="experiment-metadata" />
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Experiment Name</th>
+                                    <th>Description</th>
+                                    <th>Genome</th>
+                                    <th>Epigenetic Mark</th>
+                                    <th>Biosource</th>
+                                    <th>Sample</th>
+                                    <th>Technique</th>
+                                    <th>Project</th>
+                                    <th>Metadata</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                        <div class="downloadButtonDiv"><button type="button" id="downloadBtnBottom" class="btn btn-primary">Download</button></div>                        
+                    </div>
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+		</article>
+	</div>
+
+</section>
+<!-- end widget grid -->
+
+
+
 
 <script type="text/javascript">
 
@@ -206,6 +301,82 @@ require_once("inc/init.php");
 
 	    } );
 	    /* END COLUMN FILTER */
+
+
+		/* process experiment selection by row clicking*/
+		var selected = [];
+		var selectedNames = [];
+
+		$('#datatable_fixed_column').on('click', 'tr', function () {
+
+        	var id = $('td', this).eq(0).text();
+
+        	if (id ==  "") {
+        		return;
+        	}
+
+        	var name = $('td', this).eq(1).text();
+        	var desc = $('td', this).eq(2).text();
+        	var genome = $('td', this).eq(3).text();
+        	var epi = $('td', this).eq(4).text();
+        	var bio = $('td', this).eq(5).text();
+        	var samp = $('td', this).eq(6).text();
+        	var tech = $('td', this).eq(7).text();
+        	var proj = $('td', this).eq(8).text();
+        	var meta = $('td', this).eq(9).html();
+
+        	if (selected.indexOf(id) == -1) {
+	        	selected.push(id); 
+	        	selectedNames.push(name);
+        	
+        		$('#datatable_selected_column').dataTable().fnAddData(
+        			[ id, name , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta]
+        		);
+        	}
+    	} );
+
+		/* remove selection by clicking*/
+    	$('#datatable_selected_column').on('click', 'tr', function () {
+
+        	var id = $('td', this).eq(0).text();
+			if (id ==  "") {
+        		return;
+        	}
+        	
+        	var index = selected.indexOf(id);
+        	selected.splice(index, 1);
+        	selectedNames.splice(index, 1);
+    		$('#datatable_selected_column').dataTable().fnDeleteRow(this);
+    	} );
+
+	    /* Download button :: Getting selected elements */
+	    $('#downloadBtnBottom').click(function(){
+
+	    	if(selected.length == 0){
+				alert("Please select elements!");
+			}
+			else{
+				var request = $.ajax({
+					url: "ajax/server_side/select_regions_server_processing.php",
+					dataType: "json",
+					data : {
+						experiments_names : selectedNames,
+					}
+				});
+
+				request.done( function(data) {
+					window.location.href = 'ajax/server_side/get_regions_server_processing.php?query_id='+data.query_id;
+				});
+
+				request.fail( function(jqXHR, textStatus) {
+					console.log(jqXHR);
+	        		console.log('Error: '+ textStatus);
+					alert( "error" );
+				});
+			}
+
+	    });
+
 
 	};
 

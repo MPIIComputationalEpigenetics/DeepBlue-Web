@@ -479,7 +479,7 @@
 
 	function navPage() {
 		var btn = event.target.id;
-		//alert(btn);
+		alert(btn);
 		//alert($(event.target).attr('name'));
 		switch (btn) {
 			case 'tech_sort_amt_page':
@@ -508,7 +508,7 @@
 				break;
 			case 'tech_prev_page':
 				counter = curPageHolder['technique'];
-				if (counter == page['technique'][sort['technique']].length - 1) {
+				if (counter == page['techniques'][sort['technique']].length - 1) {
 					$("#tech_next_page").prop('disabled', false);
 				}
 				if (counter > 0) {
@@ -779,7 +779,7 @@
 			setTimeout(function() {
 				list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 				pagefunction();
-			}, 3000);
+			}, 500);
 		}
 		
 		for (i in vocabulary) {
