@@ -35,10 +35,15 @@ require_once("inc/init.php");
 
 <!-- widget grid -->
 <section id="widget-grid" class="">
+	<div class="alert alert-info alert-block">
+		<a class="close" data-dismiss="alert" href="#">×</a>
+		<h4 class="alert-heading">Experiments Datatable</h4>
+		DoubleClick the row to select an experiment; It would be added to the Selected Experiments Datatable. DoubleClick again to unselect a selected experiment. Selected experiments are highlighted in green.
+	</div>
 
 	<div class="row">
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			            <div class="jarviswidget jarviswidget-color-blueDark" id="datable-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+            <div class="jarviswidget jarviswidget-color-blueDark" id="datable-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
 
                 <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>
@@ -55,6 +60,7 @@ require_once("inc/init.php");
 
                     </div>
                     <!-- end widget edit box -->
+
 
                     <!-- widget content -->
                     <div class="widget-body no-padding">
@@ -126,7 +132,6 @@ require_once("inc/init.php");
 
 
 <section id="widget-grid" class="">
-
 	<div class="row">
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			    <div class="jarviswidget jarviswidget-color-blueDark" id="datable-selected-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
@@ -307,7 +312,7 @@ require_once("inc/init.php");
 		var selected = [];
 		var selectedNames = [];
 
-		$('#datatable_fixed_column').on('click', 'tr', function () {
+		$('#datatable_fixed_column').on('dblclick', 'tr', function () {
 
         	var id = $('td', this).eq(0).text();
 
@@ -325,29 +330,27 @@ require_once("inc/init.php");
         	var proj = $('td', this).eq(8).text();
         	var meta = $('td', this).eq(9).html();
 
-        	if (selected.indexOf(id) == -1) {
+			var index = selected.indexOf(id);
+        	if (index == -1) {
 	        	selected.push(id); 
 	        	selectedNames.push(name);
         	
         		$('#datatable_selected_column').dataTable().fnAddData(
         			[ id, name , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta]
         		);
+
+        		$(this).addClass("success");
+        	}
+        	else {
+				/* remove selection by clicking of row in the main table*/
+	        	selected.splice(index, 1);
+	        	selectedNames.splice(index, 1);
+	    		$('#datatable_selected_column').dataTable().fnDeleteRow(index);
+
+	    		$(this).removeClass("success");
         	}
     	} );
 
-		/* remove selection by clicking*/
-    	$('#datatable_selected_column').on('click', 'tr', function () {
-
-        	var id = $('td', this).eq(0).text();
-			if (id ==  "") {
-        		return;
-        	}
-        	
-        	var index = selected.indexOf(id);
-        	selected.splice(index, 1);
-        	selectedNames.splice(index, 1);
-    		$('#datatable_selected_column').dataTable().fnDeleteRow(this);
-    	} );
 
 	    /* Download button :: Getting selected elements */
 	    $('#downloadBtnBottom').click(function(){

@@ -773,6 +773,12 @@
 		var total_sum = [];
 		var vocab;
 		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
+
+
+
+
+
+		
 		var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 		if (list_in_use == null) {
 			// if locally stored item not yet available, wait a little and check again
