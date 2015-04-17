@@ -352,7 +352,7 @@ require_once("inc/init.php");
 			vocabid = vocabids[i];
 			suggestion2[vocabname] = []; // index for each controlled vocabulary
 			count = 0
-			var currentvocab = list_in_use[vocabname]
+			var currentvocab = list_in_use[vocabname]['alp'];
 			for (j in currentvocab) {
 				suggestion2[vocabname][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};
 				count = count + 1;
