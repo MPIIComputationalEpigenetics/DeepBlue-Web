@@ -479,7 +479,7 @@
 
 	function navPage() {
 		var btn = event.target.id;
-		alert(btn);
+		//alert(btn);
 		//alert($(event.target).attr('name'));
 		switch (btn) {
 			case 'tech_sort_amt_page':
@@ -774,147 +774,171 @@
 		var vocab;
 		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
 
+		/* retrieve deepblue list_in_use data */
+		var list_in_use = null;
 
-
-
-
-		
-		var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+		// check local storage first
+		list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 		if (list_in_use == null) {
-			// if locally stored item not yet available, wait a little and check again
-			setTimeout(function() {
-				list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-				pagefunction();
-			}, 500);
-		}
-		
-		for (i in vocabulary) {
-			vocab = vocabulary[i];
-			list[vocab] = []; // index for each controlled vocabulary
-			list[vocab]['alp'] = [];
-			list[vocab]['amt'] = [];
-
-			page[vocab] = []; // index for each page or view
-			page[vocab]['alp'] = [];
-			page[vocab]['amt'] = [];
-			
-			total_sum[vocab] = 0; // total experiments in each vocabulary - would be the same value
-			othersvalue = 0;
-			
-			var currentvocab = [];
-			currentvocab['alp'] = list_in_use[vocab]['alp'];
-			currentvocab['amt'] = list_in_use[vocab]['amt'];
-			
-			var ct = 0;
-			var pg = 0;
-
-			for (j=0; j < currentvocab['alp'].length; j++) {
-				// divide into pages of size 35
-				list[vocab]['alp'][ct] = {'label' : currentvocab['alp'][j][1], 'value' : currentvocab['alp'][j][2]};
-				list[vocab]['amt'][ct] = {'label' : currentvocab['amt'][j][1], 'value' : currentvocab['amt'][j][2]};
-
-				ct = ct + 1;
-				page[vocab]['alp'][pg] = list[vocab]['alp'];
-				page[vocab]['amt'][pg] = list[vocab]['amt'];
-
-				if (ct ==  35) {
-					list[vocab]['alp'] = [];
-					list[vocab]['amt'] = [];
-					ct = 0;
-					pg = pg + 1;
+			var request1 = $.ajax({
+				url: "ajax/server_side/list_in_use.php",
+				dataType: "json",
+				data : {
+					request : vocabulary
 				}
-
-				//list[vocab][ct] = {'label' : otherslabel, 'value' : othersvalue};
-				total_sum[vocab] = total_sum[vocab] + currentvocab['alp'][j][2];
-			}
-		}
-
-		if (page['techniques']['alp'].length == 1) $("#tech_next_page").prop('disabled', true);
-		if (page['epigenetic_marks']['alp'].length == 1) $("#epi_next_page").prop('disabled', true);
-		if (page['biosources']['alp'].length == 1) $("#bio_next_page").prop('disabled', true);
-
-		/* total experiment sum */
-		$("#total_sum").text(total_sum['projects']);
-		
-		/* projects donut chart */
-		if ($('#projects-chart').length){ 
-			Morris.Donut({
-				  element: 'projects-chart',
-				  data:  list['projects']['alp'],
-				  formatter: function (x) { return x},
-				  resize: true
-				}).on('click', function(i, row){
-					lauchModalView(row['label'], 'project')
-				});
-		}
-		/* end projects pie chart */
-
-		/* techniques bar chart */
-		if ($('#techniques-chart').length) {
-			tbar = Morris.Bar({
-				  element: 'techniques-chart',
-				  data: page['techniques']['alp'][0],
-				  xkey: 'label',
-				  ykeys: ['value'],
-				  labels: ['Count'],
-				  resize: true
-			})
-			tbar.on('click', function(i, row){
-				lauchModalView(row['label'], 'technique')
-			});		
-		}
-		/* end techniques pie chart */
-
-		if ($("#epigenetic_marks-chart").length) {
-			ebar = Morris.Bar({
-				  element: 'epigenetic_marks-chart',
-				  data: page['epigenetic_marks']['alp'][0],
-				  xkey: 'label',
-				  ykeys: ['value'],
-				  labels: ['Count'],
-				  xLabelAngle: 270,
-				  resize: true
 			});
-			
-			ebar.on('click', function(i, row){
-				lauchModalView(row['label'], 'epigenetic_mark')	
-			});
-		}
-		/* end epigenetic marks bar chart */
 
-		/* biosources bar chart */
-		if ($("#biosources-chart").length) {
-			bbar = Morris.Bar({
-				  element: 'biosources-chart',
-				  data: page['biosources']['alp'][0],
-				  xkey: 'label',
-				  ykeys: ['value'],
-				  labels: ['Count'],
-				  xLabelAngle: 270,
-				  resize: true
+			request1.done( function(data) {
+				// store data in local storage
+				localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+				list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+				loadDashboard();
+				//alert("1");				
 			});
-			
-			bbar.on('click', function(i, row){
-				lauchModalView(row['label'], 'biosource')
+
+			request1.fail( function(jqXHR, textStatus) {
+				console.log(jqXHR);
+			    console.log('Error: '+ textStatus);
+				alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
 			});			
 		}
-		/* end biosources bar chart */
-		
-		/* genomes donut chart */
-		if ($("#genomes-chart").length) {
-			Morris.Donut({
-				  element: 'genomes-chart',
-				  data:  list['genomes']['alp'],
-				  formatter: function (x) { return x},
-				  resize: true
-			}).on('click', function(i, row){
-				lauchModalView(row['label'], 'genome')
-			});
+		else {
+			//alert("0");
+			loadDashboard();			
 		}
-		
-		/* end genomes bar chart */		
 
+		//alert("2");
+
+		function loadDashboard() {
+			//alert("3");
+			for (i in vocabulary) {
+				vocab = vocabulary[i];
+				list[vocab] = []; // index for each controlled vocabulary
+				list[vocab]['alp'] = [];
+				list[vocab]['amt'] = [];
+
+				page[vocab] = []; // index for each page or view
+				page[vocab]['alp'] = [];
+				page[vocab]['amt'] = [];
+				
+				total_sum[vocab] = 0; // total experiments in each vocabulary - would be the same value
+				othersvalue = 0;
+				
+				var currentvocab = [];
+				currentvocab['alp'] = list_in_use[vocab]['alp'];
+				currentvocab['amt'] = list_in_use[vocab]['amt'];
+				
+				var ct = 0;
+				var pg = 0;
+
+				for (j=0; j < currentvocab['alp'].length; j++) {
+					// divide into pages of size 35
+					list[vocab]['alp'][ct] = {'label' : currentvocab['alp'][j][1], 'value' : currentvocab['alp'][j][2]};
+					list[vocab]['amt'][ct] = {'label' : currentvocab['amt'][j][1], 'value' : currentvocab['amt'][j][2]};
+
+					ct = ct + 1;
+					page[vocab]['alp'][pg] = list[vocab]['alp'];
+					page[vocab]['amt'][pg] = list[vocab]['amt'];
+
+					if (ct ==  35) {
+						list[vocab]['alp'] = [];
+						list[vocab]['amt'] = [];
+						ct = 0;
+						pg = pg + 1;
+					}
+
+					//list[vocab][ct] = {'label' : otherslabel, 'value' : othersvalue};
+					total_sum[vocab] = total_sum[vocab] + currentvocab['alp'][j][2];
+				}
+			}
+
+			if (page['techniques']['alp'].length == 1) $("#tech_next_page").prop('disabled', true);
+			if (page['epigenetic_marks']['alp'].length == 1) $("#epi_next_page").prop('disabled', true);
+			if (page['biosources']['alp'].length == 1) $("#bio_next_page").prop('disabled', true);
+
+			/* total experiment sum */
+			$("#total_sum").text(total_sum['projects']);
+			
+			/* projects donut chart */
+			if ($('#projects-chart').length){ 
+				Morris.Donut({
+					  element: 'projects-chart',
+					  data:  list['projects']['alp'],
+					  formatter: function (x) { return x},
+					  resize: true
+					}).on('click', function(i, row){
+						lauchModalView(row['label'], 'project')
+					});
+			}
+			/* end projects pie chart */
+
+			/* techniques bar chart */
+			if ($('#techniques-chart').length) {
+				tbar = Morris.Bar({
+					  element: 'techniques-chart',
+					  data: page['techniques']['alp'][0],
+					  xkey: 'label',
+					  ykeys: ['value'],
+					  labels: ['Count'],
+					  resize: true
+				})
+				tbar.on('click', function(i, row){
+					lauchModalView(row['label'], 'technique')
+				});		
+			}
+			/* end techniques pie chart */
+
+			if ($("#epigenetic_marks-chart").length) {
+				ebar = Morris.Bar({
+					  element: 'epigenetic_marks-chart',
+					  data: page['epigenetic_marks']['alp'][0],
+					  xkey: 'label',
+					  ykeys: ['value'],
+					  labels: ['Count'],
+					  xLabelAngle: 270,
+					  resize: true
+				});
+				
+				ebar.on('click', function(i, row){
+					lauchModalView(row['label'], 'epigenetic_mark')	
+				});
+			}
+			/* end epigenetic marks bar chart */
+
+			/* biosources bar chart */
+			if ($("#biosources-chart").length) {
+				bbar = Morris.Bar({
+					  element: 'biosources-chart',
+					  data: page['biosources']['alp'][0],
+					  xkey: 'label',
+					  ykeys: ['value'],
+					  labels: ['Count'],
+					  xLabelAngle: 270,
+					  resize: true
+				});
+				
+				bbar.on('click', function(i, row){
+					lauchModalView(row['label'], 'biosource')
+				});			
+			}
+			/* end biosources bar chart */
+			
+			/* genomes donut chart */
+			if ($("#genomes-chart").length) {
+				Morris.Donut({
+					  element: 'genomes-chart',
+					  data:  list['genomes']['alp'],
+					  formatter: function (x) { return x},
+					  resize: true
+				}).on('click', function(i, row){
+					lauchModalView(row['label'], 'genome')
+				});
+			}
+			/* end genomes bar chart */		
+			//alert("7");
+		}
 	}; 	// end pagefunction
+
 
 	// Load morris dependencies and run pagefunction
 	loadScript("js/plugin/morris/raphael.min.js", function(){

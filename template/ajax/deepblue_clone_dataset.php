@@ -259,118 +259,172 @@ require_once("inc/init.php");
 
 	var cache = {};
 	var suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
-	$('#clone_input').autocomplete({
-		source : suggestions1['experiment'],
-		autoFocus: true,
-		focus: function( event, ui ) { return false;},
-		minLength: 3,
-		select: function( event, ui ) {
-			// enable clone button
-			exp = ui.item.label;
-			expId = exp.split(' ')[1];
-			getId = [expId.substring(1, expId.length-1)];
-			clone = true;
-			$(event.target).closest(".input-group").removeClass('has-error');
-		},
-		change: function( event, ui ) {
-			if (ui.item == null && event.target.value != "") {
-				$(event.target).closest(".input-group").addClass('has-error');
-				clone = false;
-			}
-			if (event.target.value == "") {
-				$(event.target).closest(".input-group").removeClass('has-error');
-				clone = true;
-			}
-		}
-	});
-
 	var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-	var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes']
-	var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome']
-	var vocabname;
-	var vocabid;
-	var count;
-	var newcolcount = 0;
-	var filter = true;
-	filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':"",'user_biosource':""};
+	var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
 
-	var suggestion2 = [];
-	for (i in vocabnames) {
-		vocabname = vocabnames[i];
-		vocabid = vocabids[i];
-		suggestion2[vocabname] = []; // index for each controlled vocabulary
-		count = 0
-		var currentvocab = list_in_use[vocabname]
-		for (j in currentvocab) {
-			suggestion2[vocabname][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};
-			count = count + 1;
-		}
+	if (list_in_use == null) {
+		var request1 = $.ajax({
+			url: "ajax/server_side/list_in_use.php",
+			dataType: "json",
+			data : {
+				request : vocabulary
+			}
+		});
 
-		$(vocabid).autocomplete({
-			source : suggestion2[vocabname],
+		request1.done( function(data) {
+			// store data in local storage
+			localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+			list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+			//cloneFunction();		
+		});
+
+		request1.fail( function(jqXHR, textStatus) {
+			console.log(jqXHR);
+		    console.log('Error: '+ textStatus);
+			alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+		});
+	}
+
+	/* retrieve deepblue list_experiment data */
+	if (suggestions1 == null) {
+		var request2 = $.ajax({
+			url: "ajax/server_side/list_all_experiment.php",
+			dataType: "json",
+			data : {
+			}
+		});
+
+		request2.done( function(data) {
+			// store data in local storage
+			localStorage.setItem("all_experiments", JSON.stringify(data[0]));
+			suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
+			cloneFunction();
+		});
+
+		request2.fail( function(jqXHR, textStatus) {
+			console.log(jqXHR);
+		    console.log('Error: '+ textStatus);
+		    alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+		});
+	}
+	else {
+		cloneFunction();
+	}
+
+	function cloneFunction() {
+		$('#clone_input').autocomplete({
+			source : suggestions1['experiment'],
 			autoFocus: true,
 			focus: function( event, ui ) { return false;},
-			minLength: 0,
+			minLength: 3,
 			select: function( event, ui ) {
 				// enable clone button
 				exp = ui.item.label;
 				expId = exp.split(' ')[1];
-				getId = expId.substring(1, expId.length-1);
-				if (event.target.id == "user_biosource") {
-					$("#user_sample").prop('disabled', false);
-
-					// autocomplete for the samples field
-					$("#user_sample").autocomplete({
-						source : "ajax/server_side/list_form_biosource_samples.php?biosource=" + ui.item.value,
-						autoFocus: true,
-						focus: function( event, ui ) { return false;},
-						minLength: 0,
-						select: function( event, ui ) {
-							// enable clone button
-							exp = ui.item.label;
-							getId = exp.split(' : ')[0];
-							$(event.target).closest(".col-md-6").removeClass('has-error');
-
-							filterdata[event.target.id] = getId;
-							filter = true;
-						},
-						change: function( event, ui ) {
-							if (ui.item == null && event.target.value != "") {
-								$(event.target).closest(".col-md-6").addClass('has-error');
-								filter = false;
-							}
-							if (event.target.value == "") {
-								$(event.target).closest(".col-md-6").removeClass('has-error');
-								filterdata[event.target.id] = "";
-								filter = true;
-							}
-						}
-					});
-				}
-
-				$(event.target).closest(".col-md-6").removeClass('has-error');
-				filterdata[event.target.id] = ui.item.value;
-				filter = true;
+				getId = [expId.substring(1, expId.length-1)];
+				clone = true;
+				$(event.target).closest(".input-group").removeClass('has-error');
 			},
 			change: function( event, ui ) {
-				if (event.target.id == "user_biosource") {
-					$("#user_sample").val("");
-					filterdata["user_sample"] = "";
-				}
-
 				if (ui.item == null && event.target.value != "") {
-					$(event.target).closest(".col-md-6").addClass('has-error');
-					filter = false;
+					$(event.target).closest(".input-group").addClass('has-error');
+					clone = false;
 				}
 				if (event.target.value == "") {
-					$(event.target).closest(".col-md-6").removeClass('has-error');
-					filterdata[event.target.id] = "";
-					filter = true;
+					$(event.target).closest(".input-group").removeClass('has-error');
+					clone = true;
 				}
 			}
 		});
-	}
 
+		var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes']
+		var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome']
+		var vocabname;
+		var vocabid;
+		var count;
+		var newcolcount = 0;
+		var filter = true;
+		filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':"",'user_biosource':""};
+
+		var suggestion2 = [];
+		for (i in vocabnames) {
+			vocabname = vocabnames[i];
+			vocabid = vocabids[i];
+			suggestion2[vocabname] = []; // index for each controlled vocabulary
+			count = 0
+			var currentvocab = list_in_use[vocabname]
+			for (j in currentvocab) {
+				suggestion2[vocabname][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};
+				count = count + 1;
+			}
+
+			$(vocabid).autocomplete({
+				source : suggestion2[vocabname],
+				autoFocus: true,
+				focus: function( event, ui ) { return false;},
+				minLength: 0,
+				select: function( event, ui ) {
+					// enable clone button
+					exp = ui.item.label;
+					expId = exp.split(' ')[1];
+					getId = expId.substring(1, expId.length-1);
+					if (event.target.id == "user_biosource") {
+						$("#user_sample").prop('disabled', false);
+
+						// autocomplete for the samples field
+						$("#user_sample").autocomplete({
+							source : "ajax/server_side/list_form_biosource_samples.php?biosource=" + ui.item.value,
+							autoFocus: true,
+							focus: function( event, ui ) { return false;},
+							minLength: 0,
+							select: function( event, ui ) {
+								// enable clone button
+								exp = ui.item.label;
+								getId = exp.split(' : ')[0];
+								$(event.target).closest(".col-md-6").removeClass('has-error');
+
+								filterdata[event.target.id] = getId;
+								filter = true;
+							},
+							change: function( event, ui ) {
+								if (ui.item == null && event.target.value != "") {
+									$(event.target).closest(".col-md-6").addClass('has-error');
+									filter = false;
+								}
+								if (event.target.value == "") {
+									$(event.target).closest(".col-md-6").removeClass('has-error');
+									filterdata[event.target.id] = "";
+									filter = true;
+								}
+							}
+						});
+					}
+
+					$(event.target).closest(".col-md-6").removeClass('has-error');
+					filterdata[event.target.id] = ui.item.value;
+					filter = true;
+				},
+				change: function( event, ui ) {
+					if (event.target.id == "user_biosource") {
+						$("#user_sample").val("");
+						filterdata["user_sample"] = "";
+					}
+
+					if (ui.item == null && event.target.value != "") {
+						$(event.target).closest(".col-md-6").addClass('has-error');
+						filter = false;
+					}
+					if (event.target.value == "") {
+						$(event.target).closest(".col-md-6").removeClass('has-error');
+						filterdata[event.target.id] = "";
+						filter = true;
+					}
+				}
+			});
+		}
+	
+	}
+	
 
 	// add click event listener to the filter button
 	$("#filter_bt").button().click(filter_function);
