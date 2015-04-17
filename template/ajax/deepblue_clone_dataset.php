@@ -261,6 +261,14 @@ require_once("inc/init.php");
 	var suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
 	var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 	var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
+	var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes']
+	var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome']
+	var vocabname;
+	var vocabid;
+	var count;
+	var newcolcount = 0;
+	var filter = true;
+	filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':"",'user_biosource':""};
 
 	if (list_in_use == null) {
 		var request1 = $.ajax({
@@ -336,15 +344,6 @@ require_once("inc/init.php");
 				}
 			}
 		});
-
-		var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes']
-		var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome']
-		var vocabname;
-		var vocabid;
-		var count;
-		var newcolcount = 0;
-		var filter = true;
-		filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':"",'user_biosource':""};
 
 		var suggestion2 = [];
 		for (i in vocabnames) {
@@ -688,7 +687,7 @@ require_once("inc/init.php");
 					$('#experiment').closest(".search-modal-name").removeClass('has-error');
 				}
 
-				var list_in_use = JSON.parse(localStorage.getItem("list_in_use"));
+				//var list_in_use = JSON.parse(localStorage.getItem("list_in_use"));
 				var tempMeta = {};
 				for (j = 1; j < newMeta; j++) {
 					if (deletedrows.indexOf(j) == -1) {
