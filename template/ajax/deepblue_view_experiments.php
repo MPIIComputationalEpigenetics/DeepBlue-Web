@@ -224,7 +224,9 @@ require_once("inc/init.php");
 
 
 <script type="text/javascript">
-
+	
+	var selected = [];
+	var selectedNames = [];
 	pageSetUp();
 
 	var pagefunction = function() {
@@ -285,7 +287,11 @@ require_once("inc/init.php");
 				}
 			},
 
-			"rowCallback" : function(nRow) {
+			"fnRowCallback" : function(nRow, aData, iDisplayIndex) {
+				//alert($(nRow).data());
+				if (selected.indexOf(aData[0]) != -1) {
+					$(nRow).addClass('success');
+				}
 				responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
 			},
 
@@ -309,8 +315,6 @@ require_once("inc/init.php");
 
 
 		/* process experiment selection by row clicking*/
-		var selected = [];
-		var selectedNames = [];
 
 		$('#datatable_fixed_column').on('dblclick', 'tr', function () {
 
