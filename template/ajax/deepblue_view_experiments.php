@@ -38,7 +38,7 @@ require_once("inc/init.php");
 	<div class="alert alert-info alert-block">
 		<a class="close" data-dismiss="alert" href="#">×</a>
 		<h4 class="alert-heading">Experiments Datatable</h4>
-		DoubleClick the row to select an experiment; It would be added to the Selected Experiments Datatable. DoubleClick again to unselect a selected experiment. Selected experiments are highlighted in green.
+		Double click the row to select an experiment; It would be added to the Selected Experiments Datatable. Double click again to unselect a selected experiment. Selected experiments are highlighted in green.
 	</div>
 
 	<div class="row">
@@ -126,12 +126,6 @@ require_once("inc/init.php");
 		</article>
 	</div>
 
-</section>
-<!-- end widget grid -->
-
-
-
-<section id="widget-grid" class="">
 	<div class="row">
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			    <div class="jarviswidget jarviswidget-color-blueDark" id="datable-selected-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
@@ -288,7 +282,7 @@ require_once("inc/init.php");
 			},
 
 			"fnRowCallback" : function(nRow, aData, iDisplayIndex) {
-				//alert($(nRow).data());
+
 				if (selected.indexOf(aData[0]) != -1) {
 					$(nRow).addClass('success');
 				}
@@ -315,7 +309,6 @@ require_once("inc/init.php");
 
 
 		/* process experiment selection by row clicking*/
-
 		$('#datatable_fixed_column').on('dblclick', 'tr', function () {
 
         	var id = $('td', this).eq(0).text();
@@ -355,6 +348,24 @@ require_once("inc/init.php");
         	}
     	} );
 
+
+		/* remove selection by clicking of row in the selection table*/
+		$('#datatable_selected_column').on('dblclick', 'tr', function () {
+
+        	var id = $('td', this).eq(0).text();
+
+        	if (id ==  "") {
+        		return;
+        	}
+
+			var index = selected.indexOf(id);
+        	selected.splice(index, 1);
+        	selectedNames.splice(index, 1);
+    		$('#datatable_selected_column').dataTable().fnDeleteRow(index);
+
+			var rowId = otable.columns(0).data().eq(0).indexOf(id);
+			otable.row(rowId).nodes().to$().removeClass("success");
+    	} );
 
 	    /* Download button :: Getting selected elements */
 	    $('#downloadBtnBottom').click(function(){
