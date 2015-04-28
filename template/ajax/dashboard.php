@@ -198,7 +198,7 @@
 						<button type="button" id="tech_sort_amt_page" class="btn btn-primary">
 							<i class="fa fa-sort-amount-asc"></i>
 						</button>
-						<button type="button" id="tech_sort_alp_page" class="btn btn-primary">
+						<button type="button" id="tech_sort_alp_page" class="btn btn-primary" disabled>
 							<i class="fa fa-sort-alpha-asc"></i>
 						</button>						
 						<button type="button" id="tech_next_page" class="btn btn-primary">
@@ -258,7 +258,7 @@
 						<button type="button" id="epi_sort_amt_page" class="btn btn-primary">
 							<i class="fa fa-sort-amount-asc"></i>
 						</button>
-						<button type="button" id="epi_sort_alp_page" class="btn btn-primary">
+						<button type="button" id="epi_sort_alp_page" class="btn btn-primary" disabled>
 							<i class="fa fa-sort-alpha-asc"></i>
 						</button>						
 						<button type="button" id="epi_next_page" class="btn btn-primary">
@@ -314,7 +314,7 @@
 						<button id="bio_sort_amt_page" type="button" class="btn btn-primary">
 							<i class="fa fa-sort-amount-asc"></i>
 						</button>
-						<button id="bio_sort_alp_page" type="button" class="btn btn-primary">
+						<button id="bio_sort_alp_page" type="button" class="btn btn-primary" disabled>
 							<i class="fa fa-sort-alpha-asc"></i>
 						</button>						
 						<button id="bio_next_page" name="bio_next_page" type="button" class="btn btn-primary">
@@ -476,31 +476,28 @@
 	sort['technique'] = 'alp';
 	var counter = 0;
 
-	$('#bio_next_page').click(function(){
-		counter = curPageHolder['biosource'];
-		if (counter == 0) {
-			$("#bio_prev_page").prop('disabled', false);
-		}
-		if (counter < page['biosources'][sort['biosource']].length - 1) {
-			curPageHolder['biosource'] = curPageHolder['biosource'] + 1;
-			counter = curPageHolder['biosource'];
-			bbar.setData(page['biosources'][sort['biosource']][counter]);
-		}
-		if (counter == page['biosources'][sort['biosource']].length -1) {
-			$("#bio_next_page").prop('disabled', true);
-		}
-	});
-
 	$('#tech_sort_amt_page').click(function(){
 		sort['technique'] = 'amt';
 		tbar.setData(page['techniques'][sort['technique']][0]);
 		curPageHolder['technique'] = 0;
+
+		$("#tech_sort_amt_page").prop('disabled', true);
+		$("#tech_sort_alp_page").prop('disabled', false);
+
+		$("#tech_next_page").prop('disabled', false);
+		$("#tech_prev_page").prop('disabled', true);
 	});
 
 	$('#tech_sort_alp_page').click(function(){
 		sort['technique'] = 'alp';
 		tbar.setData(page['techniques'][sort['technique']][0]);
 		curPageHolder['technique'] = 0;
+
+		$("#tech_sort_amt_page").prop('disabled', false);
+		$("#tech_sort_alp_page").prop('disabled', true);
+
+		$("#tech_next_page").prop('disabled', false);
+		$("#tech_prev_page").prop('disabled', true);
 	});
 
 	$('#tech_next_page').click(function(){
@@ -537,12 +534,39 @@
 		sort['biosource'] = 'amt';
 		bbar.setData(page['biosources'][sort['biosource']][0]);
 		curPageHolder['biosource'] = 0;
+
+		$("#bio_sort_amt_page").prop('disabled', true);
+		$("#bio_sort_alp_page").prop('disabled', false);
+
+		$("#bio_next_page").prop('disabled', false);
+		$("#bio_prev_page").prop('disabled', true);
 	});
 
 	$('#bio_sort_alp_page').click(function(){
 		sort['biosource'] = 'alp';
 		bbar.setData(page['biosources'][sort['biosource']][0]);
 		curPageHolder['biosource'] = 0;
+
+		$("#bio_sort_amt_page").prop('disabled', false);
+		$("#bio_sort_alp_page").prop('disabled', true);
+
+		$("#bio_next_page").prop('disabled', false);
+		$("#bio_prev_page").prop('disabled', true);
+	});
+
+	$('#bio_next_page').click(function(){
+		counter = curPageHolder['biosource'];
+		if (counter == 0) {
+			$("#bio_prev_page").prop('disabled', false);
+		}
+		if (counter < page['biosources'][sort['biosource']].length - 1) {
+			curPageHolder['biosource'] = curPageHolder['biosource'] + 1;
+			counter = curPageHolder['biosource'];
+			bbar.setData(page['biosources'][sort['biosource']][counter]);
+		}
+		if (counter == page['biosources'][sort['biosource']].length -1) {
+			$("#bio_next_page").prop('disabled', true);
+		}
 	});
 
 	$('#bio_prev_page').click(function(){
@@ -564,12 +588,24 @@
 		sort['epigenetic_mark'] = 'amt';
 		ebar.setData(page['epigenetic_marks'][sort['epigenetic_mark']][0]);
 		curPageHolder['epigenetic_mark'] = 0;
+
+		$("#epi_sort_amt_page").prop('disabled', true);
+		$("#epi_sort_alp_page").prop('disabled', false);
+
+		$("#epi_next_page").prop('disabled', false);
+		$("#epi_prev_page").prop('disabled', true);
 	});
 
 	$('#epi_sort_alp_page').click(function(){
 		sort['epigenetic_mark'] = 'alp'
 		ebar.setData(page['epigenetic_marks'][sort['epigenetic_mark']][0]);
 		curPageHolder['epigenetic_mark'] = 0;
+
+		$("#epi_sort_amt_page").prop('disabled', false);
+		$("#epi_sort_alp_page").prop('disabled', true);
+
+		$("#epi_next_page").prop('disabled', false);
+		$("#epi_prev_page").prop('disabled', true);
 	});
 
 	$('#epi_next_page').click(function(){
