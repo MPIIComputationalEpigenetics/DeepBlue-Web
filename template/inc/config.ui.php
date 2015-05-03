@@ -111,6 +111,12 @@ $page_nav = array(
 		)
 	),
 
+	"deepblue_request" => array(
+		"title" => "Manage Request",
+		"url"=> "ajax/deepblue_manage_request.php",
+		"icon" => "fa-shopping-cart"
+	),
+
 	"deepblue_workflow" => array(
 		"title" => "Workflow",
 		"url"=> "ajax/deepblue_view_workflow.php",

@@ -370,20 +370,32 @@ require_once("inc/init.php");
 	    /* Download button :: Getting selected elements */
 	    $('#downloadBtnBottom').click(function(){
 
-	    	if(selected.length == 0){
+            if (JSON.parse(localStorage.getItem('request')) == null) {
+                localStorage.setItem('request', JSON.stringify([{'id' : '0','status' : 'NEW','time' : 'Today'}]));
+            }
+	    	
+            if(selected.length == 0){
 				alert("Please select elements!");
 			}
 			else{
+                // TODO: This should launch a modal window for user to choose region preferences so the full functionality of the request is performed
 				var request = $.ajax({
-					url: "ajax/server_side/select_regions_server_processing.php",
+					url: "ajax/server_side/request_regions_server_processing.php",
 					dataType: "json",
 					data : {
-						experiments_names : selectedNames,
+						experiments_ids : selected,
 					}
 				});
 
 				request.done( function(data) {
-					window.location.href = 'ajax/server_side/get_regions_server_processing.php?query_id='+data.query_id;
+
+                    var download = {'id' : data.request_id,'status' : 'NEW','time' : 'Today'};
+                    var storage = JSON.parse(localStorage.getItem('request'));
+
+                    storage.push(download);
+                    localStorage.setItem('request', JSON.stringify(storage));
+
+                    alert("Request for experiment region successful :" + data.request_id + " .Click here to manage request");
 				});
 
 				request.fail( function(jqXHR, textStatus) {
@@ -399,7 +411,6 @@ require_once("inc/init.php");
 	};
 
 	// load related plugins
-
 	loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
 		loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
 			loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){

@@ -48,11 +48,9 @@ require_once("inc/init.php");
 
 				<!-- widget div-->
 				<div>
-
 					<!-- widget edit box -->
 					<div class="jarviswidget-editbox">
 						<!-- This area used as dropdown edit box -->
-
 					</div>
 					<!-- end widget edit box -->
 
@@ -63,7 +61,7 @@ require_once("inc/init.php");
 								<div class="alert alert-info alert-block">
 									<a class="close" data-dismiss="alert" href="#">×</a>
 									<h4 class="alert-heading">Download Queue</h4>
-									When the download is ready (Request status: READY), click "Download" to retrieve the compressed experiment data.
+									When the download is ready, (Request status: READY), the download button would be enabled.
 								</div>
 			                    <div class="widget-body">
 			                        <table id="datatable_fixed_column" name='experiment-table' class="table table-striped table-bordered table-hover" width="100%">
@@ -73,24 +71,19 @@ require_once("inc/init.php");
 			                                        <input type="text" class="form-control" placeholder="Request ID" id="request-id" />
 			                                    </th>
 			                                    <th class="hasinput">
-			                                        <input class="form-control" placeholder="Experiment ID" type="text" id="experiment-id">
-			                                    </th>
-			                                    <th class="hasinput">
 			                                        <input type="text" class="form-control" placeholder="Request Status" id="request-status"/>
 			                                    </th>
 			                                    <th class="hasinput">
-			                                        <input type="text" class="form-control" placeholder="Request Date Stamp" id="request-date-stamp"/>
+			                                        <input type="text" class="form-control" placeholder="Request Time" id="request-date-stamp"/>
 			                                    </th>
-			                                    <th class="hasinput">
-			                                        
+			                                    <th class="hasinput">			                                        
 			                                    </th>
 			                                </tr>
 			                                <tr>
 												<th>Request ID</th>
-			                                    <th>Experiment ID</th>
 			                                    <th>Request Status</th>
-												<th>Request Date Stamp</th>			                                    
-												<th>Download</th>			                                    
+												<th>Request Time</th>			                                    
+												<th>Downloads</th>			                                    
 			                                </tr>
 			                            </thead>
 
@@ -112,3 +105,47 @@ require_once("inc/init.php");
 	<!-- end row -->
 </section>
 <!-- end widget grid -->
+
+<script type="text/javascript">
+	
+	pageSetUp();
+
+	var pagefunction = function() {
+
+		/* BASIC ;*/
+		var responsiveHelper_dt_basic = undefined;
+		var responsiveHelper_datatable_fixed_column = undefined;
+		var responsiveHelper_datatable_col_reorder = undefined;
+		var responsiveHelper_datatable_tabletools = undefined;
+
+		var requestObj = localStorage.getItem('request');
+		var request = JSON.parse(requestObj);
+
+		for (i=1; i < request.length; i++) {
+			$('#datatable_fixed_column').dataTable().fnAddData(
+				[request[i]['id'], request[i]['status'] , request[i]['time'], '<button type="button" id="downloadBtnBottom_' + i + '" class="btn btn-primary" disabled>Download</button>']
+			);
+
+		    /* Download button to download requests */
+		    $('#downloadBtnBottom_' + i).click(function(){
+		    	alert(event.target.id);
+		    	window.open('ajax/server_side/download_regions_server_processing.php?request_id='+'r28','_blank');
+		    });
+		}
+
+		/* run checks for completed request and enable their download button*/
+		/* check would be run once at the begining and every seconds on disabled buttons*/
+
+	};
+
+	// load related plugins
+	loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
+		loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
+			loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
+				loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
+					loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
+				});
+			});
+		});
+	});
+</script>
