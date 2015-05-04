@@ -370,9 +370,9 @@ require_once("inc/init.php");
 	    /* Download button :: Getting selected elements */
 	    $('#downloadBtnBottom').click(function(){
 
-            if (JSON.parse(localStorage.getItem('request')) == null) {
-                localStorage.setItem('request', JSON.stringify([{'id' : '0','status' : 'NEW','time' : 'Today'}]));
-            }
+            // if (JSON.parse(localStorage.getItem('request')) == null) {
+            //     localStorage.setItem('request', JSON.stringify([{'id' : '0','status' : 'NEW','time' : 'Today'}]));
+            // }
 	    	
             if(selected.length == 0){
 				alert("Please select elements!");
@@ -388,14 +388,12 @@ require_once("inc/init.php");
 				});
 
 				request.done( function(data) {
+                    // var download = {'id' : data.request_id,'status' : 'NEW','time' : 'Today'};
+                    // var storage = JSON.parse(localStorage.getItem('request'));
 
-                    var download = {'id' : data.request_id,'status' : 'NEW','time' : 'Today'};
-                    var storage = JSON.parse(localStorage.getItem('request'));
-
-                    storage.push(download);
-                    localStorage.setItem('request', JSON.stringify(storage));
-
-                    alert("Request for experiment region successful :" + data.request_id + " .Click here to manage request");
+                    // storage.push(download);
+                    // localStorage.setItem('request', JSON.stringify(storage));
+                    alert("Request for experiment region successful :" + data.request_id + ". Go to Manage Requests page to download the regions");
 				});
 
 				request.fail( function(jqXHR, textStatus) {

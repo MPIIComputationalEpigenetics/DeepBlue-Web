@@ -120,22 +120,62 @@ require_once("inc/init.php");
 
 		var requestObj = localStorage.getItem('request');
 		var request = JSON.parse(requestObj);
+		var request_state;
+		var request_ids = [];
+		var waiting_state = [];
+		var request_time;
+		var download_button;
+		var request_id;
 
-		for (i=1; i < request.length; i++) {
-			$('#datatable_fixed_column').dataTable().fnAddData(
-				[request[i]['id'], request[i]['status'] , request[i]['time'], '<button type="button" id="downloadBtnBottom_' + i + '" class="btn btn-primary" disabled>Download</button>']
-			);
+		var query = $.ajax({
+			url: "ajax/server_side/list_request_server_processing.php",
+			dataType: "json",
+			data : {
+				filter : "",
+			}
+		});
 
-		    /* Download button to download requests */
-		    $('#downloadBtnBottom_' + i).click(function(){
-		    	alert(event.target.id);
-		    	window.open('ajax/server_side/download_regions_server_processing.php?request_id='+'r28','_blank');
-		    });
-		}
+		query.done( function(data) {
+			for (i=0; i < data.data.length; i++) {
+				request_id = data.data[i][0].split('"')[1];
+				request_ids[i] = request_id;
 
-		/* run checks for completed request and enable their download button*/
+				request_state = data.data[i][1];
+				if (request_state == 'done') {
+					request_state = 'READY';
+					download_button = '<button type="button" id="downloadBtnBottom_' + i + '" class="btn btn-primary">Download</button>';	
+				}
+				else {
+					download_button = '<button type="button" id="downloadBtnBottom_' + i + '" class="btn btn-primary" disabled>Download</button>';
+					waiting_state.push(request_id);
+				}
+
+				request_time = '';
+
+				$('#datatable_fixed_column').dataTable().fnAddData([request_id, request_state , request_time, download_button]);
+
+			    /* Download button to download requests */
+			    $('#downloadBtnBottom_' + i).click(function(){
+			    	var id = event.target.id.split('_')[1];
+			    	alert(id);
+			    	window.open('ajax/server_side/download_regions_server_processing.php?request_id='+ request_ids[id],'_blank');
+			    });
+			}
+		});
+
+		query.fail( function(jqXHR, textStatus) {
+			console.log(jqXHR);
+    		console.log('Error: '+ textStatus);
+			alert( "error" );
+		});
+
+
 		/* check would be run once at the begining and every seconds on disabled buttons*/
-
+		setInterval(function(){
+			for (j=0; j < waiting_state.length; j++) {
+				// request current state and update.
+			}
+		}, 30000);
 	};
 
 	// load related plugins
