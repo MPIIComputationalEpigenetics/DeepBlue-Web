@@ -36,7 +36,6 @@ require_once("inc/init.php");
 <!-- widget grid -->
 <section id="widget-grid" class="">
 	<div class="alert alert-info alert-block">
-		<a class="close" data-dismiss="alert" href="#">×</a>
 		<h4 class="alert-heading">Experiments Datatable</h4>
 		Double click the row to select an experiment; It would be added to the Selected Experiments Datatable. Double click again to unselect a selected experiment. Selected experiments are highlighted in green.
 	</div>
@@ -380,10 +379,11 @@ require_once("inc/init.php");
 			else{
                 // TODO: This should launch a modal window for user to choose region preferences so the full functionality of the request is performed
 				var request = $.ajax({
-					url: "ajax/server_side/request_regions_server_processing.php",
+					url: "ajax/server_side/manage_requests_server_processing.php",
 					dataType: "json",
 					data : {
-						experiments_ids : selected,
+                        option : 'rrequest',
+						experiments_ids : selected
 					}
 				});
 

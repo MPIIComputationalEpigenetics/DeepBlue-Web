@@ -110,6 +110,12 @@ require_once("inc/init.php");
 	
 	pageSetUp();
 
+	function getRegion() {
+		var id = event.target.id.split('_')[1];
+		//alert(id);
+		window.open('ajax/server_side/manage_requests_server_processing.php?option=drequest&request_id='+ request_ids[id],'_blank');
+	}
+
 	var pagefunction = function() {
 
 		/* BASIC ;*/
@@ -127,11 +133,13 @@ require_once("inc/init.php");
 		var download_button;
 		var request_id;
 
+
 		var query = $.ajax({
-			url: "ajax/server_side/list_request_server_processing.php",
+			url: "ajax/server_side/manage_requests_server_processing.php",
 			dataType: "json",
 			data : {
-				filter : "",
+				option : "lrequest",
+				filter : ""
 			}
 		});
 
@@ -143,23 +151,15 @@ require_once("inc/init.php");
 				request_state = data.data[i][1];
 				if (request_state == 'done') {
 					request_state = 'READY';
-					download_button = '<button type="button" id="downloadBtnBottom_' + i + '" class="btn btn-primary">Download</button>';	
+					download_button = '<button type="button" id="downloadBtnBottom_' + request_id + '" class="btn btn-primary" onclick = "getRegion()">Download</button>';	
 				}
 				else {
-					download_button = '<button type="button" id="downloadBtnBottom_' + i + '" class="btn btn-primary" disabled>Download</button>';
+					download_button = '<button type="button" id="downloadBtnBottom_' + request_id + '" class="btn btn-primary" disabled onclick = "getRegion()">Download</button>';
 					waiting_state.push(request_id);
 				}
 
 				request_time = '';
-
 				$('#datatable_fixed_column').dataTable().fnAddData([request_id, request_state , request_time, download_button]);
-
-			    /* Download button to download requests */
-			    $('#downloadBtnBottom_' + i).click(function(){
-			    	var id = event.target.id.split('_')[1];
-			    	alert(id);
-			    	window.open('ajax/server_side/download_regions_server_processing.php?request_id='+ request_ids[id],'_blank');
-			    });
 			}
 		});
 
@@ -172,9 +172,34 @@ require_once("inc/init.php");
 
 		/* check would be run once at the begining and every seconds on disabled buttons*/
 		setInterval(function(){
-			for (j=0; j < waiting_state.length; j++) {
-				// request current state and update.
-			}
+			var query2 = $.ajax({
+				url: "ajax/server_side/manage_requests_server_processing.php",
+				dataType: "json",
+				data : {
+					option : "srequest",
+					data : waiting_state
+				}
+			});
+
+			query2.done( function(data) {
+				for (i=0; i < data.data.length; i++) {
+					if (data.data[i][1] == 'okay') {
+						request_state = data.data[i][1]; 
+					}
+
+					if (request_state == 'done') {
+						request_state = 'READY';
+						var j  = waiting_state[i];
+						$('#downloadBtnBottom_' + j).removeAttr('disabled');
+					}
+				}
+			});
+
+			query2.fail( function(jqXHR, textStatus) {
+				console.log(jqXHR);
+	    		console.log('Error: '+ textStatus);
+				alert( "error" );
+			});
 		}, 30000);
 	};
 
