@@ -47,7 +47,7 @@ include("inc/header.php");
 
 	<span id="extr-page-header-space">
 		<span class="hidden-mobile">Need an account?</span>
-		<a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Create account</a>
+		<a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Request an account</a>
 	</span>
 
 </header>

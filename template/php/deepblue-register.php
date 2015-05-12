@@ -1,12 +1,12 @@
-<?php
+	<?php
+	$str = "";
+	foreach ($_POST as $key => $value) {
+		$str .= $key . " " . $value . "\n";
+	}
 
-/* DeepBlue Configuration */
+	mail("felipe.albrect@gmail.com", "New User", $str);
 
-	print("POST");
-	print_r($_POST);
+	print "<h1> Thank you for your interest on DeepBlue Epigenomic Data Server.</h1>";
+	print "We will check your information and create an account for you.";
+	?>
 
-	print("GET");
-	print_r($_GET);
-
-require_once("users-database.php")
-?>
