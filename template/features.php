@@ -45,18 +45,13 @@ include("inc/header.php");
     	</ul>
   	</div>
 
-	<span id="extr-page-header-space">
-		<span class="hidden-mobile">Need an account?</span>
-		<a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Create account</a>
-	</span>
-
 </header>
 
 <div id="main" role="main">
 	<!-- MAIN CONTENT -->
 	<div id="content" class="container">
 		<div class="row">
-			<h1> Features </h1>
+			<h1> DeepBlue Epigenomic Data Server Features: </h1>
 			<ul>
 				<li>DeepBlue contains the Methylation (WGBS, RRBS, and Infinium 450k), Histone Modifications and Variants, DNaseI, Transcription Factors Binding Sites, Chromatin State Segmetation, and gene expression (mRNA-seq) datasets from the major epigenome consortia: ENCODE, Roadmap Epigenomic, and BLUEPRINT Epigenomics</li>
 				<li>Update module that retrieves the latest epigenome datasets from the major epigenome consortia</li>
