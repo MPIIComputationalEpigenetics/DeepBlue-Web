@@ -30,12 +30,25 @@ include("inc/header.php");
 	<!--<span id="logo"></span>-->
 
 	<div id="logo-group">
-		<span id="logo"> <img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="DeepBlue Epigenomic Data Server"> </span>
-
-		<!-- END AJAX-DROPDOWN -->
+		<span id="logo">
+			<a href="<?php echo ASSETS_URL; ?>">
+				<img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="DeepBlue Epigenomic Data Server">
+			</a>
+		</span>
 	</div>
 
-	<span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Create account</a> </span>
+	<div class="navbar-collapse collapse">
+    	<ul class="nav navbar-nav navbar-left">
+			<li><span id="extr-page-header-space"><a href="features.php">Features List</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
+    	</ul>
+  	</div>
+
+	<span id="extr-page-header-space">
+		<span class="hidden-mobile">Need an account?</span>
+		<a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Create account</a>
+	</span>
 
 </header>
 
