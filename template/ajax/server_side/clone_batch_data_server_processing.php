@@ -5,7 +5,7 @@
 *   Copyright (c) 2014 Max Planck Institute for Computer Science.
 *   All rights reserved.
 *
-*   File : search_get_info_serve_processing.php
+*   File : clone_batch_data_server_processing.php
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Obaro Odiete <s8obodie@stud.uni-saarland.de>

@@ -13,6 +13,9 @@
 *   Created : 05-01-2015
 */
 
+ini_set('memory_limit', '-1');
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 
@@ -31,6 +34,54 @@ if ((!isset($_GET)) || !isset($_GET["option"])) {
 $option = $_GET["option"];
 
 switch ($option) {
+	case 'orequest':
+
+		/* manage region download options */
+		if (!isset($_GET["ids"])) {
+			return;
+		}
+
+		$format = [];
+		$experiment = [];
+		$getIds = $_GET["ids"];
+
+		for ($i = 0; $i < count($getIds); $i++) {
+			if(!$client->query("info", $getIds[$i], $user_key)){
+				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+			}
+			else{
+				$infoList[] = $client->getResponse();
+			}
+			
+			$columns = $infoList[0][1][0]['columns'];
+			$length = count($columns);
+
+			for ($j = 0; $j < $length; $j++) {
+				$column_name = $columns[$j]['name'];
+				if (array_key_exists($column_name, $format)) {
+					$format[$column_name] = $format[$column_name] + 1;				
+					$experiment[$column_name] = $experiment[$column_name].'; '.$getIds[$i];
+				}
+				else {
+					$format[$column_name] = 1;
+					$experiment[$column_name] = $getIds[$i];
+				}			
+			}
+
+			$infoList = null;
+		}
+
+		$common_count = max(array_values($format));
+		$common_format = array_keys($format, $common_count);
+		$optional_format = array_values(array_diff(array_keys($format), $common_format));
+
+		$data['common'] = $common_format;
+		$data['optional'] = $optional_format;
+		$data['experiment'] = $experiment;
+
+		echo json_encode($data);
+		break;
+	
 	case 'rrequest':
 
 		/* manage region requests */

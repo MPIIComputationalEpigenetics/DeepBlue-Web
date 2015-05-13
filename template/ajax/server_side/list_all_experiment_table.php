@@ -13,11 +13,14 @@
 *   Created : 09-02-2015
 */
 
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 
 $client = new IXR_Client($url);
+
 
 /* DeepBlue Class */
 require_once("../../lib/deepblue.functions.php");
