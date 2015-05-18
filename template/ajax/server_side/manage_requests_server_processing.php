@@ -89,6 +89,13 @@ switch ($option) {
 			return;
 		}
 
+		if (!isset($_GET["columns"])) {
+			$format = 'CHROMOSOME,START,END';
+		}
+		else {
+			$format = $_GET['columns'];	
+		}
+
 		$experiments_ids = $_GET["experiments_ids"];
 		$genome = "";
 		$epigenetic_mark = "";
@@ -98,8 +105,7 @@ switch ($option) {
 		$chromosome ="";
 		$start = 0;
 		$end = PHP_INT_MAX;
-		$format = 'CHROMOSOME,START,END';
-
+		
 		if (!$client->query("select_regions", $experiments_ids, $genome, $epigenetic_mark, $sample_id, $technique, $project, $chromosome, $start, $end, $user_key)) {
 		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}

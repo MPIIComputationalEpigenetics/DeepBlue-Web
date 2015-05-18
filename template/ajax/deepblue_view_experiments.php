@@ -8,12 +8,13 @@
 *   Authors :
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
+*   Obaro Odiete <s8obodie@stud.uni-saarlande.de>
 *
 *   Created : 07-04-2015
 *
 *   ================================================
 *
-*   File : deepblue_view_experiments_new.php
+*   File : deepblue_view_experiments.php
 *
 */
 
@@ -215,73 +216,85 @@ require_once("inc/init.php");
         </article>
     </div>
 
-    <section id="widget-grid" class="">
-        <!-- row -->
-        <div class="row">
-            <!-- NEW WIDGET START -->
-            <article class="col-sm-12 col-md-12 col-lg-12">
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget jarviswidget-color-blue" id="tree-biosources" data-widget-editbutton="true">
-                    <header>
-                        <span class="widget-icon"> <i class="fa fa-tasks"></i> </span>
-                        <h2>Download Options</h2>
-                    </header>
-                    <!-- widget div-->
-                    <div>
-                        <!-- widget content -->
-                        <div class="widget-body">
-                            <div class="row">
-                                <div class="col-md-12 col-md-offset-0">
-                                    <div class="alert alert-info alert-block">
-                                        <a class="close" data-dismiss="alert" href="#">×</a>
-                                        <h4 class="alert-heading">Optional Column</h4>
-                                        These are optional columns, click to include.
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
-                                    <select id='genomes_id' class='multi-select-size' multiple placeholder='ID'>
-                                        <option>ID-1</option>
-                                        <option>ID-2</option>
-                                        <option>ID-3</option>
-                                        <option>ID-4</option>
-                                        <option>ID-5</option>
-                                        <option>ID-6</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
-                                    <div class="input-group-btn">
-                                        <div class="downloadButtonDiv"><button type="button" id="downloadBtnBottom" class="btn btn-primary"><i class="fa fa-forward"></i> Download Regions</button></div> 
-                                    </div>
-                                </div>
+    <div id="option-banner" class="alert alert-info alert-block" id="main-banner">
+        <h4 class="alert-heading">Download Options</h4>
+        Customized options for the experiments region downloads
+    </div>
+
+    <div id="option-div" class="row">
+        <!-- NEW COL START -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                    <h2>Select Columns </h2>
+                </header>
+               <!-- widget div-->
+                <div>
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        <legend>
+                            Common Column(s)
+                        </legend>
+                        <div class="form-group">
+                            <select id="common_col" multiple style="width:100%" class="select2"></select>
+                            <div class="note">
+                                <strong>Usage:</strong> Use the dropdown to include a column. Click on the X to exclude the column
                             </div>
                         </div>
-                        <!-- end widget content -->
+                        <legend>
+                            Optional Column(s)
+                        </legend>
+                        <div class="form-group">
+                            <select id="optional_col" multiple style="width:100%" class="select2"></select>
+                            <div class="note">
+                                <strong>Usage:</strong> Use the dropdown to include a column. Click on the X to exclude the column
+                            </div>
+                        </div>
+                        <div class="downloadButtonDiv">
+                            <button class="btn btn-default" type="button">
+                                Cancel
+                            </button>
+                            <button id= "downloadBtnBottom" class="btn btn-primary" type="button">
+                                <i class="fa fa-download"></i>
+                                Send Request
+                            </button>
+                        </div>
                     </div>
-                    <!-- end widget div -->
-
+                    <!-- end widget content -->
                 </div>
-                <!-- end widget -->
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
+        </article>
+    </div>
 
-            </article>
-            <!-- WIDGET END -->
-        </div>
-        <!-- end row -->
-    </section>
 </section>
 <!-- end widget grid -->
-
-
-
 
 <script type="text/javascript">
     
     var selected = [];
     var selectedNames = [];
+    var options = true;
+
     pageSetUp();
 
     var pagefunction = function() {
 
         var isShow = false;
+
+        // hide some divs
+        $('#option-div').hide();
+        $('#option-banner').hide();
+
         $(document).on("click", '.exp-metadata-more-view', function () {
             //var metadata = $(this).prev();
             if(isShow == false){
@@ -297,17 +310,19 @@ require_once("inc/init.php");
 
         });
 
+        /**/
+        $('.tagsinput').tagsinput('refresh');
 
         /* BASIC ;*/
-            var responsiveHelper_dt_basic = undefined;
-            var responsiveHelper_datatable_fixed_column = undefined;
-            var responsiveHelper_datatable_col_reorder = undefined;
-            var responsiveHelper_datatable_tabletools = undefined;
+        var responsiveHelper_dt_basic = undefined;
+        var responsiveHelper_datatable_fixed_column = undefined;
+        var responsiveHelper_datatable_col_reorder = undefined;
+        var responsiveHelper_datatable_tabletools = undefined;
 
-            var breakpointDefinition = {
-                tablet : 1024,
-                phone : 480
-            };
+        var breakpointDefinition = {
+            tablet : 1024,
+            phone : 480
+        };
 
         /* COLUMN FILTER  */
         var otable = $('#datatable_fixed_column').DataTable({
@@ -327,7 +342,7 @@ require_once("inc/init.php");
                 aoData.push( { "name": "col_9", "value": "extra_metadata"} );
             },
             //"sServerMethod": "POST",
-            "iDisplayLength": 50,
+            "iDisplayLength": 10,
             "autoWidth" : true,
 
             "preDrawCallback" : function() {
@@ -402,7 +417,8 @@ require_once("inc/init.php");
 
                 $(this).removeClass("success");
             }
-        } );
+
+        });
 
 
         /* remove selection by clicking of row in the selection table*/
@@ -424,36 +440,84 @@ require_once("inc/init.php");
         /* Show Options button */
         $('#optionBtnBottom').click(function(){
 
-            if(selected.length == 0){
-                alert("Please select elements!");
+            if (options) {
+                if (selected.length > 0) {
+                    // show options
+                    $('#optionBtnBottom').text("Hide Options")
+                    $('#main-table').hide();
+                    $('#main-banner').hide();
+                    $('#option-div').show();
+                    $('#option-banner').show();
+    
+                    var request = $.ajax({
+                        url: "ajax/server_side/manage_requests_server_processing.php",
+                        dataType: "json",
+                        data : {
+                            option : 'orequest',
+                            ids : selected
+                        }
+                    });
+
+                    request.done( function(data) {
+                        for (i=0; i<data['common'].length; i++) {
+                            var key = data['common'][i];
+                            var value = data['common'][i];
+                            $('#common_col')
+                                .append($("<option></option>")
+                                .attr("value", key)
+                                .text(value));
+                        }
+
+                        //$('#common_col').select2("val") = data['common'];
+
+                        for (i=0; i<data['optional'].length; i++) {
+                            var key = data['optional'][i];
+                            var value = data['optional'][i];
+                            $('#optional_col')
+                                .append($("<option></option>")
+                                .attr("value", key)
+                                .text(value));
+                        }
+                        
+                    });
+
+                    request.fail( function(jqXHR, textStatus) {
+                        console.log(jqXHR);
+                        console.log('Error: '+ textStatus);
+                        alert( "error" );
+                    });
+
+                    options = false;
+                }
+                else {
+                    alert("Please select elements!");    
+                }
             }
-            else {
-                $('#main-table').hide();
-                $('#main-banner').hide();
-                
-                var request = $.ajax({
-                    url: "ajax/server_side/manage_requests_server_processing.php",
-                    dataType: "json",
-                    data : {
-                        option : 'orequest',
-                        ids : selected
-                    }
-                });
+            else{
+                $('#optionBtnBottom').text("Show Options");
+                $('#main-table').show();
+                $('#main-banner').show();
+                $('#option-div').hide();
+                $('#option-banner').hide();
 
-                request.done( function(data) {
-                    alert(data['common']);
-                });
+                $('#optional_col')
+                    .find('option')
+                    .remove();
 
-                request.fail( function(jqXHR, textStatus) {
-                    console.log(jqXHR);
-                    console.log('Error: '+ textStatus);
-                    alert( "error" );
-                });
+                $('#common_col')
+                    .find('option')
+                    .remove();      
+
+                options = true;
             }
         });
 
         /* Download button :: Getting selected elements */
         $('#downloadBtnBottom').click(function(){
+            var common = $('#common_col').select2("val");
+            var optional = $('#optional_col').select2("val");
+            columns_format = common.concat(optional);
+
             var request = $.ajax({
                 url: "ajax/server_side/manage_requests_server_processing.php",
                 dataType: "json",
@@ -475,13 +539,15 @@ require_once("inc/init.php");
             });
         });
     };
-
+        
     // load related plugins
-    loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
-        loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
-            loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
-                loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
-                    loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
+    loadScript("js/plugin/bootstrap-tags/bootstrap-tagsinput.min.js", function(){
+        loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
+            loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
+                loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
+                    loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
+                        loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
+                    });
                 });
             });
         });
