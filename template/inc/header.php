@@ -25,8 +25,6 @@
 
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo ASSETS_URL; ?>/css/deepblue.css">
 
-		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo ASSETS_URL; ?>/css/select2.css">
-
 		<?php
 
 			if ($page_css) {
