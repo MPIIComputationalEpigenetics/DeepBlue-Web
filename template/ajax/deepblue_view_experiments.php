@@ -516,7 +516,7 @@ require_once("inc/init.php");
         $('#downloadBtnBottom').click(function(){
             var common = $('#common_col').select2("val");
             var optional = $('#optional_col').select2("val");
-            columns_format = common.concat(optional);
+            columns_format = common.concat(optional).join();
 
             var request = $.ajax({
                 url: "ajax/server_side/manage_requests_server_processing.php",
