@@ -129,14 +129,14 @@ div#notebook {
   div.cell {
     display: block;
     page-break-inside: avoid;
-  } 
-  div.output_wrapper { 
-    display: block;
-    page-break-inside: avoid; 
   }
-  div.output { 
+  div.output_wrapper {
     display: block;
-    page-break-inside: avoid; 
+    page-break-inside: avoid;
+  }
+  div.output {
+    display: block;
+    page-break-inside: avoid;
   }
 }
 </style>
@@ -227,7 +227,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">xmlrpclib</span>
-<span class="n">user_key</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;Inform your user_key&quot;</span><span class="p">)</span> 
+<span class="n">user_key</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;Inform your user_key&quot;</span><span class="p">)</span>
 <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://deepblue.mpi-inf.mpg.de/xmlrpc&quot;</span>
 <span class="n">server</span> <span class="o">=</span> <span class="n">xmlrpclib</span><span class="o">.</span><span class="n">Server</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;UTF-8&#39;</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">server</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">user_key</span><span class="p">)</span>
@@ -243,7 +243,7 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Inform your user_keyMCKpoMnHrcE01VBs
+<pre>Inform your user_key
 [&apos;okay&apos;, &apos;DeepBlue (0.9.36) says hi to a Stranger&apos;]
 </pre>
 </div>
