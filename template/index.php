@@ -42,6 +42,7 @@ include("inc/header.php");
 			<li><span id="extr-page-header-space"><a href="features.php">Features List</a></span></li>
         	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
         	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="tutorials.php">Tutorials</a></span></li>
     	</ul>
   	</div>
 
