@@ -76,14 +76,14 @@ require_once("inc/init.php");
 			                                    <th class="hasinput">
 			                                        <input type="text" class="form-control" placeholder="Request Time" id="request-date-stamp"/>
 			                                    </th>
-			                                    <th class="hasinput">			                                        
+			                                    <th class="hasinput">
 			                                    </th>
 			                                </tr>
 			                                <tr>
 												<th>Request ID</th>
 			                                    <th>Request Status</th>
-												<th>Request Time</th>			                                    
-												<th>Downloads</th>			                                    
+												<th>Request Time</th>
+												<th>Downloads</th>
 			                                </tr>
 			                            </thead>
 
@@ -107,7 +107,7 @@ require_once("inc/init.php");
 <!-- end widget grid -->
 
 <script type="text/javascript">
-	
+
 	pageSetUp();
 
 	function getRegion() {
@@ -145,13 +145,13 @@ require_once("inc/init.php");
 
 		query.done( function(data) {
 			for (i=0; i < data.data.length; i++) {
-				request_id = data.data[i][0].split('"')[1];
+				request_id = data.data[i][0];
 				request_ids[i] = request_id;
 
 				request_state = data.data[i][1];
 				if (request_state == 'done') {
 					request_state = 'READY';
-					download_button = '<button type="button" id="downloadBtnBottom_' + request_id + '" class="btn btn-primary" onclick = "getRegion()">Download</button>';	
+					download_button = '<button type="button" id="downloadBtnBottom_' + request_id + '" class="btn btn-primary" onclick = "getRegion()">Download</button>';
 				}
 				else {
 					download_button = '<button type="button" id="downloadBtnBottom_' + request_id + '" class="btn btn-primary" disabled onclick = "getRegion()">Download</button>';
@@ -184,7 +184,7 @@ require_once("inc/init.php");
 			query2.done( function(data) {
 				for (i=0; i < data.data.length; i++) {
 					if (data.data[i][1] == 'okay') {
-						request_state = data.data[i][1]; 
+						request_state = data.data[i][1];
 					}
 
 					if (request_state == 'done') {
