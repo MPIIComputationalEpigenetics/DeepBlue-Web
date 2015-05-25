@@ -204,7 +204,7 @@ require_once("inc/init.php");
                             </thead>
 
                         </table>
-                        <div class="downloadButtonDiv"><button type="button" id="optionBtnBottom" class="btn btn-primary"><i class="fa fa-forward"></i> Show Options</button></div> 
+                        <div class="downloadButtonDiv"><button type="button" id="optionBtnBottom" class="btn btn-primary"><i class="fa fa-forward"></i> Show Options</button></div>
                     </div>
                     <!-- end widget content -->
 
@@ -280,7 +280,7 @@ require_once("inc/init.php");
 <!-- end widget grid -->
 
 <script type="text/javascript">
-    
+
     var selected = [];
     var selectedNames = [];
     var options = true;
@@ -400,9 +400,9 @@ require_once("inc/init.php");
 
             var index = selected.indexOf(id);
             if (index == -1) {
-                selected.push(id); 
+                selected.push(id);
                 selectedNames.push(name);
-            
+
                 $('#datatable_selected_column').dataTable().fnAddData(
                     [ id, name , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta]
                 );
@@ -448,7 +448,7 @@ require_once("inc/init.php");
                     $('#main-banner').hide();
                     $('#option-div').show();
                     $('#option-banner').show();
-    
+
                     var request = $.ajax({
                         url: "ajax/server_side/manage_requests_server_processing.php",
                         dataType: "json",
@@ -468,7 +468,8 @@ require_once("inc/init.php");
                                 .text(value));
                         }
 
-                        //$('#common_col').select2("val") = data['common'];
+
+                        $('#common_col').select2("val", data['common']);
 
                         for (i=0; i<data['optional'].length; i++) {
                             var key = data['optional'][i];
@@ -478,7 +479,7 @@ require_once("inc/init.php");
                                 .attr("value", key)
                                 .text(value));
                         }
-                        
+
                     });
 
                     request.fail( function(jqXHR, textStatus) {
@@ -490,7 +491,7 @@ require_once("inc/init.php");
                     options = false;
                 }
                 else {
-                    alert("Please select elements!");    
+                    alert("Please select elements!");
                 }
             }
             else{
@@ -506,7 +507,7 @@ require_once("inc/init.php");
 
                 $('#common_col')
                     .find('option')
-                    .remove();      
+                    .remove();
 
                 options = true;
             }
@@ -539,7 +540,7 @@ require_once("inc/init.php");
             });
         });
     };
-        
+
     // load related plugins
     loadScript("js/plugin/bootstrap-tags/bootstrap-tagsinput.min.js", function(){
         loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
