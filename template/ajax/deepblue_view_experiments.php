@@ -259,12 +259,12 @@ require_once("inc/init.php");
                             </div>
                         </div>
                         <div class="downloadButtonDiv">
-                            <button class="btn btn-default" type="button">
+                            <button id="cancelOption" class="btn btn-default" type="button">
                                 Cancel
                             </button>
                             <button id= "downloadBtnBottom" class="btn btn-primary" type="button">
                                 <i class="fa fa-download"></i>
-                                Send Request
+                                Request Download
                             </button>
                         </div>
                     </div>
@@ -414,7 +414,6 @@ require_once("inc/init.php");
                 selected.splice(index, 1);
                 selectedNames.splice(index, 1);
                 $('#datatable_selected_column').dataTable().fnDeleteRow(index);
-
                 $(this).removeClass("success");
             }
 
@@ -508,8 +507,31 @@ require_once("inc/init.php");
                     .find('option')
                     .remove();
 
+                $('#common_col').select2("val", []);
+                $('#optional_col').select2("val", []);
                 options = true;
             }
+        });
+
+        /* Download button :: Getting selected elements */
+        $('#cancelOption').click(function(){
+            $('#optionBtnBottom').text("Download");
+            $('#main-table').show();
+            $('#main-banner').show();
+            $('#option-div').hide();
+            $('#option-banner').hide();
+
+            $('#optional_col')
+                .find('option')
+                .remove();
+
+            $('#common_col')
+                .find('option')
+                .remove();
+
+            $('#common_col').select2("val", []);
+            $('#optional_col').select2("val", []);
+            options = true;
         });
 
         /* Download button :: Getting selected elements */
@@ -530,6 +552,38 @@ require_once("inc/init.php");
 
             request.done( function(data) {
                 alert("Request for experiment region successful :" + data.request_id + ". Go to Manage Requests page to download the regions");
+
+                // hide option dialog and show datatables
+                $('#optionBtnBottom').text("Download");
+                $('#main-table').show();
+                $('#main-banner').show();
+                $('#option-div').hide();
+                $('#option-banner').hide();
+
+                // remove options input 
+                $('#optional_col')
+                    .find('option')
+                    .remove();
+
+                $('#common_col')
+                    .find('option')
+                    .remove();
+
+                // remove options selections
+                $('#common_col').select2("val", []);
+                $('#optional_col').select2("val", []);
+                options = true;
+
+                // clear the tables of previous selection
+                $('#datatable_selected_column').dataTable().fnClearTable();
+                var rowId
+                for (i=0; i<selected.length; i++) {
+                    id = selected[i];
+                    rowId = otable.columns(0).data().eq(0).indexOf(id);
+                    otable.row(rowId).nodes().to$().removeClass("success");
+                }
+                selected = [];
+                selectedNames = [];
             });
 
             request.fail( function(jqXHR, textStatus) {

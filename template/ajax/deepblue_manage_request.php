@@ -61,7 +61,7 @@ require_once("inc/init.php");
 								<div class="alert alert-info alert-block">
 									<a class="close" data-dismiss="alert" href="#">×</a>
 									<h4 class="alert-heading">Download Queue</h4>
-									When the download is ready, (Request status: READY), the download button would be enabled.
+									When the download is ready, (Request status: Ready), the download button would be enabled.
 								</div>
 			                    <div class="widget-body">
 			                        <table id="datatable_fixed_column" name='experiment-table' class="table table-striped table-bordered table-hover" width="100%">
@@ -155,7 +155,7 @@ require_once("inc/init.php");
 
 				request_state = data['request_list'][i][1];
 				if (request_state == 'done') {
-					request_state = 'READY';
+					request_state = 'Ready';
 					download_button = '<button type="button" id="downloadBtnBottom_' + request_id + '" class="btn btn-primary" onclick = "getRegion()">Download</button>';
 				}
 				else {
@@ -193,7 +193,7 @@ require_once("inc/init.php");
 					}
 
 					if (request_state == 'done') {
-						request_state = 'READY';
+						request_state = 'Ready';
 						var j  = waiting_state[i];
 						$('#downloadBtnBottom_' + j).removeAttr('disabled');
 					}
