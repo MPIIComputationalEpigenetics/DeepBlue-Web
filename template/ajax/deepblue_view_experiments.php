@@ -467,17 +467,16 @@ require_once("inc/init.php");
                                 .attr("value", key)
                                 .text(value));
                         }
-
-
                         $('#common_col').select2("val", data['common']);
 
                         for (i=0; i<data['optional'].length; i++) {
                             var key = data['optional'][i];
                             var value = data['optional'][i];
+                            var text =  value + " (" + data['experiment'][value] + ")";
                             $('#optional_col')
                                 .append($("<option></option>")
                                 .attr("value", key)
-                                .text(value));
+                                .text(text));
                         }
 
                     });
