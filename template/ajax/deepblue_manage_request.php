@@ -74,7 +74,10 @@ require_once("inc/init.php");
 			                                        <input type="text" class="form-control" placeholder="Request Status" id="request-status"/>
 			                                    </th>
 			                                    <th class="hasinput">
-			                                        <input type="text" class="form-control" placeholder="Request Time" id="request-date-stamp"/>
+			                                        <input type="text" class="form-control" placeholder="Request Start Time" id="request-start-time"/>
+			                                    </th>
+			                                    <th class="hasinput">
+			                                        <input type="text" class="form-control" placeholder="Request End Time" id="request-end-time"/>
 			                                    </th>
 			                                    <th class="hasinput">
 			                                    </th>
@@ -82,7 +85,8 @@ require_once("inc/init.php");
 			                                <tr>
 												<th>Request ID</th>
 			                                    <th>Request Status</th>
-												<th>Request Time</th>
+												<th>Request Start Time</th>
+												<th>Request End Time</th>
 												<th>Downloads</th>
 			                                </tr>
 			                            </thead>
@@ -144,11 +148,13 @@ require_once("inc/init.php");
 		});
 
 		query.done( function(data) {
-			for (i=0; i < data.data.length; i++) {
-				request_id = data.data[i][0];
+			for (i=0; i < data['request_list'].length; i++) {
+				request_id = data['request_list'][i][0];
 				request_ids[i] = request_id;
+				request_start_time = data['start-time'][i];
+				request_end_time = data['end-time'][i];
 
-				request_state = data.data[i][1];
+				request_state = data['request_list'][i][1];
 				if (request_state == 'done') {
 					request_state = 'READY';
 					download_button = '<button type="button" id="downloadBtnBottom_' + request_id + '" class="btn btn-primary" onclick = "getRegion()">Download</button>';
@@ -159,7 +165,7 @@ require_once("inc/init.php");
 				}
 
 				request_time = '';
-				$('#datatable_fixed_column').dataTable().fnAddData([request_id, request_state , request_time, download_button]);
+				$('#datatable_fixed_column').dataTable().fnAddData([request_id, request_state , request_start_time, request_end_time, download_button]);
 			}
 		});
 

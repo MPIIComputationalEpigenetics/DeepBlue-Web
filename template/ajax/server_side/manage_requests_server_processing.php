@@ -134,9 +134,25 @@ switch ($option) {
 			if(!$client->query("list_requests", $request_state, $user_key)){
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
-
+			
 			$response = $client->getResponse();
-			echo json_encode(array('data' => $response[1]));
+			$data['request_list'] = $response[1];
+			
+			$request_ids = $response[0][1];
+
+			foreach($data['request_list'] as $request) {
+				if(!$client->query("info", $request[0], $user_key)){
+					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+				}
+				$response = $client->getResponse();
+				$data['start-time'][] = substr($response[1][0]['create_time'], 0, -7);
+				if ($response[1][0]['state'] == 'done')
+					$data['end-time'][] = substr($response[1][0]['finish_time'], 0, -7);
+				else 
+					$data['end-time'][] = '--';
+			}
+
+			echo json_encode($data);
 		}
 		break;
 
