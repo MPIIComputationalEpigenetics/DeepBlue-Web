@@ -52,20 +52,20 @@ switch ($option) {
 			else{
 				$infoList[] = $client->getResponse();
 			}
-			
+
 			$columns = $infoList[0][1][0]['columns'];
 			$length = count($columns);
 
 			for ($j = 0; $j < $length; $j++) {
 				$column_name = $columns[$j]['name'];
 				if (array_key_exists($column_name, $format)) {
-					$format[$column_name] = $format[$column_name] + 1;				
+					$format[$column_name] = $format[$column_name] + 1;
 					$experiment[$column_name] = $experiment[$column_name].'; '.$getIds[$i];
 				}
 				else {
 					$format[$column_name] = 1;
 					$experiment[$column_name] = $getIds[$i];
-				}			
+				}
 			}
 
 			$infoList = null;
@@ -81,7 +81,7 @@ switch ($option) {
 
 		echo json_encode($data);
 		break;
-	
+
 	case 'rrequest':
 
 		/* manage region requests */
@@ -93,7 +93,7 @@ switch ($option) {
 			$format = 'CHROMOSOME,START,END';
 		}
 		else {
-			$format = $_GET['columns'];	
+			$format = $_GET['columns'];
 		}
 
 		$experiments_ids = $_GET["experiments_ids"];
@@ -105,7 +105,7 @@ switch ($option) {
 		$chromosome ="";
 		$start = 0;
 		$end = PHP_INT_MAX;
-		
+
 		if (!$client->query("select_regions", $experiments_ids, $genome, $epigenetic_mark, $sample_id, $technique, $project, $chromosome, $start, $end, $user_key)) {
 		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
@@ -113,7 +113,7 @@ switch ($option) {
 			$result[] = $client->getResponse();
 			$query_id = $result[0][1];
 			$result = [];
-			
+
 			if (!$client->query("get_regions", $query_id, $format, $user_key)) {
 		    	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
@@ -134,10 +134,10 @@ switch ($option) {
 			if(!$client->query("list_requests", $request_state, $user_key)){
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
-			
+
 			$response = $client->getResponse();
 			$data['request_list'] = $response[1];
-			
+
 			$request_ids = $response[0][1];
 
 			foreach($data['request_list'] as $request) {
@@ -148,7 +148,7 @@ switch ($option) {
 				$data['start-time'][] = substr($response[1][0]['create_time'], 0, -7);
 				if ($response[1][0]['state'] == 'done')
 					$data['end-time'][] = substr($response[1][0]['finish_time'], 0, -7);
-				else 
+				else
 					$data['end-time'][] = '--';
 			}
 
@@ -188,16 +188,10 @@ switch ($option) {
 		}
 
 		$bed_file = $result[0][1];
-		$compress = gzencode($bed_file);
+		$compress = gzencode($bed_file, 6);
 
-		header('Content-Description: File Transfer');
-		header('Content-Type: application/force-download');
-		header('Content-Encoding: gzip');
+		header('Content-type: application/x-gzip');
 		header('Content-Disposition: attachment; filename=deepblue_data_'.$request_id.".bed.gz");
-		header('Content-Transfer-Encoding: binary');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header('Pragma: public');
 		header('Content-Length: ' . strlen($compress));
 		ob_clean();
 		flush();
