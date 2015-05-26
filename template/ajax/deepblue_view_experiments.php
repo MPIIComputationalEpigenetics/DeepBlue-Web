@@ -204,7 +204,7 @@ require_once("inc/init.php");
                             </thead>
 
                         </table>
-                        <div class="downloadButtonDiv"><button type="button" id="optionBtnBottom" class="btn btn-primary"><i class="fa fa-forward"></i> Show Options</button></div>
+                        <div class="downloadButtonDiv"><button type="button" id="optionBtnBottom" class="btn btn-primary"><i class="fa fa-forward"></i> Download</button></div>
                     </div>
                     <!-- end widget content -->
 
@@ -443,7 +443,7 @@ require_once("inc/init.php");
             if (options) {
                 if (selected.length > 0) {
                     // show options
-                    $('#optionBtnBottom').text("Hide Options")
+                    $('#optionBtnBottom').text("Re-select Experiments")
                     $('#main-table').hide();
                     $('#main-banner').hide();
                     $('#option-div').show();
@@ -494,7 +494,7 @@ require_once("inc/init.php");
                 }
             }
             else{
-                $('#optionBtnBottom').text("Show Options");
+                $('#optionBtnBottom').text("Download");
                 $('#main-table').show();
                 $('#main-banner').show();
                 $('#option-div').hide();
