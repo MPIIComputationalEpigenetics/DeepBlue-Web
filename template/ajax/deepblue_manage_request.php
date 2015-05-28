@@ -176,35 +176,46 @@ require_once("inc/init.php");
 
 
 		/* check would be run once at the begining and every seconds on disabled buttons*/
+		var window_focus = true;
+		$(window).focus(function(){
+			window_focus = true;
+		});
+
+		$(window).blur(function(){
+			window_focus = false;
+		});
+
 		setInterval(function(){
-			var query2 = $.ajax({
-				url: "ajax/server_side/manage_requests_server_processing.php",
-				dataType: "json",
-				data : {
-					option : "srequest",
-					data : waiting_state
-				}
-			});
-
-			query2.done( function(data) {
-				for (i=0; i < data.data.length; i++) {
-					if (data.data[i][1] == 'okay') {
-						request_state = data.data[i][1];
+			if (window_focus) {
+				var query2 = $.ajax({
+					url: "ajax/server_side/manage_requests_server_processing.php",
+					dataType: "json",
+					data : {
+						option : "srequest",
+						data : waiting_state
 					}
+				});
 
-					if (request_state == 'done') {
-						request_state = 'Ready';
-						var j  = waiting_state[i];
-						$('#downloadBtnBottom_' + j).removeAttr('disabled');
+				query2.done( function(data) {
+					for (i=0; i < data.data.length; i++) {
+						if (data.data[i][1] == 'okay') {
+							request_state = data.data[i][1];
+						}
+
+						if (request_state == 'done') {
+							request_state = 'Ready';
+							var j  = waiting_state[i];
+							$('#downloadBtnBottom_' + j).removeAttr('disabled');
+						}
 					}
-				}
-			});
+				});
 
-			query2.fail( function(jqXHR, textStatus) {
-				console.log(jqXHR);
-	    		console.log('Error: '+ textStatus);
-				alert( "error" );
-			});
+				query2.fail( function(jqXHR, textStatus) {
+					console.log(jqXHR);
+		    		console.log('Error: '+ textStatus);
+					alert( "error" );
+				});
+			}
 		}, 30000);
 	};
 
