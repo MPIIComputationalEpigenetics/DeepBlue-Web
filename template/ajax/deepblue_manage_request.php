@@ -136,44 +136,39 @@ require_once("inc/init.php");
 		var download_button;
 		var request_id;
 
+		var otable = $('#datatable_fixed_column').DataTable({
 
-		var query = $.ajax({
-			url: "ajax/server_side/manage_requests_server_processing.php",
-			dataType: "json",
-			data : {
-				option : "lrequest",
-				filter : ""
+		    "ajax": {
+			    "url": "ajax/server_side/manage_requests_server_processing.php",
+				"data" : {
+					option : "lrequest",
+					filter : ""
+			    },
+			    "iDisplayLength": 10,
+			    "autoWidth" : true,
+			    "bDestroy": true,
+				"preDrawCallback" : function() {
+					// Initialize the responsive datatables helper once.
+					if (!responsiveHelper_datatable_fixed_column) {
+						responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
+					}
+				},
+				"rowCallback" : function(nRow) {
+					responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
+				},
+				"drawCallback" : function(oSettings) {
+					responsiveHelper_datatable_fixed_column.respond();
+				},
 			}
 		});
 
-		query.done( function(data) {
-			for (i=0; i < data['request_list'].length; i++) {
-				request_id = data['request_list'][i][0];
-				request_ids[i] = request_id;
-				request_start_time = data['start-time'][i];
-				request_end_time = data['end-time'][i];
+		$("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
+		    otable
+		        .column( $(this).parent().index()+':visible' )
+		        .search( this.value )
+		        .draw();
 
-				request_state = data['request_list'][i][1];
-				if (request_state == 'done') {
-					request_state = 'Ready';
-					download_button = '<button type="button" id="downloadBtnBottom_' + request_id + '" class="btn btn-primary" onclick = "getRegion()">Download</button>';
-				}
-				else {
-					download_button = '<button type="button" id="downloadBtnBottom_' + request_id + '" class="btn btn-primary" disabled onclick = "getRegion()">Download</button>';
-					waiting_state.push(request_id);
-				}
-
-				request_time = '';
-				$('#datatable_fixed_column').dataTable().fnAddData([request_id, request_state , request_start_time, request_end_time, download_button]);
-			}
 		});
-
-		query.fail( function(jqXHR, textStatus) {
-			console.log(jqXHR);
-    		console.log('Error: '+ textStatus);
-			alert( "error" );
-		});
-
 
 		/* check would be run once at the begining and every seconds on disabled buttons*/
 		var window_focus = true;
@@ -187,34 +182,7 @@ require_once("inc/init.php");
 
 		setInterval(function(){
 			if (window_focus) {
-				var query2 = $.ajax({
-					url: "ajax/server_side/manage_requests_server_processing.php",
-					dataType: "json",
-					data : {
-						option : "srequest",
-						data : waiting_state
-					}
-				});
-
-				query2.done( function(data) {
-					for (i=0; i < data.data.length; i++) {
-						if (data.data[i][1] == 'okay') {
-							request_state = data.data[i][1];
-						}
-
-						if (request_state == 'done') {
-							request_state = 'Ready';
-							var j  = waiting_state[i];
-							$('#downloadBtnBottom_' + j).removeAttr('disabled');
-						}
-					}
-				});
-
-				query2.fail( function(jqXHR, textStatus) {
-					console.log(jqXHR);
-		    		console.log('Error: '+ textStatus);
-					alert( "error" );
-				});
+				otable.ajax.reload();
 			}
 		}, 30000);
 	};

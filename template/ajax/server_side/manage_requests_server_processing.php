@@ -141,18 +141,30 @@ switch ($option) {
 			$request_ids = $response[0][1];
 
 			foreach($data['request_list'] as $request) {
+				$rid = $request[0];
+				$temp[] = $rid;
+
 				if(!$client->query("info", $request[0], $user_key)){
 					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 				}
 				$response = $client->getResponse();
-				$data['start-time'][] = substr($response[1][0]['create_time'], 0, -7);
-				if ($response[1][0]['state'] == 'done')
-					$data['end-time'][] = substr($response[1][0]['finish_time'], 0, -7);
-				else
-					$data['end-time'][] = '--';
+				$rstate = $response[1][0]['state'];
+				if ($rstate == 'done') {
+					$temp[] = 'Ready';
+					$temp[] = substr($response[1][0]['create_time'], 0, -7);
+					$temp[] = substr($response[1][0]['finish_time'], 0, -7);
+					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion()">Download</button>';
+				}
+				else {
+					$temp[] = $rstate;
+					$temp[] = substr($response[1][0]['create_time'], 0, -7);
+					$temp[] = '--';
+					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion()">Download</button>';
+				}
+				$rrow[] = $temp;
+				$temp = [];
 			}
-
-			echo json_encode($data);
+			echo json_encode(array('data' => $rrow));
 		}
 		break;
 
