@@ -258,6 +258,15 @@ require_once("inc/init.php");
                                 <strong>Usage:</strong> Use the dropdown to include a column. Click on the X to exclude the column
                             </div>
                         </div>
+                        <legend>
+                            Meta Column(s)
+                        </legend>
+                        <div class="form-group">
+                            <select id="meta_col" multiple style="width:100%" class="select2"></select>
+                            <div class="note">
+                                <strong>Usage:</strong> Use the dropdown to include a column. Click on the X to exclude the column
+                            </div>
+                        </div>
                         <div class="downloadButtonDiv">
                             <button id="cancelOption" class="btn btn-default" type="button">
                                 Cancel
@@ -476,6 +485,16 @@ require_once("inc/init.php");
                                 .append($("<option></option>")
                                 .attr("value", key)
                                 .text(text));
+                        }
+
+                        // Meta Columns
+                        var meta_col = ['LENGTH','NAME','SEQUENCE', 'EPIGENETIC_MARK','PROJECT','BIOSOURCE','SAMPLE_ID'];
+                        for (i=0; i<meta_col.length; i++) {
+                            var value = meta_col[i];
+                            $('#meta_col')
+                                .append($("<option></option>")
+                                .attr("value", value)
+                                .text(value));
                         }
 
                     });
