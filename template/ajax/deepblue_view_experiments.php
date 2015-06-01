@@ -267,6 +267,15 @@ require_once("inc/init.php");
                                 <strong>Usage:</strong> Use the dropdown to include a column. Click on the X to exclude the column
                             </div>
                         </div>
+                        <legend>
+                            Calculated Column(s)
+                        </legend>
+                        <div class="form-group">
+                            <select id="calculated_col" multiple style="width:100%" class="select2"></select>
+                            <div class="note">
+                                <strong>Usage:</strong> Use the dropdown to include a column. Click on the X to exclude the column
+                            </div>
+                        </div>
                         <div class="downloadButtonDiv">
                             <button id="cancelOption" class="btn btn-default" type="button">
                                 Cancel
@@ -467,25 +476,6 @@ require_once("inc/init.php");
                     });
 
                     request.done( function(data) {
-                        for (i=0; i<data['common'].length; i++) {
-                            var key = data['common'][i];
-                            var value = data['common'][i];
-                            $('#common_col')
-                                .append($("<option></option>")
-                                .attr("value", key)
-                                .text(value));
-                        }
-                        $('#common_col').select2("val", data['common']);
-
-                        for (i=0; i<data['optional'].length; i++) {
-                            var key = data['optional'][i];
-                            var value = data['optional'][i];
-                            var text =  value + " (" + data['experiment'][value] + ")";
-                            $('#optional_col')
-                                .append($("<option></option>")
-                                .attr("value", key)
-                                .text(text));
-                        }
 
                         // Meta Columns
                         var meta_col = ['@LENGTH','@NAME','@SEQUENCE', '@EPIGENETIC_MARK','@PROJECT','@BIOSOURCE','@SAMPLE_ID'];
@@ -496,6 +486,42 @@ require_once("inc/init.php");
                                 .attr("value", value)
                                 .text(value));
                         }
+
+                        // Calculated Columns
+                        var calculated_col = ['@LENGTH','@NAME','@SEQUENCE', '@EPIGENETIC_MARK','@PROJECT','@BIOSOURCE','@SAMPLE_ID'];
+                        for (i=0; i<data['calculated'].length; i++) {
+                            var key = data['calculated'][i][0];
+                            var value = data['calculated'][i][1];
+                            var text =  value + " = " + key;
+                            $('#calculated_col')
+                                .append($("<option></option>")
+                                .attr("value", key)
+                                .text(text));
+                        }
+
+                        // Common Columns
+                        for (i=0; i<data['common'].length; i++) {
+                            var key = data['common'][i];
+                            var value = data['common'][i];
+                            $('#common_col')
+                                .append($("<option></option>")
+                                .attr("value", key)
+                                .text(value));
+                        }
+                        $('#common_col').select2("val", data['common']);
+
+                        // Optional Columns
+                        for (i=0; i<data['optional'].length; i++) {
+                            var key = data['optional'][i];
+                            var value = data['optional'][i];
+                            var text =  value + " (" + data['experiment'][value] + ")";
+                            $('#optional_col')
+                                .append($("<option></option>")
+                                .attr("value", key)
+                                .text(text));
+                        }
+
+
 
                     });
 

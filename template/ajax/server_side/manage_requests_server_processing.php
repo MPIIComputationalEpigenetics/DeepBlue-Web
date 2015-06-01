@@ -22,6 +22,7 @@ require_once("../../lib/lib.php");
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
 $client = new IXR_Client($url);
+$client2 = new IXR_Client($url);
 
 /* DeepBlue Class */
 require_once("../../lib/deepblue.functions.php");
@@ -69,6 +70,24 @@ switch ($option) {
 			}
 
 			$infoList = null;
+		}
+
+		if(!$client2->query("list_column_types", $user_key)){
+			die('An error occurred - '.$client2->getErrorCode().":".$client2->getErrorMessage());
+		}
+		else{
+			$colList[] = $client2->getResponse();
+			$type = 'code';
+			$pattern = '@'.$type.'@i';
+			
+			foreach ($colList[0][1] as $col) {
+				if (preg_match($pattern, $col[1])) {
+					$colName = explode(":", $col[1])[3];
+					$colCode = explode("'", $col[1])[1];
+					$temp = [$colName, $colCode];
+					$data['calculated'][] = $temp;
+				}
+			}
 		}
 
 		$common_count = max(array_values($format));
