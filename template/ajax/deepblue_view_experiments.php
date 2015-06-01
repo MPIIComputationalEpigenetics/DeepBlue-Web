@@ -488,7 +488,7 @@ require_once("inc/init.php");
                         }
 
                         // Meta Columns
-                        var meta_col = ['LENGTH','NAME','SEQUENCE', 'EPIGENETIC_MARK','PROJECT','BIOSOURCE','SAMPLE_ID'];
+                        var meta_col = ['@LENGTH','@NAME','@SEQUENCE', '@EPIGENETIC_MARK','@PROJECT','@BIOSOURCE','@SAMPLE_ID'];
                         for (i=0; i<meta_col.length; i++) {
                             var value = meta_col[i];
                             $('#meta_col')
