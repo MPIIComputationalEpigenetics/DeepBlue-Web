@@ -552,6 +552,16 @@ require_once("inc/init.php");
                     .find('option')
                     .remove();
 
+                $('#calculated_col')
+                    .find('option')
+                    .remove();
+
+                $('#meta_col')
+                    .find('option')
+                    .remove();
+
+                $('#meta_col').select2("val", []);
+                $('#calculated_col').select2("val", []);
                 $('#common_col').select2("val", []);
                 $('#optional_col').select2("val", []);
                 options = true;
@@ -574,6 +584,16 @@ require_once("inc/init.php");
                 .find('option')
                 .remove();
 
+            $('#calculated_col')
+                .find('option')
+                .remove();
+
+            $('#meta_col')
+                .find('option')
+                .remove();
+
+            $('#meta_col').select2("val", []);
+            $('#calculated_col').select2("val", []);
             $('#common_col').select2("val", []);
             $('#optional_col').select2("val", []);
             options = true;
@@ -614,7 +634,17 @@ require_once("inc/init.php");
                     .find('option')
                     .remove();
 
+                $('#calculated_col')
+                    .find('option')
+                    .remove();
+
+                $('#meta_col')
+                    .find('option')
+                    .remove();
+                    
                 // remove options selections
+                $('#meta_col').select2("val", []);
+                $('#calculated_col').select2("val", []);
                 $('#common_col').select2("val", []);
                 $('#optional_col').select2("val", []);
                 options = true;

@@ -22,7 +22,6 @@ require_once("../../lib/lib.php");
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
 $client = new IXR_Client($url);
-$client2 = new IXR_Client($url);
 
 /* DeepBlue Class */
 require_once("../../lib/deepblue.functions.php");
@@ -72,11 +71,11 @@ switch ($option) {
 			$infoList = null;
 		}
 
-		if(!$client2->query("list_column_types", $user_key)){
-			die('An error occurred - '.$client2->getErrorCode().":".$client2->getErrorMessage());
+		if(!$client->query("list_column_types", $user_key)){
+			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
-			$colList[] = $client2->getResponse();
+			$colList[] = $client->getResponse();
 			$type = 'code';
 			$pattern = '@'.$type.'@i';
 			
