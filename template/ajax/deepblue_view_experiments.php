@@ -546,9 +546,6 @@ require_once("inc/init.php");
                                 .attr("value", key)
                                 .text(text));
                         }
-
-
-
                     });
 
                     request.fail( function(jqXHR, textStatus) {
@@ -564,64 +561,14 @@ require_once("inc/init.php");
                 }
             }
             else{
-                $('#optionBtnBottom').text("Download");
-                $('#main-table').show();
-                $('#main-banner').show();
-                $('#option-div').hide();
-                $('#option-banner').hide();
-
-                $('#optional_col')
-                    .find('option')
-                    .remove();
-
-                $('#common_col')
-                    .find('option')
-                    .remove();
-
-                $('#calculated_col')
-                    .find('option')
-                    .remove();
-
-                $('#meta_col')
-                    .find('option')
-                    .remove();
-
-                $('#meta_col').select2("val", []);
-                $('#calculated_col').select2("val", []);
-                $('#common_col').select2("val", []);
-                $('#optional_col').select2("val", []);
+                clearOptions();
                 options = true;
             }
         });
 
         /* Download button :: Getting selected elements */
         $('#cancelOption').click(function(){
-            $('#optionBtnBottom').text("Download");
-            $('#main-table').show();
-            $('#main-banner').show();
-            $('#option-div').hide();
-            $('#option-banner').hide();
-
-            $('#optional_col')
-                .find('option')
-                .remove();
-
-            $('#common_col')
-                .find('option')
-                .remove();
-
-            $('#calculated_col')
-                .find('option')
-                .remove();
-
-            $('#meta_col')
-                .find('option')
-                .remove();
-
-            $('#meta_col').select2("val", []);
-            $('#calculated_col').select2("val", []);
-            $('#common_col').select2("val", []);
-            $('#optional_col').select2("val", []);
+            clearOptions();
             options = true;
         });
 
@@ -644,35 +591,7 @@ require_once("inc/init.php");
             request.done( function(data) {
                 alert("Request for experiment region successful :" + data.request_id + ". Go to Manage Requests page to download the regions");
 
-                // hide option dialog and show datatables
-                $('#optionBtnBottom').text("Download");
-                $('#main-table').show();
-                $('#main-banner').show();
-                $('#option-div').hide();
-                $('#option-banner').hide();
-
-                // remove options input 
-                $('#optional_col')
-                    .find('option')
-                    .remove();
-
-                $('#common_col')
-                    .find('option')
-                    .remove();
-
-                $('#calculated_col')
-                    .find('option')
-                    .remove();
-
-                $('#meta_col')
-                    .find('option')
-                    .remove();
-                    
-                // remove options selections
-                $('#meta_col').select2("val", []);
-                $('#calculated_col').select2("val", []);
-                $('#common_col').select2("val", []);
-                $('#optional_col').select2("val", []);
+                clearOptions();
                 options = true;
 
                 // clear the tables of previous selection
@@ -694,6 +613,42 @@ require_once("inc/init.php");
             });
         });
     };
+
+    // clean up function
+    function clearOptions() {
+
+        // hide option dialog and show datatables
+        $('#optionBtnBottom').text("Download");
+        $('#main-table').show();
+        $('#main-banner').show();
+        $('#option-div').hide();
+        $('#option-banner').hide();
+
+        // reset options selections
+        $('#optional_col')
+            .find('option')
+            .remove();
+
+        $('#common_col')
+            .find('option')
+            .remove();
+
+        $('#calculated_col')
+            .find('option')
+            .remove();
+
+        $('#meta_col')
+            .find('option')
+            .remove();
+            
+
+        $('#meta_col').select2("val", []);
+        $('#calculated_col').select2("val", []);
+        $('#common_col').select2("val", []);
+        $('#optional_col').select2("val", []);
+        $( "#genome_start" ).spinner().spinner( "value", 0 )
+        $( "#genome_end" ).spinner().spinner( "value", 3 )
+    }
 
     // load related plugins
     loadScript("js/plugin/bootstrap-tags/bootstrap-tagsinput.min.js", function(){
