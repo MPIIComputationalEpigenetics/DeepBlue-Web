@@ -276,6 +276,29 @@ require_once("inc/init.php");
                                 <strong>Usage:</strong> Use the dropdown to include a column. Click on the X to exclude the column
                             </div>
                         </div>
+                        <legend>
+                            Genomic Coordinate
+                        </legend>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label>Chromosome</label>
+                                    <input type="text" value="" class="form-control" id="genome_chrom" style="width:100%" placeholder="Chromosome" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label>Start</label>
+                                    <input class="form-control spinner spinner-right"  id="genome_start" name="spinner" value="0" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label>End</label>
+                                    <input class="form-control spinner spinner-right"  id="genome_end" name="spinner" value="3" type="text">
+                                </div>
+                            </div>
+                        </div>
                         <div class="downloadButtonDiv">
                             <button id="cancelOption" class="btn btn-default" type="button">
                                 Cancel
@@ -304,6 +327,9 @@ require_once("inc/init.php");
     var options = true;
 
     pageSetUp();
+
+    $("#genome_start").spinner(); // setup spinner
+    $("#genome_end").spinner(); // setup spinner
 
     var pagefunction = function() {
 
