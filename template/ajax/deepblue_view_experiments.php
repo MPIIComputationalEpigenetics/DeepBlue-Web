@@ -207,10 +207,8 @@ require_once("inc/init.php");
                         <div class="downloadButtonDiv"><button type="button" id="optionBtnBottom" class="btn btn-primary"><i class="fa fa-forward"></i> Download</button></div>
                     </div>
                     <!-- end widget content -->
-
                 </div>
                 <!-- end widget div -->
-
             </div>
             <!-- end widget -->
         </article>
@@ -276,6 +274,30 @@ require_once("inc/init.php");
                                 <strong>Usage:</strong> Use the dropdown to include a column. Click on the X to exclude the column
                             </div>
                         </div>
+                    </div>
+                    <!-- end widget content -->
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
+        </article>
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                    <h2>Additional Settings </h2>
+                </header>
+               <!-- widget div-->
+                <div>
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body">
                         <legend>
                             Genomic Coordinate
                         </legend>
@@ -296,6 +318,17 @@ require_once("inc/init.php");
                                 <div class="form-group">
                                     <label>End</label>
                                     <input class="form-control spinner spinner-right"  id="genome_end" name="spinner" value="3" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <legend>
+                            Overlapping
+                        </legend>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label>Annotations</label>
+                                    <input type="text" value="" class="form-control" id="chrom_annot" style="width:100%" placeholder="Annotations" />
                                 </div>
                             </div>
                         </div>
