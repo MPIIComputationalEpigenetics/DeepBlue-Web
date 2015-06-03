@@ -301,13 +301,14 @@ require_once("inc/init.php");
                         <legend>
                             Genomic Coordinate
                         </legend>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label>Chromosome</label>
-                                    <input type="text" value="" class="form-control" id="genome_chrom" style="width:100%" placeholder="Chromosome" />
-                                </div>
+                        <div class="form-group">
+                            <label>Chromosome</label>
+                            <select id="genome_chrom" multiple style="width:100%" class="select2"></select>
+                            <div class="note">
+                                <strong>Usage:</strong> Use the dropdown to include a chromosome. Click on the X to exclude the chromosome
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-6 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label>Start</label>
@@ -324,12 +325,11 @@ require_once("inc/init.php");
                         <legend>
                             Overlapping
                         </legend>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label>Annotations</label>
-                                    <input type="text" value="" class="form-control" id="chrom_annot" style="width:100%" placeholder="Annotations" />
-                                </div>
+                        <div class="form-group">
+                            <label>Annotations</label>
+                            <select id="chrom_annot" multiple style="width:100%" class="select2"></select>
+                            <div class="note">
+                                <strong>Usage:</strong> Use the dropdown to include an annotation. Click on the X to exclude the annotation
                             </div>
                         </div>
                         <div class="downloadButtonDiv">
@@ -547,7 +547,6 @@ require_once("inc/init.php");
                         }
 
                         // Calculated Columns
-                        var calculated_col = ['@LENGTH','@NAME','@SEQUENCE', '@EPIGENETIC_MARK','@PROJECT','@BIOSOURCE','@SAMPLE_ID'];
                         for (i=0; i<data['calculated'].length; i++) {
                             var key = data['calculated'][i][0];
                             var value = data['calculated'][i][1];
@@ -579,6 +578,33 @@ require_once("inc/init.php");
                                 .attr("value", key)
                                 .text(text));
                         }
+                    });
+
+                    request.fail( function(jqXHR, textStatus) {
+                        console.log(jqXHR);
+                        console.log('Error: '+ textStatus);
+                        alert( "error" );
+                    });
+
+                    var request = $.ajax({
+                        url: "ajax/server_side/manage_requests_server_processing.php",
+                        dataType: "json",
+                        data : {
+                            option : 'crequest',
+                            ids : selected
+                        }
+                    });
+
+                    request.done( function(data) {
+                        var chr = data['chromosome'];
+                        for (i=0; i < chr.length; i++) {
+                            var value = chr[i];
+                            $('#genome_chrom')
+                                .append($("<option></option>")
+                                .attr("value", value)
+                                .text(value));
+                        }
+
                     });
 
                     request.fail( function(jqXHR, textStatus) {
@@ -674,13 +700,17 @@ require_once("inc/init.php");
             .find('option')
             .remove();
             
+        $('#genome_chrom')
+            .find('option')
+            .remove();
 
         $('#meta_col').select2("val", []);
         $('#calculated_col').select2("val", []);
         $('#common_col').select2("val", []);
         $('#optional_col').select2("val", []);
-        $( "#genome_start" ).spinner().spinner( "value", 0 )
-        $( "#genome_end" ).spinner().spinner( "value", 3 )
+        $('#genome_chrom').select2("val", []);        
+        $('#genome_start' ).spinner().spinner( "value", 0 )
+        $('#genome_end' ).spinner().spinner( "value", 3 )
     }
 
     // load related plugins

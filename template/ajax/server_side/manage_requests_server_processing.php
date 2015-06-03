@@ -186,21 +186,48 @@ switch ($option) {
 		}
 		break;
 
-	case 'srequest':
-		/* query status */
-		if (isset($_GET["data"])) {
-			$waiting_list = $_GET["data"];
-			$new_status = [];
-
-			foreach($waiting_list as $request_id) {
-				if(!$client->query("get_request_status", $request_id, $user_key)){
-					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-				}
-				$response = $client->getResponse();
-				$new_status[] = $response;
-			}
-			echo json_encode(array('data' => $new_status));
+	case 'crequest':
+		/* manage chromosomes options */
+		if (!isset($_GET["ids"])) {
+			return;
 		}
+
+		$getIds = $_GET["ids"];
+		$genomes = [];
+		for ($i = 0; $i < count($getIds); $i++) {
+			if(!$client->query("info", $getIds[$i], $user_key)){
+				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+			}
+			else{
+				$infoList[] = $client->getResponse();
+			}
+			
+			$genome = $infoList[0][1][0]['genome'];
+			if (!in_array($genome, $genomes)) {
+				$genomes[] = $genome;
+			}
+		}
+	
+		$length = count($genomes);
+		$data['chromosome'] = [];
+		for ($j = 0; $j < $length; $j++) {
+			if(!$client->query("chromosomes", $genomes[$j], $user_key)){
+				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+			}
+			else{
+				$result[] = $client->getResponse();
+			}
+
+			$chrlen = count($result[0][1]);
+			for ($k = 0; $k < $chrlen; $k++) {
+				$chr = $result[0][1][$k][0];
+				if (!in_array($chr, $data['chromosome'])) {
+					$data['chromosome'][] = $chr;
+				}			
+			}
+			$result = '';
+		}		
+		echo json_encode($data);
 		break;
 
 	case 'drequest':
