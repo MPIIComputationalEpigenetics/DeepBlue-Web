@@ -120,9 +120,9 @@ switch ($option) {
 		$sample_id = "";
 		$technique = "";
 		$project = "";
-		$chromosome ="";
-		$start = 0;
-		$end = PHP_INT_MAX;
+		$chromosome = $_GET["chromosome"];
+		$start = (int)$_GET["start"];
+		$end = (int)$_GET["end"];
 
 		if (!$client->query("select_regions", $experiments_ids, $genome, $epigenetic_mark, $sample_id, $technique, $project, $chromosome, $start, $end, $user_key)) {
 		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
@@ -210,7 +210,11 @@ switch ($option) {
 	
 		$length = count($genomes);
 		$data['chromosome'] = [];
+		$data['annotations'] = [];
+		$data['annotations_id'] = [];
+
 		for ($j = 0; $j < $length; $j++) {
+			// get chromosomes matching genome
 			if(!$client->query("chromosomes", $genomes[$j], $user_key)){
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
@@ -226,7 +230,26 @@ switch ($option) {
 				}			
 			}
 			$result = '';
-		}		
+
+			// get annotations matching genome
+			if(!$client->query("list_annotations", $genomes[$j], $user_key)){
+				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+			}
+			else{
+				$result[] = $client->getResponse();
+			}
+
+			$annlen = count($result[0][1]);
+			for ($k = 0; $k < $annlen; $k++) {
+				$ann_id = $result[0][1][$k][0];
+				if (!in_array($ann_id, $data['annotations'])) {
+					$ann = $result[0][1][$k][1];
+					$data['annotations'][] = $ann;
+					$data['annotations_id'][] = $ann_id;				
+				}
+			}
+			$result = '';
+		}
 		echo json_encode($data);
 		break;
 

@@ -327,7 +327,7 @@ require_once("inc/init.php");
                         </legend>
                         <div class="form-group">
                             <label>Annotations</label>
-                            <select id="chrom_annot" multiple style="width:100%" class="select2"></select>
+                            <select id="chrom_annot" style="width:100%" class="select2"></select>
                             <div class="note">
                                 <strong>Usage:</strong> Use the dropdown to include an annotation. Click on the X to exclude the annotation
                             </div>
@@ -605,6 +605,14 @@ require_once("inc/init.php");
                                 .text(value));
                         }
 
+                        var ann = data['annotations'];
+                        for (i=0; i < ann.length; i++) {
+                            var value = ann[i];
+                            $('#chrom_annot')
+                                .append($("<option></option>")
+                                .attr("value", value)
+                                .text(value));
+                        }
                     });
 
                     request.fail( function(jqXHR, textStatus) {
@@ -636,6 +644,14 @@ require_once("inc/init.php");
             var common = $('#common_col').select2("val");
             var optional = $('#optional_col').select2("val");
             columns_format = common.concat(optional).join();
+            var chrom = '';
+
+            if ($('#genome_chrom').select2("val") != '') {
+                chrom = $('#genome_chrom').select2("val");
+            }
+
+            var start = $('#genome_start').spinner().spinner("value");
+            var end = $('#genome_end').spinner().spinner("value");
 
             var request = $.ajax({
                 url: "ajax/server_side/manage_requests_server_processing.php",
@@ -643,7 +659,10 @@ require_once("inc/init.php");
                 data : {
                     option : 'rrequest',
                     experiments_ids : selected,
-                    columns :  columns_format
+                    columns :  columns_format,
+                    chromosome : chrom,
+                    start : start,
+                    end : end
                 }
             });
 
@@ -704,13 +723,19 @@ require_once("inc/init.php");
             .find('option')
             .remove();
 
+        $('#chrom_annot')
+            .find('option')
+            .remove();
+
         $('#meta_col').select2("val", []);
         $('#calculated_col').select2("val", []);
         $('#common_col').select2("val", []);
         $('#optional_col').select2("val", []);
         $('#genome_chrom').select2("val", []);        
+        $('#chrom_annot').select2("val", []);
         $('#genome_start' ).spinner().spinner( "value", 0 )
         $('#genome_end' ).spinner().spinner( "value", 3 )
+
     }
 
     // load related plugins
