@@ -689,7 +689,7 @@ require_once("inc/init.php");
             });
 
             request.done( function(data) {
-                alert("Request for experiment region successful :" + data.download_id + ". Go to Manage Requests page to download the regions");
+                alert("Request for experiment region successful :" + data.request_id + ". Go to Manage Requests page to download the regions");
 
                 clearOptions();
                 options = true;
