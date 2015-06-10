@@ -312,13 +312,13 @@ require_once("inc/init.php");
                             <div class="col-sm-6 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label>Start</label>
-                                    <input class="form-control spinner spinner-right"  id="genome_start" name="spinner" value="0" type="text">
+                                    <input class="form-control spinner spinner-right"  id="genome_start" name="spinner" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label>End</label>
-                                    <input class="form-control spinner spinner-right"  id="genome_end" name="spinner" value="3" type="text">
+                                    <input class="form-control spinner spinner-right"  id="genome_end" name="spinner" type="text">
                                 </div>
                             </div>
                         </div>
@@ -327,7 +327,7 @@ require_once("inc/init.php");
                         </legend>
                         <div class="form-group">
                             <label>Annotations</label>
-                            <select id="chrom_annot" style="width:100%" class="select2"></select>
+                            <select id="chrom_annot" multiple style="width:100%" class="select2"></select>
                             <div class="note">
                                 <strong>Usage:</strong> Use the dropdown to include an annotation. Click on the X to exclude the annotation
                             </div>
@@ -358,11 +358,21 @@ require_once("inc/init.php");
     var selected = [];
     var selectedNames = [];
     var options = true;
+    var allgenomes = [];
+    var max_int = 2147483647;
 
     pageSetUp();
 
-    $("#genome_start").spinner(); // setup spinner
-    $("#genome_end").spinner(); // setup spinner
+    // setup spinners
+    $("#genome_start").spinner(); 
+    $('#genome_start').spinner('option', 'min', 0);
+    $('#genome_start').spinner('option', 'max', max_int - 1);
+    $('#genome_start' ).spinner().spinner( "value", 0 )
+
+    $("#genome_end").spinner();
+    $('#genome_end').spinner('option', 'min', 1);
+    $('#genome_end').spinner('option', 'max', max_int);
+    $('#genome_end' ).spinner().spinner( "value", max_int);
 
     var pagefunction = function() {
 
@@ -553,7 +563,7 @@ require_once("inc/init.php");
                             var text =  value + " = " + key;
                             $('#calculated_col')
                                 .append($("<option></option>")
-                                .attr("value", key)
+                                .attr("value", value)
                                 .text(text));
                         }
 
@@ -613,6 +623,8 @@ require_once("inc/init.php");
                                 .attr("value", value)
                                 .text(value));
                         }
+
+                        allgenomes = data['genomes'];
                     });
 
                     request.fail( function(jqXHR, textStatus) {
@@ -643,10 +655,18 @@ require_once("inc/init.php");
         $('#downloadBtnBottom').click(function(){
             var common = $('#common_col').select2("val");
             var optional = $('#optional_col').select2("val");
-            columns_format = common.concat(optional).join();
-            var chrom = '';
+            var calculated = $('#calculated_col').select2("val");
+            var meta = $('#meta_col').select2("val");
 
-            if ($('#genome_chrom').select2("val") != '') {
+            columns_format = common.concat(optional, calculated, meta).join();
+            var chrom = [];
+            var annot = [];
+
+            if ($('#chrom_annot').select2("val")) {
+                annot = $('#chrom_annot').select2("val");
+            }
+
+            if ($('#genome_chrom').select2("val")) {
                 chrom = $('#genome_chrom').select2("val");
             }
 
@@ -659,7 +679,9 @@ require_once("inc/init.php");
                 data : {
                     option : 'rrequest',
                     experiments_ids : selected,
+                    annotation_names : annot,
                     columns :  columns_format,
+                    allgenomes : allgenomes,
                     chromosome : chrom,
                     start : start,
                     end : end
@@ -667,7 +689,7 @@ require_once("inc/init.php");
             });
 
             request.done( function(data) {
-                alert("Request for experiment region successful :" + data.request_id + ". Go to Manage Requests page to download the regions");
+                alert("Request for experiment region successful :" + data.download_id + ". Go to Manage Requests page to download the regions");
 
                 clearOptions();
                 options = true;
@@ -733,8 +755,8 @@ require_once("inc/init.php");
         $('#optional_col').select2("val", []);
         $('#genome_chrom').select2("val", []);        
         $('#chrom_annot').select2("val", []);
-        $('#genome_start' ).spinner().spinner( "value", 0 )
-        $('#genome_end' ).spinner().spinner( "value", 3 )
+        $('#genome_start' ).spinner().spinner( "value", 0 );
+        $('#genome_end' ).spinner().spinner( "value", max_int);
 
     }
 

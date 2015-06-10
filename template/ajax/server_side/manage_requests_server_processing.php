@@ -114,34 +114,73 @@ switch ($option) {
 			$format = $_GET['columns'];
 		}
 
+		if (!isset($_GET["annotation_names"])) {
+			$annotation_names = [];
+		}
+		else {
+			$annotation_names = $_GET["annotation_names"];
+		}
+
+		if (!isset($_GET["chromosome"])) {
+			$chromosome = [];
+		}
+		else {
+			$chromosome = $_GET["chromosome"];	
+		}
+
 		$experiments_ids = $_GET["experiments_ids"];
 		$genome = "";
+		$allgenomes = $_GET["allgenomes"];
 		$epigenetic_mark = "";
 		$sample_id = "";
 		$technique = "";
 		$project = "";
-		$chromosome = $_GET["chromosome"];
 		$start = (int)$_GET["start"];
+		//$start = 0;
 		$end = (int)$_GET["end"];
+		//$end = PHP_INT_MAX;
 
 		if (!$client->query("select_regions", $experiments_ids, $genome, $epigenetic_mark, $sample_id, $technique, $project, $chromosome, $start, $end, $user_key)) {
 		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
 			$result[] = $client->getResponse();
-			$query_id = $result[0][1];
+			$query_ida = $result[0][1];
+			$request_id = $query_ida;			
 			$result = [];
 
-			if (!$client->query("get_regions", $query_id, $format, $user_key)) {
+			$annlen = count($annotation_names);
+			if ($annlen > 0) {
+				// select annotations
+				if (!$client->query("select_annotations", $annotation_names, $allgenomes, $chromosome, $start, $end, $user_key)) {
+				    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+				}
+				else{
+					$result[] = $client->getResponse();
+					$query_idb = $result[0][1];
+					$result = [];
+
+					if (!$client->query("intersection", $query_ida, $query_idb, $user_key)) {
+				    	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+					}
+					else{
+						$result[] = $client->getResponse();
+						$request_id = $result[0][1];
+						$result = [];
+					}
+				}
+			}
+
+			if (!$client->query("get_regions", $request_id, $format, $user_key)) {
 		    	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			else{
 				$result[] = $client->getResponse();
+				$download_id = $result[0][1];
 			}
 		}
 
-		$request_id = $result[0][1];
-		echo json_encode(array('request_id' => $request_id));
+		echo json_encode(array('download_id' => $download_id, 'len' => $annlen, 'names' => $annotation_names, 'chrom' => $chromosome));
 		break;
 
 	case 'lrequest':
@@ -210,6 +249,7 @@ switch ($option) {
 	
 		$length = count($genomes);
 		$data['chromosome'] = [];
+		$data['genomes'] = $genomes;
 		$data['annotations'] = [];
 		$data['annotations_id'] = [];
 
