@@ -131,10 +131,18 @@ switch ($option) {
 		$sample_id = "";
 		$technique = "";
 		$project = "";
-		$start = (int)$_GET["start"];
-		//$start = 0;
-		$end = (int)$_GET["end"];
-		//$end = PHP_INT_MAX;
+
+		$start = $_GET["start"];	
+		if (!is_numeric($start)) {
+			$start = 0;	
+		}
+		$start = (int)$start;
+		
+		$end = $_GET["end"];	
+		if (!is_numeric($end)) {
+			$end = PHP_INT_MAX;
+		}		
+		$end = (int)$end;	
 
 		if (!$client->query("select_regions", $experiments_ids, $genome, $epigenetic_mark, $sample_id, $technique, $project, $chromosome, $start, $end, $user_key)) {
 		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());

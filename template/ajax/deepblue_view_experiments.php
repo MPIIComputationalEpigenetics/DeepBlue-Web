@@ -221,12 +221,12 @@ require_once("inc/init.php");
 
     <div id="option-div" class="row">
         <!-- NEW COL START -->
-        <article class="col-sm-12 col-md-12 col-lg-6">
+        <article class="col-sm-12 col-md-12 col-lg-12">
             <!-- Widget ID (each widget will need unique ID)-->
             <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                    <h2>Select Columns </h2>
+                    <h2>Columns </h2>
                 </header>
                <!-- widget div-->
                 <div>
@@ -280,13 +280,12 @@ require_once("inc/init.php");
                 <!-- end widget div -->
             </div>
             <!-- end widget -->
-        </article>
-        <article class="col-sm-12 col-md-12 col-lg-6">
+
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-collapsed="true">
                 <header>
-                    <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                    <h2>Additional Settings </h2>
+                    <span class="widget-icon"> <i class="fa fa-map-marker"></i> </span>
+                    <h2>Genomic Coordinate </h2>
                 </header>
                <!-- widget div-->
                 <div>
@@ -301,27 +300,52 @@ require_once("inc/init.php");
                         <legend>
                             Genomic Coordinate
                         </legend>
-                        <div class="form-group">
-                            <label>Chromosome</label>
-                            <select id="genome_chrom" multiple style="width:100%" class="select2"></select>
-                            <div class="note">
-                                <strong>Usage:</strong> Use the dropdown to include a chromosome. Click on the X to exclude the chromosome
-                            </div>
-                        </div>
                         <div class="row">
-                            <div class="col-sm-6 col-md-4 col-lg-4">
+                            <div class="col-sm-6 col-md-8 col-lg-8">
+                                <div class="form-group">
+                                    <label>Chromosome</label>
+                                    <select id="genome_chrom" multiple style="width:100%" class="select2"></select>
+                                    <div class="note">
+                                        <strong>Usage:</strong> Keep empty to select all chromosomes. Use the dropdown to include a chromosome. Click on the X to exclude the chromosome
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-2 col-lg-2">
                                 <div class="form-group">
                                     <label>Start</label>
-                                    <input class="form-control spinner spinner-right"  id="genome_start" name="spinner" type="text">
+                                    <input class="form-control"  id="genome_start" type="text">
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-4 col-lg-4">
+                            <div class="col-sm-6 col-md-2 col-lg-2">
                                 <div class="form-group">
                                     <label>End</label>
-                                    <input class="form-control spinner spinner-right"  id="genome_end" name="spinner" type="text">
+                                    <input class="form-control"  id="genome_end" type="text">
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- end widget content -->
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-collapsed="true">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                    <h2>Overlapping with Annotations </h2>
+                </header>
+               <!-- widget div-->
+                <div>
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body">
                         <legend>
                             Overlapping
                         </legend>
@@ -332,24 +356,24 @@ require_once("inc/init.php");
                                 <strong>Usage:</strong> Use the dropdown to include an annotation. Click on the X to exclude the annotation
                             </div>
                         </div>
-                        <div class="downloadButtonDiv">
-                            <button id="cancelOption" class="btn btn-default" type="button">
-                                Cancel
-                            </button>
-                            <button id= "downloadBtnBottom" class="btn btn-primary" type="button">
-                                <i class="fa fa-download"></i>
-                                Request Download
-                            </button>
-                        </div>
                     </div>
                     <!-- end widget content -->
                 </div>
                 <!-- end widget div -->
             </div>
-            <!-- end widget -->
+            <!-- end widget --> 
         </article>
     </div>
 
+    <div id='button-div' class="downloadButtonDiv">
+        <button id="cancelOption" class="btn btn-default" type="button">
+            Cancel
+        </button>
+        <button id= "downloadBtnBottom" class="btn btn-primary" type="button">
+            <i class="fa fa-download"></i>
+            Request Download
+        </button>
+    </div>
 </section>
 <!-- end widget grid -->
 
@@ -363,17 +387,6 @@ require_once("inc/init.php");
 
     pageSetUp();
 
-    // setup spinners
-    $("#genome_start").spinner(); 
-    $('#genome_start').spinner('option', 'min', 0);
-    $('#genome_start').spinner('option', 'max', max_int - 1);
-    $('#genome_start' ).spinner().spinner( "value", 0 )
-
-    $("#genome_end").spinner();
-    $('#genome_end').spinner('option', 'min', 1);
-    $('#genome_end').spinner('option', 'max', max_int);
-    $('#genome_end' ).spinner().spinner( "value", max_int);
-
     var pagefunction = function() {
 
         var isShow = false;
@@ -381,6 +394,7 @@ require_once("inc/init.php");
         // hide some divs
         $('#option-div').hide();
         $('#option-banner').hide();
+        $('#button-div').hide()        
 
         $(document).on("click", '.exp-metadata-more-view', function () {
             //var metadata = $(this).prev();
@@ -534,6 +548,7 @@ require_once("inc/init.php");
                     $('#main-banner').hide();
                     $('#option-div').show();
                     $('#option-banner').show();
+                    $('#button-div').show()
 
                     var request = $.ajax({
                         url: "ajax/server_side/manage_requests_server_processing.php",
@@ -670,8 +685,8 @@ require_once("inc/init.php");
                 chrom = $('#genome_chrom').select2("val");
             }
 
-            var start = $('#genome_start').spinner().spinner("value");
-            var end = $('#genome_end').spinner().spinner("value");
+            var start = $('#genome_start').val();
+            var end = $('#genome_end').val();
 
             var request = $.ajax({
                 url: "ajax/server_side/manage_requests_server_processing.php",
@@ -723,6 +738,7 @@ require_once("inc/init.php");
         $('#main-banner').show();
         $('#option-div').hide();
         $('#option-banner').hide();
+        $('#button-div').hide()
 
         // reset options selections
         $('#optional_col')
@@ -755,8 +771,6 @@ require_once("inc/init.php");
         $('#optional_col').select2("val", []);
         $('#genome_chrom').select2("val", []);        
         $('#chrom_annot').select2("val", []);
-        $('#genome_start' ).spinner().spinner( "value", 0 );
-        $('#genome_end' ).spinner().spinner( "value", max_int);
 
     }
 
