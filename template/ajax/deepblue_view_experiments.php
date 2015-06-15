@@ -282,7 +282,7 @@ require_once("inc/init.php");
             <!-- end widget -->
 
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-collapsed="true">
+            <div class="jarviswidget" id="wid-id-3" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-collapsed="true">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-map-marker"></i> </span>
                     <h2>Genomic Coordinate </h2>
@@ -331,7 +331,7 @@ require_once("inc/init.php");
             <!-- end widget -->
 
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-collapsed="true">
+            <div class="jarviswidget" id="wid-id-4" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-collapsed="true">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
                     <h2>Overlapping with Annotations </h2>
@@ -361,7 +361,7 @@ require_once("inc/init.php");
                 </div>
                 <!-- end widget div -->
             </div>
-            <!-- end widget --> 
+            <!-- end widget -->
         </article>
     </div>
 
@@ -396,7 +396,7 @@ require_once("inc/init.php");
         // hide some divs
         $('#option-div').hide();
         $('#option-banner').hide();
-        $('#button-div').hide()        
+        $('#button-div').hide()
 
         $(document).on("click", '.exp-metadata-more-view', function () {
             //var metadata = $(this).prev();
@@ -543,7 +543,7 @@ require_once("inc/init.php");
         $('#optionBtnBottom').click(function(){
             // reset completion
             complete1 = false;
-            complete2 = false;            
+            complete2 = false;
             if (options) {
                 if (selected.length > 0) {
                     // show options
@@ -564,7 +564,7 @@ require_once("inc/init.php");
                     });
 
                     request.done( function(data) {
-
+                        debugger;
                         // Meta Columns
                         var meta_col = ['@LENGTH','@NAME','@SEQUENCE', '@EPIGENETIC_MARK','@PROJECT','@BIOSOURCE','@SAMPLE_ID'];
                         for (i=0; i<meta_col.length; i++) {
@@ -657,7 +657,7 @@ require_once("inc/init.php");
                         if (complete1) {
                             //alert("complete2");
                             $('#downloadBtnBottom').removeAttr('disabled');
-                        }                        
+                        }
                     });
 
                     request.fail( function(jqXHR, textStatus) {
@@ -774,7 +774,7 @@ require_once("inc/init.php");
         $('#meta_col')
             .find('option')
             .remove();
-            
+
         $('#genome_chrom')
             .find('option')
             .remove();
@@ -787,7 +787,7 @@ require_once("inc/init.php");
         $('#calculated_col').select2("val", []);
         $('#common_col').select2("val", []);
         $('#optional_col').select2("val", []);
-        $('#genome_chrom').select2("val", []);        
+        $('#genome_chrom').select2("val", []);
         $('#chrom_annot').select2("val", []);
         $('#downloadBtnBottom').attr('disabled','disabled');
 
