@@ -282,7 +282,7 @@ require_once("inc/init.php");
             <!-- end widget -->
 
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+            <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-collapsed="true">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-map-marker"></i> </span>
                     <h2>Genomic Coordinate </h2>
@@ -331,7 +331,7 @@ require_once("inc/init.php");
             <!-- end widget -->
 
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+            <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-collapsed="true">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
                     <h2>Overlapping with Annotations </h2>
