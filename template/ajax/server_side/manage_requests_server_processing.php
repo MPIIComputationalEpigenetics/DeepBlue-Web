@@ -78,7 +78,7 @@ switch ($option) {
 		}
 
 		$colList[] = $client->getResponse();
-		$type = 'codes';
+		$type = 'code';
 		$pattern = '@'.$type.'@i';
 		
 		foreach ($colList[0][1] as $col) {
