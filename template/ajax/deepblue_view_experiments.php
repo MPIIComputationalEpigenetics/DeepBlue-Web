@@ -223,7 +223,7 @@ require_once("inc/init.php");
         <!-- NEW COL START -->
         <article class="col-sm-12 col-md-12 col-lg-12">
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+            <div class="jarviswidget" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
                     <h2>Columns </h2>
@@ -282,7 +282,7 @@ require_once("inc/init.php");
             <!-- end widget -->
 
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-3" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-collapsed="true">
+            <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-map-marker"></i> </span>
                     <h2>Genomic Coordinate </h2>
@@ -331,7 +331,7 @@ require_once("inc/init.php");
             <!-- end widget -->
 
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-4" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-collapsed="true">
+            <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
                     <h2>Overlapping with Annotations </h2>
