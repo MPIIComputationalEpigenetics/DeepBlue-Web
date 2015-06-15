@@ -369,7 +369,7 @@ require_once("inc/init.php");
         <button id="cancelOption" class="btn btn-default" type="button">
             Cancel
         </button>
-        <button id= "downloadBtnBottom" class="btn btn-primary" type="button">
+        <button id= "downloadBtnBottom" class="btn btn-primary" type="button" disabled>
             <i class="fa fa-download"></i>
             Request Download
         </button>
@@ -390,6 +390,8 @@ require_once("inc/init.php");
     var pagefunction = function() {
 
         var isShow = false;
+        var complete1 = false;
+        var complete2 = false;
 
         // hide some divs
         $('#option-div').hide();
@@ -539,7 +541,9 @@ require_once("inc/init.php");
 
         /* Show Options button */
         $('#optionBtnBottom').click(function(){
-
+            // reset completion
+            complete1 = false;
+            complete2 = false;            
             if (options) {
                 if (selected.length > 0) {
                     // show options
@@ -603,6 +607,13 @@ require_once("inc/init.php");
                                 .attr("value", key)
                                 .text(text));
                         }
+
+                        // completed
+                        complete1 = true
+                        if (complete2) {
+                            //alert("complete1");
+                            $('#downloadBtnBottom').removeAttr('disabled');
+                        }
                     });
 
                     request.fail( function(jqXHR, textStatus) {
@@ -640,6 +651,13 @@ require_once("inc/init.php");
                         }
 
                         allgenomes = data['genomes'];
+
+                        // completed
+                        complete2 = true;
+                        if (complete1) {
+                            //alert("complete2");
+                            $('#downloadBtnBottom').removeAttr('disabled');
+                        }                        
                     });
 
                     request.fail( function(jqXHR, textStatus) {
@@ -771,6 +789,7 @@ require_once("inc/init.php");
         $('#optional_col').select2("val", []);
         $('#genome_chrom').select2("val", []);        
         $('#chrom_annot').select2("val", []);
+        $('#downloadBtnBottom').attr('disabled','disabled');
 
     }
 
