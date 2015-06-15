@@ -42,6 +42,12 @@ switch ($option) {
 
 		$format = [];
 		$experiment = [];
+		
+		$data['common'] = [];
+		$data['calculated'] = [];
+		$data['optional'] = [];
+		$data['experiment'] = [];
+
 		$getIds = $_GET["ids"];
 
 		for ($i = 0; $i < count($getIds); $i++) {
@@ -72,7 +78,7 @@ switch ($option) {
 		}
 
 		$colList[] = $client->getResponse();
-		$type = 'code';
+		$type = 'codes';
 		$pattern = '@'.$type.'@i';
 		
 		foreach ($colList[0][1] as $col) {
