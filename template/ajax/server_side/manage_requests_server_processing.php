@@ -42,7 +42,7 @@ switch ($option) {
 
 		$format = [];
 		$experiment = [];
-		
+
 		$data['common'] = [];
 		$data['calculated'] = [];
 		$data['optional'] = [];
@@ -80,7 +80,7 @@ switch ($option) {
 		$colList[] = $client->getResponse();
 		$type = 'code';
 		$pattern = '@'.$type.'@i';
-		
+
 		foreach ($colList[0][1] as $col) {
 			if (preg_match($pattern, $col[1])) {
 				$colName = explode(":", $col[1])[3];
@@ -127,7 +127,7 @@ switch ($option) {
 			$chromosome = [];
 		}
 		else {
-			$chromosome = $_GET["chromosome"];	
+			$chromosome = $_GET["chromosome"];
 		}
 
 		$experiments_ids = $_GET["experiments_ids"];
@@ -138,17 +138,17 @@ switch ($option) {
 		$technique = "";
 		$project = "";
 
-		$start = $_GET["start"];	
+		$start = $_GET["start"];
 		if (!is_numeric($start)) {
-			$start = 0;	
+			$start = 0;
 		}
 		$start = (int)$start;
-		
-		$end = $_GET["end"];	
+
+		$end = $_GET["end"];
 		if (!is_numeric($end)) {
 			$end = PHP_INT_MAX;
-		}		
-		$end = (int)$end;	
+		}
+		$end = (int)$end;
 
 		if (!$client->query("select_regions", $experiments_ids, $genome, $epigenetic_mark, $sample_id, $technique, $project, $chromosome, $start, $end, $user_key)) {
 		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
@@ -156,7 +156,7 @@ switch ($option) {
 
 		$result[] = $client->getResponse();
 		$query_ida = $result[0][1];
-		$query_id = $query_ida;			
+		$query_id = $query_ida;
 		$result = [];
 
 		$annlen = count($annotation_names);
@@ -244,13 +244,13 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$infoList[] = $client->getResponse();
-			
+
 			$genome = $infoList[0][1][0]['genome'];
 			if (!in_array($genome, $genomes)) {
 				$genomes[] = $genome;
 			}
 		}
-	
+
 		$length = count($genomes);
 		$data['chromosome'] = [];
 		$data['genomes'] = $genomes;
@@ -269,7 +269,7 @@ switch ($option) {
 				$chr = $result[0][1][$k][0];
 				if (!in_array($chr, $data['chromosome'])) {
 					$data['chromosome'][] = $chr;
-				}			
+				}
 			}
 			$result = '';
 
@@ -285,7 +285,7 @@ switch ($option) {
 				if (!in_array($ann_id, $data['annotations'])) {
 					$ann = $result[0][1][$k][1];
 					$data['annotations'][] = $ann;
-					$data['annotations_id'][] = $ann_id;				
+					$data['annotations_id'][] = $ann_id;
 				}
 			}
 			$result = '';
@@ -293,28 +293,6 @@ switch ($option) {
 		echo json_encode($data);
 		break;
 
-	case 'drequest':
-		/* download request, executed to request the region data */
-		if (!isset($_GET["request_id"])) {
-			return;
-		}
-
-		$request_id = $_GET["request_id"];
-		if(!$client->query("get_request_data", $request_id, $user_key)){
-		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-	    $result[] = $client->getResponse();
-
-		$bed_file = $result[0][1];
-		$compress = gzencode($bed_file, 6);
-
-		header('Content-type: application/x-gzip');
-		header('Content-Disposition: attachment; filename=deepblue_data_'.$request_id.".bed.gz");
-		header('Content-Length: ' . strlen($compress));
-		ob_clean();
-		flush();
-		echo $compress;
-		break;
 	default:
 		# code...
 		break;
