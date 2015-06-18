@@ -540,7 +540,8 @@ require_once("inc/init.php");
         } );
 
         /* Show Options button */
-        $('#optionBtnBottom').click(function(){
+        $('#optionBtnBottom').click(function(e){
+            e.preventDefault();
             // reset completion
             complete1 = false;
             complete2 = false;
@@ -564,7 +565,6 @@ require_once("inc/init.php");
                     });
 
                     request.done( function(data) {
-                        debugger;
                         // Meta Columns
                         var meta_col = ['@LENGTH','@NAME','@SEQUENCE', '@EPIGENETIC_MARK','@PROJECT','@BIOSOURCE','@SAMPLE_ID'];
                         for (i=0; i<meta_col.length; i++) {
@@ -722,7 +722,15 @@ require_once("inc/init.php");
             });
 
             request.done( function(data) {
-                alert("Request for experiment region successful :" + data.request_id + ". Go to Manage Requests page to download the regions");
+                swal({
+                    title: "Request send.",
+                    text: "The request ID is " + data.request_id + ".\nWould you like to go to the Manage Request page ?",
+                    type: "success",
+                    showCancelButton: true
+                },
+                function(){
+                        window.location.href = "dashboard.php#ajax/deepblue_manage_request.php";
+                });
 
                 clearOptions();
                 options = true;

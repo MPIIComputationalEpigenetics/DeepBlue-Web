@@ -80,3 +80,6 @@
 		<!-- Select2.js Multi select dropdown menu -->
 
 		<script src="<?php echo ASSETS_URL; ?>/js/select2.js"></script>
+
+		<!-- Sweet Alerts -->
+		<script src="<?php echo ASSETS_URL; ?>/js/sweetalert.min.js"></script>
