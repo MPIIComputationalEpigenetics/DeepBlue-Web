@@ -13,6 +13,8 @@
 *   Created : 15-09-2014
 */
 
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 

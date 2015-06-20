@@ -90,31 +90,102 @@ require_once("inc/init.php");
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modelSearchExperimentInfo" aria-hidden="true">
-<div class="modal-dialog">
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				&times;
-			</button>
-			<h4 class="modal-title" id="modalSearchExperimenentInfo">Experiment Info</h4>
-		</div>
-		<div class="modal-body custom-scroll terms-body">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="modalSearchExperimenentInfo">Experiment Info</h4>
+      </div>
+      <div class="modal-body custom-scroll terms-body">
+        <div id='modal_for_experiment' style="display:none;"></div>
+        <div id="modal-content-by-jquery" style="display:none;">
+	        <div class="jarviswidget jarviswidget-color-blueDark" id="datable-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+	            <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>Experiments </h2>
+                </header>
 
-			<div id='modal_for_experiment' style="display:none;"></div>
+                <!-- widget div-->
+                <div>
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+	                       <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
 
-			<div id="modal-content-by-jquery" style="display:none;">
-				<?php echo $deepBlueObj->experimentDataTableTemplate("search"); ?>
-			</div>
-			<div class="modal-footer">
-				<button type="button" id="downloadExperimentButton" class="btn btn-primary download-btn-size">
-					Download
-				</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">
-					Close
-				</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+                        <table id="datatable_fixed_column" name='experiment-table' class="table table-striped table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="hasinput">
+                                        <input class="form-control" placeholder="ID" type="text" id="experiment-id">
+                                    </th>
+	                                <th class="hasinput" style="width:20px">
+                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Genome" id="experiment-genome" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Epigenetic mark" id="experiment-epigenetic_mark" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Biosource" id="experiment-biosource" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Sample" id="experiment-sample" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Technique" id="experiment-technique" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Project" id="experiment-project" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Meta data" id="experiment-metadata" />
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Experiment Name</th>
+                                    <th>Description</th>
+                                    <th>Genome</th>
+                                    <th>Epigenetic Mark</th>
+                                    <th>Biosource</th>
+                                    <th>Sample</th>
+                                    <th>Technique</th>
+                                    <th>Project</th>
+                                    <th>Metadata</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+
+        </div>
+      </div>
+      <div id="downloadDiv" style="display:none; text-align:right; padding-right:20px;">
+		<button type="button" id="downloadExperimentButton" class="btn btn-primary download-btn-size">
+			Download
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			Close
+		</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <!-- end row -->
@@ -351,6 +422,7 @@ require_once("inc/init.php");
 				$('#modal-content-by-jquery').hide();
 				$('.modal-content').addClass( "modalViewSingleInfo" );
 				$('#modal_for_experiment').show();
+				$('#downloadDiv').show();
 
 				/* Printinting experiment or anotation id and name in modal view when user
 				*  clicks Download button
@@ -407,7 +479,6 @@ require_once("inc/init.php");
 			}
 
 			/* Hide and show experiment metadata */
-
 			var isShow = false;
 			$(document).on("click", '.exp-metadata-more-view', function () {
 				//var metadata = $(this).prev();
@@ -424,8 +495,8 @@ require_once("inc/init.php");
 
 			});
 
+		
 			/* Reset all input values */
-
 			$('.hasinput input').val("");
 			$('.hasinput input').prop('disabled', false);
 
@@ -440,21 +511,70 @@ require_once("inc/init.php");
 				phone : 480
 			};
 
+			var initFilter = [
+		    	null,
+		    	null,
+		    	null,
+		    	null,
+		    	null,
+		    	null,
+		    	null,
+		    	null,
+		    	null,
+		    	null
+		    ];
+
+			switch (type) {
+				case 'genome':
+				   	initFilter[3] = {"sSearch": text};
+				    break;
+				case 'epigenetic_mark':
+					initFilter[4] = {"sSearch": text};
+				    break;
+				case 'biosource':
+				    initFilter[5] = {"sSearch": text};
+				    break;
+				case 'technique':
+				    initFilter[7] = {"sSearch": text};
+				    break;
+				case 'project':
+				    initFilter[8] = {"sSearch": text};
+				    break;
+				default:
+				    break;
+			}
+
+		
+			var inputName = "#experiment-" + type;
+			$(inputName).val(text);
+	 	    $(inputName).prop('disabled', true);
+
+			
 			var selectedElementsModal = [];
 			/* COLUMN FILTER  */
 
 			var otable = $('#datatable_fixed_column').DataTable({
 
-			    "ajax": {
-			    "url": "ajax/server_side/modal_view_server_processing.php",
-			    "data": function ( d ) {
-			       		d.types = type;
-			        	d.titles = text;
-			       	}
-			    },
+		    	"bServerSide": true,
+		        "sAjaxSource": "api/datatable",
+		        "fnServerParams": function ( aoData ) {
+	      			aoData.push( { "name": "collection", "value": "experiments" } );
+	      			aoData.push( { "name": "col_0", "value": "_id"} );
+	      			aoData.push( { "name": "col_1", "value": "name"} );
+	      			aoData.push( { "name": "col_2", "value": "description"} );
+	      			aoData.push( { "name": "col_3", "value": "genome"} );
+	      			aoData.push( { "name": "col_4", "value": "epigenetic_mark"} );
+	      			aoData.push( { "name": "col_5", "value": "biosource"} );
+	      			aoData.push( { "name": "col_6", "value": "sample_id"} );
+	      			aoData.push( { "name": "col_7", "value": "technique"} );
+	      			aoData.push( { "name": "col_8", "value": "project"} );
+	      			aoData.push( { "name": "col_9", "value": "extra_metadata"} );
+	      		},
 			    "iDisplayLength": 50,
 			    "autoWidth" : true,
 			    "bDestroy": true,
+			    "aoSearchCols" : initFilter,
+			    "oSearch": {"bSmart": false},
 				"preDrawCallback" : function() {
 					// Initialize the responsive datatables helper once.
 					if (!responsiveHelper_datatable_fixed_column) {
@@ -468,42 +588,8 @@ require_once("inc/init.php");
 					responsiveHelper_datatable_fixed_column.respond();
 				},
 				"fnInitComplete": function(oSettings, json) {
-
-					var inputName;
-
-					switch (type) {
-						case 'experiment':
-						    //alert('This is experiment');
-						    break;
-						case 'annotation':
-						    //alert('Annotations');
-						    break;
-						case 'genome':
-						   	inputName = '#experiment-genome';
-						    break;
-						case 'epigenetic_mark':
-						    inputName = '#experiment-epigenetic_mark';
-						    break;
-						case 'sample':
-						    inputName = '#experiment-sample';
-						    break;
-						case 'technique':
-						    inputName = '#experiment-technique';
-						    break;
-						case 'project':
-						    inputName = '#experiment-project';
-						    break;
-						default:
-						    break;
-					}
-
-					$(inputName).val(text);
-					$(inputName).prop('disabled', true);
-
-					/* Insert or remove selected or unselected elements */
-
+					/* Insert or remove selected or unselected elements 
 					//selectedElementsModal = [];
-
 					$( ".downloadCheckBox" ).change(function() {
 						var downloadIdModal = $(this).parent().next().text();
 						var downloadTitleModal = $(this).parent().next().next().text();
@@ -517,39 +603,21 @@ require_once("inc/init.php");
 						else{
 							selectedElementsModal.splice(foundModal, 1);
 						}
-					});
-
+					});*/
 				}
-
 			});
-
 
 			// custom toolbar
 			$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
 			// Apply the filter
 			$("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-
 			    otable
 			        .column( $(this).parent().index()+':visible' )
 			        .search( this.value )
 			        .draw();
-
 			});
 
-			/* Download button :: Getting selected elements */
-			$('#downloadBtnTop').click(function(){
-
-				if(selectedElementsModal.length == 0){
-					//alert("( Modal ) Please select elements!");
-					//alert("( length = 0 ) Klikkkkk");
-				}
-				else{
-					//alert(selectedElementsModal);
-					//alert("( length != 0 ) Klikkkkk");
-				}
-
-			});
 		}
 	});
 
