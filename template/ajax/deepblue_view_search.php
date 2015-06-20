@@ -127,7 +127,6 @@ require_once("inc/init.php");
 	// pagefunction
 
 	var pagefunction = function() {
-
 		$("#search_input").focus();
 	};
 
@@ -142,6 +141,7 @@ require_once("inc/init.php");
 
 
 	var isSelected = 0;
+	var selectedItem = [];
 	/* Start serching with clicking search button */
 
 
@@ -241,7 +241,6 @@ require_once("inc/init.php");
 
 		$('#search_input').val($search);
 		var type = this.className;
-
 		if(type == 'experiment' || type == 'annotation'){
 
 			var getId = $(this).prev().text();
@@ -257,25 +256,22 @@ require_once("inc/init.php");
 			infoRequest.done( function(data) {
 
 				$('#modal_for_experiment').empty();
-
 				$.each(data.data, function(i, item) {
-
 				    if(type == 'experiment'){
-
-				    $('#modal_for_experiment').append(
-				    	"<table class='table table-striped'>"+
-						    "<tbody>"+
+				    	$('#modal_for_experiment').append(
+				    		"<table class='table table-striped'>"+
+						    	"<tbody>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Experiment name : </td>"+
-						            "<td class='search-modal-name'>"+item[1]+"</td>"+
+						            "<td class='search-modal-name' id='search-modal-name'>"+item[1]+"</td>"+
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>ID : </td>"+
-						            "<td class='search-modal-id'>"+item[0]+"</td>"+
+						            "<td class='search-modal-id' id='search-modal-id'>"+item[0]+"</td>"+
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Description : </td>"+
-						            "<td>"+item[2]+"</td>"+
+						            "<td id='search-modal-desc'>"+item[2]+"</td>"+
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Type : </td>"+
@@ -283,32 +279,33 @@ require_once("inc/init.php");
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Genome : </td>"+
-						            "<td>"+item[5]+"</td>"+
+						            "<td id='search-modal-genome'>"+item[5]+"</td>"+
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Epigenetic mark : </td>"+
-						            "<td>"+item[6]+"</td>"+
+						            "<td id='search-modal-epigenetic-mark'>"+item[6]+"</td>"+
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Sample : </td>"+
-						            "<td>"+item[7]+"</td>"+
+						            "<td id='search-modal-sample'>"+item[7]+"</td>"+
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Technique : </td>"+
-						            "<td>"+item[8]+"</td>"+
+						            "<td id='search-modal-technique'>"+item[8]+"</td>"+
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Project : </td>"+
-						            "<td>"+item[9]+"</td>"+
+						            "<td id='search-modal-project'>"+item[9]+"</td>"+
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Metadata : </td>"+
-						            "<td>"+item[3]+"</td>"+
+						            "<td id='search-modal-metadata'>"+item[3]+"</td>"+
 						        "</tr>"+
-						    "</tbody>"+
-						"</table>");
+						    	"</tbody>"+
+							"</table>");
 
 						$('.modal-title').text("Experiment info");
+						selectedItem = item;
 					}
 					else{
 
@@ -333,7 +330,7 @@ require_once("inc/init.php");
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Genome : </td>"+
-						            "<td>"+item[5]+"</td>"+
+						            "<td class='search-modal-genome>"+item[5]+"</td>"+
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Format : </td>"+
@@ -341,15 +338,13 @@ require_once("inc/init.php");
 						        "</tr>"+
 						        "<tr>"+
 						            "<td class='search-modal-table'>Metadata : </td>"+
-						            "<td>"+item[3]+"</td>"+
+						            "<td id='search-modal-metadata' class='search-modal-metadata'>"+item[3]+"</td>"+
 						        "</tr>"+
 						    "</tbody>"+
 						"</table>");
 
 						$('.modal-title').text("Annotation info");
-
 					}
-
 					$("td .fa-circle").remove();
 			    });
 
@@ -362,38 +357,29 @@ require_once("inc/init.php");
 				*/
 
 				$('#downloadExperimentButton').unbind('click').bind('click', function (e) {
-					var modal_id = $('.search-modal-id').text();
-					var modal_name = $('.search-modal-name').text();
+					var modal_id = $('#search-modal-id').text();
+					var modal_name = $('#search-modal-name').text();
+					var modal_desc = $('#search-modal-desc').text();
+					var modal_genome = $('#search-modal-genome').text();
+					var modal_epigenetic_mark = $('#search-modal-epigenetic-mark').text();
+					var modal_biosource = '';
+					var modal_sample = $('#search-modal-sample').text();
+					var modal_technique = $('#search-modal-technique').text();
+					var modal_project = $('#search-modal-project').text();
+					var modal_metadata = selectedItem[3];
 
 					if(type == 'experiment'){
-						var request = $.ajax({
-							url: "ajax/server_side/select_regions_server_processing.php",
-							dataType: "json",
-							data : {
-								experiments_names : [modal_name],
-							}
-						});
-					} else {
-						var request = $.ajax({
-							url: "ajax/server_side/select_annotations_server_processing.php",
-							dataType: "json",
-							data : {
-								annotations_names : [modal_name],
-							}
-						});
+						var selectedData = [];
+						selectedData.push([modal_id, modal_name, modal_desc, modal_genome, modal_epigenetic_mark, modal_biosource,
+						 modal_sample, modal_technique, modal_project, modal_metadata]);
+
+			            localStorage.setItem("selectedData", JSON.stringify(selectedData));
+			            $('#myModal').modal('toggle');
+			            window.location.href = "dashboard.php#ajax/deepblue_download_experiments.php";						
+					} 
+					else {
+						// TODO: Implement Downloads for annotations
 					}
-
-					request.done( function(data) {
-						window.location.href = 'ajax/server_side/get_regions_server_processing.php?query_id='+data.query_id;
-					});
-
-					request.fail( function(jqXHR, textStatus) {
-						console.log(jqXHR);
-		        		console.log('Error: '+ textStatus);
-						alert( "error" );
-					});
-
-					alert("Id: "+modal_id+"\nName: "+modal_name);
 				});
 
 			});
@@ -411,161 +397,160 @@ require_once("inc/init.php");
 			$('.modal-content').removeClass( "modalViewSingleInfo" );
 			$('#modal_for_experiment').hide();
 			$('#modal-content-by-jquery').show();
-		}
 
 
-		if(type == 'genome' || type == 'technique' || type == 'project' || type == 'epigenetic_mark' || type == 'biosource'){
-			var text = $(this).text();
-		}
-		else{
-			var text = $(this).prev().text();
-		}
-
-		/* Hide and show experiment metadata */
-
-		var isShow = false;
-		$(document).on("click", '.exp-metadata-more-view', function () {
-			//var metadata = $(this).prev();
-			if(isShow == false){
-				$(this).prev().show(1000);
-				$(this).text("-- Hide --");
-				isShow = true;
+			if(type == 'genome' || type == 'technique' || type == 'project' || type == 'epigenetic_mark' || type == 'biosource'){
+				var text = $(this).text();
 			}
 			else{
-				$(this).prev().hide(1000);
-				$(this).text("-- View metadata --");
-				isShow = false;
+				var text = $(this).prev().text();
 			}
 
-		});
+			/* Hide and show experiment metadata */
 
-		/* Reset all input values */
-
-		$('.hasinput input').val("");
-		$('.hasinput input').prop('disabled', false);
-
-		/* BASIC */
-		var responsiveHelper_dt_basic = undefined;
-		var responsiveHelper_datatable_fixed_column = undefined;
-		var responsiveHelper_datatable_col_reorder = undefined;
-		var responsiveHelper_datatable_tabletools = undefined;
-
-		var breakpointDefinition = {
-			tablet : 1024,
-			phone : 480
-		};
-
-		var selectedElementsModal = [];
-		/* COLUMN FILTER  */
-
-		var otable = $('#datatable_fixed_column').DataTable({
-
-		    "ajax": {
-		    "url": "ajax/server_side/modal_view_server_processing.php",
-		    "data": function ( d ) {
-		       		d.types = type;
-		        	d.titles = text;
-		       	}
-		    },
-		    "iDisplayLength": 50,
-		    "autoWidth" : true,
-		    "bDestroy": true,
-			"preDrawCallback" : function() {
-				// Initialize the responsive datatables helper once.
-				if (!responsiveHelper_datatable_fixed_column) {
-					responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
+			var isShow = false;
+			$(document).on("click", '.exp-metadata-more-view', function () {
+				//var metadata = $(this).prev();
+				if(isShow == false){
+					$(this).prev().show(1000);
+					$(this).text("-- Hide --");
+					isShow = true;
 				}
-			},
-			"rowCallback" : function(nRow) {
-				responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
-			},
-			"drawCallback" : function(oSettings) {
-				responsiveHelper_datatable_fixed_column.respond();
-			},
-			"fnInitComplete": function(oSettings, json) {
-
-				var inputName;
-
-				switch (type) {
-					case 'experiment':
-					    //alert('This is experiment');
-					    break;
-					case 'annotation':
-					    //alert('Annotations');
-					    break;
-					case 'genome':
-					   	inputName = '#experiment-genome';
-					    break;
-					case 'epigenetic_mark':
-					    inputName = '#experiment-epigenetic_mark';
-					    break;
-					case 'sample':
-					    inputName = '#experiment-sample';
-					    break;
-					case 'technique':
-					    inputName = '#experiment-technique';
-					    break;
-					case 'project':
-					    inputName = '#experiment-project';
-					    break;
-					default:
-					    break;
+				else{
+					$(this).prev().hide(1000);
+					$(this).text("-- View metadata --");
+					isShow = false;
 				}
 
-				$(inputName).val(text);
-				$(inputName).prop('disabled', true);
+			});
 
-				/* Insert or remove selected or unselected elements */
+			/* Reset all input values */
 
-				//selectedElementsModal = [];
+			$('.hasinput input').val("");
+			$('.hasinput input').prop('disabled', false);
 
-				$( ".downloadCheckBox" ).change(function() {
-					var downloadIdModal = $(this).parent().next().text();
-					var downloadTitleModal = $(this).parent().next().next().text();
-					var downloadTotalModal = downloadIdModal+"-"+downloadTitleModal;
+			/* BASIC */
+			var responsiveHelper_dt_basic = undefined;
+			var responsiveHelper_datatable_fixed_column = undefined;
+			var responsiveHelper_datatable_col_reorder = undefined;
+			var responsiveHelper_datatable_tabletools = undefined;
 
-					var foundModal = $.inArray(downloadTotalModal, selectedElementsModal);
+			var breakpointDefinition = {
+				tablet : 1024,
+				phone : 480
+			};
 
-					if(foundModal < 0){
-						selectedElementsModal.push(downloadTotalModal);
+			var selectedElementsModal = [];
+			/* COLUMN FILTER  */
+
+			var otable = $('#datatable_fixed_column').DataTable({
+
+			    "ajax": {
+			    "url": "ajax/server_side/modal_view_server_processing.php",
+			    "data": function ( d ) {
+			       		d.types = type;
+			        	d.titles = text;
+			       	}
+			    },
+			    "iDisplayLength": 50,
+			    "autoWidth" : true,
+			    "bDestroy": true,
+				"preDrawCallback" : function() {
+					// Initialize the responsive datatables helper once.
+					if (!responsiveHelper_datatable_fixed_column) {
+						responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
 					}
-					else{
-						selectedElementsModal.splice(foundModal, 1);
+				},
+				"rowCallback" : function(nRow) {
+					responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
+				},
+				"drawCallback" : function(oSettings) {
+					responsiveHelper_datatable_fixed_column.respond();
+				},
+				"fnInitComplete": function(oSettings, json) {
+
+					var inputName;
+
+					switch (type) {
+						case 'experiment':
+						    //alert('This is experiment');
+						    break;
+						case 'annotation':
+						    //alert('Annotations');
+						    break;
+						case 'genome':
+						   	inputName = '#experiment-genome';
+						    break;
+						case 'epigenetic_mark':
+						    inputName = '#experiment-epigenetic_mark';
+						    break;
+						case 'sample':
+						    inputName = '#experiment-sample';
+						    break;
+						case 'technique':
+						    inputName = '#experiment-technique';
+						    break;
+						case 'project':
+						    inputName = '#experiment-project';
+						    break;
+						default:
+						    break;
 					}
-				});
 
-			}
+					$(inputName).val(text);
+					$(inputName).prop('disabled', true);
 
-		});
+					/* Insert or remove selected or unselected elements */
+
+					//selectedElementsModal = [];
+
+					$( ".downloadCheckBox" ).change(function() {
+						var downloadIdModal = $(this).parent().next().text();
+						var downloadTitleModal = $(this).parent().next().next().text();
+						var downloadTotalModal = downloadIdModal+"-"+downloadTitleModal;
+
+						var foundModal = $.inArray(downloadTotalModal, selectedElementsModal);
+
+						if(foundModal < 0){
+							selectedElementsModal.push(downloadTotalModal);
+						}
+						else{
+							selectedElementsModal.splice(foundModal, 1);
+						}
+					});
+
+				}
+
+			});
 
 
-		// custom toolbar
-		$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+			// custom toolbar
+			$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
-		// Apply the filter
-		$("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
+			// Apply the filter
+			$("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
 
-		    otable
-		        .column( $(this).parent().index()+':visible' )
-		        .search( this.value )
-		        .draw();
+			    otable
+			        .column( $(this).parent().index()+':visible' )
+			        .search( this.value )
+			        .draw();
 
-		});
+			});
 
-		/* Download button :: Getting selected elements */
-		$('#downloadBtnTop').click(function(){
+			/* Download button :: Getting selected elements */
+			$('#downloadBtnTop').click(function(){
 
-			if(selectedElementsModal.length == 0){
-				//alert("( Modal ) Please select elements!");
-				//alert("( length = 0 ) Klikkkkk");
-			}
-			else{
-				//alert(selectedElementsModal);
-				//alert("( length != 0 ) Klikkkkk");
-			}
+				if(selectedElementsModal.length == 0){
+					//alert("( Modal ) Please select elements!");
+					//alert("( length = 0 ) Klikkkkk");
+				}
+				else{
+					//alert(selectedElementsModal);
+					//alert("( length != 0 ) Klikkkkk");
+				}
 
-		});
-
+			});
+		}
 	});
 
 	// end pagefunction
