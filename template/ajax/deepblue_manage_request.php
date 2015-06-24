@@ -82,6 +82,9 @@ require_once("inc/init.php");
 			                                        <input type="text" class="form-control" placeholder="Request End Time" id="request-end-time"/>
 			                                    </th>
 			                                    <th class="hasinput">
+			                                        <input type="text" class="form-control" placeholder="Request Detail" id="request-detail"/>
+			                                    </th>
+			                                    <th class="hasinput">
 			                                    </th>
 			                                </tr>
 			                                <tr>
@@ -89,10 +92,10 @@ require_once("inc/init.php");
 			                                    <th>Request Status</th>
 												<th>Request Start Time</th>
 												<th>Request End Time</th>
+												<th>Request Detail</th>												
 												<th>Downloads</th>
 			                                </tr>
 			                            </thead>
-
 			                        </table>
 			                    </div>
 							</div>

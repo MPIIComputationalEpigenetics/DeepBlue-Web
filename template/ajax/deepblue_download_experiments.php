@@ -307,7 +307,7 @@ require_once("inc/init.php");
 
         /**/
         $('.tagsinput').tagsinput('refresh');
-
+        
         // custom toolbar
         $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
@@ -394,7 +394,7 @@ require_once("inc/init.php");
         request.fail( function(jqXHR, textStatus) {
             console.log(jqXHR);
             console.log('Error: '+ textStatus);
-            alert( "error" );
+            alert( "error1" );
         });
 
         /* Pull Additional Settings Options Data */
@@ -438,7 +438,12 @@ require_once("inc/init.php");
         request.fail( function(jqXHR, textStatus) {
             console.log(jqXHR);
             console.log('Error: '+ textStatus);
-            alert( "error" );
+            alert( "error2" );
+        });
+
+        /* Cancle Button */
+        $('#cancelOption').click(function(){
+            window.history.go(-1);
         });
 
         /* Download button :: Getting selected elements */
@@ -479,7 +484,6 @@ require_once("inc/init.php");
             });
 
             request.done( function(data) {
-                //localStorage.removeItem('selectedData');
                 swal({
                     title: "Request Sent.",
                     text: "The request ID is " + data.request_id + ".\nWould you like to go to the Manage Request page ?",
@@ -491,9 +495,7 @@ require_once("inc/init.php");
                         window.location.href = "dashboard.php#ajax/deepblue_manage_request.php";
                     }
                     else {
-                        window.location.href = "dashboard.php#ajax/deepblue_view_experiments.php";
-                        // determine source of page call
-                        // return to source of page call
+                        window.history.go(-1);
                     }
                 });
             });
@@ -501,7 +503,7 @@ require_once("inc/init.php");
             request.fail( function(jqXHR, textStatus) {
                 console.log(jqXHR);
                 console.log('Error: '+ textStatus);
-                alert( "error" );
+                alert( "error3" );
             });
         });
     };

@@ -206,22 +206,105 @@ switch ($option) {
 			foreach($data['request_list'] as $request) {
 				$rid = $request[0];
 				$temp[] = $rid;
+				$qdetail = '';
+				$rdetail = '';
+
+				if(!$client->query("info", $rid, $user_key)){
+					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+				}
+
+				$response = $client->getResponse();
+				$qid = $response[1][0]['query_id'];
+
+				if(!$client->query("info", $qid, $user_key)){
+					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+				}
+
+				$response = $client->getResponse();
+				$qtype = $response[1][0]['type'];
+				$qdetail = json_decode($response[1][0]['args'], true);
+
+				if ($qtype == 'experiment_select') {
+					$name = $qdetail['experiment_name'];
+					$project = $qdetail['project'];
+					$start = $qdetail['start'];
+					$end = '??';
+					if (array_key_exists('end', $qdetail)) {
+						$end = $qdetail['end'];
+					}
+					$chromosomes = $qdetail['chromosomes'];
+					$genomes = $qdetail['genomes'];
+
+					$rdetail = '<div style="display: block;"><b>Experiment Name(s)</b>: '.implode(", ", $name).'<br>
+					<b>Project</b>: '.implode(", ", $project).'<br><b>Start</b>: '.$start.'<br><b>End</b>: '.$end.'<br>
+					<b>Chromosome</b>: '.implode(", ", $chromosomes).'<br><b>Genomes</b>: '.implode(", ",$genomes).'</div>';
+				}
+
+				if ($qtype == 'intersect') {
+					$qid1 = $qdetail['qid_1'];
+					$qid2 = $qdetail['qid_2'];
+
+					if(!$client->query("info", $qid1, $user_key)){
+						die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+					}
+
+					$response = $client->getResponse();
+					$qdetail = json_decode($response[1][0]['args'], true);
+
+					$name = $qdetail['experiment_name'];
+					$project = $qdetail['project'];
+					$start = $qdetail['start'];
+					$end = '??';
+					if (array_key_exists('end', $qdetail)) {
+						$end = $qdetail['end'];
+					}
+					$chromosomes = $qdetail['chromosomes'];
+					$genomes = $qdetail['genomes'];
+
+					$rdetail = '<div style="display: block;"><b>Select Experiment</b></br><b>Experiment(s)</b>: '.implode(", ", $name).'<br>
+					<b>Project</b>: '.implode(", ", $project).'<br><b>Start</b>: '.$start.'<br><b>End</b>: '.$end.'<br>
+					<b>Chromosome</b>: '.implode(", ", $chromosomes).'<br><b>Genomes</b>: '.implode(", ",$genomes).'</div>';
+
+
+					if(!$client->query("info", $qid2, $user_key)){
+						die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+					}
+
+					$response = $client->getResponse();
+					$qdetail = json_decode($response[1][0]['args'], true);
+
+					$name = $qdetail['annotation'];
+					$end = '??';
+					if (array_key_exists('end', $qdetail)) {
+						$end = $qdetail['end'];
+					}
+					$chromosomes = $qdetail['chromosomes'];
+					$genomes = $qdetail['genomes'];
+
+					$rdetail = $rdetail.'</br><div style="display: block;"><b>Select Annotation</b></br><b>Annotation(s)</b>: '.implode(", ", $name).'<br>
+					<b>End</b>: '.$end.'<br><b>Chromosome</b>: '.implode(", ", $chromosomes).'<br><b>Genomes</b>: '.implode(", ",$genomes).'</div>';
+
+				}
 
 				if(!$client->query("info", $request[0], $user_key)){
 					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 				}
+
 				$response = $client->getResponse();
 				$rstate = $response[1][0]['state'];
+				
 				if ($rstate == 'done') {
-					$temp[] = 'Ready';
+					$temp[] = 'ready';
 					$temp[] = substr($response[1][0]['create_time'], 0, -7);
 					$temp[] = substr($response[1][0]['finish_time'], 0, -7);
+					$temp[] = $rdetail;
 					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion()">Download</button>';
 				}
 				else {
 					$temp[] = $rstate;
 					$temp[] = substr($response[1][0]['create_time'], 0, -7);
 					$temp[] = '--';
+					$temp[] = $rdetail;
 					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion()">Download</button>';
 				}
 				$rrow[] = $temp;
