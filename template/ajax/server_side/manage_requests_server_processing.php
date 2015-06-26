@@ -244,7 +244,7 @@ switch ($option) {
 					$qid1 = $qdetail['qid_1'];
 					$qid2 = $qdetail['qid_2'];
 
-					if(!$client->query("info", $qid1, $user_key)){
+					if(!$client->query("info", [$qid1, $qid2], $user_key)){
 						die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 					}
 
@@ -270,8 +270,8 @@ switch ($option) {
 						die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 					}
 
-					$response = $client->getResponse();
-					$qdetail = json_decode($response[1][0]['args'], true);
+					//$response = $client->getResponse();
+					$qdetail = json_decode($response[1][1]['args'], true);
 
 					$name = $qdetail['annotation'];
 					$end = '??';
