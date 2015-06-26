@@ -92,7 +92,7 @@ require_once("inc/init.php");
 			                                    <th>Request Status</th>
 												<th>Request Start Time</th>
 												<th>Request End Time</th>
-												<th>Request Detail</th>												
+												<th>Request Detail</th>
 												<th>Downloads</th>
 			                                </tr>
 			                            </thead>
@@ -119,7 +119,7 @@ require_once("inc/init.php");
 
 	pageSetUp();
 
-	function getRegion() {
+	function getRegion(event) {
 		var id = event.target.id.split('_')[1];
 		window.open('<?php echo $url ?>/download/?r='+id+'&key=<?php echo $user_key ?>','_blank');
 	}

@@ -292,20 +292,20 @@ switch ($option) {
 
 				$response = $client->getResponse();
 				$rstate = $response[1][0]['state'];
-				
+
 				if ($rstate == 'done') {
 					$temp[] = 'ready';
 					$temp[] = substr($response[1][0]['create_time'], 0, -7);
 					$temp[] = substr($response[1][0]['finish_time'], 0, -7);
 					$temp[] = $rdetail;
-					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion()">Download</button>';
+					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion(event)">Download</button>';
 				}
 				else {
 					$temp[] = $rstate;
 					$temp[] = substr($response[1][0]['create_time'], 0, -7);
 					$temp[] = '--';
 					$temp[] = $rdetail;
-					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion()">Download</button>';
+					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
 				}
 				$rrow[] = $temp;
 				$temp = [];
