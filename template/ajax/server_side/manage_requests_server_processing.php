@@ -207,8 +207,9 @@ switch ($option) {
 				$rid = $request[0];
 				$temp[] = $rid;
 				$qdetail = '';
-				$rdetail = '';
+				$rdetail = '<div style="display: block;">';
 
+				// obtain initial query id
 				if(!$client->query("info", $rid, $user_key)){
 					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 				}
@@ -216,75 +217,9 @@ switch ($option) {
 				$response = $client->getResponse();
 				$qid = $response[1][0]['query_id'];
 
-				if(!$client->query("info", $qid, $user_key)){
-					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-				}
-
-				$response = $client->getResponse();
-				$qtype = $response[1][0]['type'];
-				$qdetail = json_decode($response[1][0]['args'], true);
-
-				if ($qtype == 'experiment_select') {
-					$name = $qdetail['experiment_name'];
-					$project = $qdetail['project'];
-					$start = $qdetail['start'];
-					$end = '??';
-					if (array_key_exists('end', $qdetail)) {
-						$end = $qdetail['end'];
-					}
-					$chromosomes = $qdetail['chromosomes'];
-					$genomes = $qdetail['genomes'];
-
-					$rdetail = '<div style="display: block;"><b>Experiment Name(s)</b>: '.implode(", ", $name).'<br>
-					<b>Project</b>: '.implode(", ", $project).'<br><b>Start</b>: '.$start.'<br><b>End</b>: '.$end.'<br>
-					<b>Chromosome</b>: '.implode(", ", $chromosomes).'<br><b>Genomes</b>: '.implode(", ",$genomes).'</div>';
-				}
-
-				if ($qtype == 'intersect') {
-					$qid1 = $qdetail['qid_1'];
-					$qid2 = $qdetail['qid_2'];
-
-					if(!$client->query("info", [$qid1, $qid2], $user_key)){
-						die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-					}
-
-					$response = $client->getResponse();
-					$qdetail = json_decode($response[1][0]['args'], true);
-
-					$name = $qdetail['experiment_name'];
-					$project = $qdetail['project'];
-					$start = $qdetail['start'];
-					$end = '??';
-					if (array_key_exists('end', $qdetail)) {
-						$end = $qdetail['end'];
-					}
-					$chromosomes = $qdetail['chromosomes'];
-					$genomes = $qdetail['genomes'];
-
-					$rdetail = '<div style="display: block;"><b>Select Experiment</b></br><b>Experiment(s)</b>: '.implode(", ", $name).'<br>
-					<b>Project</b>: '.implode(", ", $project).'<br><b>Start</b>: '.$start.'<br><b>End</b>: '.$end.'<br>
-					<b>Chromosome</b>: '.implode(", ", $chromosomes).'<br><b>Genomes</b>: '.implode(", ",$genomes).'</div>';
-
-
-					if(!$client->query("info", $qid2, $user_key)){
-						die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-					}
-
-					//$response = $client->getResponse();
-					$qdetail = json_decode($response[1][1]['args'], true);
-
-					$name = $qdetail['annotation'];
-					$end = '??';
-					if (array_key_exists('end', $qdetail)) {
-						$end = $qdetail['end'];
-					}
-					$chromosomes = $qdetail['chromosomes'];
-					$genomes = $qdetail['genomes'];
-
-					$rdetail = $rdetail.'</br><div style="display: block;"><b>Select Annotation</b></br><b>Annotation(s)</b>: '.implode(", ", $name).'<br>
-					<b>End</b>: '.$end.'<br><b>Chromosome</b>: '.implode(", ", $chromosomes).'<br><b>Genomes</b>: '.implode(", ",$genomes).'</div>';
-
-				}
+				// retrieve initial query details
+				query_detail($qid);
+				$rdetail = $rdetail.'</div>';
 
 				if(!$client->query("info", $request[0], $user_key)){
 					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
@@ -381,7 +316,83 @@ switch ($option) {
 		break;
 }
 
+function query_detail($qud) {
+	global $client;
+	global $user_key;
+	global $rdetail;
+	$chroms = [];
 
+	//echo $qud;
+	//$rdetail = $rdetail."  \n\r  <br/>";
+	$rdetail = $rdetail.'<b>query, '.$qud.'</b>';
 
+	//echo "  \n\r  <br/>";
+	//$rdetail = $rdetail."  \n\r  <br/>";
 
+	if(!$client->query("info", $qud, $user_key)) {
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+	}
+
+	$response = $client->getResponse();
+	$qtype = $response[1][0]['type'];
+	$qdetail = json_decode($response[1][0]['args'], true);
+
+	//echo $qtype;
+	$rdetail = $rdetail.' ('.$qtype.')';
+	
+	//echo "  \n\r  <br/>";
+	$rdetail = $rdetail."  \n\r  <br/>";
+
+	// call server processing to check the size of the chromosomes
+	$chroms_count = 0;
+
+	if (isset($qdetail['genomes'])) {
+		//var_dump($qdetail);
+		$genomes = $qdetail['genomes'];
+		foreach ($genomes as $gens) {
+			if(!$client->query("chromosomes", $gens, $user_key)){
+				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+			}
+			$response = $client->getResponse();
+			$chroms[] = $response[1];
+		}
+		$chroms_count = count($chroms[0]);	
+	}
+	
+	foreach ($qdetail as $key => $value) {
+		if ($key == 'qid_1' || $key == 'qid_2') {
+			$rdetail = $rdetail."<hr>";
+			query_detail($value);
+			continue;
+		}
+
+		$rdetail = $rdetail.'<b>'.$key.'</b>: ';
+		if ($key == 'chromosom'){
+			if (count($value) == $chroms_count) {
+				$rdetail = $rdetail.' ALL';
+				$rdetail = $rdetail."  \n\r  <br/>";
+				continue;				
+			}
+
+		}
+
+		//	echo "  \n\r  <br/>";
+		if (is_array($value)) {
+			foreach ($value as $item) {
+				//	echo $item;
+				$rdetail = $rdetail.$item.'; ';	
+				//	echo "  \n\r  <br/>";
+			}
+		}
+		else {
+			// echo $value;
+			$rdetail = $rdetail.$value;
+			// echo "  \n\r  <br/>";
+			// $rdetail = $rdetail."  \n\r  <br/>";
+		}
+		//	echo "  \n\r  <br/>";
+		$rdetail = $rdetail."  \n\r  <br/>";
+	}
+}
 ?>
+

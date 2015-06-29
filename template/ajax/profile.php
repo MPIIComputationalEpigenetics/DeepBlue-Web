@@ -1,5 +1,5 @@
 <?php require("inc/init.php"); ?>
-<?php session_start(); ?>
+
 <!-- row -->
 <div class="row">
 

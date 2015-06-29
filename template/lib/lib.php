@@ -9,23 +9,22 @@
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
+*	Obaro Odiete <s8obodie@stud.uni-saarland.de>
 *
 *   Created : 25-08-2014
 */
 
+if (session_id() == '') {
+	session_start();
+}
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 /* URL to XML-RPC Server */
 $url = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
-//$url = 'http://localhost:31415';
 
 /* USER Key */
-//$user_key = 'JBv8qZORmuNr7G6N';
-//$user_key = 'hQy5V2ii3X0J3hQl';
-//$user_key = '71DZhOKGS4V3fnW2';
-$user_key = 'yerIHJWYGA9odz5n';
-
-
+$user_key = $_SESSION['user_key'];
+//$user_key = 'yerIHJWYGA9odz5n';
 ?>
