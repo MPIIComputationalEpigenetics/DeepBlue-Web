@@ -25,6 +25,12 @@ ini_set('display_errors', 1);
 $url = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
 
 /* USER Key */
-$user_key = $_SESSION['user_key'];
-//$user_key = 'yerIHJWYGA9odz5n';
+if (isset($_SESSION['user_key'])) {
+	$user_key = $_SESSION['user_key'];
+}
+else {
+	// user not properly logged in, redirecting to home page
+	header("Location: /index.php");
+}
+
 ?>

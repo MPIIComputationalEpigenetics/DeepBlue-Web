@@ -46,36 +46,23 @@ include("inc/header.php");
 
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-						<h1 class="txt-color-red login-header-big">DeepBlue</h1>
+						<h1 class="txt-color-red login-header-big">DeepBlue Epigenomic Data Server</h1>
 						<div class="hero">
 
 							<div class="pull-left login-desc-box-l">
-								<h4 class="paragraph-header">It's Okay to be Smart. Experience the simplicity of SmartAdmin, everywhere you go!</h4>
-								<div class="login-app-icons">
-									<a href="javascript:void(0);" class="btn btn-danger btn-sm">Frontend Template</a>
-									<a href="javascript:void(0);" class="btn btn-danger btn-sm">Find out more</a>
-								</div>
+								<h4 class="paragraph-header">DeepBlue provides a central data access hub for large collections of epigenomic data, as well as organizing the data using controlled vocabularies. The data is kept in a central server, where the users access, perform operations on, and finally, transfer only the meaningful data.</h4>
 							</div>
 
-							<img src="img/demo/sa-demo.png" class="pull-right display-image" alt="" style="width:355px">
-
+							<img src="<?php echo ASSETS_URL; ?>/img/logo.png" class="pull-right display-image index-middle-logo" alt="">
 						</div>
-
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<h5 class="about-heading">About SmartAdmin - Are you up to date?</h5>
-								<p>
-									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.
-								</p>
+								<img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/minerva-MPG-small.png"/>
 							</div>
 							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<h5 class="about-heading">Not just your average template!</h5>
-								<p>
-									Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!
-								</p>
+								<img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/mpilogo-inf-compact.png"/>
 							</div>
 						</div>
-
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">

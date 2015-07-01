@@ -8,6 +8,9 @@ require_once("inc/init.php");
 //require UI configuration (nav, ribbon, etc.)
 require_once("inc/config.ui.php");
 
+// require session configuration
+include("lib/lib.php");
+
 /*---------------- PHP Custom Scripts ---------
 
 YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC. */

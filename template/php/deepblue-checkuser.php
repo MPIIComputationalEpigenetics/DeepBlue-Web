@@ -21,20 +21,21 @@ if(!$client->query("user_auth", $email, $password)){
 $response = $client->getResponse();
 
 if ($response[0] == 'error') {
-	header("Location: ../index.php");	
+	header("Location: ../index.php?login_attempt=1");	
 }
 else {
 	$user_key = $response[1];
-	if(!$client->query("echo", $user_key)) {
+	if(!$client->query("info", "me", $user_key)) {
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
 	}
 
 	$response = $client->getResponse();
-	$user_name = $response[1];
-
+	$user_details = $response[1][0];
+	
 	session_start();
-	$_SESSION['user_email'] = $email;
-	$_SESSION['user_name'] = substr($user_name, 29);
+
+	$_SESSION['user_email'] = $user_details['email'];
+	$_SESSION['user_name'] = $user_details['name'];
 	$_SESSION['user_key'] = $user_key;
 	$_SESSION['time'] = time();
 	header("Location:  ../dashboard.php");

@@ -13,6 +13,12 @@ E.G. $page_title = "Custom Title" */
 
 $page_title = "DeepBlue Epigenomic Data Server";
 
+/* ----- */
+if (isset($_SESSION['user_key'])) {
+	$user_key = $_SESSION['user_key'];
+	header("Location:  ../dashboard.php");
+}
+
 /* ---------------- END PHP Custom Scripts ------------- */
 
 //include header
@@ -85,7 +91,17 @@ include("inc/header.php");
 						</header>
 
 						<fieldset>
-
+							<?php if ((isset($_GET['login_attempt'])) && ($_GET['login_attempt'] > 0)) {
+								echo '<section><div class="alert alert-danger alert-block" id="login-banner">					    <p><b>Incorrect Email/Password</b></p>
+							
+						    <p>
+						        Invalid Email-password combination.
+						        Make sure that they are typed correctly.
+						    </p>
+						    </div>
+								
+							</section>';}
+							?>
 							<section>
 								<label class="label">E-mail</label>
 								<label class="input"> <i class="icon-append fa fa-user"></i>
