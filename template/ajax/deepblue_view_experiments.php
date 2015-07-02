@@ -21,6 +21,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require_once("../lib/lib.php");
 require_once("inc/init.php");
 
 ?>
@@ -212,7 +213,7 @@ require_once("inc/init.php");
             </div>
             <!-- end widget -->
         </article>
-    </div>    
+    </div>
 </section>
 <!-- end widget grid -->
 
@@ -271,6 +272,7 @@ require_once("inc/init.php");
                 aoData.push( { "name": "col_7", "value": "technique"} );
                 aoData.push( { "name": "col_8", "value": "project"} );
                 aoData.push( { "name": "col_9", "value": "extra_metadata"} );
+                aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
             },
             //"sServerMethod": "POST",
             "iDisplayLength": 10,
@@ -364,8 +366,8 @@ require_once("inc/init.php");
             var index = selected.indexOf(id);
             selected.splice(index, 1);
             selectedNames.splice(index, 1);
-            selectedData.splice(index,1);            
-            
+            selectedData.splice(index,1);
+
             $('#datatable_selected_column').dataTable().fnDeleteRow(index);
 
             var rowId = otable.columns(0).data().eq(0).indexOf(id);

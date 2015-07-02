@@ -15,15 +15,15 @@
 *
 -->
 
-<?php 
+<?php
 
 	/* DeepBlue Configuration */
 	require_once("../lib/lib.php");
-	
+
 	/* DeepBlue Class */
 	require_once("../lib/deepblue.functions.php");
 	$deepBlueObj = new Deepblue();
-	
+
 ?>
 
 <div class="row">
@@ -50,138 +50,138 @@
 
 	<!-- row -->
 	<div class="row">
-		
+
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-			
+
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-					
-					data-widget-colorbutton="false"	
+
+					data-widget-colorbutton="false"
 					data-widget-editbutton="false"
 					data-widget-togglebutton="false"
 					data-widget-deletebutton="false"
 					data-widget-fullscreenbutton="false"
 					data-widget-custombutton="false"
-					data-widget-collapsed="true" 
+					data-widget-collapsed="true"
 					data-widget-sortable="false"
-					
+
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Projects</h2>				
-					
+					<h2>Projects</h2>
+
 				</header>
 
 				<!-- widget div-->
 				<div>
-					
+
 					<!-- widget edit box -->
 					<div class="jarviswidget-editbox">
 						<!-- This area used as dropdown edit box -->
-						
+
 					</div>
 					<!-- end widget edit box -->
-					
+
 					<!-- widget content -->
 					<div class="widget-body no-padding">
-						
+
 						<div id="projects-chart" class="chart"></div>
-						
+
 					</div>
 					<!-- end widget content -->
-					
+
 				</div>
 				<!-- end widget div -->
-				
+
 			</div>
 			<!-- end widget -->
 
 		</article>
 		<!-- WIDGET END -->
-		
+
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-			
+
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-					
-					data-widget-colorbutton="false"	
+
+					data-widget-colorbutton="false"
 					data-widget-editbutton="false"
 					data-widget-togglebutton="false"
 					data-widget-deletebutton="false"
 					data-widget-fullscreenbutton="false"
 					data-widget-custombutton="false"
-					data-widget-collapsed="true" 
+					data-widget-collapsed="true"
 					data-widget-sortable="false"
-					
+
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Genomes</h2>				
-					
+					<h2>Genomes</h2>
+
 				</header>
 
 				<!-- widget div-->
 				<div>
-					
+
 					<!-- widget edit box -->
 					<div class="jarviswidget-editbox">
 						<!-- This area used as dropdown edit box -->
-						
+
 					</div>
 					<!-- end widget edit box -->
-					
+
 					<!-- widget content -->
 					<div class="widget-body no-padding">
-						
+
 						<div id="genomes-chart" class="chart"></div>
-						
+
 					</div>
 					<!-- end widget content -->
-					
+
 				</div>
 				<!-- end widget div -->
-				
+
 			</div>
 			<!-- end widget -->
 
 		</article>
 		<!-- WIDGET END -->
-		
+
 	</div>
 
 	<!-- end row -->
 
 	<!-- row -->
 	<div class="row">
-		
+
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			
+
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-2" data-widget-editbutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-					
-					data-widget-colorbutton="false"	
+
+					data-widget-colorbutton="false"
 					data-widget-editbutton="false"
 					data-widget-togglebutton="false"
 					data-widget-deletebutton="false"
 					data-widget-fullscreenbutton="false"
 					data-widget-custombutton="false"
-					data-widget-collapsed="true" 
+					data-widget-collapsed="true"
 					data-widget-sortable="false"
-					
+
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Technique</h2>				
-					
+					<h2>Technique</h2>
+
 				</header>
 
 				<!-- widget div-->
@@ -200,7 +200,7 @@
 						</button>
 						<button type="button" id="tech_sort_alp_page" class="btn btn-primary" disabled>
 							<i class="fa fa-sort-alpha-asc"></i>
-						</button>						
+						</button>
 						<button type="button" id="tech_next_page" class="btn btn-primary">
 							<i class="fa fa-forward"></i>
 						</button>
@@ -218,37 +218,37 @@
 
 	<!-- row -->
 	<div class="row">
-		
+
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			
+
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-					
-					data-widget-colorbutton="false"	
+
+					data-widget-colorbutton="false"
 					data-widget-editbutton="false"
 					data-widget-togglebutton="false"
 					data-widget-deletebutton="false"
 					data-widget-fullscreenbutton="false"
 					data-widget-custombutton="false"
-					data-widget-collapsed="true" 
+					data-widget-collapsed="true"
 					data-widget-sortable="false"
-					
+
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Epigenetic Marks</h2>				
-					
+					<h2>Epigenetic Marks</h2>
+
 				</header>
 
 				<!-- widget div-->
 				<div>
-					
+
 					<!-- widget content -->
 					<div class="widget-body col-sm-12">
-						<div id="epigenetic_marks-chart" class="chart"></div>						
+						<div id="epigenetic_marks-chart" class="chart"></div>
 					</div>
 					<!-- end widget content -->
 					<div style="text-align:center; margin-bottom: 5px">
@@ -260,7 +260,7 @@
 						</button>
 						<button type="button" id="epi_sort_alp_page" class="btn btn-primary" disabled>
 							<i class="fa fa-sort-alpha-asc"></i>
-						</button>						
+						</button>
 						<button type="button" id="epi_next_page" class="btn btn-primary">
 							<i class="fa fa-forward"></i>
 						</button>
@@ -276,29 +276,29 @@
 	<!-- end row -->
 
 	<div class="row">
-		
+
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			
+
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-					
-					data-widget-colorbutton="false"	
+
+					data-widget-colorbutton="false"
 					data-widget-editbutton="false"
 					data-widget-togglebutton="false"
 					data-widget-deletebutton="false"
 					data-widget-fullscreenbutton="false"
 					data-widget-custombutton="false"
-					data-widget-collapsed="true" 
+					data-widget-collapsed="true"
 					data-widget-sortable="false"
-					
+
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Biosources</h2>				
-					
+					<h2>Biosources</h2>
+
 				</header>
 
 				<!-- widget div-->
@@ -316,7 +316,7 @@
 						</button>
 						<button id="bio_sort_alp_page" type="button" class="btn btn-primary" disabled>
 							<i class="fa fa-sort-alpha-asc"></i>
-						</button>						
+						</button>
 						<button id="bio_next_page" name="bio_next_page" type="button" class="btn btn-primary">
 							<i class="fa fa-forward"></i>
 						</button>
@@ -329,7 +329,7 @@
 		<!-- WIDGET END -->
 	</div>
 	<!-- end row -->
-	
+
 </section>
 <!-- end widget grid -->
 
@@ -428,7 +428,7 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
-	
+
 	/* DO NOT REMOVE : GLOBAL FUNCTIONS!
 	 *
 	 * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
@@ -460,9 +460,9 @@
 	 */
 
 	pageSetUp();
-	
+
 	// MODAL VIEW
-	
+
 	// global variable
 	var curPageHolder = ['technique','biosource','epigenetic_mark'];
 	curPageHolder['biosource'] = 0;
@@ -642,7 +642,7 @@
 
 		$('.modal-content').removeClass( "modalViewSingleInfo" );
 		$('#modal_for_experiment').hide();
-		$('#modal-content-by-jquery').show();  
+		$('#modal-content-by-jquery').show();
 
 		var type = vocab;
 		var text = label;
@@ -716,12 +716,12 @@
 			    break;
 		}
 
-		
+
 		var inputName = "#experiment-" + type;
 		$(inputName).val(text);
  	    $(inputName).prop('disabled', true);
 
-		
+
 		var selectedElementsModal = [];
 		/* COLUMN FILTER  */
 
@@ -741,6 +741,7 @@
       			aoData.push( { "name": "col_7", "value": "technique"} );
       			aoData.push( { "name": "col_8", "value": "project"} );
       			aoData.push( { "name": "col_9", "value": "extra_metadata"} );
+      			aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
       		},
 		    "iDisplayLength": 50,
 		    "autoWidth" : true,
@@ -760,7 +761,7 @@
 				responsiveHelper_datatable_fixed_column.respond();
 			},
 			"fnInitComplete": function(oSettings, json) {
-				/* Insert or remove selected or unselected elements 
+				/* Insert or remove selected or unselected elements
 				//selectedElementsModal = [];
 				$( ".downloadCheckBox" ).change(function() {
 					var downloadIdModal = $(this).parent().next().text();
@@ -798,10 +799,10 @@
 			else{
 			}
 		});
-		
+
     	$('#myModal').modal('toggle');
-	}    
-		
+	}
+
 	// PAGE RELATED SCRIPTS
 	var pagefunction = function() {
 
@@ -829,18 +830,18 @@
 				localStorage.setItem("list_in_use", JSON.stringify(data[0]));
 				list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 				loadDashboard();
-				//alert("1");				
+				//alert("1");
 			});
 
 			request1.fail( function(jqXHR, textStatus) {
 				console.log(jqXHR);
 			    console.log('Error: '+ textStatus);
 				alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
-			});			
+			});
 		}
 		else {
 			//alert("0");
-			loadDashboard();			
+			loadDashboard();
 		}
 
 		//alert("2");
@@ -856,14 +857,14 @@
 				page[vocab] = []; // index for each page or view
 				page[vocab]['alp'] = [];
 				page[vocab]['amt'] = [];
-				
+
 				total_sum[vocab] = 0; // total experiments in each vocabulary - would be the same value
 				othersvalue = 0;
-				
+
 				var currentvocab = [];
 				currentvocab['alp'] = list_in_use[vocab]['alp'];
 				currentvocab['amt'] = list_in_use[vocab]['amt'];
-				
+
 				var ct = 0;
 				var pg = 0;
 
@@ -894,9 +895,9 @@
 
 			/* total experiment sum */
 			$("#total_sum").text(total_sum['projects']);
-			
+
 			/* projects donut chart */
-			if ($('#projects-chart').length){ 
+			if ($('#projects-chart').length){
 				Morris.Donut({
 					  element: 'projects-chart',
 					  data:  list['projects']['alp'],
@@ -920,7 +921,7 @@
 				})
 				tbar.on('click', function(i, row){
 					lauchModalView(row['label'], 'technique')
-				});		
+				});
 			}
 			/* end techniques pie chart */
 
@@ -934,9 +935,9 @@
 					  xLabelAngle: 270,
 					  resize: true
 				});
-				
+
 				ebar.on('click', function(i, row){
-					lauchModalView(row['label'], 'epigenetic_mark')	
+					lauchModalView(row['label'], 'epigenetic_mark')
 				});
 			}
 			/* end epigenetic marks bar chart */
@@ -952,13 +953,13 @@
 					  xLabelAngle: 270,
 					  resize: true
 				});
-				
+
 				bbar.on('click', function(i, row){
 					lauchModalView(row['label'], 'biosource')
-				});			
+				});
 			}
 			/* end biosources bar chart */
-			
+
 			/* genomes donut chart */
 			if ($("#genomes-chart").length) {
 				Morris.Donut({
@@ -970,7 +971,7 @@
 					lauchModalView(row['label'], 'genome')
 				});
 			}
-			/* end genomes bar chart */		
+			/* end genomes bar chart */
 			//alert("7");
 		}
 	}; 	// end pagefunction
@@ -978,7 +979,7 @@
 
 	// Load morris dependencies and run pagefunction
 	loadScript("js/plugin/morris/raphael.min.js", function(){
-		loadScript("js/plugin/morris/morris.min.js", function(){		
+		loadScript("js/plugin/morris/morris.min.js", function(){
 			loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
 				loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
 					loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){

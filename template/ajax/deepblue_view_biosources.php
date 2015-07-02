@@ -20,6 +20,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require_once("../lib/lib.php");
 require_once("inc/init.php");
 
 ?>
@@ -142,6 +143,7 @@ require_once("inc/init.php");
       			aoData.push( { "name": "col_1", "value": "name"} );
       			aoData.push( { "name": "col_2", "value": "description"} );
       			aoData.push( { "name": "col_3", "value": "extra_metadata"} );
+      			aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
     		},
 	        //"sServerMethod": "POST",
 	        "iDisplayLength": 50,

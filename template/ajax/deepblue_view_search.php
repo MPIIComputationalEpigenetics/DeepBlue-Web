@@ -18,6 +18,7 @@
 *
 */
 
+require_once("../lib/lib.php");
 require_once("inc/init.php");
 
 ?>
@@ -447,8 +448,8 @@ require_once("inc/init.php");
 
 			            localStorage.setItem("selectedData", JSON.stringify(selectedData));
 			            $('#myModal').modal('toggle');
-			            window.location.href = "dashboard.php#ajax/deepblue_download_experiments.php";						
-					} 
+			            window.location.href = "dashboard.php#ajax/deepblue_download_experiments.php";
+					}
 					else {
 						// TODO: Implement Downloads for annotations
 					}
@@ -495,7 +496,7 @@ require_once("inc/init.php");
 
 			});
 
-		
+
 			/* Reset all input values */
 			$('.hasinput input').val("");
 			$('.hasinput input').prop('disabled', false);
@@ -544,12 +545,12 @@ require_once("inc/init.php");
 				    break;
 			}
 
-		
+
 			var inputName = "#experiment-" + type;
 			$(inputName).val(text);
 	 	    $(inputName).prop('disabled', true);
 
-			
+
 			var selectedElementsModal = [];
 			/* COLUMN FILTER  */
 
@@ -569,6 +570,7 @@ require_once("inc/init.php");
 	      			aoData.push( { "name": "col_7", "value": "technique"} );
 	      			aoData.push( { "name": "col_8", "value": "project"} );
 	      			aoData.push( { "name": "col_9", "value": "extra_metadata"} );
+	      			aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
 	      		},
 			    "iDisplayLength": 50,
 			    "autoWidth" : true,
@@ -588,7 +590,7 @@ require_once("inc/init.php");
 					responsiveHelper_datatable_fixed_column.respond();
 				},
 				"fnInitComplete": function(oSettings, json) {
-					/* Insert or remove selected or unselected elements 
+					/* Insert or remove selected or unselected elements
 					//selectedElementsModal = [];
 					$( ".downloadCheckBox" ).change(function() {
 						var downloadIdModal = $(this).parent().next().text();

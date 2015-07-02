@@ -21,6 +21,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require_once("../lib/lib.php");
 require_once("inc/init.php");
 
 ?>
@@ -210,6 +211,7 @@ require_once("inc/init.php");
       			aoData.push( { "name": "col_0", "value": "_id"} );
       			aoData.push( { "name": "col_1", "value": "name"} );
       			aoData.push( { "name": "col_2", "value": "description"} );
+      			aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
     		},
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
