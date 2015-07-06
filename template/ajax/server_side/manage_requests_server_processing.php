@@ -157,9 +157,10 @@ switch ($option) {
 		$result[] = $client->getResponse();
 		$query_ida = $result[0][1];
 		$query_id = $query_ida;
+		
 		$result = [];
-
 		$annlen = count($annotation_names);
+
 		if ($annlen > 0) {
 			// select annotations
 			if (!$client->query("select_annotations", $annotation_names, $allgenomes, $chromosome, $start, $end, $user_key)) {
@@ -201,8 +202,7 @@ switch ($option) {
 			$response = $client->getResponse();
 			$data['request_list'] = $response[1];
 
-			$request_ids = $response[0][1];
-
+			$rrow = [];
 			foreach($data['request_list'] as $request) {
 				$rid = $request[0];
 				$temp[] = $rid;
@@ -267,6 +267,7 @@ switch ($option) {
 			if (!in_array($genome, $genomes)) {
 				$genomes[] = $genome;
 			}
+			$infoList = [];
 		}
 
 		$length = count($genomes);
@@ -281,7 +282,8 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$result[] = $client->getResponse();
-
+			//$chroms = array_merge($chroms, $result[0][1]);
+			
 			$chrlen = count($result[0][1]);
 			for ($k = 0; $k < $chrlen; $k++) {
 				$chr = $result[0][1][$k][0];
@@ -289,6 +291,7 @@ switch ($option) {
 					$data['chromosome'][] = $chr;
 				}
 			}
+			
 			$result = '';
 
 			// get annotations matching genome
@@ -296,7 +299,8 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$result[] = $client->getResponse();
-
+			//$annots = array_merge($annots, $result[0][1]);
+			
 			$annlen = count($result[0][1]);
 			for ($k = 0; $k < $annlen; $k++) {
 				$ann_id = $result[0][1][$k][0];
@@ -306,11 +310,14 @@ switch ($option) {
 					$data['annotations_id'][] = $ann_id;
 				}
 			}
+			//var_dump($annots);
 			$result = '';
 		}
+		//$data['chromosome'] = $chroms;
+		//$data['annotations'] = $annots;
+		//var_dump($data['chromosome'])
 		echo json_encode($data);
 		break;
-
 	default:
 		# code...
 		break;
@@ -322,13 +329,7 @@ function query_detail($qud) {
 	global $rdetail;
 	$chroms = [];
 
-	//echo $qud;
-	//$rdetail = $rdetail."  \n\r  <br/>";
-	$rdetail = $rdetail.'<b>query, '.$qud.'</b>';
-
-	//echo "  \n\r  <br/>";
-	//$rdetail = $rdetail."  \n\r  <br/>";
-
+	$rdetail = $rdetail.'<b>query ID: '.$qud.'</b>';
 	if(!$client->query("info", $qud, $user_key)) {
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
@@ -337,28 +338,37 @@ function query_detail($qud) {
 	$qtype = $response[1][0]['type'];
 	$qdetail = json_decode($response[1][0]['args'], true);
 
-	//echo $qtype;
 	$rdetail = $rdetail.' ('.$qtype.')';
-	
-	//echo "  \n\r  <br/>";
 	$rdetail = $rdetail."  \n\r  <br/>";
 
 	// call server processing to check the size of the chromosomes
 	$chroms_count = 0;
 
 	if (isset($qdetail['genomes'])) {
-		//var_dump($qdetail);
 		$genomes = $qdetail['genomes'];
-		foreach ($genomes as $gens) {
-			if(!$client->query("chromosomes", $gens, $user_key)){
+		$length = count($genomes);
+
+		for ($j = 0; $j < $length; $j++) {
+			// get chromosomes matching genome
+			if(!$client->query("chromosomes", $genomes[$j], $user_key)){
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
-			$response = $client->getResponse();
-			$chroms[] = $response[1];
+
+			$result[] = $client->getResponse();
+			$chrlen = count($result[0][1]);
+			for ($k = 0; $k < $chrlen; $k++) {
+				$chr = $result[0][1][$k][0];
+				if (!in_array($chr, $chroms)) {
+					$chroms[] = $chr;
+				}				
+			}
+
+			$result = [];
 		}
-		$chroms_count = count($chroms[0]);	
+		$chroms_count = count($chroms);
 	}
-	
+
+
 	foreach ($qdetail as $key => $value) {
 		if ($key == 'qid_1' || $key == 'qid_2') {
 			$rdetail = $rdetail."<hr>";
@@ -366,31 +376,36 @@ function query_detail($qud) {
 			continue;
 		}
 
+		if ($key == 'start' && $value == 0) {
+			continue;			
+		}
+
+		if ($key == 'end' && $value == PHP_INT_MAX) {
+			continue;
+		}
+
+		if ($key == 'project' || $key == 'has_filter') {
+			continue;
+		}
+
 		$rdetail = $rdetail.'<b>'.$key.'</b>: ';
-		if ($key == 'chromosom'){
+		if ($key == 'chromosomes'){
 			if (count($value) == $chroms_count) {
-				$rdetail = $rdetail.' ALL';
+				$rdetail = $rdetail.' all';
 				$rdetail = $rdetail."  \n\r  <br/>";
 				continue;				
 			}
-
+			//echo json_encode(array('len' => $length, 'qid' => $qud, 'chrcount' => $chroms_count, 'countvalue' => count($value)));
 		}
 
-		//	echo "  \n\r  <br/>";
 		if (is_array($value)) {
 			foreach ($value as $item) {
-				//	echo $item;
 				$rdetail = $rdetail.$item.'; ';	
-				//	echo "  \n\r  <br/>";
 			}
 		}
 		else {
-			// echo $value;
 			$rdetail = $rdetail.$value;
-			// echo "  \n\r  <br/>";
-			// $rdetail = $rdetail."  \n\r  <br/>";
 		}
-		//	echo "  \n\r  <br/>";
 		$rdetail = $rdetail."  \n\r  <br/>";
 	}
 }
