@@ -410,9 +410,6 @@ function query_detail($qud) {
 					$rdetail = $rdetail.', ';
 				}
 			}
-			foreach ($value as $item) {
-				
-			}
 		}
 		else {
 			$rdetail = $rdetail.$value;
