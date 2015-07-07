@@ -329,7 +329,6 @@ function query_detail($qud) {
 	global $rdetail;
 	$chroms = [];
 
-	$rdetail = $rdetail.'<b>query ID: '.$qud.'</b>';
 	if(!$client->query("info", $qud, $user_key)) {
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
@@ -338,9 +337,10 @@ function query_detail($qud) {
 	$qtype = $response[1][0]['type'];
 	$qdetail = json_decode($response[1][0]['args'], true);
 
-	$rdetail = $rdetail.' ('.$qtype.')';
+	$rdetail = $rdetail.'<b>'.$qtype.'</b>';
+	$rdetail = $rdetail.' (query '.$qud.')';
 	$rdetail = $rdetail."  \n\r  <br/>";
-
+	
 	// call server processing to check the size of the chromosomes
 	$chroms_count = 0;
 
@@ -388,6 +388,10 @@ function query_detail($qud) {
 			continue;
 		}
 
+		if ($key == 'experiment_name') {
+			$key = 'experiment name';
+		}
+
 		$rdetail = $rdetail.'<b>'.$key.'</b>: ';
 		if ($key == 'chromosomes'){
 			if (count($value) == $chroms_count) {
@@ -399,8 +403,15 @@ function query_detail($qud) {
 		}
 
 		if (is_array($value)) {
+			$arlen = count($value);
+			for ($j = 0; $j < $arlen; $j++) {
+				$rdetail = $rdetail.$value[$j];
+				if ($j < $arlen - 1) {
+					$rdetail = $rdetail.', ';
+				}
+			}
 			foreach ($value as $item) {
-				$rdetail = $rdetail.$item.'; ';	
+				
 			}
 		}
 		else {
