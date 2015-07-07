@@ -368,7 +368,6 @@ function query_detail($qud) {
 		$chroms_count = count($chroms);
 	}
 
-
 	foreach ($qdetail as $key => $value) {
 		if ($key == 'qid_1' || $key == 'qid_2') {
 			$rdetail = $rdetail."<hr>";
