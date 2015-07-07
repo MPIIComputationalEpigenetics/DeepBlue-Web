@@ -24,7 +24,7 @@ $client = new IXR_Client($url);
 if (isset($_GET) && isset($_GET["biosources"])) {
     $bioNames[] = $_GET["biosources"];
 } else {
-    if(!$client->query("list_biosources", $user_key)) {
+    if(!$client->query("list_biosources", (Object)Null, $user_key)) {
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
     else {

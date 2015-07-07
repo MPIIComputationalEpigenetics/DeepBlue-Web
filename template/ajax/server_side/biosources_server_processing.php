@@ -24,7 +24,7 @@ set_time_limit(12000);
 
 $client = new IXR_Client($url);
 
-if(!$client->query("list_biosources", $user_key)){
+if(!$client->query("list_biosources", (Object)Null, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 else{
