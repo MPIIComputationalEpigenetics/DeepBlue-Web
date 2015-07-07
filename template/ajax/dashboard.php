@@ -156,15 +156,14 @@
 	</div>
 
 	<!-- end row -->
-
-	<!-- row -->
+	
 	<div class="row">
 
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget" id="wid-id-2" data-widget-editbutton="false">
+			<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -180,32 +179,30 @@
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Technique</h2>
+					<h2>Biosources</h2>
 
 				</header>
 
 				<!-- widget div-->
-				<div>
-					<!-- widget content -->
+				<div >
+				<!-- widget content -->
 					<div class="widget-body col-sm-12">
-						<div id="techniques-chart" class="chart"></div>
+						<div id="biosources-chart" class="chart" style="text-align:middle"></div>
 					</div>
-					<!-- end widget content -->
 					<div style="text-align:center; margin-bottom: 5px">
-						<button type="button" id="tech_prev_page" class="btn btn-primary" disabled>
+						<button id="bio_prev_page" type="button" class="btn btn-primary" disabled>
 							<i class="fa fa-backward"></i>
 						</button>
-						<button type="button" id="tech_sort_amt_page" class="btn btn-primary">
+						<button id="bio_sort_amt_page" type="button" class="btn btn-primary">
 							<i class="fa fa-sort-amount-asc"></i>
 						</button>
-						<button type="button" id="tech_sort_alp_page" class="btn btn-primary" disabled>
+						<button id="bio_sort_alp_page" type="button" class="btn btn-primary" disabled>
 							<i class="fa fa-sort-alpha-asc"></i>
 						</button>
-						<button type="button" id="tech_next_page" class="btn btn-primary">
+						<button id="bio_next_page" name="bio_next_page" type="button" class="btn btn-primary">
 							<i class="fa fa-forward"></i>
 						</button>
 					</div>
-
 				</div>
 				<!-- end widget div -->
 			</div>
@@ -213,7 +210,6 @@
 		</article>
 		<!-- WIDGET END -->
 	</div>
-
 	<!-- end row -->
 
 	<!-- row -->
@@ -275,13 +271,14 @@
 	</div>
 	<!-- end row -->
 
+	<!-- row -->
 	<div class="row">
 
 		<!-- NEW WIDGET START -->
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+			<div class="jarviswidget" id="wid-id-2" data-widget-editbutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -297,30 +294,32 @@
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Biosources</h2>
+					<h2>Technique</h2>
 
 				</header>
 
 				<!-- widget div-->
-				<div >
-				<!-- widget content -->
+				<div>
+					<!-- widget content -->
 					<div class="widget-body col-sm-12">
-						<div id="biosources-chart" class="chart" style="text-align:middle"></div>
+						<div id="techniques-chart" class="chart"></div>
 					</div>
+					<!-- end widget content -->
 					<div style="text-align:center; margin-bottom: 5px">
-						<button id="bio_prev_page" type="button" class="btn btn-primary" disabled>
+						<button type="button" id="tech_prev_page" class="btn btn-primary" disabled>
 							<i class="fa fa-backward"></i>
 						</button>
-						<button id="bio_sort_amt_page" type="button" class="btn btn-primary">
+						<button type="button" id="tech_sort_amt_page" class="btn btn-primary">
 							<i class="fa fa-sort-amount-asc"></i>
 						</button>
-						<button id="bio_sort_alp_page" type="button" class="btn btn-primary" disabled>
+						<button type="button" id="tech_sort_alp_page" class="btn btn-primary" disabled>
 							<i class="fa fa-sort-alpha-asc"></i>
 						</button>
-						<button id="bio_next_page" name="bio_next_page" type="button" class="btn btn-primary">
+						<button type="button" id="tech_next_page" class="btn btn-primary">
 							<i class="fa fa-forward"></i>
 						</button>
 					</div>
+
 				</div>
 				<!-- end widget div -->
 			</div>
@@ -328,7 +327,10 @@
 		</article>
 		<!-- WIDGET END -->
 	</div>
+
 	<!-- end row -->
+
+	
 
 </section>
 <!-- end widget grid -->

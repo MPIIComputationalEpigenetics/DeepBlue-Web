@@ -1,9 +1,9 @@
 <?php
-	require_once("lib/deepblue.functions.php");
+	require_once("lib/deepblue.api.php");
 	require_once("inc/init.php");
 	require_once("inc/config.ui.php");
 
-	$deepBlueObj = new Deepblue();
+	$deepBlueObj = new DeepblueApi();
 	$page_title = $deepBlueObj->getServerVersion() . " Reference API";
 
 	$no_main_header = true;
