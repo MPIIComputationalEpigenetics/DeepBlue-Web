@@ -22,9 +22,9 @@ require_once("inc/init.php");
 			<div class="alert alert-info alert-block">
 				<a class="close" data-dismiss="alert" href="#">×</a>
 				<h4 class="alert-heading">Information</h4>
-				This manual can be accessed directly at <a href="manual/">http://felipealbrecht.gitbooks.io/deepblue-epigenomic-data-server-manual/</a>
+				This manual can be accessed at <a href="http://felipealbrecht.gitbooks.io/deepblue-epigenomic-data-server-manual/" target="_blank">
+				http://felipealbrecht.gitbooks.io/deepblue-epigenomic-data-server-manual/</a>
 			</div>
-			<iframe src="http://felipealbrecht.gitbooks.io/deepblue-epigenomic-data-server-manual/" height="800" width="100%"></iframe>
 		</div>
 	</div>
 </section>
