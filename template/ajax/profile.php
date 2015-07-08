@@ -1,4 +1,9 @@
-<?php require("inc/init.php"); ?>
+<?php 
+
+	require("inc/init.php"); 
+	date_default_timezone_set('Europe/Berlin');
+
+?>
 
 <!-- row -->
 <div class="row">
@@ -23,7 +28,7 @@
 							<div class="col-sm-12">
 								<div id="myCarousel" class="carousel fade profile-carousel">
 									<div class="air air-top-left padding-10">
-										<h4 class="txt-color-white font-md"><?php echo date("F j, Y")?></h4>
+										<h4 class="txt-color-white font-md"><?php echo date("F j, Y, g:i a")?></h4>
 									</div>
 									<div class="carousel-inner">
 										<div class="item active">
