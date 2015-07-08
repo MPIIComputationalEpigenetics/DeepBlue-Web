@@ -27,7 +27,8 @@ class DeepblueApi{
     private $client;
 
 	function __construct() {
-		$this->privateUrl = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
+        include("server_settings.php");
+		$this->privateUrl = $url;
         $this->client = new IXR_Client($this->privateUrl);
 	}
 
