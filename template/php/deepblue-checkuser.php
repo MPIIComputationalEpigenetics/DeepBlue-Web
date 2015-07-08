@@ -37,6 +37,8 @@ else {
 	$_SESSION['user_email'] = $user_details['email'];
 	$_SESSION['user_name'] = $user_details['name'];
 	$_SESSION['user_key'] = $user_key;
+	$_SESSION['institution'] = $user_details['institution'];
+	$_SESSION['type'] = $user_details['type'];
 	$_SESSION['time'] = time();
 	header("Location:  ../dashboard.php");
 }
