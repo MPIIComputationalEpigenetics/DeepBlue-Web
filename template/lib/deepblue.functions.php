@@ -22,17 +22,17 @@ ini_set('display_errors', 1);
 
 class Deepblue{
 
-	private $privateUrl;
-	private $privateUserKey;
+    private $privateUrl;
+    private $privateUserKey;
   private $client;
 
-	function __construct() {
+    function __construct() {
     include("lib.php");
-		$this->privateUrl = $url;
-		$this->privateUserKey = $user_key;
+    $this->privateUrl = $url;
+    $this->privateUserKey = $user_key;
     $this->client = new IXR_Client($this->privateUrl);
-		
-	}
+
+    }
 
     /* Search result to JSON format */
 
@@ -599,52 +599,52 @@ XYZ;
 
     /* Prepare result to JSON format for cloning */
     public function cloneResultToJson($inputArray){
-    	$result = array();
-    	foreach($inputArray as $term => $value) {
-    		if ($term == 'info') {
-    			$info = array();
-	    		$experiment = $inputArray['info'][0];
-	    		
-	    		$info['id'] = $experiment['_id'];
-	    		$info['experiment'] = $experiment['name'];
-	    		$info['genome'] = $experiment['genome'];
-	    		$info['epigenetic_mark'] = $experiment['epigenetic_mark'];
-	    		$info['sample'] = $experiment['sample_id']." (".$experiment['sample_info']['biosource_name'].")";
-	    		$info['technique'] = $experiment['technique'];
-	    		$info['project'] = $experiment['project'];
-	    		$info['description'] = $experiment['description'];
-	    		$info['Columns'] = $experiment['columns'];
-	    		$info['Extra Metadata'] = $experiment['extra_metadata'];
-	    		$result['info'] = $info;
-    		}
-    		else {
-    			for ($i = 0; $i < count($inputArray[$term]); $i++) {
-    				$result[$term][$i]['data'] = $inputArray[$term][$i][0];
-    				$result[$term][$i]['value'] = $inputArray[$term][$i][1];
-    			}
-    		}    		
-    	}    		
-    	echo json_encode(array('data' => $result));
+        $result = array();
+        foreach($inputArray as $term => $value) {
+            if ($term == 'info') {
+                $info = array();
+                $experiment = $inputArray['info'][0];
+
+                $info['id'] = $experiment['_id'];
+                $info['experiment'] = $experiment['name'];
+                $info['genome'] = $experiment['genome'];
+                $info['epigenetic_mark'] = $experiment['epigenetic_mark'];
+                $info['sample'] = $experiment['sample_id']." (".$experiment['sample_info']['biosource_name'].")";
+                $info['technique'] = $experiment['technique'];
+                $info['project'] = $experiment['project'];
+                $info['description'] = $experiment['description'];
+                $info['Columns'] = $experiment['columns'];
+                $info['Extra Metadata'] = $experiment['extra_metadata'];
+                $result['info'] = $info;
+            }
+            else {
+                for ($i = 0; $i < count($inputArray[$term]); $i++) {
+                    $result[$term][$i]['data'] = $inputArray[$term][$i][0];
+                    $result[$term][$i]['value'] = $inputArray[$term][$i][1];
+                }
+            }
+        }
+        echo json_encode(array('data' => $result));
     }
-    
+
     /* Generating experiment data table content [ Template ] */
     public function experimentDataTableTemplate($where){
 
         if($where == "workflow"){
-    		$diffPlace = "Select";
-    		$diff_top_btn = "exp_select_btn_top";
-    		$diff_bottom_btn = "exp_select_btn_bottom";
-    	}
-    	elseif ($where == "clone") {
-    		$diffPlace = "Clone";
-    		$diff_top_btn = "cloneBtnTop";
-    		$diff_bottom_btn = "cloneBtnBottom";
-    	}
-    	else {
-    		$diffPlace = "Download";
-    		$diff_top_btn = "downloadBtnTop";
-    		$diff_bottom_btn = "downloadBtnBottom";
-    	}        $dataTableContent = <<<XYZ
+            $diffPlace = "Select";
+            $diff_top_btn = "exp_select_btn_top";
+            $diff_bottom_btn = "exp_select_btn_bottom";
+        }
+        elseif ($where == "clone") {
+            $diffPlace = "Clone";
+            $diff_top_btn = "cloneBtnTop";
+            $diff_bottom_btn = "cloneBtnBottom";
+        }
+        else {
+            $diffPlace = "Download";
+            $diff_top_btn = "downloadBtnTop";
+            $diff_bottom_btn = "downloadBtnBottom";
+        }        $dataTableContent = <<<XYZ
 
         <!-- Widget ID (each widget will need unique ID)-->
             <div class="jarviswidget jarviswidget-color-blueDark" id="datable-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
@@ -740,46 +740,46 @@ XYZ;
 
     /* Generating a minimized experiment data table content [ Template ] */
     public function experimentMinimizedDataTableTemplate($where){
-    
-    	if($where == "workflow"){
-    		$diffPlace = "Select";
-    		$diff_top_btn = "exp_select_btn_top";
-    		$diff_bottom_btn = "exp_select_btn_bottom";
-    	}
-    	elseif ($where == "clone") {
-    		$diffPlace = "Clone";
-    		$diff_top_btn = "cloneBtnTop";
-    		$diff_bottom_btn = "cloneBtnBottom";
-    	}
-    	else {
-    		$diffPlace = "Download";
-    		$diff_top_btn = "downloadBtnTop";
-    		$diff_bottom_btn = "downloadBtnBottom";
-    	}
-    	$dataTableContent = <<<XYZ
-    
+
+        if($where == "workflow"){
+            $diffPlace = "Select";
+            $diff_top_btn = "exp_select_btn_top";
+            $diff_bottom_btn = "exp_select_btn_bottom";
+        }
+        elseif ($where == "clone") {
+            $diffPlace = "Clone";
+            $diff_top_btn = "cloneBtnTop";
+            $diff_bottom_btn = "cloneBtnBottom";
+        }
+        else {
+            $diffPlace = "Download";
+            $diff_top_btn = "downloadBtnTop";
+            $diff_bottom_btn = "downloadBtnBottom";
+        }
+        $dataTableContent = <<<XYZ
+
         <!-- Widget ID (each widget will need unique ID)-->
             <div class="jarviswidget jarviswidget-color-blueDark" id="datable-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
-    
+
                 <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>
                     <h2>Experiments </h2>
-    
+
                 </header>
-    
+
                 <!-- widget div-->
                 <div>
-    
+
                     <!-- widget edit box -->
                     <div class="jarviswidget-editbox">
                         <!-- This area used as dropdown edit box -->
-    
+
                     </div>
                     <!-- end widget edit box -->
-    
+
                     <!-- widget content -->
                     <div class="widget-body no-padding">
-    
+
                         <table id="datatable_fixed_column" name='experiment-table' class="table table-striped table-bordered" width="100%">
                             <thead>
                                 <tr>
@@ -789,7 +789,7 @@ XYZ;
                                     <th class="hasinput" style="width:20%">
                                         <input class="form-control" placeholder="ID" type="text" id="experiment-id">
                                     </th>
-    
+
                                     <th class="hasinput">
                                         <input type="text" class="form-control" placeholder="Experiment Name" id="experiment-name" />
                                     </th>
@@ -800,21 +800,21 @@ XYZ;
                                     <th>Experiment Name</th>
                                 </tr>
                             </thead>
-    
+
                         </table>
                         <div class="downloadButtonDiv"><button type="button" id="$diff_bottom_btn" class="btn btn-primary">$diffPlace</button></div>
-    
+
                     </div>
                     <!-- end widget content -->
-    
+
                 </div>
                 <!-- end widget div -->
-    
+
             </div>
             <!-- end widget -->
 XYZ;
-    
-    	return $dataTableContent;
+
+        return $dataTableContent;
     }
 }
 
