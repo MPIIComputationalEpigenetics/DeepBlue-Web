@@ -20,6 +20,8 @@
 
 /* DeepBlue Configuration */
 require_once("../lib/lib.php");
+require_once("../lib/server_settings.php");
+
 require_once("inc/init.php");
 
 ?>
@@ -121,7 +123,7 @@ require_once("inc/init.php");
 
 	function getRegion(event) {
 		var id = event.target.id.split('_')[1];
-		window.open('<?php echo $url ?>/download/?r='+id+'&key=<?php echo $user_key ?>','_blank');
+		window.open('<?php echo get_server() ?>/download/?r='+id+'&key=<?php echo $user_key ?>','_blank');
 	}
 
 	var pagefunction = function() {

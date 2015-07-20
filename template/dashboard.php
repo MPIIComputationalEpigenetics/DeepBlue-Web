@@ -9,7 +9,7 @@ require_once("inc/init.php");
 require_once("inc/config.ui.php");
 
 // require session configuration
-include("lib/lib.php");
+include_once("lib/lib.php");
 
 /*---------------- PHP Custom Scripts ---------
 

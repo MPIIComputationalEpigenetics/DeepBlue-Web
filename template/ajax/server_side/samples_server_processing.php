@@ -15,11 +15,10 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
-
-/* include IXR Library for RPC-XML */
+require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 
-$client = new IXR_Client($url);
+$client = new IXR_Client(get_server());
 
 if (isset($_GET) && isset($_GET["biosources"])) {
     $bioNames[] = $_GET["biosources"];

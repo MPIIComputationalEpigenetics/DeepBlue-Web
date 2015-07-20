@@ -15,27 +15,25 @@
 
 /* XML-RPC Library */
 require_once("deepblue.IXR_Library.php");
+require_once("server_settings.php");
+require_once("lib.php");
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
 class Deepblue{
-
     private $privateUrl;
     private $privateUserKey;
-  private $client;
+    private $client;
 
     function __construct() {
-    include("lib.php");
-    $this->privateUrl = $url;
-    $this->privateUserKey = $user_key;
-    $this->client = new IXR_Client($this->privateUrl);
-
+        $this->privateUrl = get_server();
+        $this->privateUserKey = get_user_key();
+        $this->client = new IXR_Client($this->privateUrl);
     }
 
     /* Search result to JSON format */
-
     public function searchResultToJson($inputArray){
         $orderedDataStr = array();
 

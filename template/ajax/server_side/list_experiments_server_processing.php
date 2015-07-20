@@ -14,6 +14,7 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 
 if (isset($_GET) && isset($_GET["genomes"])) {
@@ -47,7 +48,7 @@ if (isset($_GET) && isset($_GET["projects"])) {
 	$projects = "";
 }
 
-$client = new IXR_Client($url);
+$client = new IXR_Client(get_server());
 if(!$client->query("list_experiments", $genomes, $epigenetic_marks, $samples, $techniques, $projects, $user_key)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }

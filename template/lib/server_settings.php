@@ -18,6 +18,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 /* URL to XML-RPC Server */
-$url = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
+function get_server() {
+	return 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
+}
 
 ?>

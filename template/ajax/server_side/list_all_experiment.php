@@ -16,8 +16,9 @@
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 require_once("../../lib/deepblue.IXR_Library.php");
+require_once("../../lib/server_settings.php");
 
-$client = new IXR_Client($url);
+$client = new IXR_Client(get_server());
 
 /* retrieve list of all experiments */
 if(!$client->query("list_experiments", '','','','','', $user_key)){

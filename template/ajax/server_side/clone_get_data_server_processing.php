@@ -15,10 +15,11 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
-$client = new IXR_Client($url);
+$client = new IXR_Client(get_server());
 
 if ((!isset($_GET)) || !isset($_GET["caller"])) {
 	return;
@@ -66,9 +67,9 @@ switch ($caller) {
 				$smList[$i][0] = $sample[1]['biosource_name'];
 				$i = $i + 1;
 			}
-				
+
 		}
-		
+
 		$lists = $smList;
 		break;
 	case 'technique':
@@ -120,11 +121,11 @@ switch ($caller) {
 						$strList[$i][1] = explode("'", $column[1])[1];
 					}
 					$i = $i + 1;
-				}				
+				}
 			}
 		}
-		$lists = $strList;		
-		break;		
+		$lists = $strList;
+		break;
 }
 
 $j = 0;

@@ -15,10 +15,12 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
-$client = new IXR_Client($url);
+
+$client = new IXR_Client(get_server());
 
 if ((!isset($_GET)) || !isset($_GET["getId"])) {
 	return;
@@ -46,10 +48,10 @@ for ($i = 0; $i < count($getIds); $i++) {
 	else{
 		$infoList[] = $client->getResponse();
 	}
-	
+
 	$experiment = $infoList[0][1][0];
 	$infoList = null;
-			
+
 	if ($i == 0) {
 		$info['id'] = "";
 		$info['experiment'] = $experiment['name'];
@@ -57,35 +59,35 @@ for ($i = 0; $i < count($getIds); $i++) {
 
 		if ($genomes != "")
 			$info['genome'] = $genomes;
-		else 
+		else
 			$info['genome'] = $experiment['genome'];
-		
+
 		if ($epigenetic_marks != "")
 			$info['epigenetic_mark'] = $epigenetic_marks;
 		else
 			$info['epigenetic_mark'] = $experiment['epigenetic_mark'];
-			
+
 		if ($samples != "")
 			$info['sample'] = $samples;
 		else
 			$info['sample'] = $experiment['sample_id'];
-		
+
 		if ($techniques != "")
 			$info['technique'] = $techniques;
 		else
 			$info['technique'] = $experiment['technique'];
-			
+
 		if ($projects != "")
 			$info['project'] = $projects;
 		else
 			$info['project'] = $experiment['project'];
-			
+
 		$info['description'] = $experiment['description'];
 		$info['Columns'] = $experiment['columns'];
 		$temp['Columns'] = $experiment['columns'];
 		$info['Extra Metadata'] = $experiment['extra_metadata'];
-	}	
-	
+	}
+
 	$info['id'] = $info['id'].$experiment['_id']."; ";
 	if ($i > 0) {
 		$names = $names.", ".$experiment['name'];
@@ -93,19 +95,19 @@ for ($i = 0; $i < count($getIds); $i++) {
 
 	if ($experiment['genome'] != $info['genome'])
 		$info['genome'] = '(Multiple Values)';
-	
+
 	if ($experiment['epigenetic_mark'] != $info['epigenetic_mark'])
 		$info['epigenetic_mark'] = '(Multiple Values)';
-	
+
 	if ($experiment['sample_id'] != $info['sample'])
 		$info['sample'] = '(Multiple Values)';
-	
+
 	if ($experiment['technique'] != $info['technique'])
 		$info['technique'] = '(Multiple Values)';
-	
+
 	if ($experiment['project'] != $info['project'])
 		$info['project'] = '(Multiple Values)';
-	
+
 	if ($i > 0) {
 		$info['experiment'] = 'Files Suffix';
 		$info['description'] = '(Multiple Values)';
@@ -116,10 +118,10 @@ for ($i = 0; $i < count($getIds); $i++) {
 				$info['Extra Metadata'][$key] = '(Multiple Values)';
 			}
 		}
-		
+
 		$length = min(count($temp['Columns']), count($experiment['columns']));
 		$info['Columns'] = null;
-		
+
 		for ($j = 0; $j < $length; $j++) {
 			if ($temp['Columns'][$j]['name'] == $experiment['columns'][$j]['name']) {
 				if ($temp['Columns'][$j]['column_type'] == $experiment['columns'][$j]['column_type']) {
@@ -128,7 +130,7 @@ for ($i = 0; $i < count($getIds); $i++) {
 			}
 		}
 		$temp['Columns'] = $info['Columns'];
-	}	
+	}
 }
 
 $result = array();

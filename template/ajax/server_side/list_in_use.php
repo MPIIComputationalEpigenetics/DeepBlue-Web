@@ -15,6 +15,7 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 
 if (isset($_GET) && isset($_GET["request"])) {
@@ -23,7 +24,7 @@ if (isset($_GET) && isset($_GET["request"])) {
 	return;
 }
 
-$client = new IXR_Client($url);
+$client = new IXR_Client(get_server());
 
 foreach ($request[0] as $vocab) {
 	if(!$client->query("list_in_use", $vocab, $user_key)){
@@ -36,7 +37,7 @@ foreach ($request[0] as $vocab) {
 	});
 
 	$response['amt'] = $response['alp'];
-		
+
 	usort($response['amt'][1], function($a, $b) {
 		return $a[2] > $b[2];
 	});

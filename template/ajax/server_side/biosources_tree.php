@@ -15,6 +15,7 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
@@ -37,7 +38,7 @@ function get_ontology_id($bs_id, &$client, &$user_key)
 	return "";
 }
 
-$client = new IXR_Client($url);
+$client = new IXR_Client(get_server());
 if(!$client->query("list_in_use", "biosources", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }

@@ -15,10 +15,11 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
-$client = new IXR_Client($url);
+$client = new IXR_Client(get_server());
 
 if ((!isset($_GET)) || !isset($_GET["data"])) {
 	return;
@@ -52,38 +53,38 @@ for ($i = 0; $i < count($ids); $i++) {
 		$infoList[] = $client->getResponse();
 	}
 	$experiment = $infoList[0][1][0];
-	
+
 	// update the experiment name
 	if (count($ids) >  1)
 		$name = $experiment['name'].'_'.$data['experiment'];
-	else 
+	else
 		$name = $data['experiment'];
 
-	// update the experiment epigenetic_mark	
+	// update the experiment epigenetic_mark
 	if ($data["epigenetic_mark"] == "(Multiple Values)")
 		$epigenetic_mark = $experiment['epigenetic_mark'];
 	else
 		$epigenetic_mark = $data["epigenetic_mark"];
 
-	// update the experiment sample	
+	// update the experiment sample
 	if ($data["sample"] == "(Multiple Values)")
 		$sample = $experiment['sample_id'];
 	else
 		$sample = $data["sample"];
-	
-	// update the experiment technique	
+
+	// update the experiment technique
 	if ($data["technique"] == "(Multiple Values)")
 		$technique = $experiment['technique'];
 	else
 		$technique = $data["technique"];
-	
-	// update the experiment project	
+
+	// update the experiment project
 	if ($data["project"] == "(Multiple Values)")
 		$project = $experiment['project'];
 	else
 		$project = $data["project"];
-	
-	// update the experiment description	
+
+	// update the experiment description
 	if ($data["description"] == "(Multiple Values)")
 		$description = $experiment['description'];
 	else
@@ -101,16 +102,16 @@ for ($i = 0; $i < count($ids); $i++) {
 		}
 		$j = $j + 1;
 	}
-	
+
 
 	$format = $experiment['columns'][0]['name'];
 	for ($j = 1; $j < count($experiment['columns']); $j++) {
-		// check if a calculated column has been removed		
+		// check if a calculated column has been removed
 		if (!in_array($experiment['columns'][$j]['name'], $removedColn)) {
 			$format = $format.','.$experiment['columns'][$j]['name'];
 		}
 	}
-	
+
 	// updating the metadata
 	if (isset($data["Extra Metadata"])) {
 		foreach ($data['Extra Metadata'] as $key => $value) {
@@ -127,12 +128,12 @@ for ($i = 0; $i < count($ids); $i++) {
 				}
 			}
 		}
-		
+
 		// check if a metadata have been removed
 		foreach ($deleted as $item) {
 			unset($experiment["extra_metadata"][$item]);
 		}
-		
+
 		$extra_metadata = $experiment["extra_metadata"]; //(Object)Null;//
 	}
 	else {
@@ -147,7 +148,7 @@ for ($i = 0; $i < count($ids); $i++) {
 	else{
 		$clone[] = $client->getResponse();
 	}
-	
+
 	$infoList = null;
 }
 

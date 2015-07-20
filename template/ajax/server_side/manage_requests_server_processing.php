@@ -18,15 +18,12 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
+require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
-$client = new IXR_Client($url);
-
-/* DeepBlue Class */
-require_once("../../lib/deepblue.functions.php");
-$deepBlueObj = new Deepblue();
-
+$client = new IXR_Client(get_server());
 
 if ((!isset($_GET)) || !isset($_GET["option"])) {
 	return;
@@ -157,7 +154,7 @@ switch ($option) {
 		$result[] = $client->getResponse();
 		$query_ida = $result[0][1];
 		$query_id = $query_ida;
-		
+
 		$result = [];
 		$annlen = count($annotation_names);
 
@@ -200,6 +197,10 @@ switch ($option) {
 			}
 
 			$response = $client->getResponse();
+			if (check_error($response)) {
+				return;
+			}
+
 			$data['request_list'] = $response[1];
 
 			$rrow = [];
@@ -283,7 +284,7 @@ switch ($option) {
 			}
 			$result[] = $client->getResponse();
 			//$chroms = array_merge($chroms, $result[0][1]);
-			
+
 			$chrlen = count($result[0][1]);
 			for ($k = 0; $k < $chrlen; $k++) {
 				$chr = $result[0][1][$k][0];
@@ -291,7 +292,7 @@ switch ($option) {
 					$data['chromosome'][] = $chr;
 				}
 			}
-			
+
 			$result = '';
 
 			// get annotations matching genome
@@ -300,7 +301,7 @@ switch ($option) {
 			}
 			$result[] = $client->getResponse();
 			//$annots = array_merge($annots, $result[0][1]);
-			
+
 			$annlen = count($result[0][1]);
 			for ($k = 0; $k < $annlen; $k++) {
 				$ann_id = $result[0][1][$k][0];
@@ -340,7 +341,7 @@ function query_detail($qud) {
 	$rdetail = $rdetail.'<b>'.$qtype.'</b>';
 	$rdetail = $rdetail.' (query '.$qud.')';
 	$rdetail = $rdetail."  \n\r  <br/>";
-	
+
 	// call server processing to check the size of the chromosomes
 	$chroms_count = 0;
 
@@ -360,7 +361,7 @@ function query_detail($qud) {
 				$chr = $result[0][1][$k][0];
 				if (!in_array($chr, $chroms)) {
 					$chroms[] = $chr;
-				}				
+				}
 			}
 
 			$result = [];
@@ -376,7 +377,7 @@ function query_detail($qud) {
 		}
 
 		if ($key == 'start' && $value == 0) {
-			continue;			
+			continue;
 		}
 
 		if ($key == 'end' && $value == PHP_INT_MAX) {
@@ -396,7 +397,7 @@ function query_detail($qud) {
 			if (count($value) == $chroms_count) {
 				$rdetail = $rdetail.' all';
 				$rdetail = $rdetail."  \n\r  <br/>";
-				continue;				
+				continue;
 			}
 			//echo json_encode(array('len' => $length, 'qid' => $qud, 'chrcount' => $chroms_count, 'countvalue' => count($value)));
 		}

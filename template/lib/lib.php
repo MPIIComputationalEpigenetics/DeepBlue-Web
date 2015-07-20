@@ -22,7 +22,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 /* load server settings */
-include("server_settings.php");
+include_once("server_settings.php");
 
 /* USER Key */
 if (isset($_SESSION['user_key'])) {
@@ -32,5 +32,10 @@ else {
 	// user not properly logged in, redirecting to home page
 	header("Location: /index.php");
 }
+
+function get_user_key() {
+	return $_SESSION['user_key'];
+}
+
 
 ?>
