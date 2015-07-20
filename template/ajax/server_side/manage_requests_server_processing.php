@@ -197,9 +197,7 @@ switch ($option) {
 			}
 
 			$response = $client->getResponse();
-			if (check_error($response)) {
-				return;
-			}
+			check_error($response);
 
 			$data['request_list'] = $response[1];
 
