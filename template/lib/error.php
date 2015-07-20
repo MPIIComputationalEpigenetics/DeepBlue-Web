@@ -14,7 +14,8 @@
 function check_error($response) {
 	$error = $response[0] == "error";
 	if ($error) {
-		echo json_encode(array("error" => $response[1]));
+		list($code, $msg) = explode(":", $response[1]);
+		echo json_encode(array("error" => $response[1], "code" => $code, "message" => $msg));
 		die;
 	}
 }
