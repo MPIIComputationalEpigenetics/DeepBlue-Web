@@ -15,6 +15,7 @@
 */
 
 /* XML-RPC Library */
+
 require_once("deepblue.IXR_Library.php");
 
 error_reporting(E_ALL);
@@ -28,7 +29,7 @@ class DeepblueApi{
 
 	function __construct() {
         include("server_settings.php");
-		$this->privateUrl = $url;
+		$this->privateUrl = get_server();
         $this->client = new IXR_Client($this->privateUrl);
 	}
 
@@ -69,13 +70,16 @@ class DeepblueApi{
 		echo "<div class='api-title'>Table of contents</div>";
 
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
+            $norm_name = str_replace(' ', '-', strtolower($sKeyOne));
 
-    	    echo "<a onclick=\"$(function() { $(document).scrollTop( $('#api-". str_replace(' ', '-', strtolower($sKeyOne))."').offset().top ); });\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> — $sValueOne</h3>";
+    	    echo "<a onclick=\"$(function() { $(document).scrollTop( $('#api-". $norm_name."').offset().top ); location.href = 'http://localhost/api.php#api-".$norm_name."'});\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> — $sValueOne</h3>";
 
 		    foreach($commands as $tKeyOne => $tValueOne){
 			    if($sKeyOne == $tValueOne['description'][0]) {
+
+                    $norm_name2 = str_replace(' ', '-', strtolower($tKeyOne));
                     echo "<div class='api-description-listing'>".$n." )\n";
-                    echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". str_replace(' ', '-', strtolower($tKeyOne))."').offset().top ); });\" href='javascript:void(0);'>$tKeyOne</a> — ".$tValueOne['description'][2];
+                    echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". $norm_name2."').offset().top ); location.href = 'http://localhost/api.php#api-".$norm_name2."'});\" href='javascript:void(0);'>$tKeyOne</a> — ".$tValueOne['description'][2];
                     $n++;
                 }
                 ?>
