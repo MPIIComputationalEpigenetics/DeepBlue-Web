@@ -76,8 +76,14 @@ include("inc/header.php");
 								<fieldset>
 									<section>
 										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="username" placeholder="Username">
-											<b class="tooltip tooltip-bottom-right">Needed to enter the user name</b> </label>
+											<input type="text" name="username" placeholder="Name">
+											<b class="tooltip tooltip-bottom-right">Needed to enter your name</b> </label>
+									</section>
+
+									<section>
+										<label class="input"> <i class="icon-append fa fa-building-o"></i>
+											<input type="text" name="affiliation" placeholder="Affiliation">
+											<b class="tooltip tooltip-bottom-right">Your school, university, or researching center</b> </label>
 									</section>
 
 									<section>
@@ -100,31 +106,6 @@ include("inc/header.php");
 								</fieldset>
 
 								<fieldset>
-									<div class="row">
-										<section class="col col-6">
-											<label class="input">
-												<input type="text" name="firstname" placeholder="First name">
-											</label>
-										</section>
-										<section class="col col-6">
-											<label class="input">
-												<input type="text" name="lastname" placeholder="Last name">
-											</label>
-										</section>
-									</div>
-
-									<section>
-										<label class="input"> <i class="icon-append fa fa-building-o"></i>
-											<input type="text" name="affiliation" placeholder="Affiliation">
-											<b class="tooltip tooltip-bottom-right">Your school, university, or researching center</b> </label>
-									</section>
-
-									<section>
-										<label class="input"> <i class="icon-append fa fa-external-link"></i>
-											<input type="text" name="webpage" placeholder="Web Page">
-											<b class="tooltip tooltip-bottom-right">Your personal web page</b> </label>
-									</section>
-
 									<section>
 										<label class="checkbox">
 											<input type="checkbox" name="subscription" id="subscription">
