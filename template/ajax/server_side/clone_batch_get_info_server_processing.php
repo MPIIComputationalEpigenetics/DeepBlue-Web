@@ -16,6 +16,7 @@
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
+require_once("../../lib/error.php");
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
@@ -47,6 +48,7 @@ for ($i = 0; $i < count($getIds); $i++) {
 	}
 	else{
 		$infoList[] = $client->getResponse();
+		check_error($infoList);
 	}
 
 	$experiment = $infoList[0][1][0];

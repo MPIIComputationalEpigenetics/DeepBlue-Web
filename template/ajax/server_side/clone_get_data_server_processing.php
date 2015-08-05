@@ -15,6 +15,7 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
@@ -40,6 +41,7 @@ switch ($caller) {
 		}
 		else{
 			$epList[] = $client->getResponse();
+			check_error($epList);
 		}
 		$lists = $epList[0][1];
 		break;
@@ -50,6 +52,7 @@ switch ($caller) {
 		}
 		else{
 			$emList[] = $client->getResponse();
+			check_error($emList);
 		}
 		$lists = $emList[0][1];
 		break;
@@ -60,7 +63,9 @@ switch ($caller) {
 		}
 		else{
 			$samples[] = $client->getResponse();
+			check_error($samples);
 			$sampleIds = array();
+			$smList = [];
 			$i = 0;
 			foreach ($samples[0][1] as $sample) {
 				$smList[$i][1] = $sample[0];
@@ -79,6 +84,7 @@ switch ($caller) {
 		}
 		else{
 			$tqList[] = $client->getResponse();
+			check_error($tqList);
 		}
 		$lists = $tqList[0][1];
 		break;
@@ -89,6 +95,7 @@ switch ($caller) {
 		}
 		else{
 			$prList[] = $client->getResponse();
+			check_error($prList);
 		}
 		$lists = $prList[0][1];
 		break;
@@ -99,6 +106,7 @@ switch ($caller) {
 		}
 		else{
 			$coList[] = $client->getResponse();
+			check_error($coList);
 			//echo json_encode($coList);
 			$type = explode("xyz123abc", $caller)[1];
 			if ($type == 'range') {
@@ -110,6 +118,7 @@ switch ($caller) {
 			}
 			$pattern = '@'.$type.'@i';
 			$i = 0;
+			$strList = [];
 			foreach ($coList[0][1] as $column) {
 				if (preg_match($pattern, $column[1]) == 1) {
 					if ($type == 'code') {

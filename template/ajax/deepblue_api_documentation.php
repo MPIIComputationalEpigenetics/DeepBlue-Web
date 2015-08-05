@@ -14,7 +14,7 @@
 */
 
 require_once("inc/init.php");
-include("../lib/lib.php");
+//require_once("../lib/lib.php");
 require_once("../lib/deepblue.api.php");
 
 $deepBlueObj = new DeepblueApi();

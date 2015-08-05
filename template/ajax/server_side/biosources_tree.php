@@ -15,6 +15,7 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
@@ -28,7 +29,8 @@ function get_ontology_id($bs_id, &$client, &$user_key)
 	}
 
 	$response = $client->getResponse();
-
+	check_error($response);
+	
 	if ($response[0] == "okay") {
 		$bs_info = $response[1];
 		if (isset($bs_info[0]["extra_metadata"]["url"])) {
@@ -44,6 +46,7 @@ if(!$client->query("list_in_use", "biosources", $user_key)){
 }
 else{
     $biosourceList[] = $client->getResponse();
+    check_error($biosourceList);
 }
 
 $bioSourceNames = array();
@@ -89,7 +92,8 @@ while (sizeof($actual_leaves) > 0) {
 		}
 		else{
 	    	$parentsList = $client->getResponse();
-
+	    	check_error($parentsList);
+	    	
 	    	foreach($parentsList[1] as &$parent) {
 	    		$update = exists($parent[1], $leaf, $nodes, $nodes);
 	    		if ($update == false) {

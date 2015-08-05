@@ -52,6 +52,8 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$infoList[] = $client->getResponse();
+			check_error($infoList);
+
 			$columns = $infoList[0][1][0]['columns'];
 			$length = count($columns);
 
@@ -75,6 +77,8 @@ switch ($option) {
 		}
 
 		$colList[] = $client->getResponse();
+		check_error($colList);
+
 		$type = 'code';
 		$pattern = '@'.$type.'@i';
 
@@ -152,6 +156,8 @@ switch ($option) {
 		}
 
 		$result[] = $client->getResponse();
+		check_error($result);
+
 		$query_ida = $result[0][1];
 		$query_id = $query_ida;
 
@@ -165,6 +171,8 @@ switch ($option) {
 			}
 
 			$result[] = $client->getResponse();
+			check_error($result);
+
 			$query_idb = $result[0][1];
 			$result = [];
 
@@ -173,6 +181,8 @@ switch ($option) {
 			}
 
 			$result[] = $client->getResponse();
+			check_error($result);
+
 			$query_id = $result[0][1];
 			$result = [];
 		}
@@ -182,6 +192,8 @@ switch ($option) {
 		}
 
 		$result[] = $client->getResponse();
+		check_error($result);
+
 		$request_id = $result[0][1];
 
 		echo json_encode(array('request_id' => $request_id));
@@ -214,10 +226,11 @@ switch ($option) {
 				}
 
 				$response = $client->getResponse();
+				check_error($response);
 				$qid = $response[1][0]['query_id'];
 
 				// retrieve initial query details
-				query_detail($qid);
+				query_detail($qid, $rdetail);
 				$rdetail = $rdetail.'</div>';
 
 				if(!$client->query("info", $request[0], $user_key)){
@@ -225,6 +238,7 @@ switch ($option) {
 				}
 
 				$response = $client->getResponse();
+				check_error($response);
 				$rstate = $response[1][0]['state'];
 
 				if ($rstate == 'done') {
@@ -261,6 +275,7 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$infoList[] = $client->getResponse();
+			check_error($infoList);
 
 			$genome = $infoList[0][1][0]['genome'];
 			if (!in_array($genome, $genomes)) {
@@ -281,6 +296,7 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$result[] = $client->getResponse();
+			check_error($result);
 			//$chroms = array_merge($chroms, $result[0][1]);
 
 			$chrlen = count($result[0][1]);
@@ -298,6 +314,7 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$result[] = $client->getResponse();
+			check_error($result);
 			//$annots = array_merge($annots, $result[0][1]);
 
 			$annlen = count($result[0][1]);
@@ -322,10 +339,9 @@ switch ($option) {
 		break;
 }
 
-function query_detail($qud) {
-	global $client;
-	global $user_key;
-	global $rdetail;
+function query_detail($qud, &$rdetail) {
+	$client = new IXR_Client(get_server());
+	$user_key = get_user_key();
 	$chroms = [];
 
 	if(!$client->query("info", $qud, $user_key)) {
@@ -333,6 +349,8 @@ function query_detail($qud) {
 	}
 
 	$response = $client->getResponse();
+	check_error($response);
+
 	$qtype = $response[1][0]['type'];
 	$qdetail = json_decode($response[1][0]['args'], true);
 
@@ -354,6 +372,8 @@ function query_detail($qud) {
 			}
 
 			$result[] = $client->getResponse();
+			check_error($result);
+
 			$chrlen = count($result[0][1]);
 			for ($k = 0; $k < $chrlen; $k++) {
 				$chr = $result[0][1][$k][0];
@@ -370,7 +390,7 @@ function query_detail($qud) {
 	foreach ($qdetail as $key => $value) {
 		if ($key == 'qid_1' || $key == 'qid_2') {
 			$rdetail = $rdetail."<hr>";
-			query_detail($value);
+			query_detail($value, $rdetail);
 			continue;
 		}
 
@@ -416,4 +436,3 @@ function query_detail($qud) {
 	}
 }
 ?>
-

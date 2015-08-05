@@ -16,6 +16,7 @@
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
+require_once("../../lib/error.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 
 $client = new IXR_Client(get_server());
@@ -28,6 +29,7 @@ if (isset($_GET) && isset($_GET["biosources"])) {
     }
     else {
         $bioSourceList[] = $client->getResponse();
+        check_error($bioSourceList);
         foreach($bioSourceList[0][1] as $bioSourceName) {
             $bioNames[] = $bioSourceName[1];
         }
@@ -39,6 +41,7 @@ if(!$client->query("list_samples", $bioNames, (object) null, $user_key)){
 }
 else{
     $sampleList[] = $client->getResponse();
+    check_error($sampleList);
 }
 
 $sampleIds = array();
@@ -52,6 +55,7 @@ if(!$client->query("info", $sampleIds, $user_key)){
 }
 else{
     $infoList[] = $client->getResponse();
+    check_error($infoList);
 }
 
 $orderedDataStr = array();
