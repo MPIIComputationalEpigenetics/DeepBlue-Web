@@ -4,11 +4,13 @@
 /* Felipe Albrecht   03.11.2014 */
 /* Odiete Obaro */
 
+
 /* include IXR Library for RPC-XML */
 require_once("../lib/deepblue.IXR_Library.php");
-include("../lib/lib.php");
+require_once("../lib/server_settings.php");
+//include("../lib/lib.php");
 
-//$url = 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
+$url = get_server();
 $client = new IXR_Client($url);
 
 $email = $_POST['email'];
@@ -19,6 +21,7 @@ if(!$client->query("user_auth", $email, $password)){
 }
 
 $response = $client->getResponse();
+
 
 if ($response[0] == 'error') {
 	header("Location: ../index.php?login_attempt=1");	
