@@ -8,6 +8,8 @@
 /* include IXR Library for RPC-XML */
 require_once("../lib/deepblue.IXR_Library.php");
 require_once("../lib/server_settings.php");
+require_once("../lib/error.php");
+
 //include("../lib/lib.php");
 
 $url = get_server();
@@ -33,8 +35,9 @@ else {
 	}
 
 	$response = $client->getResponse();
+	check_error($response);
+
 	$user_details = $response[1][0];
-	
 	session_start();
 
 	$_SESSION['user_email'] = $user_details['email'];

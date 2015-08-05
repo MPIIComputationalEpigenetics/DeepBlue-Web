@@ -193,7 +193,7 @@ switch ($option) {
 
 		$result[] = $client->getResponse();
 		check_error($result);
-		
+
 		$request_id = $result[0][1];
 
 		echo json_encode(array('request_id' => $request_id));
@@ -230,7 +230,7 @@ switch ($option) {
 				$qid = $response[1][0]['query_id'];
 
 				// retrieve initial query details
-				query_detail($qid);
+				query_detail($qid, $rdetail);
 				$rdetail = $rdetail.'</div>';
 
 				if(!$client->query("info", $request[0], $user_key)){
@@ -339,10 +339,9 @@ switch ($option) {
 		break;
 }
 
-function query_detail($qud) {
-	global $client;
-	global $user_key;
-	global $rdetail;
+function query_detail($qud, &$rdetail) {
+	$client = new IXR_Client(get_server());
+	$user_key = get_user_key();
 	$chroms = [];
 
 	if(!$client->query("info", $qud, $user_key)) {
@@ -391,7 +390,7 @@ function query_detail($qud) {
 	foreach ($qdetail as $key => $value) {
 		if ($key == 'qid_1' || $key == 'qid_2') {
 			$rdetail = $rdetail."<hr>";
-			query_detail($value);
+			query_detail($value, $rdetail);
 			continue;
 		}
 
@@ -437,4 +436,3 @@ function query_detail($qud) {
 	}
 }
 ?>
-

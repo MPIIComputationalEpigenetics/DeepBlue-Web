@@ -742,6 +742,7 @@ require_once("inc/init.php");
 
 		$('#closeExperimentButton').unbind('click').bind('click', function (e) {
 			$("#infoResult").empty(); $("#columnResult").empty(); $("#metadataResult" ).empty();
+			$("#infoDesc").empty(); $("#columnDesc").empty(); $("#metadataDesc" ).empty();
 			infoResult = ""; columnResult = ""; metadataResult = "";
 			$("#clone_display").hide();
 			$("#widget-grid").show();

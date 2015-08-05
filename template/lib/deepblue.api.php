@@ -28,7 +28,7 @@ class DeepblueApi{
     private $client;
 
 	function __construct() {
-        include("server_settings.php");
+        include_once("server_settings.php");
 		$this->privateUrl = get_server();
         $this->client = new IXR_Client($this->privateUrl);
 	}
