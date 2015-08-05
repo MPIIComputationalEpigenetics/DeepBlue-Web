@@ -16,6 +16,7 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
+require_once("../../lib/error.php");
 
 $client = new IXR_Client(get_server());
 
@@ -44,6 +45,7 @@ if(!$client->query("search", $words, $types, $user_key)){
 }
 else{
     $searchList[] = $client->getResponse();
+    check_error($searchList);
 }
 
 $items_ids = array();
@@ -58,6 +60,7 @@ if(!$client->query("info", $items_ids, $user_key)){
 }
 else{
     $infoList[] = $client->getResponse();
+    check_error($infoList);
 }
 
 if ($infoList[0][0] == "error" || !isset($infoList[0][1])) {
