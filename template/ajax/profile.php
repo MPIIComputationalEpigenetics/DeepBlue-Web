@@ -39,9 +39,7 @@
 							</div>
 							<div class="col-sm-12">
 								<div class="row">
-									<div class="col-sm-3 profile-pic">
-										<img src="img/avatars/sunny-big.png">
-									</div>
+									<div class="col-sm-1"></div>
 									<div class="col-sm-6">
 										<h1><span class="semi-bold"><?php echo $_SESSION['user_name'] ?></span>
 										<br>
