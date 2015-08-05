@@ -49,6 +49,11 @@ $page_nav = array(
 		"icon" => "fa-search"
 	),
 
+	"info" => array(
+		"title" => "Info",
+		"url"=> "ajax/deepblue_view_info.php",
+		"icon" => "fa-info-circle"
+	),
 
 	"deepblue_tables" => array(
 		"title" => "Data Tables",
@@ -97,6 +102,18 @@ $page_nav = array(
 		"title" => "BioSources - Hierarchy",
 		"url"=> "ajax/deepblue_view_biosources_hierarchy.php",
 		"icon" => "fa-sitemap"
+	),
+
+	"include_data" => array(
+		"title" => "Include Data",
+		"icon" => "fa-suitcase",
+		"sub" => array(
+			"Annotation" => array(
+				"title" => "Annotation",
+				"url"=> "ajax/deepblue_insert_annotation.php",
+				"icon" => "fa-tags"
+			)
+		)
 	),
 
 	"data_curation" => array(
