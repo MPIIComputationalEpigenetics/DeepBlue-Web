@@ -76,6 +76,9 @@ require_once("inc/init.php");
                                     <th class="hasinput" style="width:20px">
                                         <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
                                     </th>
+                                    <th class="hasinput" style="width:20px">
+                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-datatype" />
+                                    </th>
                                     <th class="hasinput">
                                         <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
                                     </th>
@@ -103,7 +106,8 @@ require_once("inc/init.php");
                                 </tr>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Experiment Name</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
                                     <th>Description</th>
                                     <th>Genome</th>
                                     <th>Epigenetic Mark</th>
@@ -165,6 +169,9 @@ require_once("inc/init.php");
                                     <th class="hasinput" style="width:20px">
                                         <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
                                     </th>
+                                    <th class="hasinput" style="width:20px">
+                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-datatype" />
+                                    </th>
                                     <th class="hasinput">
                                         <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
                                     </th>
@@ -193,6 +200,7 @@ require_once("inc/init.php");
                                 <tr>
                                     <th>ID</th>
                                     <th>Experiment Name</th>
+                                    <th>Type</th>
                                     <th>Description</th>
                                     <th>Genome</th>
                                     <th>Epigenetic Mark</th>
@@ -264,14 +272,15 @@ require_once("inc/init.php");
                 aoData.push( { "name": "collection", "value": "experiments" } );
                 aoData.push( { "name": "col_0", "value": "_id"} );
                 aoData.push( { "name": "col_1", "value": "name"} );
-                aoData.push( { "name": "col_2", "value": "description"} );
-                aoData.push( { "name": "col_3", "value": "genome"} );
-                aoData.push( { "name": "col_4", "value": "epigenetic_mark"} );
-                aoData.push( { "name": "col_5", "value": "biosource"} );
-                aoData.push( { "name": "col_6", "value": "sample_id"} );
-                aoData.push( { "name": "col_7", "value": "technique"} );
-                aoData.push( { "name": "col_8", "value": "project"} );
-                aoData.push( { "name": "col_9", "value": "extra_metadata"} );
+                aoData.push( { "name": "col_2", "value": "data_type"} );
+                aoData.push( { "name": "col_3", "value": "description"} );
+                aoData.push( { "name": "col_4", "value": "genome"} );
+                aoData.push( { "name": "col_5", "value": "epigenetic_mark"} );
+                aoData.push( { "name": "col_6", "value": "biosource"} );
+                aoData.push( { "name": "col_7", "value": "sample_id"} );
+                aoData.push( { "name": "col_8", "value": "technique"} );
+                aoData.push( { "name": "col_9", "value": "project"} );
+                aoData.push( { "name": "col_10", "value": "extra_metadata"} );
                 aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
             },
             //"sServerMethod": "POST",
@@ -322,23 +331,24 @@ require_once("inc/init.php");
             }
 
             var name = $('td', this).eq(1).text();
-            var desc = $('td', this).eq(2).text();
-            var genome = $('td', this).eq(3).text();
-            var epi = $('td', this).eq(4).text();
-            var bio = $('td', this).eq(5).text();
-            var samp = $('td', this).eq(6).text();
-            var tech = $('td', this).eq(7).text();
-            var proj = $('td', this).eq(8).text();
-            var meta = $('td', this).eq(9).html();
+            var type = $('td', this).eq(2).text();
+            var desc = $('td', this).eq(3).text();
+            var genome = $('td', this).eq(4).text();
+            var epi = $('td', this).eq(5).text();
+            var bio = $('td', this).eq(6).text();
+            var samp = $('td', this).eq(7).text();
+            var tech = $('td', this).eq(8).text();
+            var proj = $('td', this).eq(9).text();
+            var meta = $('td', this).eq(10).html();
 
             var index = selected.indexOf(id);
             if (index == -1) {
                 selected.push(id);
                 selectedNames.push(name);
-                selectedData.push([ id, name , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta])
+                selectedData.push([ id, type, name , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta])
 
                 $('#datatable_selected_column').dataTable().fnAddData(
-                    [ id, name , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta]
+                    [ id, name, type, desc ,genome , epi ,bio ,samp ,tech ,proj ,meta]
                 );
 
                 $(this).addClass("success");
