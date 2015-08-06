@@ -109,7 +109,7 @@
 							</fieldset>
 							<footer>
 								<button type="submit" class="btn btn-success">
-									Modify Data
+									Update Profile
 								</button>
 							</footer>
 						</form>
