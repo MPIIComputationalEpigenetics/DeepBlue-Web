@@ -3,6 +3,9 @@
 //initilize the page
 require_once("inc/init.php");
 
+// check server online status
+require_once("php/deepblue_status.php");
+
 //require UI configuration (nav, ribbon, etc.)
 require_once("inc/config.ui.php");
 
