@@ -153,7 +153,12 @@ $page_nav = array(
 				"title" => "DeepBlue Manual",
 				"url" => "ajax/deepblue_manual_documentation.php",
 				"icon" => "fa-book"
-			)
+			),
+			"Tutorials" => array(
+				"title" => "Tutorials",
+				"url" => "ajax/deepblue_tutorial.php",
+				"icon" => "fa-graduation-cap"
+			)			
 		)
 	),
 
