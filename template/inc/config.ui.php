@@ -104,8 +104,8 @@ $page_nav = array(
 		"icon" => "fa-sitemap"
 	),
 
-	"include_data" => array(
-		"title" => "Include Data",
+	"insert_data" => array(
+		"title" => "Insert Data",
 		"icon" => "fa-suitcase",
 		"sub" => array(
 			"Annotation" => array(
