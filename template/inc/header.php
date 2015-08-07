@@ -92,7 +92,7 @@
 						<!-- logout button -->
 						<div id="logout" class="btn-header transparent pull-right">
 
-							<span> <a href="<?php echo APP_URL.'/php/deepblue-logout.php' ?>" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+							<span> <a href="<?php echo APP_URL.'/php/deepblue_logout.php' ?>" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
 						</div>
 						<!-- end logout button -->
 
