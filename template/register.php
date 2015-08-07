@@ -68,7 +68,7 @@ include("inc/header.php");
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">
 
-							<form action="php/deepblue-register.php" method="POST" id="smart-form-register" class="smart-form client-form">
+							<form action="php/deepblue_register.php" method="POST" id="smart-form-register" class="smart-form client-form">
 								<header>
 									DeepBlue Epigenomic Web Server Registration
 								</header>
