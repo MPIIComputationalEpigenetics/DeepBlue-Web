@@ -23,8 +23,6 @@ if(!$client->query("user_auth", $email, $password)){
 }
 
 $response = $client->getResponse();
-
-
 if ($response[0] == 'error') {
 	header("Location: ../index.php?login_attempt=1");	
 }

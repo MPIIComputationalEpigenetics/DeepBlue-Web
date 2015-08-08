@@ -6,6 +6,15 @@ require_once("inc/init.php");
 //require UI configuration (nav, ribbon, etc.)
 require_once("inc/config.ui.php");
 
+// check server status
+require_once("lib/deepblue.IXR_Library.php");
+require_once("lib/server_settings.php");
+
+$client = new IXR_Client(get_server());
+if($client->query("echo", '')){
+    header("Location:  ../index.php");
+}
+
 /*---------------- PHP Custom Scripts ---------
 
 YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
