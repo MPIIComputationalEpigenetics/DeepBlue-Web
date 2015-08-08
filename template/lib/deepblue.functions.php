@@ -42,7 +42,16 @@ class Deepblue{
             $tempSearchString = '';
             $tempArr = array();
 
-            $tempArr[] = $info["_id"];
+            if(isset($info["id"])) {
+                $info["_id"] = $info["id"];
+            }
+
+            if(isset($info["_id"])) {
+                $tempArr[] = $info["_id"];
+            }
+            else {
+                $tempArr[] = "";
+            }
 
             if (isset($info["name"])) {
                 $tempArr[] = $info["name"];
@@ -67,6 +76,18 @@ class Deepblue{
                     }
                 }
                 $tempArr[] = $sampleInfo;
+            } 
+            else if ($info["type"] == 'annotation') {
+                $tempArr[] = '<b> Format </b> : ' . $info['format'];
+            }
+            else if ($info["type"] == 'request') {
+                $details = "";
+                foreach ($info as $k => $v) {
+                    if ($v != '' && $v != '-' && $k != 'type') {
+                        $details .= '<b>'.$k.'</b> : ' . $v . "<br />";    
+                    }
+                }
+                $tempArr[] = $details;
             } else {
                 $tempArr[] = "";
             }
@@ -89,11 +110,9 @@ class Deepblue{
             $tempArr[] = isset($info["project"]) ? "<i class='fa fa-circle txt-color-black'></i> ".$info["project"] : "";
 
             array_push($orderedDataStr, $tempArr);
-
         }
 
         echo json_encode(array('data' => $orderedDataStr));
-
     }
 
     /* Experiment metadata generating */
