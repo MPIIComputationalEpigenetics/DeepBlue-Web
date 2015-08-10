@@ -18,6 +18,7 @@ $url = get_server();
 $client = new IXR_Client($url);
 
 $email = $_SESSION['user_email'];
+$newemail = $_POST['email'];
 $oldpassword = $_POST['oldpassword'];
 $newpassword = $_POST['newpassword'];
 $institution = $_POST['affiliation'];
@@ -64,13 +65,13 @@ else {
 		$_SESSION['institution'] = $institution;
 	}
 	
-	if ($email != '') {	
-		if(!$client->query("modify_user", "email", $email, $user_key)) {
+	if ($newemail != '') {
+		if(!$client->query("modify_user", "email", $newemail, $user_key)) {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
 		}
 		$response = $client->getResponse();
 		check_error($response);
-		$_SESSION['user_email'] = $email;
+		$_SESSION['user_email'] = $newemail;
 	}
 	header("Location:  ../dashboard.php#ajax/profile.php");
 }

@@ -71,7 +71,7 @@
 				</div>
 				<div id="edit_profile_div" class="col-sm-12 col-md-12 col-lg-4" style="display:none">
 					<div class="well well-light well-sm no-margin no-padding">
-						<form action="php/deepblue_change_password.php" method="POST" id="change-password-form" class="smart-form client-form">
+						<form action="php/deepblue_edit_profile.php" method="POST" id="change-password-form" class="smart-form client-form">
 							<header>
 								Edit Profile
 							</header>
