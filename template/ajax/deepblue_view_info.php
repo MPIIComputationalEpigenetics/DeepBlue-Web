@@ -85,13 +85,6 @@ require_once("inc/init.php");
 				    "<div class='searchMetadata'>"+item[3]+"</div></div>" );
 			    });				
 			}
-
-			/* Make metadata short with MORE button */
-			$('.searchMetadata').more({
-				length: 160,
-				moreText: 'More', // Display text for more link
-				lessText: 'Hide', // Display text for less link
-			});		    
 		});
 
 		request.fail( function(jqXHR, textStatus) {
