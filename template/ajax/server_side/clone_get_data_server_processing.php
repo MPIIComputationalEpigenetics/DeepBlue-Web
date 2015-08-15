@@ -116,7 +116,7 @@ switch ($caller) {
 				$calculated = true;
 				$type = 'code';
 			}
-			$pattern = '@'.$type.'@i';
+			$pattern = '@type: \''.$type.'@i';
 			$i = 0;
 			$strList = [];
 			foreach ($coList[0][1] as $column) {

@@ -80,7 +80,7 @@ switch ($option) {
 		check_error($colList);
 
 		$type = 'code';
-		$pattern = '@'.$type.'@i';
+		$pattern = '@type: \''.$type.'@i';
 
 		foreach ($colList[0][1] as $col) {
 			if (preg_match($pattern, $col[1])) {
