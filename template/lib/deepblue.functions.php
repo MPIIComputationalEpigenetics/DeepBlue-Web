@@ -121,6 +121,10 @@ class Deepblue{
 
         $tempExpStr = "";
 
+        if ($inputMetadata["type"] == 'annotation') {
+            $tempExpStr .= '<b> Format </b> : ' . $inputMetadata['format'].'<br />';
+        }
+
         if(isset($inputMetadata['sample_info'])){
             $tempExpStr .= "<b>Sample Info</b> <br />";
             foreach ($inputMetadata['sample_info'] as $extra_metadata_key => $extra_metadata_value) {
