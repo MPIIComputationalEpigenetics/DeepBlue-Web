@@ -66,9 +66,11 @@ require_once("inc/init.php");
                                     <th class="hasinput">
                                         <input class="form-control" placeholder="ID" type="text" id="experiment-id">
                                     </th>
-
                                     <th class="hasinput" style="width:20px">
                                         <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
+                                    </th>
+                                    <th class="hasinput" style="width:20px">
+                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-datatype" />
                                     </th>
                                     <th class="hasinput">
                                         <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
@@ -97,7 +99,8 @@ require_once("inc/init.php");
                                 </tr>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Experiment Name</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
                                     <th>Description</th>
                                     <th>Genome</th>
                                     <th>Epigenetic Mark</th>
