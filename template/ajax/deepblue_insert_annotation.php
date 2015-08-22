@@ -394,7 +394,11 @@ require_once("inc/init.php");
 					report = report + "Insert annotation '" + annotation['name'] + "' failed: " + msg + "\n";					
 				}
 				$('#addAnnotationButton').removeAttr('disabled');
-				alert(report);
+				clear_input();
+				swal({
+                    title: "Insert Annotation",
+                    text: report
+                });
 			});
 
 			request.fail( function(jqXHR, textStatus) {
