@@ -114,22 +114,30 @@ switch ($caller) {
 			}
 			if ($type == 'calculated') {
 				$calculated = true;
-				$type = 'code';
 			}
-			$pattern = '@type: \''.$type.'@i';
+
 			$i = 0;
 			$strList = [];
 			foreach ($coList[0][1] as $column) {
-				if (preg_match($pattern, $column[1]) == 1) {
-					if ($type == 'code') {
-						$strList[$i][0] = explode(":", $column[1])[3];
-						$strList[$i][1] = explode("'", $column[1])[1];
+				$colID = $column[0];
+
+				/* retrieve column details */
+				if(!$client->query("info", $colID, $user_key)){
+					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+				}
+				else {
+					$colDetail[] = $client->getResponse();
+					if ($colDetail[0][1][0]['column_type'] == $type) {
+						if ($type == 'calculated') {
+							$strList[$i][0] =$colDetail[0][1][0]['code']; ;
+						}
+						else {
+							$strList[$i][0] = $type;
+						}
+						$strList[$i][1] = $colDetail[0][1][0]['name'];
+						$i = $i + 1;
 					}
-					else {
-						$strList[$i][0] = $type;
-						$strList[$i][1] = explode("'", $column[1])[1];
-					}
-					$i = $i + 1;
+					$colDetail = "";
 				}
 			}
 		}

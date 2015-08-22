@@ -32,11 +32,19 @@ else{
 
 $i = 0;
 $strList = [];
-$pattern = '@type: \'code@';
 foreach ($colList[0][1] as $column) {
-	if (preg_match($pattern, $column[1]) == 0) {
-		$strList[] = explode("'", $column[1])[1];		
+	$colID = $column[0];
+
+	/* retrieve column details */
+	if(!$client->query("info", $colID, $user_key)){
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
+	else {
+		$colDetail[] = $client->getResponse();
+		$strList[] = $colDetail[0][1][0]['name'];
+
+		$colDetail = "";
+	}	
 }
 
 echo json_encode($strList);
