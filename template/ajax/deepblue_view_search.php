@@ -541,6 +541,9 @@ require_once("inc/init.php");
 				case 'biosource':
 				    initFilter[6] = {"sSearch": text};
 				    break;
+				case 'sample':
+					initFilter[7] = {"sSearch": text};
+					break;			    
 				case 'technique':
 				    initFilter[8] = {"sSearch": text};
 				    break;

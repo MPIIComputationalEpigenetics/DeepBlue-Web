@@ -1,3 +1,4 @@
 template/.metadata/*.*
 template/practice/
+/template/nbproject/
 .gitignore
