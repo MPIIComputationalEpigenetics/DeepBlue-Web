@@ -243,13 +243,14 @@ require_once("inc/init.php");
 
 	// PAGE RELATED SCRIPTS
 	// pagefunction
-	var deletedrows = [];
-	var deletedrowskeys = [];
-	var removedColn = [];
-	var clonemetadata = [];
-	var clonemetakey = [];
-	var clone = false;
-	var batch = false;
+	var deletedrows = []; // removed metadata
+	var deletedrowskeys = []; // removed metadata keys
+	var removedColn = []; // remove columns
+	var clonemetadata = []; // store new metadata val
+	var clonemetakey = []; // store new metadata key
+	var clone = false; // clone enabled 
+	var batch = false; // batch cloning
+	var empty = false; // to show the metadata table is empty
 
 	var pagefunction = function() {
 		$("#clone_input").focus();
@@ -593,6 +594,9 @@ require_once("inc/init.php");
 					}
 					// one more time
 					newMeta = j;
+					if (newMeta == 1) {
+						empty = true;
+					}
 					metadataResult = metadataResult + "</tbody></table>" + "<button type='button' id='addmetabutton' class='btn btn-success' onclick='addMetadata()'>Add Metadata</button><br/><br/><br/>";
 					$("#metadataResult").append(metadataResult);
 					$("#metadataDesc").append("<p>Please edit the experiments metadata to be updated in the new experiment</p>");
@@ -817,8 +821,9 @@ require_once("inc/init.php");
 	function addMetadata() {
 		//alert(count(cloneData['Extra Metadata']));
 		var newrow = buildHTML("Enter Key", "Enter Value", "extra_metadata", newMeta);
-		if (newMeta == 1) {
+		if (empty) {
 			$('#metaclone tbody').append(newrow);
+			empty = false;
 		}
 		else {
 			$('#metaclone tr:last').after(newrow);
@@ -834,6 +839,10 @@ require_once("inc/init.php");
 		deletedrows.push(parseInt(idx));
 		deletedrowskeys.push(clonemetakey[idx]);
 		$("#row_" + idx).remove();
+
+		if (deletedrowskeys.length == newMeta - 1) {
+			empty = true;			
+		}
 	}
 
 	/* delete calculated column */

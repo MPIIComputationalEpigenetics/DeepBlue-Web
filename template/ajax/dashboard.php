@@ -373,6 +373,9 @@
 	                                <th class="hasinput" style="width:20px">
                                         <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
                                     </th>
+                                    <th class="hasinput" style="width:20px">
+                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-datatype" />
+                                    </th>
                                     <th class="hasinput">
                                         <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
                                     </th>
@@ -400,7 +403,8 @@
                                 </tr>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Experiment Name</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
                                     <th>Description</th>
                                     <th>Genome</th>
                                     <th>Epigenetic Mark</th>
@@ -695,24 +699,25 @@
 	    	null,
 	    	null,
 	    	null,
+	    	null,
 	    	null
 	    ];
 
 		switch (type) {
 			case 'genome':
-			   	initFilter[3] = {"sSearch": text};
+			   	initFilter[4] = {"sSearch": text};
 			    break;
 			case 'epigenetic_mark':
-				initFilter[4] = {"sSearch": text};
+				initFilter[5] = {"sSearch": text};
 			    break;
 			case 'biosource':
-			    initFilter[5] = {"sSearch": text};
+			    initFilter[6] = {"sSearch": text};
 			    break;
 			case 'technique':
-			    initFilter[7] = {"sSearch": text};
+			    initFilter[8] = {"sSearch": text};
 			    break;
 			case 'project':
-			    initFilter[8] = {"sSearch": text};
+			    initFilter[9] = {"sSearch": text};
 			    break;
 			default:
 			    break;
@@ -735,14 +740,15 @@
       			aoData.push( { "name": "collection", "value": "experiments" } );
       			aoData.push( { "name": "col_0", "value": "_id"} );
       			aoData.push( { "name": "col_1", "value": "name"} );
-      			aoData.push( { "name": "col_2", "value": "description"} );
-      			aoData.push( { "name": "col_3", "value": "genome"} );
-      			aoData.push( { "name": "col_4", "value": "epigenetic_mark"} );
-      			aoData.push( { "name": "col_5", "value": "biosource"} );
-      			aoData.push( { "name": "col_6", "value": "sample_id"} );
-      			aoData.push( { "name": "col_7", "value": "technique"} );
-      			aoData.push( { "name": "col_8", "value": "project"} );
-      			aoData.push( { "name": "col_9", "value": "extra_metadata"} );
+      			aoData.push( { "name": "col_2", "value": "data_type"} );
+      			aoData.push( { "name": "col_3", "value": "description"} );
+      			aoData.push( { "name": "col_4", "value": "genome"} );
+      			aoData.push( { "name": "col_5", "value": "epigenetic_mark"} );
+      			aoData.push( { "name": "col_6", "value": "biosource"} );
+      			aoData.push( { "name": "col_7", "value": "sample_id"} );
+      			aoData.push( { "name": "col_8", "value": "technique"} );
+      			aoData.push( { "name": "col_9", "value": "project"} );
+      			aoData.push( { "name": "col_10", "value": "extra_metadata"} );
       			aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
       		},
 		    "iDisplayLength": 50,

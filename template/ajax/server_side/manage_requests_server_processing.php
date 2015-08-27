@@ -79,15 +79,24 @@ switch ($option) {
 		$colList[] = $client->getResponse();
 		check_error($colList);
 
-		$type = 'code';
-		$pattern = '@type: \''.$type.'@i';
+		$type = 'calculated';
+		foreach ($colList[0][1] as $column) {
 
-		foreach ($colList[0][1] as $col) {
-			if (preg_match($pattern, $col[1])) {
-				$colName = explode(":", $col[1])[3];
-				$colCode = explode("'", $col[1])[1];
-				$temp = [$colName, $colCode];
-				$data['calculated'][] = $temp;
+			$colID = $column[0];
+
+			/* retrieve column details */
+			if(!$client->query("info", $colID, $user_key)){
+				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+			}
+			else {
+				$colDetail[] = $client->getResponse();
+				if ($colDetail[0][1][0]['column_type'] == $type) {
+					$colName = $colDetail[0][1][0]['name'];
+					$colCode = $colDetail[0][1][0]['code'];
+					$temp = [$colCode, $colName];
+					$data['calculated'][] = $temp;
+				}
+				$colDetail = "";
 			}
 		}
 

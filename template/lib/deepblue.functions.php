@@ -53,10 +53,11 @@ class Deepblue{
                 $tempArr[] = "";
             }
 
-            if (isset($info["name"])) {
-                $tempArr[] = $info["name"];
-            } else if ($info["type"] == 'sample') {
+            if ($info["type"] == 'sample') {
                 $tempArr[] = $info["biosource_name"];
+            }
+            else if(isset($info["name"])) {
+                $tempArr[] = $info["name"];
             } else {
                 $tempArr[] = "";
             }
