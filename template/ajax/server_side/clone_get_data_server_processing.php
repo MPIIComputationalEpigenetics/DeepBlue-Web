@@ -5,7 +5,7 @@
 *   Copyright (c) 2014 Max Planck Institute for Computer Science.
 *   All rights reserved.
 *
-*   File : search_get_info_serve_processing.php
+*   File : search_get_data_server_processing.php
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Obaro Odiete <s8obodie@stud.uni-saarland.de>
@@ -15,7 +15,6 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
-require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
@@ -31,7 +30,7 @@ $term = $_GET["term"];
 
 $lists = array();
 $calculated = false;
-
+$user_key = 'zuP3PtSOzTcJZUnn';
 /* decallerine list to retrieve based on caller */
 switch ($caller) {
 	case 'experiment':
@@ -41,7 +40,10 @@ switch ($caller) {
 		}
 		else{
 			$epList[] = $client->getResponse();
-			check_error($epList);
+			if ($epList[0][0] == "error") {
+                echo json_encode($epList[0]);
+                die();
+			}			
 		}
 		$lists = $epList[0][1];
 		break;
@@ -52,7 +54,10 @@ switch ($caller) {
 		}
 		else{
 			$emList[] = $client->getResponse();
-			check_error($emList);
+			if ($emList[0][0] == "error") {
+                echo json_encode($emList[0]);
+                die();
+			}
 		}
 		$lists = $emList[0][1];
 		break;
@@ -63,7 +68,10 @@ switch ($caller) {
 		}
 		else{
 			$samples[] = $client->getResponse();
-			check_error($samples);
+			if ($samples[0][0] == "error") {
+				echo json_encode($samples[0]);
+                die();
+			}
 			$sampleIds = array();
 			$smList = [];
 			$i = 0;
@@ -72,7 +80,6 @@ switch ($caller) {
 				$smList[$i][0] = $sample[1]['biosource_name'];
 				$i = $i + 1;
 			}
-
 		}
 
 		$lists = $smList;
@@ -84,7 +91,10 @@ switch ($caller) {
 		}
 		else{
 			$tqList[] = $client->getResponse();
-			check_error($tqList);
+			if ($tqList[0][0] == "error") {
+                echo json_encode($tqList[0]);
+                die();
+			}
 		}
 		$lists = $tqList[0][1];
 		break;
@@ -95,7 +105,10 @@ switch ($caller) {
 		}
 		else{
 			$prList[] = $client->getResponse();
-			check_error($prList);
+			if ($prList[0][0] == "error") {
+                echo json_encode($prList[0]);
+                die();
+			}
 		}
 		$lists = $prList[0][1];
 		break;
@@ -106,7 +119,10 @@ switch ($caller) {
 		}
 		else{
 			$coList[] = $client->getResponse();
-			check_error($coList);
+			if ($coList[0][0] == "error") {
+				echo json_encode($coList[0]);
+                die();
+			}
 			//echo json_encode($coList);
 			$type = explode("xyz123abc", $caller)[1];
 			if ($type == 'range') {
@@ -127,6 +143,12 @@ switch ($caller) {
 				}
 				else {
 					$colDetail[] = $client->getResponse();
+
+					if ($colDetail[0][0] == "error") {
+						echo json_encode($colDetail[0]);
+                        die();
+					}
+
 					if ($colDetail[0][1][0]['column_type'] == $type) {
 						if ($type == 'calculated') {
 							$strList[$i][0] =$colDetail[0][1][0]['code']; ;

@@ -444,12 +444,21 @@ function deselect_node(e, data) {
 	}
 
 	function build_tree() {
-			var request = $.ajax({
+		var request = $.ajax({
 			url: "ajax/server_side/biosources_tree.php",
 			dataType: "json",
 		});
 
 		request.done( function(data) {
+            if (data.data[0] == 'error') {
+                var report = "An error has occured: " + data.data[1];
+                swal({
+                    title: "View Biosources",
+                    text: report
+                });
+                return;
+            }
+            
 			build_experiments_table();
 
 			exists = [];

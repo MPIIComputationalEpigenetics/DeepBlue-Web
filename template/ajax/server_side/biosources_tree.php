@@ -15,7 +15,6 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
-require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
@@ -29,7 +28,10 @@ function get_ontology_id($bs_id, &$client, &$user_key)
 	}
 
 	$response = $client->getResponse();
-	check_error($response);
+	if ($response[0] == "error") {
+		echo json_encode(['data' => $response]);
+        die();
+	}
 	
 	if ($response[0] == "okay") {
 		$bs_info = $response[1];
@@ -46,7 +48,10 @@ if(!$client->query("list_in_use", "biosources", $user_key)){
 }
 else{
     $biosourceList[] = $client->getResponse();
-    check_error($biosourceList);
+    if ($biosourceList[0][0] == "error") {
+		echo json_encode(['data' => $biosourceList[0]]);
+        die();
+	}
 }
 
 $bioSourceNames = array();
@@ -92,7 +97,10 @@ while (sizeof($actual_leaves) > 0) {
 		}
 		else{
 	    	$parentsList = $client->getResponse();
-	    	check_error($parentsList);
+			if ($parentsList[0] == "error") {
+				echo json_encode(['data' => $parentsList]);
+                die();
+			}
 	    	
 	    	foreach($parentsList[1] as &$parent) {
 	    		$update = exists($parent[1], $leaf, $nodes, $nodes);
@@ -110,6 +118,4 @@ while (sizeof($actual_leaves) > 0) {
 	$actual_leaves = $new_leaves;
 }
 
-echo json_encode(array('data' => $nodes));
-
-?>
+echo json_encode(['data' => $nodes]);

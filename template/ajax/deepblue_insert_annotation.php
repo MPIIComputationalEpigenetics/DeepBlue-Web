@@ -191,7 +191,7 @@ require_once("inc/init.php");
 	var suggestion = [];
 	suggestion['genomes'] = [];
 
-	var count = 0
+	var count = 0;
 	var currentvocab = list_in_use['genomes']['alp'];
 	for (j in currentvocab) {
 		suggestion['genomes'][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};

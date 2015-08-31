@@ -555,7 +555,16 @@ require_once("inc/init.php");
 		});
 
 		cloneInfoRequest.done( function(data) {
-			columns = [];
+            if (data[0] == "error") {
+                var report = "An error has occured: " + data[1];
+                swal({
+                    title: "Clone Dataset",
+                    text: report
+                });                                    
+                return;
+            }
+        
+            columns = [];
 			infoResult = "<table id='infoclone' class='table table-striped table-hover'><tbody>";
 			cloneData = data.data['info'];
 			var colTemp = {};
@@ -644,6 +653,14 @@ require_once("inc/init.php");
 			          	}
 			          	var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id;
 			          	$.getJSON( url, request, function( data, status, xhr ) {
+                            if (data[0] == "error") {
+                                var report = "An error has occured: " + data[1];
+                                swal({
+                                    title: "Clone Dataset",
+                                    text: report
+                                });                    
+                                return;
+                            }
 			            	cache2[current.id][ term ] = data;
 			            	response( data );
 			          	})
@@ -712,7 +729,7 @@ require_once("inc/init.php");
 
 				request.done( function(data) {
 					var report = "";
-					for (l = 0; l < data.length; l++) {
+    				for (l = 0; l < data.length; l++) {
 						if (data[l][0] == 'okay') {
 							report = report + "Experiment " + getId[l] + " cloning Successful: " + data[l][1] + "\n";
 							//$( "#tempSearchResult" ).empty();
@@ -722,10 +739,13 @@ require_once("inc/init.php");
 							$("#widget-grid").show();
 						}
 						else {
-							report = report + "Experiment " + getId[l] + " cloning Failed: " + data[l][1] + "\n";
+							report = report + "Experiment " + getId[l] + " cloning failed: " + data[l][1] + "\n";
 						}
 					}
-					alert(report);
+                    swal({
+                        title: "Clone Dataset",
+                        text: report
+                    });                    
 					$('#cloneExperimentButton').removeAttr('disabled');
 				});
 
@@ -785,6 +805,14 @@ require_once("inc/init.php");
 	          	var term = request.term;
 	          	var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id;
 	          	$.getJSON( url, request, function( data, status, xhr ) {
+                    if (data[0] == "error") {
+                        var report = "An error has occured: " + data[1];
+                        swal({
+                            title: "Clone Dataset",
+                            text: report
+                        });                    
+                        return;
+                    }                    
 	            	response( data );
 	          	})
 			},
