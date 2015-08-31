@@ -72,12 +72,12 @@ class Deepblue{
                 $sampleInfo = "";
                 $sampleInfo .= '<b> Biosource </b> : ' . $info['biosource_name'] . "<br />";
                 foreach ($info as $k => $v) {
-                    if($v != '' && $v != '-' && $k != 'biosource_name' && $k != 'type' && $k != 'user' && $k != 'source' && $k != '_id') {
+                    if($v != '' && $v != '-' && $k != 'biosource_name' && $k != 'type' && $k != 'user' && $k != '_id') {
                         $sampleInfo .= '<b>'.$k.'</b> : ' . $v . "<br />";
                     }
                 }
                 $tempArr[] = $sampleInfo;
-            } 
+            }
             else if ($info["type"] == 'annotation') {
                 $tempArr[] = '<b> Format </b> : ' . $info['format'];
             }
@@ -85,7 +85,7 @@ class Deepblue{
                 $details = "";
                 foreach ($info as $k => $v) {
                     if ($v != '' && $v != '-' && $k != 'type') {
-                        $details .= '<b>'.$k.'</b> : ' . $v . "<br />";    
+                        $details .= '<b>'.$k.'</b> : ' . $v . "<br />";
                     }
                 }
                 $tempArr[] = $details;
