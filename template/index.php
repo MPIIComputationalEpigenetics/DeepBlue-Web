@@ -3,9 +3,6 @@
 //initilize the page
 require_once("inc/init.php");
 
-// check server online status
-require_once("php/deepblue_status.php");
-
 //require UI configuration (nav, ribbon, etc.)
 require_once("inc/config.ui.php");
 
@@ -16,7 +13,10 @@ E.G. $page_title = "Custom Title" */
 
 $page_title = "DeepBlue Epigenomic Data Server";
 
-/* ----- */
+// check server online status
+require_once("php/deepblue_status.php");
+check_server_status();
+
 if (isset($_SESSION['user_key'])) {
 	$user_key = $_SESSION['user_key'];
 	header("Location:  ../dashboard.php");
