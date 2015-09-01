@@ -834,7 +834,17 @@
 			});
 
 			request1.done( function(data) {
-				// store data in local storage
+                
+                if (data[0] == "error") {
+                    var report = "An error has occured listing experiments: " + data[1];
+                    swal({
+                        title: "DeepBlue Experiments",
+                        text: report
+                    });                                    
+                    return;            
+                }
+                
+                // store data in local storage
 				localStorage.setItem("list_in_use", JSON.stringify(data[0]));
 				list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 				loadDashboard();

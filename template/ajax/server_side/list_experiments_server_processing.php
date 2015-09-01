@@ -16,7 +16,6 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
-require_once("../../lib/error.php");
 
 if (isset($_GET) && isset($_GET["genomes"])) {
     $genomes[] = $_GET["genomes"];
@@ -55,7 +54,10 @@ if(!$client->query("list_experiments", $genomes, $epigenetic_marks, $samples, $t
 }
 
 $experimentsList[] = $client->getResponse();
-check_error($experimentsList);
+if ($experimentsList[0][0] == "error") {
+    echo json_encode(['data' => $experimentsList[0]]);
+    die();
+}
 
 $experiment_ids = array();
 foreach($experimentsList[0][1] as $experiment){
@@ -66,7 +68,10 @@ if(!$client->query("info", $experiment_ids, $user_key)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 $infoList = $client->getResponse();
-check_error($infoList);
+if ($infoList[0][0] == "error") {
+    echo json_encode(['data' => $infoList[0]]);
+    die();
+}
 
 $orderedDataStr = array();
 foreach($infoList[1] as $metadata) {

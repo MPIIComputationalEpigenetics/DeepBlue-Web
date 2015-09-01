@@ -19,7 +19,6 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
-require_once("../../lib/error.php");
 
 $client = new IXR_Client(get_server());
 
@@ -53,7 +52,9 @@ if (isset($_GET) && isset($_GET["biosources"])) {
 		}
 		else {
 			$response1 = $client1->getResponse();
-			check_error($response1);
+			if ($response1[0] == "error") {
+                die();
+			}
 		}
 
 		// retrieve the list of samples in use
@@ -63,7 +64,9 @@ if (isset($_GET) && isset($_GET["biosources"])) {
 		}
 		else {
 			$response2 = $client2->getResponse();
-			check_error($response2);
+			if ($response2[0] == "error") {
+                die();
+			}
 		}
 
 		$samplesin = [];

@@ -19,40 +19,57 @@ var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "ge
 var list_in_use = [];
 
 var request1 = $.ajax({
-	url: "ajax/server_side/list_in_use.php",
-	dataType: "json",
-	data : {
-		request : vocabulary
-	}
+    url: "ajax/server_side/list_in_use.php",
+    dataType: "json",
+    data : {
+        request : vocabulary
+    }
 });
 
 request1.done( function(data) {
-	// store data in local storage
-	localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+    if (data[0] == "error") {
+        var report = "An error has occured listing experiments: " + data[1];
+        swal({
+            title: "DeepBlue Experiments",
+            text: report
+        });                                    
+        return;                    
+    }
+
+    // store data in local storage
+    localStorage.setItem("list_in_use", JSON.stringify(data[0]));
 });
 
 request1.fail( function(jqXHR, textStatus) {
-	console.log(jqXHR);
+    console.log(jqXHR);
     console.log('Error: '+ textStatus);
-	alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+    alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
 });
 
 
 /* retrieve deepblue list_experiment data */
 var request2 = $.ajax({
-	url: "ajax/server_side/list_all_experiment.php",
-	dataType: "json",
-	data : {
-	}
+    url: "ajax/server_side/list_all_experiment.php",
+    dataType: "json",
+    data : {
+    }
 });
 
 request2.done( function(data) {
-	// store data in local storage
-	localStorage.setItem("all_experiments", JSON.stringify(data[0]));
+    if (data[0] == "error") {
+        var report = "An error has occured listing experiments: " + data[1];
+        swal({
+            title: "DeepBlue Experiments",
+            text: report
+        });                                    
+        return;            
+    }    
+    // store data in local storage
+    localStorage.setItem("all_experiments", JSON.stringify(data[0]));
 });
 
 request2.fail( function(jqXHR, textStatus) {
-	console.log(jqXHR);
+    console.log(jqXHR);
     console.log('Error: '+ textStatus);
     alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
 });

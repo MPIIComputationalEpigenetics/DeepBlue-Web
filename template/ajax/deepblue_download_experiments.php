@@ -344,6 +344,15 @@ require_once("inc/init.php");
         });
 
         request.done( function(data) {
+            if (data[0] == "error") {
+                var report = "An error has occured: " + data[1];
+                swal({
+                    title: "Download Experiments",
+                    text: report
+                });                                    
+                return;            
+            }
+            
             // Meta Columns
             var meta_col = ['@LENGTH','@NAME','@SEQUENCE', '@EPIGENETIC_MARK','@PROJECT','@BIOSOURCE','@SAMPLE_ID'];
             for (i=0; i<meta_col.length; i++) {
@@ -411,6 +420,15 @@ require_once("inc/init.php");
         });
 
         request.done( function(data) {
+            if (data[0] == "error") {
+                var report = "An error has occured: " + data[1];
+                swal({
+                    title: "Download Experiments",
+                    text: report
+                });                                    
+                return;            
+            }
+            
             var chr = data['chromosome'];
             for (i=0; i < chr.length; i++) {
                 var value = chr[i];
@@ -486,7 +504,16 @@ require_once("inc/init.php");
                 }
             });
 
-            request.done( function(data) {
+            request.done( function(data) {                
+                if (data[0] == "error") {
+                    var report = "An error has occured: " + data[1];
+                    swal({
+                        title: "Download Experiments",
+                        text: report
+                    });                                    
+                    return;            
+                }                
+                
                 swal({
                     title: "Request Sent.",
                     text: "The request ID is " + data.request_id + ".\nWould you like to go to the Manage Request page ?",

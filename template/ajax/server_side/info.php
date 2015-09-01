@@ -8,6 +8,7 @@
 *   File : info.php
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
+*   Obaro Odiete <s8obodie@stud.uni-saarland.de>
 *
 *   Created : 11-12-2014
 */
@@ -15,7 +16,6 @@
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 require_once("../../lib/deepblue.IXR_Library.php");
-require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 
 if (isset($_GET) && isset($_GET["id"])) {
@@ -27,8 +27,10 @@ if (isset($_GET) && isset($_GET["id"])) {
 	}
 
 	$response = $client->getResponse();
-	check_error($response);
+	if ($response[0] == "error") {
+		echo json_encode(['data' => $response]);
+        die();
+	}
 	
-	echo json_encode(array('data' => $response[1]));
+	echo json_encode(['data' => $response[1]]);
 }
-?>

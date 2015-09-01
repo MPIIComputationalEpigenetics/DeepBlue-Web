@@ -18,7 +18,6 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
-require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
@@ -52,8 +51,11 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$infoList[] = $client->getResponse();
-			check_error($infoList);
-
+            if ($infoList[0][0] == "error") {
+                echo json_encode($infoList[0]);
+                die();
+            }
+            
 			$columns = $infoList[0][1][0]['columns'];
 			$length = count($columns);
 
@@ -77,9 +79,12 @@ switch ($option) {
 		}
 
 		$colList[] = $client->getResponse();
-		check_error($colList);
+        if ($colList[0][0] == "error") {
+            echo json_encode($colList[0]);
+            die();
+        }
 
-		$type = 'calculated';
+        $type = 'calculated';
 		foreach ($colList[0][1] as $column) {
 
 			$colID = $column[0];
@@ -90,6 +95,11 @@ switch ($option) {
 			}
 			else {
 				$colDetail[] = $client->getResponse();
+                if ($colDetail[0][0] == "error") {
+                    echo json_encode(['data' => $colDetail[0]]);
+                    die();
+                }
+                
 				if ($colDetail[0][1][0]['column_type'] == $type) {
 					$colName = $colDetail[0][1][0]['name'];
 					$colCode = $colDetail[0][1][0]['code'];
@@ -165,7 +175,10 @@ switch ($option) {
 		}
 
 		$result[] = $client->getResponse();
-		check_error($result);
+        if ($result[0][0] == "error") {
+            echo json_encode($result[0]);
+            die();
+        }
 
 		$query_ida = $result[0][1];
 		$query_id = $query_ida;
@@ -180,7 +193,10 @@ switch ($option) {
 			}
 
 			$result[] = $client->getResponse();
-			check_error($result);
+            if ($result[0][0] == "error") {
+                echo json_encode($result[0]);
+                die();
+            }
 
 			$query_idb = $result[0][1];
 			$result = [];
@@ -190,8 +206,10 @@ switch ($option) {
 			}
 
 			$result[] = $client->getResponse();
-			check_error($result);
-
+            if ($result[0][0] == "error") {
+                echo json_encode($result[0]);
+                die();
+            }
 			$query_id = $result[0][1];
 			$result = [];
 		}
@@ -201,8 +219,10 @@ switch ($option) {
 		}
 
 		$result[] = $client->getResponse();
-		check_error($result);
-
+        if ($result[0][0] == "error") {
+            echo json_encode($result[0]);
+            die();
+        }
 		$request_id = $result[0][1];
 
 		echo json_encode(array('request_id' => $request_id));
@@ -212,14 +232,17 @@ switch ($option) {
 		/* list all request for the request manager*/
 		if (isset($_GET["filter"])) {
 		    $request_state = $_GET["filter"];
-
+$user_key = 'zuP3PtSOzTcJZUn';
 			if(!$client->query("list_requests", $request_state, $user_key)){
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 
 			$response = $client->getResponse();
-			check_error($response);
-
+            if ($response[0] == "error") {
+                echo json_encode($response);
+                die();
+            }
+            
 			$data['request_list'] = $response[1];
 
 			$rrow = [];
@@ -235,7 +258,10 @@ switch ($option) {
 				}
 
 				$response = $client->getResponse();
-				check_error($response);
+                if ($response[0] == "error") {
+                    echo json_encode($response);
+                    die();
+                }	
 				$qid = $response[1][0]['query_id'];
 
 				// retrieve initial query details
@@ -247,7 +273,10 @@ switch ($option) {
 				}
 
 				$response = $client->getResponse();
-				check_error($response);
+                if ($response[0] == "error") {
+                    echo json_encode($response);
+                    die();
+                }
 				$rstate = $response[1][0]['state'];
 
 				if ($rstate == 'done') {
@@ -284,7 +313,10 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$infoList[] = $client->getResponse();
-			check_error($infoList);
+            if ($infoList[0][0] == "error") {
+                echo json_encode($infoList[0]);
+                die();
+            }
 
 			$genome = $infoList[0][1][0]['genome'];
 			if (!in_array($genome, $genomes)) {
@@ -305,7 +337,10 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$result[] = $client->getResponse();
-			check_error($result);
+            if ($result[0][0] == "error") {
+                echo json_encode($result[0]);
+                die();
+            }
 			//$chroms = array_merge($chroms, $result[0][1]);
 
 			$chrlen = count($result[0][1]);
@@ -323,7 +358,10 @@ switch ($option) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 			$result[] = $client->getResponse();
-			check_error($result);
+            if ($result[0][0] == "error") {
+                echo json_encode($result[0]);
+                die();
+            }
 			//$annots = array_merge($annots, $result[0][1]);
 
 			$annlen = count($result[0][1]);
@@ -358,7 +396,10 @@ function query_detail($qud, &$rdetail) {
 	}
 
 	$response = $client->getResponse();
-	check_error($response);
+    if ($response[0] == "error") {
+        echo json_encode($response);
+        die();
+    }
 
 	$qtype = $response[1][0]['type'];
 	$qdetail = json_decode($response[1][0]['args'], true);
@@ -381,7 +422,10 @@ function query_detail($qud, &$rdetail) {
 			}
 
 			$result[] = $client->getResponse();
-			check_error($result);
+            if ($result[0][0] == "error") {
+                echo json_encode($result[0]);
+                die();
+            }
 
 			$chrlen = count($result[0][1]);
 			for ($k = 0; $k < $chrlen; $k++) {
@@ -444,4 +488,3 @@ function query_detail($qud, &$rdetail) {
 		$rdetail = $rdetail."  \n\r  <br/>";
 	}
 }
-?>

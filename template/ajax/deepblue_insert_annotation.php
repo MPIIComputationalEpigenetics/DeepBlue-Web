@@ -260,6 +260,15 @@ require_once("inc/init.php");
     });
 
     request.done( function(data) {
+        if (data[0] == "error") {
+            var report = "An error has occured: " + data[1];
+            swal({
+                title: "Insert Annotation",
+                text: report
+            });                                    
+            return;            
+        }
+        
         for (i=0; i<data.length; i++) {
             var key = data[i];
             var value = data[i];

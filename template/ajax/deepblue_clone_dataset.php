@@ -281,7 +281,16 @@ require_once("inc/init.php");
 		});
 
 		request1.done( function(data) {
-			// store data in local storage
+            if (data[0] ==  "error") {
+                var report = "An error has occured listing experiments: " + data[1];
+                swal({
+                    title: "Clone Dataset",
+                    text: report
+                });                                    
+                return;                
+            }
+			
+            // store data in local storage
 			localStorage.setItem("list_in_use", JSON.stringify(data[0]));
 			list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 			//cloneFunction();		
@@ -305,7 +314,15 @@ require_once("inc/init.php");
 
 		request2.done( function(data) {
 			// store data in local storage
-			localStorage.setItem("all_experiments", JSON.stringify(data[0]));
+            if (data[0] == "error") {
+                var report = "An error has occured listing experiments: " + data[1];
+                swal({
+                    title: "DeepBlue Experiments",
+                    text: report
+                });                                    
+                return;            
+            }
+            localStorage.setItem("all_experiments", JSON.stringify(data[0]));
 			suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
 			cloneFunction();
 		});

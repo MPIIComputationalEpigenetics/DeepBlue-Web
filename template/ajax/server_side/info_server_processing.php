@@ -17,7 +17,6 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
-require_once("../../lib/error.php");
 
 $client = new IXR_Client(get_server());
 
@@ -28,7 +27,7 @@ $deepBlueObj = new Deepblue();
 if (isset($_GET) && isset($_GET["id"])) {
     $id = $_GET["id"];
 
-	$client = new IXR_Client(get_server());
+    $client = new IXR_Client(get_server());
 	if(!$client->query("info", $id, $user_key)){
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
@@ -36,11 +35,9 @@ if (isset($_GET) && isset($_GET["id"])) {
 	$response = $client->getResponse();
 
 	if ($response[0] == 'error') {
-		// TODO: Check error code for Permission Error, check error code if 100100 throw permission error page
-		echo json_encode(array('data' => $response));
-		return;
+		echo json_encode(['data' => $response]);
+        die();
 	}
 
 	$deepBlueObj->searchResultToJson($response[1]);
 }
-?>

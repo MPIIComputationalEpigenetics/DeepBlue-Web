@@ -30,7 +30,7 @@ $term = $_GET["term"];
 
 $lists = array();
 $calculated = false;
-$user_key = 'zuP3PtSOzTcJZUnn';
+
 /* decallerine list to retrieve based on caller */
 switch ($caller) {
 	case 'experiment':

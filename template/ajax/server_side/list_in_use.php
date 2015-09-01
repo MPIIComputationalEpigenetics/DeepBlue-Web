@@ -17,7 +17,7 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
-require_once("../../lib/error.php");
+
 
 if (isset($_GET) && isset($_GET["request"])) {
     $request[] = $_GET["request"];
@@ -32,7 +32,10 @@ foreach ($request[0] as $vocab) {
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
 	$response['alp'] = $client->getResponse();
-	check_error($response['alp']);
+    if ($response['alp'][0] == "error") {
+        echo json_encode($response['alp']);
+        die();
+	}
 
 	usort($response['alp'][1], function($a, $b) {
 		return strcasecmp($a[1], $b[1]);
