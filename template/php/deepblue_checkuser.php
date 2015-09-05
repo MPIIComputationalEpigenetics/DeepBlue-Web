@@ -45,8 +45,7 @@ else {
 	$_SESSION['user_key'] = $user_key;
 	$_SESSION['institution'] = $user_details['institution'];
 	$_SESSION['type'] = $user_details['type'];
+    $_SESSION['permission'] = $user_details['permission_level'];
 	$_SESSION['time'] = time();
 	header("Location:  ../dashboard.php");
 }
-
-?>
