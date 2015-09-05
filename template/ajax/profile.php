@@ -43,9 +43,14 @@
 									<div class="col-sm-6">
 										<h1><span class="semi-bold"><?php echo $_SESSION['user_name'] ?></span>
 										<br>
-										<small> <?php echo $_SESSION['institution'].', '.$_SESSION['type']?></small></h1>
+										<small> <?php echo $_SESSION['institution'] ?></small></h1>
 										<ul class="list-unstyled">
 											<li>
+												<p class="text-muted">
+													<i class="fa fa-user"></i>&nbsp;&nbsp; <?php echo $_SESSION['type']. ', '.$_SESSION['permission'] ?>
+												</p>
+											</li>											
+                                            <li>
 												<p class="text-muted">
 													<i class="fa fa-key"></i>&nbsp;&nbsp;<?php echo $_SESSION['user_key'] ?>
 												</p>
