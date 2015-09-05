@@ -33,7 +33,9 @@ else {
 	}
 
 	$response = $client->getResponse();
-	check_error($response);
+    if ($response[0] == 'error') {
+        die('An error has occurred: '.$response[1]);
+    }
 
 	$user_details = $response[1][0];
 	session_start();

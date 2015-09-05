@@ -44,7 +44,9 @@ else {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
 		}
 		$response = $client->getResponse();
-		check_error($response);
+		if ($response[0] == 'error') {
+            die('An error has occurred: '.$response[1]);
+        }
 	}
 
 	if ($username != '') {	
@@ -52,7 +54,9 @@ else {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
 		}
 		$response = $client->getResponse();
-		check_error($response);
+		if ($response[0] == 'error') {
+            die('An error has occurred: '.$response[1]);
+        }
 		$_SESSION['user_name'] = $username;
 	}
 
@@ -61,7 +65,9 @@ else {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
 		}
 		$response = $client->getResponse();
-		check_error($response);
+		if ($response[0] == 'error') {
+            die('An error has occurred: '.$response[1]);
+        }
 		$_SESSION['institution'] = $institution;
 	}
 	
@@ -70,7 +76,9 @@ else {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
 		}
 		$response = $client->getResponse();
-		check_error($response);
+		if ($response[0] == 'error') {
+            die('An error has occurred: '.$response[1]);
+        }
 		$_SESSION['user_email'] = $newemail;
 	}
 	header("Location:  ../dashboard.php#ajax/profile.php");
