@@ -286,14 +286,23 @@ require_once("inc/init.php");
                 swal({
                     title: "Clone Dataset",
                     text: report
-                });                                    
+                });
+                // disable filter button
+                $("#filter_bt").attr('disabled', 'disabled');                
                 return;                
             }
 			
             // store data in local storage
 			localStorage.setItem("list_in_use", JSON.stringify(data[0]));
 			list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-			//cloneFunction();		
+            
+          	/* Trigger searching using filter with pressing ENTER Key */
+            $("#user_epigenetic_mark, #user_project, #user_biosource, #user_sample, #user_technique, #user_genome").keypress(function(event){
+                if(event.keyCode == 13){
+                    filter_function();
+                    isSelected = 1;
+                }
+            });
 		});
 
 		request1.fail( function(jqXHR, textStatus) {
@@ -320,11 +329,22 @@ require_once("inc/init.php");
                     title: "DeepBlue Experiments",
                     text: report
                 });                                    
+               
+                // disable experiment id clone search button
+                $("#clone_bt").attr('disabled', 'disabled');                
                 return;            
             }
             localStorage.setItem("all_experiments", JSON.stringify(data[0]));
 			suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
 			cloneFunction();
+            
+            /* Trigger single experiment search with presssing ENTER key */
+            $("#clone_input").keypress(function(event){
+                if(event.keyCode == 13){
+                    search_function();
+                    isSelected = 1;
+                }
+            });            
 		});
 
 		request2.fail( function(jqXHR, textStatus) {
@@ -395,7 +415,7 @@ require_once("inc/init.php");
 							focus: function( event, ui ) { return false;},
 							minLength: 0,
 							select: function( event, ui ) {
-								// enable clone button
+
 								exp = ui.item.label;
 								getId = exp.split(' : ')[0];
 								$(event.target).closest(".col-md-6").removeClass('has-error');
@@ -445,23 +465,6 @@ require_once("inc/init.php");
 
 	// add click event listener to the filter button
 	$("#filter_bt").button().click(filter_function);
-
-	/* Trigger single experiment search with presssing ENTER key */
-	$("#clone_input").keypress(function(event){
-		if(event.keyCode == 13){
-		    search_function();
-		    isSelected = 1;
-		}
-	});
-
-	/* Trigger searching using filter with pressing ENTER Key */
-	$("#user_epigenetic_mark, #user_project, #user_biosource, #user_sample, #user_technique, #user_genome").keypress(function(event){
-		if(event.keyCode == 13){
-		    filter_function();
-		    isSelected = 1;
-		}
-	});
-
 
 	function filter_function() {
 

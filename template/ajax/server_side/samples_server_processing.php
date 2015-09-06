@@ -16,36 +16,38 @@
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
-require_once("../../lib/error.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 
 $client = new IXR_Client(get_server());
 
 if (isset($_GET) && isset($_GET["biosources"])) {
     $bioNames[] = $_GET["biosources"];
-} else {
+} 
+else {
     if(!$client->query("list_biosources", (Object)Null, $user_key)) {
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
-    else {
-        $bioSourceList[] = $client->getResponse();
-        check_error($bioSourceList);
-        foreach($bioSourceList[0][1] as $bioSourceName) {
-            $bioNames[] = $bioSourceName[1];
-        }
+    $bioSourceList[] = $client->getResponse();
+    if ($bioSourceList[0][0] == 'error') {
+        echo json_encode(['data' => $bioSourceList[0]]);
+        die();
+    }
+
+    foreach($bioSourceList[0][1] as $bioSourceName) {
+        $bioNames[] = $bioSourceName[1];
     }
 }
 
 if(!$client->query("list_samples", $bioNames, (object) null, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $sampleList[] = $client->getResponse();
-    check_error($sampleList);
+$sampleList[] = $client->getResponse();
+if ($sampleList[0][0] == 'error') {
+    echo json_encode(['data' => $sampleList[0]]);
+    die();
 }
 
 $sampleIds = array();
-
 foreach ($sampleList[0][1] as $samples) {
     $sampleIds[] = $samples[0];
 }
@@ -53,9 +55,11 @@ foreach ($sampleList[0][1] as $samples) {
 if(!$client->query("info", $sampleIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $infoList[] = $client->getResponse();
-    check_error($infoList);
+
+$infoList[] = $client->getResponse();
+if ($infoList[0][0] == 'error') {
+    echo json_encode(['data' => $infoList[0]]);
+    die();
 }
 
 $orderedDataStr = array();
@@ -80,7 +84,4 @@ foreach ($infoList[0][1] as $val_1) {
     $tempStr = "";
 
 }
-
 echo json_encode(array('data' => $orderedDataStr));
-
-?>

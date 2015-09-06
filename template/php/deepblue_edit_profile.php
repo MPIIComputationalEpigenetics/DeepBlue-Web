@@ -8,7 +8,6 @@
 /* include IXR Library for RPC-XML */
 require_once("../lib/deepblue.IXR_Library.php");
 require_once("../lib/server_settings.php");
-require_once("../lib/error.php");
 
 if (session_id() == '') {
 	session_start();

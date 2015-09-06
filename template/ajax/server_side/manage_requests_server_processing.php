@@ -232,18 +232,20 @@ switch ($option) {
 		/* list all request for the request manager*/
 		if (isset($_GET["filter"])) {
 		    $request_state = $_GET["filter"];
-$user_key = 'zuP3PtSOzTcJZUn';
+
 			if(!$client->query("list_requests", $request_state, $user_key)){
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 
 			$response = $client->getResponse();
             if ($response[0] == "error") {
-                echo json_encode($response);
-                die();
+                //echo json_encode($response);
+                $data['request_list'] = [];
+                //die();
             }
-            
-			$data['request_list'] = $response[1];
+            else {
+                $data['request_list'] = $response[1];
+            }
 
 			$rrow = [];
 			foreach($data['request_list'] as $request) {
@@ -259,11 +261,13 @@ $user_key = 'zuP3PtSOzTcJZUn';
 
 				$response = $client->getResponse();
                 if ($response[0] == "error") {
-                    echo json_encode($response);
-                    die();
-                }	
-				$qid = $response[1][0]['query_id'];
-
+                    //echo json_encode($response);
+                    $qid = '';
+                    //die();
+                }
+                else {
+                    $qid = $response[1][0]['query_id'];
+                }
 				// retrieve initial query details
 				query_detail($qid, $rdetail);
 				$rdetail = $rdetail.'</div>';
@@ -274,11 +278,14 @@ $user_key = 'zuP3PtSOzTcJZUn';
 
 				$response = $client->getResponse();
                 if ($response[0] == "error") {
-                    echo json_encode($response);
-                    die();
+                    //echo json_encode($response);
+                    $rstate = '';
+                    //die();
                 }
-				$rstate = $response[1][0]['state'];
-
+                else {
+                    $rstate = $response[1][0]['state'];
+                }
+                
 				if ($rstate == 'done') {
 					$temp[] = 'ready';
 					$temp[] = substr($response[1][0]['create_time'], 0, -7);
@@ -380,9 +387,6 @@ $user_key = 'zuP3PtSOzTcJZUn';
 		//$data['annotations'] = $annots;
 		//var_dump($data['chromosome'])
 		echo json_encode($data);
-		break;
-	default:
-		# code...
 		break;
 }
 

@@ -258,15 +258,20 @@ require_once("inc/init.php");
 				$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>Your search - "+$search+" - did not match any documents.</h2><ul><li>Make sure all words are spelled correctly.</li><li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");
 			}
 			else{
-				$.each(data.data, function(i, item) {
-				    //$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
-				    $( "#tempSearchResult" ).append( "<div class='search-results clearfix'>"+
-				    	"<h4><span class='seach-result-title'><i class='fa fa-star txt-color-yellow'></i> <b>"+item[0]+ "</b> - <span data-toggle='modal' data-target='#myModal' class='"+item[4]+"'>" + item[1]+ "</span></span></h4>"+
-				    "<div><p class='note'><span><i class='fa fa-circle txt-color-black'></i> " + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p>"+
-				    "<p class='description marginTop'>" + item[2] +"</p></div>"+
-				    "<div class='searchMetadata'>"+item[3]+"</div></div>" );
-			    });
-
+                if (data.data[0] == 'error') {
+                    $( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>An error has occurred. <span style='color:red'>" + data.data[1] + "</span></h2></div>");
+                    return;
+                }
+                else {
+                    $.each(data.data, function(i, item) {
+                        //$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
+                        $( "#tempSearchResult" ).append( "<div class='search-results clearfix'>"+
+                            "<h4><span class='seach-result-title'><i class='fa fa-star txt-color-yellow'></i> <b>"+item[0]+ "</b> - <span data-toggle='modal' data-target='#myModal' class='"+item[4]+"'>" + item[1]+ "</span></span></h4>"+
+                        "<div><p class='note'><span><i class='fa fa-circle txt-color-black'></i> " + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p>"+
+                        "<p class='description marginTop'>" + item[2] +"</p></div>"+
+                        "<div class='searchMetadata'>"+item[3]+"</div></div>" );
+                    });
+                }
 			}
 
 			/* Make metadata short with MORE button */
@@ -330,7 +335,14 @@ require_once("inc/init.php");
 			});
 
 			infoRequest.done( function(data) {
-
+                if (data.data[0] == 'error') {
+                    var report = "An error has occured: " + data.data[1];
+                    swal({
+                        title: "Search",
+                        text: report
+                    });                                                        
+                    return;
+                }
 				$('#modal_for_experiment').empty();
 				$.each(data.data, function(i, item) {
 				    if(type == 'experiment'){

@@ -5,7 +5,7 @@
 *   Copyright (c) 2014 Max Planck Institute for Computer Science.
 *   All rights reserved.
 *
-*   File : search_get_info_serve_processing.php
+*   File : search_get_info_server_processing.php
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
@@ -17,7 +17,6 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
-require_once("../../lib/error.php");
 
 $client = new IXR_Client(get_server());
 
@@ -36,7 +35,10 @@ if(!$client->query("info", $getId, $user_key)){
 }
 else{
     $infoList[] = $client->getResponse();
-    check_error($infoList);
+	if ($infoList[0][0] == 'error') {
+		echo json_encode(['data' => $infoList[0]]);
+        die();
+	}
 }
 
 $deepBlueObj->searchResultToJson($infoList[0][1]);

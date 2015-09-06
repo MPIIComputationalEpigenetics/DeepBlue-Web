@@ -16,7 +16,6 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
-require_once("../../lib/error.php");
 
 $client = new IXR_Client(get_server());
 
@@ -43,9 +42,10 @@ else{
 if(!$client->query("search", $words, $types, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $searchList[] = $client->getResponse();
-    check_error($searchList);
+$searchList[] = $client->getResponse();
+if ($searchList[0][0] == 'error') {
+    echo json_encode(['data' => $searchList[0]]);
+    die();
 }
 
 $items_ids = array();
@@ -58,16 +58,10 @@ $sizeOfItemIds = sizeof($items_ids);
 if(!$client->query("info", $items_ids, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $infoList[] = $client->getResponse();
-    check_error($infoList);
-}
-
+$infoList[] = $client->getResponse();
 if ($infoList[0][0] == "error" || !isset($infoList[0][1])) {
     echo json_encode(array('data' => array()));
     return;
 }
 
 $deepBlueObj->searchResultToJson($infoList[0][1]);
-
-?>

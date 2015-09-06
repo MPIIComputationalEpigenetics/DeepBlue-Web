@@ -74,7 +74,7 @@ require_once("inc/init.php");
 			result = data.data;
 			if (result[0] == 'error') {
 				var msg = result[1]; 
-				$("#tempInfoResult").append( "<div class='search-results clearfix'><h2>Error encountered when retrieving infomation for the ID '"+$id+"': "+ msg +"</h2></div>");
+				$("#tempInfoResult").append( "<div class='search-results clearfix'><h2>Error encountered when retrieving infomation for the ID '"+$id+"': <span style='color:red'>"+ msg +"</span></h2></div>");
 			}
 			else {
 				$.each(data.data, function(i, item) {

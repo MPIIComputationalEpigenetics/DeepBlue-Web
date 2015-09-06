@@ -220,7 +220,18 @@ function get_experiments(sample_id) {
 			samples: sample_id
 		}
 	}).responseText;
-	return $.parseJSON(text);
+    
+    var result = $.parseJSON(text);
+    if (result.data[0] == 'error') {
+        var report = "An error has occured: " + result.data[1];
+        swal({
+            title: "View Biosources",
+            text: report
+        });
+        result.data = [];
+        return result;
+    }   
+	return result;
 }
 
 function select_experiment(sample_id) {
@@ -288,7 +299,18 @@ function get_samples(biosource_name) {
 			biosources: biosource_name
 		}
 	}).responseText;
-	return $.parseJSON(text);
+    
+    var result = $.parseJSON(text);
+    if (result.data[0] == 'error') {
+        var report = "An error has occured: " + result.data[1];
+        swal({
+            title: "View Biosources",
+            text: report
+        });
+        result.data = [];
+        return result;
+    }   
+	return result;
 }
 
 function insert_biosource(id, biosource_name) {

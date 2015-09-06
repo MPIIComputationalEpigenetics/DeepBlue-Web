@@ -185,36 +185,73 @@ require_once("inc/init.php");
 	var newMeta = 0; // initialize value for the number of existing metadata
 	var empty = true; // to show the metadata table is empty
 
-
 	/* Genome Autocomplete */
-	var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-	var suggestion = [];
-	suggestion['genomes'] = [];
+    /* retrieve deepblue list_in_use data */
+    var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
+    var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+    if (list_in_use == null) {
+        var request1 = $.ajax({
+            url: "ajax/server_side/list_in_use.php",
+            dataType: "json",
+            data : {
+                request : vocabulary
+            }
+        });
+        request1.done( function(data) {
+            if (data[0] == "error") {
+                var report = "An error has occured listing experiments: " + data[1];
+                swal({
+                    title: "Insert Annotation",
+                    text: report
+                });                                    
+                return;            
+            }
 
-	var count = 0;
-	var currentvocab = list_in_use['genomes']['alp'];
-	for (j in currentvocab) {
-		suggestion['genomes'][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};
-		count = count + 1;
-	}
+            // store data in local storage
+            localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+            list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+            
+            genomeInput();
+        });
+        request1.fail( function(jqXHR, textStatus) {
+            console.log(jqXHR);
+            console.log('Error: '+ textStatus);
+            alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+        });
+    }
+    else {
+        genomeInput();
+    }
 
-	$('#genome').autocomplete({
-		source : suggestion['genomes'],
-		autoFocus: true,
-		focus: function( event, ui ) { return false;},
-		minLength: 0,
-		select: function( event, ui ) {
-			$(event.target).closest(".search-modal-name").removeClass('has-error');
-		},
-		change: function( event, ui ) {
-			if (ui.item == null && event.target.value != "") {
-				$(event.target).closest(".search-modal-name").addClass('has-error');
-			}
-			if (event.target.value == "") {
-				$(event.target).closest(".search-modal-name").removeClass('has-error');
-			}			
-		}
-	});
+    function genomeInput() {
+        var suggestion = [];
+        suggestion['genomes'] = [];
+
+        var count = 0;
+        var currentvocab = list_in_use['genomes']['alp'];
+        for (j in currentvocab) {
+            suggestion['genomes'][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};
+            count = count + 1;
+        }
+
+        $('#genome').autocomplete({
+            source : suggestion['genomes'],
+            autoFocus: true,
+            focus: function( event, ui ) { return false;},
+            minLength: 0,
+            select: function( event, ui ) {
+                $(event.target).closest(".search-modal-name").removeClass('has-error');
+            },
+            change: function( event, ui ) {
+                if (ui.item == null && event.target.value != "") {
+                    $(event.target).closest(".search-modal-name").addClass('has-error');
+                }
+                if (event.target.value == "") {
+                    $(event.target).closest(".search-modal-name").removeClass('has-error');
+                }			
+            }
+        });
+    }
 
 	// upload annotation data button
     $('#uploadButton').bind('click', function (e) {

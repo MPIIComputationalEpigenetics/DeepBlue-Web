@@ -166,6 +166,7 @@ require_once("inc/init.php");
 				"drawCallback" : function(oSettings) {
 					responsiveHelper_datatable_fixed_column.respond();
 				},
+                "failure": function(result) {alert(result)}
 			}
 		});
 
