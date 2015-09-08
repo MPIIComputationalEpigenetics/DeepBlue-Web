@@ -55,6 +55,12 @@ $page_nav = array(
 		"icon" => "fa-info-circle"
 	),
 
+	"info" => array(
+		"title" => "Remove",
+		"url"=> "ajax/deepblue_remove_data.php",
+		"icon" => "fa-minus-square"
+	),
+    
 	"deepblue_tables" => array(
 		"title" => "Data Tables",
 		"icon" => "fa-table",
