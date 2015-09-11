@@ -45,22 +45,22 @@
 										<br>
 										<small> <?php echo $_SESSION['institution'] ?></small></h1>
 										<ul class="list-unstyled">
-											<li>
-												<p class="text-muted">
-													<i class="fa fa-user"></i>&nbsp;&nbsp; <?php echo $_SESSION['type']. ', '.$_SESSION['permission'] ?>
-												</p>
-											</li>											
                                             <li>
 												<p class="text-muted">
 													<i class="fa fa-key"></i>&nbsp;&nbsp;<?php echo $_SESSION['user_key'] ?>
 												</p>
 											</li>											
-											<li>
+                                            <li>
 												<p class="text-muted">
 													<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href=<?php echo 'mailto:'.$_SESSION['user_email'] ?>><?php echo $_SESSION['user_email'] ?></a>
 												</p>
 											</li>
-											<hr>
+											<li>
+												<p class="text-muted">
+                                                    <?php echo "<B>User level:</B> ".ucfirst(strtolower(str_replace('_',' ', $_SESSION['permission']))) ?>
+												</p>
+											</li>
+                                            <hr>
 											</li>
 												<button id="edit_profile_link" type="button" class="btn btn-link no-padding">
 													<i class="fa fa-edit"></i>&nbsp;&nbsp; Edit Profile
