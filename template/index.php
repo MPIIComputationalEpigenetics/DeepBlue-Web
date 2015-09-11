@@ -92,7 +92,6 @@ include("inc/header.php");
 						<header>
 							Sign In
 						</header>
-
 						<fieldset>
 							<?php if ((isset($_GET['login_attempt'])) && ($_GET['login_attempt'] > 0)) {
 								echo '<section><div class="alert alert-danger alert-block" id="login-banner">					    <p><b>Incorrect Email/Password</b></p>
@@ -119,6 +118,7 @@ include("inc/header.php");
 									<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
 								<div class="note">
 									<a href="<?php echo APP_URL; ?>/forgotpassword.php">Forgot password?</a>
+                                    <a href="<?php echo APP_URL; ?>/php/deepblue_checkuser.php" style="float: right">Anonymous login</a>                                    
 								</div>
 							</section>
 

@@ -14,8 +14,14 @@ require_once("../lib/server_settings.php");
 $url = get_server();
 $client = new IXR_Client($url);
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+if (isset($_POST['email']) && isset($_POST['password'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+}
+else {
+    $email = "anonymous.deepblue@mpi-inf.mpg.de";
+    $password = "anonymous";
+}
 
 if(!$client->query("user_auth", $email, $password)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
