@@ -9,7 +9,8 @@
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
-*
+*   Obaro Odiete <s8obodie@stud.uni-saarland.de>   
+* 
 *   Created : 25-08-2014
 */
 
@@ -55,12 +56,6 @@ $page_nav = array(
 		"icon" => "fa-info-circle"
 	),
 
-	"info" => array(
-		"title" => "Remove",
-		"url"=> "ajax/deepblue_remove_data.php",
-		"icon" => "fa-minus-square"
-	),
-    
 	"deepblue_tables" => array(
 		"title" => "Data Tables",
 		"icon" => "fa-table",
@@ -110,6 +105,12 @@ $page_nav = array(
 		"icon" => "fa-sitemap"
 	),
 
+   	"deepblue_request" => array(
+		"title" => "Manage Requests",
+		"url"=> "ajax/deepblue_manage_request.php",
+		"icon" => "fa-shopping-cart"
+	),
+
 	"insert_data" => array(
 		"title" => "Insert Data",
 		"icon" => "fa-suitcase",
@@ -118,12 +119,17 @@ $page_nav = array(
 				"title" => "Annotation",
 				"url"=> "ajax/deepblue_insert_annotation.php",
 				"icon" => "fa-tags"
-			)
+			),
+			"ColumnType" => array(
+				"title" => "Column Type",
+				"url"=> "ajax/deepblue_create_column_type.php",
+				"icon" => "fa-columns"
+			)            
 		)
 	),
 
 	"data_curation" => array(
-		"title" => "Data Curation",
+		"title" => "Curate Data",
 		"icon" => "fa-edit",
 		"sub" => array(
 			"clone" => array(
@@ -133,18 +139,18 @@ $page_nav = array(
 			)
 		)
 	),
-
-	"deepblue_request" => array(
-		"title" => "Manage Request",
-		"url"=> "ajax/deepblue_manage_request.php",
-		"icon" => "fa-shopping-cart"
+    
+	"remove" => array(
+		"title" => "Remove Data",
+		"url"=> "ajax/deepblue_remove_data.php",
+		"icon" => "fa-minus-square"
 	),
 
-	"deepblue_workflow" => array(
+/*	"deepblue_workflow" => array(
 		"title" => "Workflow",
 		"url"=> "ajax/deepblue_view_workflow.php",
 		"icon" => "fa-bullhorn"
-	),
+	),*/
 
 	"documentation" => array(
 		"title" => "Documentation",
@@ -172,6 +178,12 @@ $page_nav = array(
 		"title" => "Feedback",
 		"url"=> "ajax/deepblue_view_feedback.php",
 		"icon" => "fa-step-backward"
+	),
+    
+	"acknowledgement" => array(
+		"title" => "Acknowledgements",
+		"url"=> "ajax/deepblue_acknowledgements.php",
+		"icon" => "fa-university"
 	)
 );
 
