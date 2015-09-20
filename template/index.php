@@ -76,15 +76,6 @@ include("inc/header.php");
 					</div>
 					<img src="<?php echo ASSETS_URL; ?>/img/logo.png" class="pull-right display-image index-middle-logo" alt="">
 				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/minerva-MPG-small.png"/>
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/mpilogo-inf-compact.png"/>
-					</div>
-				</div>
-
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 				<div class="well no-padding">
@@ -139,8 +130,57 @@ include("inc/header.php");
 
 			</div>
 		</div>
-	</div>
-
+    </div>
+    <div class="container features">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>Over 30,000+ experiments<br/> with ...</span> </h1>
+                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 text-center wow fadeInLeft">
+                <div>
+                    <i class="fa fa-cloud fa-3x fa-blue"></i>
+                    <h2 class="txt-color-red login-header-big">API for Epigenomic data</h2>
+                    <p>We provide a set of commands specially crafted for searching, finding, and download epigenomic data. The processing is made in ours servers.</p>
+                </div>
+                <br>
+                <div class="m-t-lg">
+                    <i class="fa fa-database fa-3x fa-blue"></i>
+                    <h2 class="txt-color-red login-header-big">Epigenomic Data</h2>
+                    <p>More than 30 thousand experiments files from the ENCODE, Roadmap, BLUEPRINT, and DEEP projects. Also, dozen annotations file with important genomic data.</p>
+                </div>
+            </div>
+            <div class="col-md-6 text-center  wow zoomIn">
+                <br>
+                <img src="img/landing/dashboard.png" alt="dashboard" class="img-responsive">
+            </div>
+            <div class="col-md-3 text-center wow fadeInRight">
+                <div>
+                    <i class="fa fa-sitemap fa-3x fa-blue"></i>
+                    <h2 class="txt-color-red login-header-big">Data Organisation</h2>
+                    <p>We organize our data using well defined terms from ontologies (EFO, CL, and UBERON).</p>
+                </div>
+                <br>
+                <div class="m-t-lg">
+                    <i class="fa fa-graduation-cap fa-3x fa-blue"></i>
+                    <h2 class="txt-color-red login-header-big">Full documentation</h2>
+                    <p>We provide a full API list, Manual, and tutorials.</p>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/minerva-MPG-small.png"/>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align: right">
+                <img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/mpilogo-inf-compact.png"/>
+            </div>
+        </div>    
+    </div>
 </div>
 <!-- END MAIN PANEL -->
 <!-- ==========================CONTENT ENDS HERE ========================== -->
