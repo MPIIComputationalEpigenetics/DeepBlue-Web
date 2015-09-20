@@ -11,7 +11,6 @@
 *
 *   Created : 25-08-2014
 *
-*	Last Updated : 07-12-2014
 *
 -->
 
@@ -36,10 +35,10 @@
 	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
 		<ul id="sparks" class="">
 			<li class="sparks-info">
-				<h5> Total Experiments <span id="total_sum" class="txt-color-blue"></span></h5>
+				<h5> Total Experiments <span id="total_experiments" class="txt-color-blue">0</span></h5>
 			</li>
 			<li class="sparks-info">
-				<h5> Number of Users <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;3</span></h5>
+                <h5> Total Samples <span id="total_samples" class="txt-color-purple">0</span></h5>
 			</li>
 		</ul>
 	</div>
@@ -815,10 +814,11 @@
 	var pagefunction = function() {
 
 		var list = [];
-		var total_sum = [];
+		var total_experiments = [];
+        var total_samples = 0;
 		var vocab;
 		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
-
+      
 		/* retrieve deepblue list_in_use data */
 		var list_in_use = null;
 
@@ -836,10 +836,10 @@
 			request1.done( function(data) {
                 
                 if (data[0] == "error") {
-                    var report = "An error has occured listing experiments: " + data[1];
+                    //var report = data[1];
                     swal({
-                        title: "DeepBlue Experiments",
-                        text: report
+                        title: "An erro shas occurred listing experiments",
+                        text: data[1]
                     });                                    
                     return;            
                 }
@@ -862,7 +862,31 @@
 			loadDashboard();
 		}
 
-		//alert("2");
+        /* retrieve counts */
+        // samples (experiment count will be retrieve while loading the dashboard)
+        var request1 = $.ajax({
+            url: "ajax/server_side/count_server_processing.php",
+            dataType: "json",
+            data : {
+                request : ["samples"]
+            }
+        });
+        request1.done( function(data) {
+            if (data[0] == "error") {
+                swal({
+                    title: "Error listing experiments",
+                    text: data[1]
+                });                                    
+                return;            
+            }
+            total_samples = data[0];
+            $("#total_samples").text(total_samples);
+        });
+        request1.fail( function(jqXHR, textStatus) {
+            console.log(jqXHR);
+            console.log('Error: '+ textStatus);
+            alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+        });
 
 		function loadDashboard() {
 			//alert("3");
@@ -876,7 +900,7 @@
 				page[vocab]['alp'] = [];
 				page[vocab]['amt'] = [];
 
-				total_sum[vocab] = 0; // total experiments in each vocabulary - would be the same value
+				total_experiments[vocab] = 0; // total experiments in each vocabulary - would be the same value
 				othersvalue = 0;
 
 				var currentvocab = [];
@@ -903,7 +927,7 @@
 					}
 
 					//list[vocab][ct] = {'label' : otherslabel, 'value' : othersvalue};
-					total_sum[vocab] = total_sum[vocab] + currentvocab['alp'][j][2];
+					total_experiments[vocab] = total_experiments[vocab] + currentvocab['alp'][j][2];
 				}
 			}
 
@@ -912,7 +936,7 @@
 			if (page['biosources']['alp'].length == 1) $("#bio_next_page").prop('disabled', true);
 
 			/* total experiment sum */
-			$("#total_sum").text(total_sum['projects']);
+			$("#total_experiments").text(total_experiments['projects']);
 
 			/* projects donut chart */
 			if ($('#projects-chart').length){
