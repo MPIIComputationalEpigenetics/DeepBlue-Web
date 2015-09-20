@@ -28,10 +28,9 @@ var request1 = $.ajax({
 
 request1.done( function(data) {
     if (data[0] == "error") {
-        var report = "An error has occured listing experiments: " + data[1];
         swal({
-            title: "DeepBlue Experiments",
-            text: report
+            title: "An error has occurred listing experiments",
+            text: data[1]
         });                                    
         return;                    
     }
@@ -57,10 +56,9 @@ var request2 = $.ajax({
 
 request2.done( function(data) {
     if (data[0] == "error") {
-        var report = "An error has occured listing experiments: " + data[1];
         swal({
-            title: "DeepBlue Experiments",
-            text: report
+            title: "An error has occurred listing experiments",
+            text: data[1]
         });                                    
         return;            
     }    

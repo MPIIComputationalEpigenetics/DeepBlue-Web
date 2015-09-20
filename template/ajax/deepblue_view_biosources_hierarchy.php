@@ -223,10 +223,9 @@ function get_experiments(sample_id) {
     
     var result = $.parseJSON(text);
     if (result.data[0] == 'error') {
-        var report = "An error has occured: " + result.data[1];
         swal({
-            title: "View Biosources",
-            text: report
+            title: "An error has occurred",
+            text: result.data[1]
         });
         result.data = [];
         return result;
@@ -302,10 +301,9 @@ function get_samples(biosource_name) {
     
     var result = $.parseJSON(text);
     if (result.data[0] == 'error') {
-        var report = "An error has occured: " + result.data[1];
         swal({
-            title: "View Biosources",
-            text: report
+            title: "An error has occurred",
+            text: result.data[1]
         });
         result.data = [];
         return result;
@@ -473,10 +471,10 @@ function deselect_node(e, data) {
 
 		request.done( function(data) {
             if (data.data[0] == 'error') {
-                var report = "An error has occured: " + data.data[1];
+                var report = "An error has occurred: " + data.data[1];
                 swal({
-                    title: "View Biosources",
-                    text: report
+                    title: "An error has occurred",
+                    text: data.data[1]
                 });
                 return;
             }

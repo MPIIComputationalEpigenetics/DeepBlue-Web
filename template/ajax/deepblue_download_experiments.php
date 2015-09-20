@@ -345,10 +345,9 @@ require_once("inc/init.php");
 
         request.done( function(data) {
             if (data[0] == "error") {
-                var report = "An error has occured: " + data[1];
                 swal({
-                    title: "Download Experiments",
-                    text: report
+                    title: "An error has occurred",
+                    text: data[1]
                 });                                    
                 return;            
             }
@@ -421,10 +420,9 @@ require_once("inc/init.php");
 
         request.done( function(data) {
             if (data[0] == "error") {
-                var report = "An error has occured: " + data[1];
                 swal({
-                    title: "Download Experiments",
-                    text: report
+                    title: "An error has occurred",
+                    text: data[1]
                 });                                    
                 return;            
             }
@@ -506,10 +504,9 @@ require_once("inc/init.php");
 
             request.done( function(data) {                
                 if (data[0] == "error") {
-                    var report = "An error has occured: " + data[1];
                     swal({
-                        title: "Download Experiments",
-                        text: report
+                        title: "Request Failed.",
+                        text: data[1]
                     });                                    
                     return;            
                 }                

@@ -32,7 +32,7 @@ require_once("inc/init.php");
 
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-		<h1 class="page-title txt-color-blueDark"><i class="fa fa-copy"></i>
+		<h1 class="page-title txt-color-blueDark"><i class="fa fa-tags"></i>
 			Insert Annotation
 		</h1>
 	</div>
@@ -156,7 +156,7 @@ require_once("inc/init.php");
 							<button type="button" id="cancelAnnotationButton" class="btn btn-default">
 								Cancel
 							</button>
-							<button type="button" id="addAnnotationButton" class="btn btn-primary download-btn-size" disabled>
+							<button type="button" id="addAnnotationButton" class="btn btn-primary download-btn-size">
 								Save
 							</button>
 						</div>
@@ -199,10 +199,9 @@ require_once("inc/init.php");
         });
         request1.done( function(data) {
             if (data[0] == "error") {
-                var report = "An error has occured listing experiments: " + data[1];
                 swal({
-                    title: "Insert Annotation",
-                    text: report
+                    title: "An error has occurred listing experiments",
+                    text: data[1]
                 });                                    
                 return;            
             }
@@ -298,10 +297,9 @@ require_once("inc/init.php");
 
     request.done( function(data) {
         if (data[0] == "error") {
-            var report = "An error has occured: " + data[1];
             swal({
-                title: "Insert Annotation",
-                text: report
+                title: "An error has occurred listing columns",
+                text: data[1]
             });                                    
             return;            
         }
@@ -430,20 +428,18 @@ require_once("inc/init.php");
 			});
 
 			request.done( function(data) {
-				var report = "";
+				var title = "";
 				if (data.data[0] == 'okay') {
-					var id = data.data[1];
-					report = report + "Insert annotation '" + annotation['name'] + "' successful: " + id + "\n";
+					title = "Insert annotation '" + annotation['name'] + "' successful";
 				}
 				else {
-					var msg = data.data[1];
-					report = report + "Insert annotation '" + annotation['name'] + "' failed: " + msg + "\n";					
+					title = "Insert annotation '" + annotation['name'] + "' failed";
 				}
 				$('#addAnnotationButton').removeAttr('disabled');
 				clear_input();
 				swal({
-                    title: "Insert Annotation",
-                    text: report
+                    title: title,
+                    text: data.data[1]
                 });
 			});
 

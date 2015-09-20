@@ -65,7 +65,9 @@ require_once("inc/init.php");
 		/* Checking query if is empty or not */
 		if(id == ''){
 			$( "#tempInfoResult" ).empty();	
-			$( "#tempInfoResult" ).append( "<div class='search-results clearfix'><h2>Enter a valid ID, ID cannot be empty!</h2></div>");
+            $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
+                    " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
+                    "Enter a valid ID, ID cannot be empty!</div>");            
 			return;
 		}
 
@@ -82,7 +84,9 @@ require_once("inc/init.php");
 			result = data.data;
 			if (result[0] == 'error') {
 				var msg = result[1]; 
-				$("#tempInfoResult").append( "<div class='search-results clearfix'><h2>Error encountered when retrieving infomation for the ID '"+id+"': <span style='color:red'>"+ msg +"</span></h2></div>");
+                $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
+                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
+                        "Error encountered when retrieving infomation for the ID '"+id+"': "+ msg +"</div>");                
 			}
 			else {
 				$.each(data.data, function(i, item) {
@@ -93,6 +97,7 @@ require_once("inc/init.php");
 				    "<div class='searchMetadata'>"+item[3]+"</div></div>" );
 			    });
                 $("#remove_bt").prop('disabled', false);
+                $("#remove_bt").focus();
 			}
 		});
 

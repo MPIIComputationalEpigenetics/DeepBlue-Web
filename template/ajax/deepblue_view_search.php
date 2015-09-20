@@ -229,8 +229,10 @@ require_once("inc/init.php");
 
 		if($search == ''){
 			$( "#tempSearchResult" ).empty();
-			$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>Search text cannot be empty!</h2></div>");
-			return;
+            $( "#tempSearchResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
+                    " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
+                    "Search text cannot be empty!</div>");
+            return;
 		}
 
 		var selectShowElement = $('#select-show').html();
@@ -255,11 +257,16 @@ require_once("inc/init.php");
 			$( "#tempSearchResult" ).empty();
 
 			if(data.data == ''){
-				$( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>Your search - "+$search+" - did not match any documents.</h2><ul><li>Make sure all words are spelled correctly.</li><li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");
+                $( "#tempSearchResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
+                    " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
+                    "Your search - "+$search+" - did not match any documents.<ul><li>Make sure all words are spelled correctly.</li>"+
+                    "<li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");                
 			}
 			else{
                 if (data.data[0] == 'error') {
-                    $( "#tempSearchResult" ).append( "<div class='search-results clearfix'><h2>An error has occurred. <span style='color:red'>" + data.data[1] + "</span></h2></div>");
+                    $( "#tempSearchResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
+                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
+                        "An error has occurred. " + data.data[1] + "</div>");                                    
                     return;
                 }
                 else {
@@ -336,10 +343,9 @@ require_once("inc/init.php");
 
 			infoRequest.done( function(data) {
                 if (data.data[0] == 'error') {
-                    var report = "An error has occured: " + data.data[1];
                     swal({
-                        title: "Search",
-                        text: report
+                        title: "An error has occurred",
+                        text: data.data[1]
                     });                                                        
                     return;
                 }
