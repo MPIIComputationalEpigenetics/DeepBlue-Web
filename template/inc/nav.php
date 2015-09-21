@@ -6,9 +6,8 @@
 			<div class="login-info">
 				<span> <!-- User image size is adjusted inside CSS, it should stay as is -->
 					<a class="menu-item-parent" href="#ajax/profile.php" title="Profile">
-						<img src="<?php echo ASSETS_URL; ?>/img/avatars/deepblue.png" alt="me" class="online" />
 						<span>
-							<?php echo $_SESSION['user_name'] ?>
+							<?php echo $_SESSION['user_name'] ?> - Profile
 						</span>
 					</a>
 				</span>
