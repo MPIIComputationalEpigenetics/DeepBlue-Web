@@ -147,37 +147,42 @@ include("inc/header.php");
         <div class="row">
             <div class="col-md-3 text-center wow fadeInLeft">
                 <div>
-                    <i class="fa fa-cloud fa-3x fa-blue"></i>
+                    <i class="fa fa-terminal fa-3x fa-blue"></i>
                     <h2 class="txt-color-red login-header-big">API for Epigenomic data</h2>
-                    <p>DeepBlue provides a set of commands specially crafted for searching, finding, handling, and download epigenomic data. The processing is made in ours servers. The users only need to download the meaningful data.</p>
-                    <p>The commands are sent to ours servers through XMl-RPC protocol, that is a language agnostic protocol, meaning the the users can use they favorite programming language.</p>
+                    <p align="justify">DeepBlue provides a set of commands specially crafted for searching, finding, handling, and download epigenomic data. The processing is made in ours servers. The users only need to download the meaningful data.</p>
+                    <p align="justify">The commands are sent to ours servers through XMl-RPC protocol, that is a language agnostic protocol, meaning the the users can use they favorite programming language.</p>
                 </div>
                 <br>
                 <div class="m-t-lg">
-                    <i class="fa fa-graduation-cap fa-3x fa-blue"></i>
+                    <i class="fa fa-book fa-3x fa-blue"></i>
                     <h2 class="txt-color-red login-header-big">Documentation</h2>
-                    <p>DeepBlue contains a full API reference, a complete manual, and tutorials for easing the initial steps.</p>
+                    <p align="justify">DeepBlue contains a full API reference, a complete manual, and tutorials for easing the initial steps.</p>
                 </div>
             </div>
-            <div class="col-md-6 text-center  wow zoomIn">
+            <div class="col-md-6 text-center wow zoomIn">
                 <br>
-                <img src="img/landing/dashboard.png" alt="dashboard" class="img-responsive">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <img src="img/landing/dashboard.png" alt="dashboard" class="img-rounded" width="100%">
             </div>
             <div class="col-md-3 text-center wow fadeInRight">
                 <div>
-                    <i class="fa fa-sitemap fa-3x fa-blue"></i>
+                    <i class="fa fa-database fa-3x fa-blue"></i>
                     <h2 class="txt-color-red login-header-big">Epigenomic Data</h2>
-                    <p>DeepBlue contains more than 30 thousand experiments (peaks and signal) files from the main epigenome mapping projects: ENCODE, BLUEPRINT, NIH Roadmap, and DEEP. We also allow and encourage the users to upload their own data.</p>
-                    <p>The data is organized using controlled vocabularies and well defined terms from ontologies (EFO, CL, and UBERON).</p>
+                    <p align="justify">DeepBlue contains more than 30 thousand experiments (peaks and signal) files from the main epigenome mapping projects: ENCODE, BLUEPRINT, NIH Roadmap, and DEEP. We also allow and encourage the users to upload their own data.</p>
+                    <p align="justify">The data is organized using controlled vocabularies and well defined terms from ontologies (EFO, CL, and UBERON).</p>
                     <br/>
                     <br/>
                 </div>
                 <br>
 
                 <div class="m-t-lg">
-                    <i class="fa fa-television fa-3x fa-blue"></i>
+                    <i class="fa fa-cloud fa-3x fa-blue"></i>
                     <h2 class="txt-color-red login-header-big">Web interface</h2>
-                    <p>Together with the API, DeepBlue has an intuitive web portal, where the users can access and handle the epigenomic data.</p>
+                    <p align="justify">Together with the API, DeepBlue has an intuitive web portal, where the users can access and handle the epigenomic data.</p>
                 </div>
             </div>
         </div>
