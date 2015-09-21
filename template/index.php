@@ -150,7 +150,7 @@ include("inc/header.php");
                     <i class="fa fa-terminal fa-3x fa-blue"></i>
                     <h2 class="txt-color-red login-header-big">API for Epigenomic data</h2>
                     <p align="justify">DeepBlue provides a set of commands specially crafted for searching, finding, handling, and download epigenomic data. The processing is made in ours servers. The users only need to download the meaningful data.</p>
-                    <p align="justify">The commands are sent to ours servers through XMl-RPC protocol, that is a language agnostic protocol, meaning the the users can use they favorite programming language.</p>
+                    <p align="justify">The commands are sent to ours servers through XMl-RPC protocol, that is a language agnostic protocol, meaning that the users can use they favorite programming language.</p>
                 </div>
                 <br>
                 <div class="m-t-lg">
