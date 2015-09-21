@@ -56,6 +56,31 @@ require_once("inc/init.php");
 							<p class="lead">This work has been supported by German Science Ministry Grant No. 01KU1216A (DEEP project) and has been performed in the context of EU grant no. HEALTH-F5-2011-282510 (BLUEPRINT project)</p>
 						</td>
 					</tr>
+
+					<tr>
+						<td>
+							<h3 class="text-primary">Third-party softwares - Server</h3>
+							<p class="lead"><a href="https://www.mongodb.org/">MongoDB</a></p>
+							<p class="lead"><a href="http://www.boost.org/">Boost C++ Libraries</a></p>
+							<p class="lead"><a href="http://www.bzip.org/">bzip2</a></p>
+							<p class="lead"><a href="https://github.com/cppformat/cppformat">cppformat</a></p>
+							<p class="lead"><a href="http://luajit.org/">lualit</a></p>
+							<p class="lead"><a href="http://www.partow.net/programming/strtk/">StrTk</a></p>
+							<p class="lead"><a href="http://think-async.com/Urdl/doc/html/index.html">Urdl</a></p>
+							<p class="lead"><a href="https://github.com/temporaer/MDBQ">MDBQ</a></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h3 class="text-primary">Third-party softwares - Web Front-End</h3>
+							<p class="lead"><a href="https://bootstraphunter.com/theme/smartadmin-responsive-webapp-frontend-BSH01">SmartAdmin - Responsive WebApp + Frontend</a></p>
+							<p class="lead"><a href="http://getbootstrap.com/">Bootstrap</a></p>
+							<p class="lead"><a href="https://fortawesome.github.io/Font-Awesome/icons/">Fonts Awesome</a></p>
+							<p class="lead"><a href="http://morrisjs.github.io/morris.js/">morris.js</a></p>
+							<p class="lead"><a href="http://t4t5.github.io/sweetalert/">Sweet Alert</a></p>
+							<p class="lead"><a href="https://select2.github.io/">Select2</a></p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 
