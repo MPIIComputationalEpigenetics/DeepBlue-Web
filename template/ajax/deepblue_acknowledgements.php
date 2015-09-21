@@ -37,10 +37,12 @@ require_once("inc/init.php");
 					<tr>
 						<td>
 							<h3 class="text-primary">Developers</h3>
-							<p class="lead">Fabian Reinartz - Server (C++) and data inclusion (python) - 06.2014 to 03.2014</p>
-							<p class="lead">Umidjon Urunov - Web Interface (php, html, javascript, css) - 08.2014 to 11.2014</p>
+							<p class="lead">Obaro Odiete - Web Interface (php, html, javascript, css) - started: 08.2014</p>
+
+							<h3 class="text-primary">Former developers</h3>
 							<p class="lead">Natalie Wirth - Server (C++) and data inclusion (python) - 12.2014 to 07.2015</p>
-							<p class="lead">Obaro Odiete - Web Interface (php, html, javascript, css) - 08.2014 to 11.2014</p>
+							<p class="lead">Umidjon Urunov - Web Interface (php, html, javascript, css) - 08.2014 to 11.2014</p>
+							<p class="lead">Fabian Reinartz - Server (C++) and data inclusion (python) - 06.2014 to 03.2014</p>
 						</td>
 					</tr>
 
