@@ -9,9 +9,25 @@
 }
 
 .mpi-logo {
-    width: 200px;
+    height: auto;
+    width: 100px;
     margin: 2px;
 }
+
+.col-sm-5cols{
+    position: relative;
+    min-height: 1px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+@media (min-width: 768px) {
+.col-sm-5cols {
+        width: 25%;
+        float: left;
+    }
+}
+
 
 .format-small{
 	width: 300px !important;
@@ -265,4 +281,52 @@ a.morelink {
     width: 100%;
 
     max-height: 100%;
+}
+
+
+/* CONTACTS */
+.contact-box {
+  background-color: #ffffff;
+  border: 1px solid #e7eaec;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.contact-box > a {
+  color: inherit;
+}
+.contact-box.center-version {
+  border: 1px solid #e7eaec;
+  padding: 0;
+}
+.contact-box.center-version > a {
+  display: block;
+  background-color: #ffffff;
+  padding: 20px;
+  text-align: center;
+}
+.contact-box.center-version > a img {
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.contact-box.center-version address {
+  margin-bottom: 0;
+}
+.contact-box .contact-box-footer {
+  text-align: center;
+  background-color: #ffffff;
+  border-top: 1px solid #e7eaec;
+  padding: 15px 20px;
+}
+.landing-page .gray-section {
+  background: #f4f4f4;
+  margin-top: 60px;
+}
+
+.landing-page .navy-line {
+  width: 60px;
+  height: 1px;
+  margin: 60px auto 0;
+  border-bottom: 2px solid rgb(39,91,137);
 }

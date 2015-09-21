@@ -25,19 +25,33 @@ include("inc/header.php");
 
 ?>
 <!-- ==========================CONTENT STARTS HERE ========================== -->
-		<!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
-		<header id="header">
-			<!--<span id="logo"></span>-->
+<!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
+<header id="header">
+	<!--<span id="logo"></span>-->
 
-			<div id="logo-group">
-				<span id="logo"> <img src="img/logo.png" alt="DeepBlue"> </span>
+	<div id="logo-group">
+		<span id="logo">
+			<a href="<?php echo ASSETS_URL; ?>">
+				<img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="DeepBlue Epigenomic Data Server">
+			</a>
+		</span>
+	</div>
 
-				<!-- END AJAX-DROPDOWN -->
-			</div>
+	<div class="navbar-collapse collapse">
+    	<ul class="nav navbar-nav navbar-left">
+			<li><span id="extr-page-header-space"><a href="features.php">Features List</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="tutorials.php">Tutorials</a></span></li>
+    	</ul>
+  	</div>
 
-			<span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Create account</a> </span>
+	<span id="extr-page-header-space">
+		<span class="hidden-mobile">Need an account?</span>
+		<a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Request an account</a>
+	</span>
 
-		</header>
+</header>
 
 		<div id="main" role="main">
 
@@ -50,19 +64,40 @@ include("inc/header.php");
 						<div class="hero">
 
 							<div class="pull-left login-desc-box-l">
-								<h4 class="paragraph-header">DeepBlue provides a central data access hub for large collections of epigenomic data, as well as organizing the data using controlled vocabularies. The data is kept in a central server, where the users access, perform operations on, and finally, transfer only the meaningful data.</h4>
+								<h4 class="paragraph-header">DeepBlue provides a central data access hub for large collections of epigenomic data. It organizes the data from different sources using controlled vocabularies and ontologies. The data is stored in our server server, where the users can access the data programmatically or by or web interface.</h4>
+								<h4 class="paragraph-header">DeepBlue contains a set of operations designed for operation on epigenomic data, for example, data overlapping and aggregations. The users can execute all the operations in a pipeline fashion in the server and transfer only the meaningful data. DeepBlue is open and free or charge. Request your account and start using it.</h4>
 							</div>
 
 							<img src="<?php echo ASSETS_URL; ?>/img/logo.png" class="pull-right display-image index-middle-logo" alt="">
 						</div>
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/minerva-MPG-small.png"/>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<img class="mpi-logo" src="<?php echo ASSETS_URL; ?>/img/mpilogo-inf-compact.png"/>
-							</div>
-						</div>
+<div class="container">
+    <div class="row">
+      	<div class="col-lg-12 text-center">
+      		<br/>
+			<div class="navy-line"></div>
+			<br/>
+            <p>DeepBlue is possible because the support of:</p>
+            <br/>
+        </div>
+    </div>
+    <div class="container-fluid">
+	    <div class="row">
+			<div class="col-xs-6 col-sm-5cols">
+				<a href="http://www.mpg.de/en"><img height="80px" src="img/minerva-MPG-small.png"/></a>
+			</div>
+			<div class="col-xs-6 col-sm-5cols">
+				<a href="http://www.mpi-inf.mpg.de/"><img height="80px" src="img/mpilogo-inf-compact.png"/></a>
+			</div>
+			<div class="col-xs-6 col-sm-5cols">
+				<a href="http://www.deutsches-epigenom-programm.de/"><img height="80px" src="img/DEEP_Logo.jpg"/></a>
+			</div>
+			<div class="col-xs-6 col-sm-5cols">
+				<a href="http://www.blueprint-epigenome.eu/"><img height="80px" src="img/blueprint.png"/></a>
+			</div>
+		</div>
+	</div>
+</div>
+
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">
@@ -101,21 +136,6 @@ include("inc/header.php");
 							</form>
 
 						</div>
-
-						<h5 class="text-center"> - Or sign in using -</h5>
-
-										<ul class="list-inline text-center">
-											<li>
-												<a href="javascript:void(0);" class="btn btn-primary btn-circle"><i class="fa fa-facebook"></i></a>
-											</li>
-											<li>
-												<a href="javascript:void(0);" class="btn btn-info btn-circle"><i class="fa fa-twitter"></i></a>
-											</li>
-											<li>
-												<a href="javascript:void(0);" class="btn btn-warning btn-circle"><i class="fa fa-linkedin"></i></a>
-											</li>
-										</ul>
-
 					</div>
 				</div>
 			</div>

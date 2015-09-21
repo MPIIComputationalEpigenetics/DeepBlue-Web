@@ -16211,9 +16211,6 @@ textarea.clone {
   margin: 0;
 }
 #extr-page .hero {
-  background-image: url("../img/gradient/login.png");
-  background-repeat: no-repeat;
-  background-position: 0 137px;
   height: 360px;
   width: 100%;
   float: left;
