@@ -104,8 +104,8 @@ require_once("inc/init.php");
                                             <p>You can use any mathematical operation from LUA (You can access http://www.lua.org/manual/5.1/manual.html#5.6).</p>
                                             <p>Do not forget to <strong>return</strong> the value.</p>
                                             <p>Examples:</p>
-                                            <p style="padding-left: 3em"> To convert the column to its square root: "<strong>return math.sqrt(value_of('VALUE'))</strong>"</p>
-                                            <p style="padding-left: 3em"> To concatenate strings: "<strong>return value_of('CHROMOSOME') .. ' - ' .. value_of('START') .. ' - ' .. value_of('END') .. ' - ' .. value_of('VALUE')</strong>"</p>
+                                            <p style="padding-left: 3em"> To convert the column to its square root: "<strong>return math.sqrt(value_of('COLUMN_NAME'))</strong>"</p>
+                                            <p style="padding-left: 3em"> To concatenate strings: "<strong>return value_of('CHROMOSOME') .. ' - ' .. value_of('START') .. ' - ' .. value_of('END') .. ' - ' .. value_of('COLUMN_NAME')</strong>"</p>
                                     </div>
                                 </div>
 							</div>
