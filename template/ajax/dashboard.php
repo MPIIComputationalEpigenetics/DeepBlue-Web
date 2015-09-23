@@ -836,9 +836,8 @@
 			request1.done( function(data) {
                 
                 if (data[0] == "error") {
-                    //var report = data[1];
                     swal({
-                        title: "An erro shas occurred listing experiments",
+                        title: "An error has occurred listing experiments",
                         text: data[1]
                     });                                    
                     return;            
