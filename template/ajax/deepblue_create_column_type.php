@@ -58,6 +58,7 @@ require_once("inc/init.php");
 									<h4 class="alert-heading">Options</h4>
 									<p> Enter the annotation information. For the format, use the dropdown to include a format, and X to remove it.</p>
                                     <p> If column type is category, in the items field, enter a comma seperated list of items in the category.</p>
+                                    <p> If column type is calculated, in the code field, enter the LUA code to be executed.</p>
 								</div>
 								<div id="generalDiv">
 									<table id='general' class='table table-striped table-hover'>
@@ -84,7 +85,8 @@ require_once("inc/init.php");
 											</tr>
                                             <tr id='codeRow' hidden="hidden">
 												<td class='search-modal-table'>Code</td>
-												<td class='search-modal-name'><input type='input' class='form-control' id='code' placeholder='code'></td>
+												<td class='search-modal-name'><input type='input' class='form-control' id='code' 
+                                                    placeholder="return value_of('column_name') .. 'operation' .. value_of('column_name')"></td>
 											</tr>
                                             <tr id='minRow' hidden="hidden">
 												<td class='search-modal-table'>Minimum</td>
@@ -260,19 +262,20 @@ require_once("inc/init.php");
 			});
 
 			request.done( function(data) {
-				var title = "";
+				var title = "Create column type";
+                var msg = "";
 				if (data.data[0] == 'okay') {
-					title = "Create column '" + column['name'] + "' successful";
+					msg =  "Create column '" + column['name'] + "' successful:\r\n" + data.data[1];
                     clearInputs();
                     hideOptions();
                 }
 				else {
-					title = "Create column '" + column['name'] + "' failed";
+                    msg =  "Create column '" + column['name'] + "' failed:\r\n" + data.data[1];
 				}
 				$('#createColumnButton').removeAttr('disabled');
 				swal({
                     title: title,
-                    text: data.data[1]
+                    text: msg
                 });
 			});
 
