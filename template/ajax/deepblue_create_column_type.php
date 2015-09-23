@@ -64,13 +64,13 @@ require_once("inc/init.php");
 									<table id='general' class='table table-striped table-hover'>
 										<tbody>
 											<tr>
-												<td class='search-modal-table'>Type</td>
-												<td class='search-modal-name'><input type='input' class='form-control' id='type' placeholder='Type'></td>
-											</tr>                                            
-											<tr>
 												<td class='search-modal-table'>Name</td>
 												<td class='search-modal-name'><input type='input' class='form-control' id='name' placeholder='Name'></td>
 											</tr>
+                                            <tr>
+												<td class='search-modal-table'>Type</td>
+												<td class='search-modal-name'><input type='input' class='form-control' id='type' placeholder='Type'></td>
+											</tr>                                            
 											<tr>
 												<td class='search-modal-table'>Description</td>
 												<td class='search-modal-name'><textarea class='form-control' id='desc' placeholder='Enter a description of the column type'></textarea></td>
@@ -98,7 +98,16 @@ require_once("inc/init.php");
 											</tr>
 										</tbody>
 									</table>
-								</div>
+                                    <div id="codeDesc" class="alert alert-info alert-block" style="display: none">
+                                        <a class="close" data-dismiss="alert" href="#">×</a>
+                                        <p>Use the command <strong>value_of("COLUMN_NAME")</strong> to obtain the value of the given column.</p>
+                                            <p>You can use any mathematical operation from LUA (You can access http://www.lua.org/manual/5.1/manual.html#5.6).</p>
+                                            <p>Do not forget to <strong>return</strong> the value.</p>
+                                            <p>Examples:</p>
+                                            <p style="padding-left: 3em"> To convert the column to its square root: "<strong>return math.sqrt(value_of('VALUE'))</strong>"</p>
+                                            <p style="padding-left: 3em"> To concatenate strings: "<strong>return value_of('CHROMOSOME') .. ' - ' .. value_of('START') .. ' - ' .. value_of('END') .. ' - ' .. value_of('VALUE')</strong>"</p>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 						<div id="columnButtonGroup" class="modal-footer" >
@@ -159,6 +168,7 @@ require_once("inc/init.php");
                 break
             case 'Calculated':
                 $("#codeRow").show();
+                $("#codeDesc").show();
                 break
         }
     }
@@ -300,6 +310,7 @@ require_once("inc/init.php");
         $("#maxRow").hide();
         $("#itemRow").hide();
         $("#codeRow").hide();     
+        $("#codeDesc").hide();
     }
     
 	// clear input entries
