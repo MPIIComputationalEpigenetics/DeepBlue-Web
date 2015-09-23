@@ -85,7 +85,7 @@ require_once("inc/init.php");
 			if (result[0] == 'error') {
 				var msg = result[1]; 
                 $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
-                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
+                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " +
                         "Error encountered when retrieving infomation for the ID '"+id+"': "+ msg +"</div>");                
 			}
 			else {

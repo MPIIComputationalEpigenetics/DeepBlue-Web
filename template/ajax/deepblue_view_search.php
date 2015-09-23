@@ -265,7 +265,7 @@ require_once("inc/init.php");
 			else{
                 if (data.data[0] == 'error') {
                     $( "#tempSearchResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
-                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
+                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " +
                         "An error has occurred. " + data.data[1] + "</div>");                                    
                     return;
                 }
