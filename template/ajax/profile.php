@@ -38,7 +38,7 @@
 								</div>
 							</div>
 							<div class="col-sm-12">
-								<div class="row">
+								<div class="row" id="profile-div">
 									<div class="col-sm-1"></div>
 									<div class="col-sm-6">
 										<h1><span class="semi-bold"><?php echo $_SESSION['user_name'] ?></span>
@@ -81,7 +81,7 @@
 								Edit Profile
 							</header>
 							<fieldset>
-								<section>
+                                <section>
 									<label class="input"> <i class="icon-append fa fa-user"></i>
 										<input type="text" name="username" placeholder="<?php echo $_SESSION['user_name']?>">
 										<b class="tooltip tooltip-bottom-right">To change, enter new name</b> </label>
@@ -131,8 +131,7 @@
 <script type="text/javascript">
 	runAllForms();
 
-	// hide/show profile_edit div
-	$("#edit_profile_link").click(function() {
+    $("#edit_profile_link").click(function() {
 	    $("#edit_profile_div").show();
 	});
 
@@ -190,8 +189,18 @@
 			// Ajax form submition
 			submitHandler : function(form) {
 				$(form).ajaxSubmit({
-					success : function() {
-						$("#change-password-form").addClass('submited');
+                    clearForm: true,
+                    dataType: 'json',
+					success : function(data) {
+                        if (data[0] == "error") {
+                            swal({
+                                title: "Error editing profile",
+                                text: data[1]
+                            });                              
+                        }
+                        else {
+                            location.reload(true);
+                        }
 					}
 				});
 			},

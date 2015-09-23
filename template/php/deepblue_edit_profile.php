@@ -31,10 +31,8 @@ $code = $response[0];
 $msg = $response[1];
 
 if ($code == 'error') {
-	echo '<script language="javascript">';
-	echo 'alert("'.$msg.'");';
-	echo 'window.location.href = "../dashboard.php#ajax/profile.php";';
-	echo '</script>';
+    echo json_encode($response);
+    die();
 }
 else {
 	$user_key = $msg;
@@ -44,7 +42,8 @@ else {
 		}
 		$response = $client->getResponse();
 		if ($response[0] == 'error') {
-            die('An error has occurred: '.$response[1]);
+            echo json_encode($response);
+            die();
         }
 	}
 
@@ -54,7 +53,8 @@ else {
 		}
 		$response = $client->getResponse();
 		if ($response[0] == 'error') {
-            die('An error has occurred: '.$response[1]);
+            echo json_encode($response);
+            die();
         }
 		$_SESSION['user_name'] = $username;
 	}
@@ -65,7 +65,8 @@ else {
 		}
 		$response = $client->getResponse();
 		if ($response[0] == 'error') {
-            die('An error has occurred: '.$response[1]);
+            echo json_encode($response);
+            die();
         }
 		$_SESSION['institution'] = $institution;
 	}
@@ -76,10 +77,11 @@ else {
 		}
 		$response = $client->getResponse();
 		if ($response[0] == 'error') {
-            die('An error has occurred: '.$response[1]);
+            echo json_encode($response);
+            die();
         }
 		$_SESSION['user_email'] = $newemail;
 	}
-	header("Location:  ../dashboard.php#ajax/profile.php");
+    $response = ['okay', 'Profile edit succesful'];
+    echo json_encode($response);
 }
-?>

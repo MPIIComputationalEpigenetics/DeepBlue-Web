@@ -42,6 +42,9 @@
 		<!-- JQUERY VALIDATE -->
 		<script src="<?php echo ASSETS_URL; ?>/js/plugin/jquery-validate/jquery.validate.min.js"></script>
 
+		<!-- JQUERY FORM -->
+		<script src="<?php echo ASSETS_URL; ?>/js/plugin/jquery-form/jquery-form.min.js"></script>
+        
 		<!-- JQUERY MASKED INPUT -->
 		<script src="<?php echo ASSETS_URL; ?>/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 
