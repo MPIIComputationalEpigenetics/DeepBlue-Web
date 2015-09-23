@@ -35,10 +35,10 @@
 	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
 		<ul id="sparks" class="">
 			<li class="sparks-info">
-				<h5> Total Experiments <span id="total_experiments" class="txt-color-blue">0</span></h5>
+				<h5> Experiments <span id="total_experiments" class="txt-color-blue">0</span></h5>
 			</li>
 			<li class="sparks-info">
-                <h5> Total Samples <span id="total_samples" class="txt-color-purple">0</span></h5>
+                <h5> Samples <span id="total_samples" class="txt-color-purple">0</span></h5>
 			</li>
 		</ul>
 	</div>
