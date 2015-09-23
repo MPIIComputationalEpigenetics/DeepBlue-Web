@@ -9,7 +9,8 @@
 require_once("../lib/deepblue.IXR_Library.php");
 require_once("../lib/server_settings.php");
 
-//include("../lib/lib.php");
+// start session
+session_start();
 
 $url = get_server();
 $client = new IXR_Client($url);
@@ -29,7 +30,8 @@ if(!$client->query("user_auth", $email, $password)){
 
 $response = $client->getResponse();
 if ($response[0] == 'error') {
-	header("Location: ../index.php?login_attempt=1");	
+    $_SESSION['login_attempt'] = $response[1];
+	header("Location: ../index.php");	
 }
 else {
 	$user_key = $response[1];
@@ -39,11 +41,12 @@ else {
 
 	$response = $client->getResponse();
     if ($response[0] == 'error') {
-        die('An error has occurred: '.$response[1]);
+        $_SESSION['login_attempt'] = $response[1];
+        header("Location: ../index.php");
+        die();
     }
 
 	$user_details = $response[1][0];
-	session_start();
 
 	$_SESSION['user_email'] = $user_details['email'];
 	$_SESSION['user_name'] = $user_details['name'];

@@ -85,16 +85,17 @@ include("inc/header.php");
 							Sign In
 						</header>
 						<fieldset>
-							<?php if ((isset($_GET['login_attempt'])) && ($_GET['login_attempt'] > 0)) {
-								echo '<section><div class="alert alert-danger alert-block" id="login-banner">					    <p><b>Incorrect Email/Password</b></p>
-
-						    <p>
-						        Invalid Email-password combination.
-						        Make sure that they are typed correctly.
-						    </p>
-						    </div>
-
-							</section>';}
+							<?php if (isset($_SESSION['login_attempt'])) {
+                                echo 
+                                '<section>
+                                    <div class="alert alert-danger fade in" id="login-banner">
+                                        <button class="close" data-dismiss="alert">×</button>
+                                        <i class="fa-fw fa fa-times"></i><strong>Error! </strong>'.
+                                        $_SESSION['login_attempt'].                                        
+                                    '</div>
+                                </section>';
+                                }
+                                unset($_SESSION['login_attempt']);
 							?>
 							<section>
 								<label class="label">E-mail</label>
