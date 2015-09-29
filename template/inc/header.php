@@ -82,23 +82,21 @@
 					</div>
 
 					<!-- pulled right: nav area -->
-					<div class="pull-right">
-
+                    <div style="float: right" data-step="2" data-intro="To logout of DeepBlue" data-position="bottom-middle-aligned">
 						<!-- logout button -->
-						<div id="logout" class="btn-header transparent pull-right">
-
+						<div data-step="3" data-intro="To logout of DeepBlue" data-position="left" id="logout" class="btn-header transparent pull-right">
 							<span> <a href="<?php echo APP_URL.'/php/deepblue_logout.php' ?>" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
 						</div>
 						<!-- end logout button -->
 
 						<!-- collapse menu button -->
-						<div id="hide-menu" class="btn-header pull-right">
+						<div data-step="4" data-intro="To hide the side menu" id="hide-menu" class="btn-header pull-right">
 							<span> <a href="javascript:void(0);" title="Collapse Menu" data-action="toggleMenu"><i class="fa fa-reorder"></i></a> </span>
 						</div>
 						<!-- end collapse menu -->
 
 						<!-- search mobile button (this is hidden till mobile view port) -->
-						<div id="search-mobile" class="btn-header transparent pull-right">
+						<div data-step="5" data-intro="Search Deepblue data" id="search-mobile" class="btn-header transparent pull-right">
 							<span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
 						</div>
 						<!-- end search mobile button -->
@@ -114,7 +112,7 @@
 						<!-- end input: search field -->
 
 						<!-- fullscreen button -->
-						<div id="fullscreen" class="btn-header transparent pull-right">
+						<div data-step="6" data-intro="To change to full screen" id="fullscreen" class="btn-header transparent pull-right">
 							<span> <a href="javascript:void(0);" title="Full Screen" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i></a> </span>
 						</div>
 						<!-- end fullscreen button -->

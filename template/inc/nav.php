@@ -3,7 +3,7 @@
 		<aside id="left-panel">
 
 			<!-- User info -->
-			<div class="login-info">
+			<div data-step="1" data-intro="View and edit your profile details" class="login-info">
 				<span> <!-- User image size is adjusted inside CSS, it should stay as is -->
 					<a class="menu-item-parent" href="#ajax/profile.php" title="Profile">
 						<span>
@@ -27,6 +27,7 @@
 				-->
 				<ul>
 					<?php
+                        $no = 7;
 						foreach ($page_nav as $key => $nav_item) {
 							//process parent nav
 							$nav_htm = '';
@@ -35,40 +36,43 @@
 							$icon_badge = isset($nav_item["icon_badge"]) ? '<em>'.$nav_item["icon_badge"].'</em>' : '';
 							$icon = isset($nav_item["icon"]) ? '<i class="fa fa-lg fa-fw '.$nav_item["icon"].'">'.$icon_badge.'</i>' : "";
 							$nav_title = isset($nav_item["title"]) ? $nav_item["title"] : "(No Name)";
+                            $nav_descripton = isset($nav_item["description"]) ? $nav_item["description"] : "Empty Description";
 							$label_htm = isset($nav_item["label_htm"]) ? $nav_item["label_htm"] : "";
-							$nav_htm .= '<a href="'.$url.'" '.$url_target.' title="'.$nav_title.'">'.$icon.' <span class="menu-item-parent">'.$nav_title.'</span>'.$label_htm.'</a>';
+							$nav_htm .= '<a data-step="'.$no.'" data-intro="'.$nav_descripton.'" href="'.$url.'" '.$url_target.' title="'.$nav_title.'">'.$icon.' <span class="menu-item-parent">'.$nav_title.'</span>'.$label_htm.'</a>';
 
 							if (isset($nav_item["sub"]) && $nav_item["sub"])
-								$nav_htm .= process_sub_nav($nav_item["sub"]);
-
+								$nav_htm .= process_sub_nav($nav_item["sub"], $no);
+                            
+                            $no = $no + 1;
 							echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').'>'.$nav_htm.'</li>';
 						}
 
-						function process_sub_nav($nav_item) {
+						function process_sub_nav($nav_item, &$no) {
 							$sub_item_htm = "";
-							if (isset($nav_item["sub"]) && $nav_item["sub"]) {
+                            $no = $no + 1;
+                            if (isset($nav_item["sub"]) && $nav_item["sub"]) {
 								$sub_nav_item = $nav_item["sub"];
-								$sub_item_htm = process_sub_nav($sub_nav_item);
+								$sub_item_htm = process_sub_nav($sub_nav_item, $no);
 							} else {
 								$sub_item_htm .= '<ul>';
 								foreach ($nav_item as $key => $sub_item) {
 									$url = isset($sub_item["url"]) ? $sub_item["url"] : "#";
 									$url_target = isset($sub_item["url_target"]) ? 'target="'.$sub_item["url_target"].'"' : "";
 									$icon = isset($sub_item["icon"]) ? '<i class="fa fa-lg fa-fw '.$sub_item["icon"].'"></i>' : "";
-									$nav_title = isset($sub_item["title"]) ? $sub_item["title"] : "(No Name)";
-									$label_htm = isset($sub_item["label_htm"]) ? $sub_item["label_htm"] : "";
+                                    $nav_title = isset($sub_item["title"]) ? $sub_item["title"] : "(No Name)";
+                                    $nav_descripton = isset($nav_item["description"]) ? $nav_item["description"] : "Empty Description";
+                                    $label_htm = isset($sub_item["label_htm"]) ? $sub_item["label_htm"] : "";
 									$sub_item_htm .=
 										'<li '.(isset($sub_item["active"]) ? 'class = "active"' : '').'>
-											<a href="'.$url.'" '.$url_target.'>'.$icon.' '.$nav_title.$label_htm.'</a>
+											<a data-step="'.$no.'" data-intro="'.$nav_descripton.'" href="'.$url.'" '.$url_target.'>'.$icon.' '.$nav_title.$label_htm.'</a>
 											'.(isset($sub_item["sub"]) ? process_sub_nav($sub_item["sub"]) : '').'
 										</li>';
+                                    $no = $no + 1;
 								}
 								$sub_item_htm .= '</ul>';
 							}
 							return $sub_item_htm;
 						}
-
-
 					?>
 				</ul>
 

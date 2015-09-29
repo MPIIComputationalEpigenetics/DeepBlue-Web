@@ -115,12 +115,12 @@ $page_nav = array(
 		"title" => "Insert Data",
 		"icon" => "fa-suitcase",
 		"sub" => array(
-			"Annotation" => array(
+			"insert_annotation" => array(
 				"title" => "Annotation",
 				"url"=> "ajax/deepblue_insert_annotation.php",
 				"icon" => "fa-tags"
 			),
-			"ColumnType" => array(
+			"insert_column_type" => array(
 				"title" => "Column Type",
 				"url"=> "ajax/deepblue_create_column_type.php",
 				"icon" => "fa-columns"
@@ -156,21 +156,21 @@ $page_nav = array(
 		"title" => "Documentation",
 		"icon" => "fa-question",
 		"sub" => array(
-			"API Reference" => array(
+			"api_reference" => array(
 				"title" => "API Reference",
 				"url" => "ajax/deepblue_api_documentation.php",
 				"icon" => "fa-list-ul"
 			),
-			"Manual" => array(
+			"manual" => array(
 				"title" => "DeepBlue Manual",
 				"url" => "ajax/deepblue_manual_documentation.php",
 				"icon" => "fa-book"
 			),
-			"Tutorials" => array(
+			"tutorials" => array(
 				"title" => "Tutorials",
 				"url" => "ajax/deepblue_tutorial.php",
 				"icon" => "fa-graduation-cap"
-			)			
+			)			            
 		)
 	),
 

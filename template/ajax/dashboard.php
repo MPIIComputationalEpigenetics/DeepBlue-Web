@@ -1012,12 +1012,32 @@
 					lauchModalView(row['label'], 'genome')
 				});
 			}
-			/* end genomes bar chart */
-			//alert("7");
 		}
-	}; 	// end pagefunction
-
-
+        
+        // setup intro tutorial
+        var introguide = introJs();
+        var tour = <?php echo $_SESSION['tour']; ?>// 
+        if (tour) {
+            introguide.setOptions({
+                'tooltipPosition': 'right',
+                'exitOnEsc':true,
+                'exitOnOverlayClick':false,
+                'showStepNumbers': false,
+                'srollTOElement': true,
+                'showBullets': false,
+                'showProgress': true
+            });
+            
+            introguide.start();
+            introguide.onchange(
+                function(nextElement){
+                    $(nextElement).parent().find('ul').slideToggle();
+                }               
+            )            
+        }        
+    }; 	// end pagefunction
+   
+    
 	// Load morris dependencies and run pagefunction
 	loadScript("js/plugin/morris/raphael.min.js", function(){
 		loadScript("js/plugin/morris/morris.min.js", function(){
@@ -1025,7 +1045,7 @@
 				loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
 					loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
 						loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
-							loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
+							loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction);
 						});
 					});
 				});

@@ -54,6 +54,7 @@ else {
 	$_SESSION['institution'] = $user_details['institution'];
 	$_SESSION['type'] = $user_details['type'];
     $_SESSION['permission'] = $user_details['permission_level'];
-	$_SESSION['time'] = time();
+	$_SESSION['tour'] = 1; // possibly retrieve from database
+    $_SESSION['time'] = time();    
 	header("Location:  ../dashboard.php");
 }
