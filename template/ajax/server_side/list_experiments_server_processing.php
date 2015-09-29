@@ -77,7 +77,6 @@ $orderedDataStr = array();
 foreach($infoList[1] as $metadata) {
    	$tempArr = array();
 
-    $tempArr[] = "<input type='checkbox' name='checkboxlist' class='downloadCheckBox'>";
 	$tempArr[] = $metadata['_id'];
 	$tempArr[] = $metadata['name'];
 	$tempArr[] = $metadata['description'];

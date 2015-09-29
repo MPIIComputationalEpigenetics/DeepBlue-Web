@@ -69,15 +69,12 @@
 									<div class="alert alert-info alert-block">
 										<a class="close" data-dismiss="alert" href="#">×</a>
 										<h4 class="alert-heading">Experiments</h4>
-										All experiments from the selected samples are listed here. Please, mark the ones that you are interested and click on Download button.
+										All experiments from the selected samples are listed here. Please, double click on the ones you are interested in and click on Download button.
 									</div>
 										<div class="input-group">
                   		<table id="experiments_datatable" class="table table-striped table-bordered" width="100%">
                       	<thead>
                          	<tr>
-                          	<th class="hasinput">
-                            	<button type="button" id="$diff_top_btn" class="btn btn-primary download-btn-size">Download</button>
-														</th>
                             <th class="hasinput">
                                 <input class="form-control" placeholder="ID" type="text" id="experiment-id">
                             </th>
@@ -111,7 +108,6 @@
                             </th>
                         	</tr>
                         	<tr>
-                            <th>Select</th>
                             <th>ID</th>
                             <th>Experiment Name</th>
                             <th>Description</th>
@@ -418,7 +414,10 @@ function deselect_node(e, data) {
 <script type="text/javascript">
 
 	pageSetUp();
-
+    
+    var selected = [];
+    var selectedNames = [];
+    var selectedData = [];
 	var experiments_datatable = undefined;
 	var breakpointDefinition = {
 		tablet : 1024,
@@ -435,14 +434,14 @@ function deselect_node(e, data) {
 					experiments_datatable = new ResponsiveDatatablesHelper($('#experiments_datatable'), breakpointDefinition);
 				}
 			},
-			"rowCallback" : function(nRow) {
-				//alert('aa');
-				//experiments_datatable.createExpandIcon(nRow);
+            "fnRowCallback" : function(nRow, aData, iDisplayIndex) {
+                if (selected.indexOf(aData[0]) != -1) {
+                    $(nRow).addClass('success');
+                }
 			},
 			"drawCallback" : function(oSettings) {
-				//alert('bb');
-				//experiments_datatable.respond();
-			},"fnInitComplete": function(oSettings, json) {
+			},
+            "fnInitComplete": function(oSettings, json) {
 				$( ".downloadCheckBox" ).change(function() {
 					var downloadId = $(this).parent().next().text();
 					var downloadTitle = $(this).parent().next().next().text();
@@ -459,6 +458,50 @@ function deselect_node(e, data) {
 						selectedElementsNames.push(found, 1);
 					}
 				});
+                
+                /* process experiment selection by row clicking*/
+                $('#experiments_datatable').on('dblclick', 'tr', function () {
+
+                    var id = $('td', this).eq(0).text();
+                    if (id ==  "") {
+                        return;
+                    }
+
+                    var name = $('td', this).eq(0).text();
+                    var type = '';
+                    var desc = $('td', this).eq(2).text();
+                    var genome = $('td', this).eq(3).text();
+                    var epi = $('td', this).eq(4).text();
+                    var bio = $('td', this).eq(5).text();
+                    var samp = $('td', this).eq(6).text();
+                    var tech = $('td', this).eq(7).text();
+                    var proj = $('td', this).eq(8).text();
+                    var meta = $('td', this).eq(9).html();
+
+                    var index = selected.indexOf(id);
+                    if (index == -1) {
+                        selected.push(id);
+                        selectedNames.push(name);
+                        selectedData.push([ id, name , type ,desc ,genome , epi ,bio ,samp ,tech ,proj ,meta])
+
+                        $(this).addClass("success");
+                    }
+                    else {
+                        /* remove selection by clicking of row in the main table*/
+                        selected.splice(index, 1);
+                        selectedNames.splice(index, 1);
+                        selectedData.splice(index,1);
+
+                        //$('#datatable_selected_column').dataTable().fnDeleteRow(index);
+                        $(this).removeClass("success");
+                    }
+                });
+                
+                $('#downloadExperimentButton').click(function(e){
+                    // save the rows of the selected data table into local storage
+                    localStorage.setItem("selectedData", JSON.stringify(selectedData));
+                    window.location.href = "dashboard.php#ajax/deepblue_download_experiments.php";
+                });                
 			}
 	  });
 	}
