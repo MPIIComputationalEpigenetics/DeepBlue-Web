@@ -155,7 +155,7 @@
 	</div>
 
 	<!-- end row -->
-	
+
 	<div class="row">
 
 		<!-- NEW WIDGET START -->
@@ -186,7 +186,7 @@
 				<div >
 				<!-- widget content -->
 					<div class="widget-body col-sm-12">
-						<div id="biosources-chart" class="chart" style="text-align:middle"></div>
+						<div id="biosources-chart" class="chart" style="text-align:center"></div>
 					</div>
 					<div style="text-align:center; margin-bottom: 5px">
 						<button id="bio_prev_page" type="button" class="btn btn-primary" disabled>
@@ -329,7 +329,7 @@
 
 	<!-- end row -->
 
-	
+
 
 </section>
 <!-- end widget grid -->
@@ -818,7 +818,7 @@
         var total_samples = 0;
 		var vocab;
 		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
-      
+
 		/* retrieve deepblue list_in_use data */
 		var list_in_use = null;
 
@@ -834,15 +834,15 @@
 			});
 
 			request1.done( function(data) {
-                
+
                 if (data[0] == "error") {
                     swal({
                         title: "An error has occurred listing experiments",
                         text: data[1]
-                    });                                    
-                    return;            
+                    });
+                    return;
                 }
-                
+
                 // store data in local storage
 				localStorage.setItem("list_in_use", JSON.stringify(data[0]));
 				list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
@@ -875,8 +875,8 @@
                 swal({
                     title: "Error listing experiments",
                     text: data[1]
-                });                                    
-                return;            
+                });
+                return;
             }
             total_samples = data[0];
             $("#total_samples").text(total_samples);
@@ -1013,10 +1013,33 @@
 				});
 			}
 		}
-        
+
         // setup intro tutorial
+		bootstro.start(".bootstro", {
+			onStep : function(params) {
+				$combo = $(params.elm).parent();
+				$combo.find('ul').slideDown();
+				/*if (params.direction == 'prev') {
+					alert($combo.prev().text());//find('ul').slideToggle();
+				}
+				else {
+					$combo.siblings().find('ul').slideUp();
+
+				}*/
+			},
+			onExit : function(params) {
+				$combo = $(params.elm).parent();
+				$combo.siblings().find('ul').slideUp();
+			},
+			margin : 10,
+			stopOnEsc: true,
+			stopOnBackdropClick: false,
+			finishButtonText : "Return to DeepBlue"
+		});
+
+		/*
         var introguide = introJs();
-        var tour = <?php echo $_SESSION['tour']; ?>// 
+        var tour = <?php echo $_SESSION['tour']; ?>//
         if (tour) {
             introguide.setOptions({
                 'tooltipPosition': 'right',
@@ -1027,17 +1050,17 @@
                 'showBullets': false,
                 'showProgress': true
             });
-            
+
             introguide.start();
             introguide.onchange(
                 function(nextElement){
                     $(nextElement).parent().find('ul').slideToggle();
-                }               
-            )            
-        }        
+                }
+            )
+        }
+        */
     }; 	// end pagefunction
-   
-    
+
 	// Load morris dependencies and run pagefunction
 	loadScript("js/plugin/morris/raphael.min.js", function(){
 		loadScript("js/plugin/morris/morris.min.js", function(){

@@ -24,6 +24,7 @@ YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC. */
 //Note: all css files are inside css/ folder
 $page_css[] = "sweetalert.css";
 $page_css[] = "introjs.css";
+$page_css[] = "bootstro.css";
 $page_css[] = "deepblue.css";
 $page_css[] = "jstree/default/style.css";
 include("inc/header.php");

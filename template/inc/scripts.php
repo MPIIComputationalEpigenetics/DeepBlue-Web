@@ -26,9 +26,12 @@
 
 		<!-- BOOTSTRAP JS -->
 		<script src="<?php echo ASSETS_URL; ?>/js/bootstrap/bootstrap.min.js"></script>
-        
+
 		<!-- INTRO TUTORIAL JS -->
 		<script src="js/intro.js"></script>
+
+		<!-- BOOTSTRO TUTORIAL JS -->
+		<script src="js/bootstro.js"></script>
 
 		<!-- CUSTOM NOTIFICATION -->
 		<script src="<?php echo ASSETS_URL; ?>/js/notification/SmartNotification.min.js"></script>
@@ -47,7 +50,7 @@
 
 		<!-- JQUERY FORM -->
 		<script src="<?php echo ASSETS_URL; ?>/js/plugin/jquery-form/jquery-form.min.js"></script>
-        
+
 		<!-- JQUERY MASKED INPUT -->
 		<script src="<?php echo ASSETS_URL; ?>/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 

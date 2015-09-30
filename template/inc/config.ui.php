@@ -9,8 +9,8 @@
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Umidjon Urunov <umidjon.urunov@mpi-inf.mpg.de>
-*   Obaro Odiete <s8obodie@stud.uni-saarland.de>   
-* 
+*   Obaro Odiete <s8obodie@stud.uni-saarland.de>
+*
 *   Created : 25-08-2014
 */
 
@@ -37,64 +37,77 @@ ex:
 */
 
 $page_nav = array(
-
 	"dashboard" => array(
 		"title" => "Dashboard",
 		"url" => "ajax/dashboard.php",
-		"icon" => "fa-home"
+		"icon" => "fa-home",
+		"description" => "Dashboard shows different charts of DeepBlue data."
 	),
 
 	"search" => array(
 		"title" => "Search",
 		"url"=> "ajax/deepblue_view_search.php",
-		"icon" => "fa-search"
+		"icon" => "fa-search",
+		"description" => "Search is used to search everything on DeepBlue server."
 	),
 
 	"info" => array(
 		"title" => "Info",
 		"url"=> "ajax/deepblue_view_info.php",
-		"icon" => "fa-info-circle"
+		"icon" => "fa-info-circle",
+		"description" => "Info is used to retrieve information about DeepBlue data."
 	),
 
 	"deepblue_tables" => array(
 		"title" => "Data Tables",
 		"icon" => "fa-table",
+		"description" => "Data Tables displays DeepBlue data in table.",
 		"sub" => array(
 			"annotations" => array(
 				"title" => "Annotations",
-				"url" => "ajax/deepblue_view_annotations.php"
+				"url" => "ajax/deepblue_view_annotations.php",
+				"description" => "List all existing annotations in DeepBlue."
 			),
 			"experiments" => array(
 				"title" => "Experiments",
-				"url" => "ajax/deepblue_view_experiments.php"
+				"url" => "ajax/deepblue_view_experiments.php",
+				"description" => "Shows deepblue experiments."
 			),
 			"genomes" => array(
 				"title" => "Genomes",
-				"url" => "ajax/deepblue_view_genomes.php"
+				"url" => "ajax/deepblue_view_genomes.php",
+				"description" => "List all existing genomes in DeepBlue."
 			),
 			"epigenetic_marks" => array(
 				"title" => "Epigenetic Marks",
-				"url" => "ajax/deepblue_view_epigenetic_marks.php"
+				"url" => "ajax/deepblue_view_epigenetic_marks.php",
+				"description" => "List all existing epigenetic marks in DeepBlue."
 			),
 			"biosources" => array(
 				"title" => "BioSources",
-				"url" =>"ajax/deepblue_view_biosources.php"
+				"url" =>"ajax/deepblue_view_biosources.php",
+				"description" => "List all existing biosources in DeepBlue."
 			),
 			"samples" => array(
 				"title" => "Samples",
-				"url" => "ajax/deepblue_view_samples.php"
+				"url" => "ajax/deepblue_view_samples.php",
+				"description" => "List all existing samples in DeepBlue."
+
 			),
 			"techniques" => array(
 				"title" => "Techniques",
-				"url" =>"ajax/deepblue_view_techniques.php"
+				"url" =>"ajax/deepblue_view_techniques.php",
+				"description" => "List all existing techniques in DeepBlue."
 			),
 			"projects" => array(
 				"title" => "Projects",
-				"url" => "ajax/deepblue_view_projects.php"
+				"url" => "ajax/deepblue_view_projects.php",
+				"description" => "List all existing projects in DeepBlue."
 			),
 			"column_types" => array(
 				"title" => "Column types",
-				"url" => "ajax/deepblue_view_column_types.php"
+				"url" => "ajax/deepblue_view_column_types.php",
+				"description" => "List all available column types in DeepBlue."
 			)
 		)
 	),
@@ -102,48 +115,58 @@ $page_nav = array(
 	"biosources_hierarchy" => array(
 		"title" => "BioSources - Hierarchy",
 		"url"=> "ajax/deepblue_view_biosources_hierarchy.php",
-		"icon" => "fa-sitemap"
+		"icon" => "fa-sitemap",
+		"description" => "Displays a hierarchy for retrieving experiments, from the biosources."
 	),
 
    	"deepblue_request" => array(
 		"title" => "Manage Requests",
 		"url"=> "ajax/deepblue_manage_request.php",
-		"icon" => "fa-shopping-cart"
+		"icon" => "fa-shopping-cart",
+		"description" => "Displays all requests by the user."
 	),
 
 	"insert_data" => array(
 		"title" => "Insert Data",
 		"icon" => "fa-suitcase",
+		"description" => "Allows different data to be uploaded to DeepBlue",
 		"sub" => array(
 			"insert_annotation" => array(
 				"title" => "Annotation",
 				"url"=> "ajax/deepblue_insert_annotation.php",
-				"icon" => "fa-tags"
+				"icon" => "fa-tags",
+				"description" => "Insert a new annotation."
+
 			),
 			"insert_column_type" => array(
 				"title" => "Column Type",
 				"url"=> "ajax/deepblue_create_column_type.php",
-				"icon" => "fa-columns"
-			)            
+				"icon" => "fa-columns",
+				"description" => "Insert a new column type."
+			)
 		)
 	),
 
 	"data_curation" => array(
 		"title" => "Curate Data",
 		"icon" => "fa-edit",
+		"description" => "Allows the data to be curated.",
 		"sub" => array(
 			"clone" => array(
 				"title" => "Experiments Cloning",
 				"url"=> "ajax/deepblue_clone_dataset.php",
-				"icon" => "fa-copy"
+				"icon" => "fa-copy",
+				"description" => "Allows experiments cloning."
+
 			)
 		)
 	),
-    
+
 	"remove" => array(
 		"title" => "Remove Data",
 		"url"=> "ajax/deepblue_remove_data.php",
-		"icon" => "fa-minus-square"
+		"icon" => "fa-minus-square",
+		"description" => "Remove data from DeepBlue."
 	),
 
 /*	"deepblue_workflow" => array(
@@ -155,35 +178,41 @@ $page_nav = array(
 	"documentation" => array(
 		"title" => "Documentation",
 		"icon" => "fa-question",
+		"description" => "Contains all DeepBlue documentations",
 		"sub" => array(
 			"api_reference" => array(
 				"title" => "API Reference",
 				"url" => "ajax/deepblue_api_documentation.php",
-				"icon" => "fa-list-ul"
+				"icon" => "fa-list-ul",
+				"description" => "Displays the API commands used in DeepBlue."
 			),
 			"manual" => array(
 				"title" => "DeepBlue Manual",
 				"url" => "ajax/deepblue_manual_documentation.php",
-				"icon" => "fa-book"
+				"icon" => "fa-book",
+				"description" => "DeepBlue Manual for more information"
 			),
 			"tutorials" => array(
 				"title" => "Tutorials",
 				"url" => "ajax/deepblue_tutorial.php",
-				"icon" => "fa-graduation-cap"
-			)			            
+				"icon" => "fa-graduation-cap",
+				"description" => "Display short tutorials for common tasks performed on DeepBlue Web Application"
+			)
 		)
 	),
 
 	"feedback" => array(
 		"title" => "Feedback",
 		"url"=> "ajax/deepblue_view_feedback.php",
-		"icon" => "fa-step-backward"
+		"icon" => "fa-step-backward",
+		"description" => "Give feedback on improving DeepBlue"
 	),
-    
+
 	"acknowledgement" => array(
 		"title" => "Acknowledgements",
 		"url"=> "ajax/deepblue_acknowledgements.php",
-		"icon" => "fa-university"
+		"icon" => "fa-university",
+		"description" => "Displays persons and institutions working on or funding the DeepBlue project"
 	)
 );
 
