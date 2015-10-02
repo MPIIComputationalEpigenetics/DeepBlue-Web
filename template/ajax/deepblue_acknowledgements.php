@@ -24,7 +24,7 @@ require_once("inc/init.php");
 					<tr>
 						<td>
 							<h3 class="text-primary">Concept, design, and main development</h3>
-							<p class="lead">Felipe Albrecht</p>
+							<p class="lead">Felipe Albrecht - <a href="http://pih.bio.br/">pih.bio.br</a></p>
 						</td>
 					</tr>
 					<tr>
