@@ -48,7 +48,8 @@ include("inc/header.php");
 
 	<div class="navbar-collapse collapse">
     	<ul class="nav navbar-nav navbar-left">
-			<li><span id="extr-page-header-space"><a href="features.php">Features List</a></span></li>
+			<li><span id="extr-page-header-space"><a href="features.php">Features</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="operations.php">Operations</a></span></li>
         	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
         	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
         	<li><span id="extr-page-header-space"><a href="tutorials.php">Tutorials</a></span></li>
@@ -86,12 +87,12 @@ include("inc/header.php");
 						</header>
 						<fieldset>
 							<?php if (isset($_SESSION['login_attempt'])) {
-                                echo 
+                                echo
                                 '<section>
                                     <div class="alert alert-danger fade in" id="login-banner">
                                         <button class="close" data-dismiss="alert">×</button>
                                         <i class="fa-fw fa fa-times"></i><strong>Error! </strong>'.
-                                        $_SESSION['login_attempt'].                                        
+                                        $_SESSION['login_attempt'].
                                     '</div>
                                 </section>';
                                 }
@@ -139,6 +140,12 @@ include("inc/header.php");
     <div class="container features">
         <div class="row">
             <div class="col-lg-12 text-center">
+            	<div class="navy-line"></div>
+            	<h3>Try DeepBlue right now! Just click at the <a href="deepblue_checkuser.php">anonymous login</a></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
                 <div class="navy-line"></div>
                 <h1>Over 30,000 experiments accessible by </br>
                 a set of commands developed for handling epigenomic data</span> </h1>
@@ -165,9 +172,11 @@ include("inc/header.php");
                 <br>
                 <br>
                 <br>
-                <br>
-                <br>
                 <img src="img/landing/dashboard.png" alt="dashboard" class="img-rounded" width="100%">
+                <br>
+                <br>
+                <br>
+                <br>
             </div>
             <div class="col-md-3 text-center wow fadeInRight">
                 <div>
