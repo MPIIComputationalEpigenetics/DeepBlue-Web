@@ -40,7 +40,7 @@
 							$nav_htm .= '<a data-container="body" class="bootstro" data-bootstro-placement="right" data-bootstro-content="'.$nav_descripton.'" href="'.$url.'" '.$url_target.' title="'.$nav_title.'">'.$icon.' <span class="menu-item-parent">'.$nav_title.'</span>'.$label_htm.'</a>';
 
 							if (isset($nav_item["sub"]) && $nav_item["sub"])
-								$nav_htm .= process_sub_nav($nav_item["sub"], $no);
+								$nav_htm .= process_sub_nav($nav_item["sub"]);
 
 							echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').'>'.$nav_htm.'</li>';
 						}

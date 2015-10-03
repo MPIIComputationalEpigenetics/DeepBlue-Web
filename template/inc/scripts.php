@@ -27,9 +27,6 @@
 		<!-- BOOTSTRAP JS -->
 		<script src="<?php echo ASSETS_URL; ?>/js/bootstrap/bootstrap.min.js"></script>
 
-		<!-- INTRO TUTORIAL JS -->
-		<script src="js/intro.js"></script>
-
 		<!-- BOOTSTRO TUTORIAL JS -->
 		<script src="js/bootstro.js"></script>
 
