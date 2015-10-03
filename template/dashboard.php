@@ -23,7 +23,6 @@ YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC. */
 //you can add your custom css in $page_css array.
 //Note: all css files are inside css/ folder
 $page_css[] = "sweetalert.css";
-$page_css[] = "introjs.css";
 $page_css[] = "bootstro.css";
 $page_css[] = "deepblue.css";
 $page_css[] = "jstree/default/style.css";
