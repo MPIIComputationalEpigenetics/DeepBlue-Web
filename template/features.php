@@ -53,7 +53,7 @@ include("inc/header.php");
 	<div class="navbar-collapse collapse">
     	<ul class="nav navbar-nav navbar-left">
 			<li><span id="extr-page-header-space"><a href="features.php">Features</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="operations.php">Operations</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="examples.php">Examples</a></span></li>
         	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
         	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
         	<li><span id="extr-page-header-space"><a href="tutorials.php">Tutorials</a></span></li>
@@ -73,7 +73,7 @@ include("inc/header.php");
 				<dd>DNA Methylation, Histone modifications and variants, DNaseI, Transcription Factors Binding Sites, Chromatin State Segmentation, and gene expression (mRNA) datasets from the major epigenome consortia: <i>ENCODE</i>, <i>ROADMAP Epigenomic</i>, <i>BLUEPRINT Epigenome</i>, and <i>DEEP</i>.</dd>
 
 				<dt>Operations for epigenomic data</dt>
-				<dd>Select, filter, summarize, transform, and download the epigenomic data. See some examples in our <a href="operations.php">operations</a> page.</dd>
+				<dd>Select, filter, summarize, transform, and download the epigenomic data. See some examples in our <a href="examples.php">examples</a> page.</dd>
 
 				<dt>Peaks and signal data experiments</dt>
 				<dd>DeepBlue contains the peaks (<i>bed</i>) and signals (<i>wig</i>, <i>bedgraph</i>) datasets. It is virtually possible to import into DeepBlue any file that is based on genomic region.</dd>

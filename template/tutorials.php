@@ -40,7 +40,7 @@ include("inc/header.php");
 	<div class="navbar-collapse collapse">
     	<ul class="nav navbar-nav navbar-left">
 			<li><span id="extr-page-header-space"><a href="features.php">Features</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="operations.php">Operations</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="examples.php">Examples</a></span></li>
         	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
         	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
         	<li><span id="extr-page-header-space"><a href="tutorials.php">Tutorials</a></span></li>
@@ -61,7 +61,7 @@ include("inc/header.php");
 				<li><a href="tutorials/04-samples.html">Samples</a></li>
 				<li><a href="tutorials/05-experiments.html">Downloading data from Experiments</a></li>
 				<li><a href="tutorials/11-blueprint_monocyte_signal_methylation_cpg_island.html">Summarizing methylation level by CpG Island of the monocyte cells</a>
-				<li>More examples in the <a href="operations.php">operations</a> page
+				<li>More examples in the <a href="examples.php">operations</a> page
 				</li>
 			</ul>
 		</div>

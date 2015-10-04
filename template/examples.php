@@ -55,7 +55,7 @@ include("inc/header.php");
 	<div class="navbar-collapse collapse">
     	<ul class="nav navbar-nav navbar-left">
 			<li><span id="extr-page-header-space"><a href="features.php">Features</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="operations.php">Operations</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="examples.php">Examples</a></span></li>
         	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
         	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
         	<li><span id="extr-page-header-space"><a href="tutorials.php">Tutorials</a></span></li>
@@ -69,7 +69,7 @@ include("inc/header.php");
 	<div id="content" class="container">
 		<div class="row">
 
-			<h1>DeepBlue API - operations examples</h1>
+			<h1>DeepBlue API - usage examples</h1>
 			<dl class="dl-horizontal" id="freelance">
 				<dt>
 					<h5>Searching for experiments</h5>

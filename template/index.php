@@ -49,7 +49,7 @@ include("inc/header.php");
 	<div class="navbar-collapse collapse">
     	<ul class="nav navbar-nav navbar-left">
 			<li><span id="extr-page-header-space"><a href="features.php">Features</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="operations.php">Operations</a></span></li>
+        	<li><span id="extr-page-header-space"><a href="examples.php">Examples</a></span></li>
         	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
         	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
         	<li><span id="extr-page-header-space"><a href="tutorials.php">Tutorials</a></span></li>
