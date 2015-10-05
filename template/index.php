@@ -141,7 +141,7 @@ include("inc/header.php");
         <div class="row">
             <div class="col-lg-12 text-center">
             	<div class="navy-line"></div>
-            	<h3>Try DeepBlue right now! Just click on the <a href="deepblue_checkuser.php">anonymous login</a> link</h3>
+            	<h3>Try DeepBlue right now! Just click on the <a href="php\deepblue_checkuser.php">anonymous login</a> link</h3>
             </div>
         </div>
         <div class="row">
