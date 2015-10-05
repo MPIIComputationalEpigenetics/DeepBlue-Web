@@ -1015,50 +1015,35 @@
 		}
 
         // setup intro tutorial
-		bootstro.start(".bootstro", {
-			onStep : function(params) {
-				$combo = $(params.elm).parent();
-				$combo.find('ul').slideDown();
-				/*if (params.direction == 'prev') {
-					alert($combo.prev().text());//find('ul').slideToggle();
+		var tour = <?php echo $_SESSION['tour']; ?>;
+		if (tour == 1) {
+			swal({
+					title: "DeepBlue Web Interface Tour",
+					text: "Welcome to the DeepBlue web interface tour. Would you like to proceed?",
+					type: "info",
+					showCancelButton: true,
+					confirmButtonText: "Yes",
+					cancelButtonText: "No"
+				},
+				function(yes){
+					if (yes) {
+						bootstro.start(".bootstro", {
+							onStep : function(params) {
+                                if ($(params.elm).hasClass('side-menu')) {
+                                    $combo = $(params.elm).parent();
+                                    $combo.siblings().find('ul').slideUp();
+                                    $combo.find('ul').slideDown();
+                                }
+                            },
+							stopOnEsc: true,
+							stopOnBackdropClick: false,
+							finishButtonText : "Return to DeepBlue"
+						});
+					}
 				}
-				else {
-					$combo.siblings().find('ul').slideUp();
-
-				}*/
-			},
-			onExit : function(params) {
-				$combo = $(params.elm).parent();
-				$combo.siblings().find('ul').slideUp();
-			},
-			margin : 10,
-			stopOnEsc: true,
-			stopOnBackdropClick: false,
-			finishButtonText : "Return to DeepBlue"
-		});
-
-		/*
-        var introguide = introJs();
-        var tour = <?php echo $_SESSION['tour']; ?>//
-        if (tour) {
-            introguide.setOptions({
-                'tooltipPosition': 'right',
-                'exitOnEsc':true,
-                'exitOnOverlayClick':false,
-                'showStepNumbers': false,
-                'srollTOElement': true,
-                'showBullets': false,
-                'showProgress': true
-            });
-
-            introguide.start();
-            introguide.onchange(
-                function(nextElement){
-                    $(nextElement).parent().find('ul').slideToggle();
-                }
-            )
-        }
-        */
+			);
+		}
+		<?php $_SESSION['tour'] = 'false'; ?>;
     }; 	// end pagefunction
 
 	// Load morris dependencies and run pagefunction

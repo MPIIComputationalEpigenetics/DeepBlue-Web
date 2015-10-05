@@ -25,18 +25,18 @@ else {
 }
 
 if(!$client->query("user_auth", $email, $password)){
-	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
+	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 
 $response = $client->getResponse();
 if ($response[0] == 'error') {
     $_SESSION['login_attempt'] = $response[1];
-	header("Location: ../index.php");	
+	header("Location: ../index.php");
 }
 else {
 	$user_key = $response[1];
 	if(!$client->query("info", "me", $user_key)) {
-		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
 
 	$response = $client->getResponse();
@@ -54,7 +54,7 @@ else {
 	$_SESSION['institution'] = $user_details['institution'];
 	$_SESSION['type'] = $user_details['type'];
     $_SESSION['permission'] = $user_details['permission_level'];
-	$_SESSION['tour'] = 1; // possibly retrieve from database
-    $_SESSION['time'] = time();    
+	$_SESSION['tour'] = 'true'; // possibly retrieve from database
+    $_SESSION['time'] = time();
 	header("Location:  ../dashboard.php");
 }

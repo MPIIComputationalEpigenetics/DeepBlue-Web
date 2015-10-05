@@ -241,9 +241,10 @@ $(document).ready(function(){
             bootstro.destroy_popover(activeIndex);
             bootstro.unbind();
             $("div.bootstro-backdrop").remove();
-            if (typeof settings.onExit == 'function')
+            if (typeof settings.onExit == 'function') {
                 activeElement = get_element(activeIndex);
-                settings.onExit.call(this,{idx : activeIndex, elm : activeElement});
+                settings.onExit.call(this, {idx: activeIndex, elm: activeElement});
+            }
         };
 
         //go to the popover number idx starting from 0
@@ -291,10 +292,11 @@ $(document).ready(function(){
             else
             {
                 bootstro.go_to(activeIndex + 1);
-                if (typeof settings.onStep == 'function')
+                if (typeof settings.onStep == 'function') {
                     activeElement = get_element(activeIndex);
-                    settings.onStep.call(this, {idx : activeIndex,elm : activeElement, direction : 'next'});
+                    settings.onStep.call(this, {idx: activeIndex, elm: activeElement, direction: 'next'});
                     //settings.onStep.call(this, {idx : activeIndex, direction : 'next'});//
+                }
             }
         };
 
@@ -310,8 +312,10 @@ $(document).ready(function(){
             else
             {
                 bootstro.go_to(activeIndex -1);
-                if (typeof settings.onStep == 'function')
-                    settings.onStep.call(this, {idx : activeIndex, direction : 'prev'});//
+                if (typeof settings.onStep == 'function') {
+                    activeElement = get_element(activeIndex);
+                    settings.onStep.call(this, {idx: activeIndex, elm: activeElement, direction: 'prev'});//
+                }
             }
         };
 
