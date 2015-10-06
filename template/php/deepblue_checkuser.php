@@ -54,7 +54,16 @@ else {
 	$_SESSION['institution'] = $user_details['institution'];
 	$_SESSION['type'] = $user_details['type'];
     $_SESSION['permission'] = $user_details['permission_level'];
-	$_SESSION['tour'] = 'true'; // possibly retrieve from database
     $_SESSION['time'] = time();
+
+    // get cookies for tutorial tour settings
+    $_SESSION['tour'] = isset($_COOKIE['tour']) ? $_COOKIE['tour'] : "true";
+
+    $cookie_val = '';
+    if (isset($_COOKIE['PHPSESSID'])) {
+        $cookie_val = $_COOKIE['PHPSESSID'];
+    }
+    // set expiry date of session cookie to after one year if user checked remember
+    isset($_POST['remember']) ? setcookie('PHPSESSID',$cookie_val, time() + (86400 * 365), '/') : setcookie('PHPSESSID',$cookie_val, 0, '/' );
 	header("Location:  ../dashboard.php");
 }
