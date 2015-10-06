@@ -1018,7 +1018,7 @@
 		var tour = <?php echo $_SESSION['tour']; ?>;
 		if (tour == 1) {
 			swal({
-					title: "DeepBlue Web Interface Tour",
+					title: "",
 					text: "Welcome to the DeepBlue web interface tour. Would you like to proceed?",
 					type: "info",
 					showCancelButton: true,
@@ -1034,6 +1034,26 @@
                                     $combo.siblings().find('ul').slideUp();
                                     $combo.find('ul').slideDown();
                                 }
+                            },
+                            onExit : function(params) {
+                              swal({
+                                  title: "",
+                                  text: "Would you like to see tour the next time you login?",
+                                  type: "info",
+                                  showCancelButton: true,
+                                  confirmButtonText: "Yes",
+                                  cancelButtonText: "No"
+                              },
+                              function(yes){
+                                  if (!yes) {
+                                      // cookie expire after 1year
+                                      var today = new Date();
+                                      var expire = new Date();
+
+                                      expire.setYear(today.getFullYear() + 1);
+                                      document.cookie="tour='true'; expires=" + expire.toUTCString() + " path=/";
+                                  }
+                              });
                             },
 							stopOnEsc: true,
 							stopOnBackdropClick: false,
