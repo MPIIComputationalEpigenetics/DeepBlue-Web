@@ -165,7 +165,8 @@ include("inc/header.php");
 								<div class="message">
 									<i class="fa fa-check"></i>
 									<p>
-										Thank you for your registration!
+										Thank you for your registration! Your request is being processed.
+                                        Meanwhile, click <a href="php\deepblue_checkuser.php">here</a> to access DeepBlue from an anonymous account.
 									</p>
 								</div>
 							</form>
