@@ -141,6 +141,9 @@ class Deepblue{
             $tempExpStr .= "<br />";
         }
 
+        if ($inputMetadata["type"] == 'experiment') {
+            $tempExpStr .= '<b> Format </b> : ' . $inputMetadata['format'].'<br />';
+        }
 
         if(isset($inputMetadata['extra_metadata'])){
             $tempExpStr .= "<b>Extra Metadata</b> <br />";
