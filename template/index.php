@@ -46,7 +46,7 @@ include("inc/header.php");
 		</span>
 	</div>
 
-	<div class="navbar-collapse collapse">
+	<div class="navbar-collapse collapse hidden-mobile">
     	<ul class="nav navbar-nav navbar-left">
 			<li><span id="extr-page-header-space"><a href="features.php">Features</a></span></li>
         	<li><span id="extr-page-header-space"><a href="examples.php">Examples</a></span></li>
