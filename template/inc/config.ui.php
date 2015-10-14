@@ -197,7 +197,13 @@ $page_nav = array(
 				"url" => "ajax/deepblue_tutorial.php",
 				"icon" => "fa-graduation-cap",
 				"description" => "Display short tutorials for common tasks performed on DeepBlue Web Application"
-			)
+			),
+            "examples" => array(
+                "title" => "Examples",
+                "url" => "ajax/deepblue_examples.php",
+                "icon" => "fa-pencil",
+                "description" => "Display usage examples of the DeepBlue API"
+            )
 		)
 	),
 
