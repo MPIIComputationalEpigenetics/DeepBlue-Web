@@ -958,6 +958,7 @@
 					  xkey: 'label',
 					  ykeys: ['value'],
 					  labels: ['Count'],
+                        xLabelAngle: 270,
 					  resize: true
 				})
 				tbar.on('click', function(i, row){
