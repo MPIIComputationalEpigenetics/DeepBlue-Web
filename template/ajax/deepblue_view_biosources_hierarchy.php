@@ -82,6 +82,9 @@
                             <th class="hasinput" style="width:20px">
                                 <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
                             </th>
+                                <th class="hasinput" style="width:20px">
+                                    <input type="text" class="form-control" placeholder="Type" id="experiment-type" />
+                                </th>
                             <th class="hasinput">
                                 <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
                             </th>
@@ -110,6 +113,7 @@
                         	<tr>
                             <th>ID</th>
                             <th>Experiment Name</th>
+                                <th>Type</th>
                             <th>Description</th>
                             <th>Genome</th>
                             <th>Epigenetic Mark</th>
@@ -216,7 +220,7 @@ function get_experiments(sample_id) {
 			samples: sample_id
 		}
 	}).responseText;
-    
+
     var result = $.parseJSON(text);
     if (result.data[0] == 'error') {
         swal({
@@ -225,7 +229,7 @@ function get_experiments(sample_id) {
         });
         result.data = [];
         return result;
-    }   
+    }
 	return result;
 }
 
@@ -294,7 +298,7 @@ function get_samples(biosource_name) {
 			biosources: biosource_name
 		}
 	}).responseText;
-    
+
     var result = $.parseJSON(text);
     if (result.data[0] == 'error') {
         swal({
@@ -303,7 +307,7 @@ function get_samples(biosource_name) {
         });
         result.data = [];
         return result;
-    }   
+    }
 	return result;
 }
 
@@ -414,7 +418,7 @@ function deselect_node(e, data) {
 <script type="text/javascript">
 
 	pageSetUp();
-    
+
     var selected = [];
     var selectedNames = [];
     var selectedData = [];
@@ -458,7 +462,7 @@ function deselect_node(e, data) {
 						selectedElementsNames.push(found, 1);
 					}
 				});
-                
+
                 /* process experiment selection by row clicking*/
                 $('#experiments_datatable').on('dblclick', 'tr', function () {
 
@@ -467,16 +471,16 @@ function deselect_node(e, data) {
                         return;
                     }
 
-                    var name = $('td', this).eq(0).text();
-                    var type = '';
-                    var desc = $('td', this).eq(2).text();
-                    var genome = $('td', this).eq(3).text();
-                    var epi = $('td', this).eq(4).text();
-                    var bio = $('td', this).eq(5).text();
-                    var samp = $('td', this).eq(6).text();
-                    var tech = $('td', this).eq(7).text();
-                    var proj = $('td', this).eq(8).text();
-                    var meta = $('td', this).eq(9).html();
+                    var name = $('td', this).eq(1).text();
+                    var type = $('td', this).eq(2).text();
+                    var desc = $('td', this).eq(3).text();
+                    var genome = $('td', this).eq(4).text();
+                    var epi = $('td', this).eq(5).text();
+                    var bio = $('td', this).eq(6).text();
+                    var samp = $('td', this).eq(7).text();
+                    var tech = $('td', this).eq(8).text();
+                    var proj = $('td', this).eq(9).text();
+                    var meta = $('td', this).eq(10).html();
 
                     var index = selected.indexOf(id);
                     if (index == -1) {
@@ -496,14 +500,24 @@ function deselect_node(e, data) {
                         $(this).removeClass("success");
                     }
                 });
-                
+
                 $('#downloadExperimentButton').click(function(e){
                     // save the rows of the selected data table into local storage
                     localStorage.setItem("selectedData", JSON.stringify(selectedData));
                     window.location.href = "dashboard.php#ajax/deepblue_download_experiments.php";
-                });                
+                });
 			}
 	  });
+
+        // Apply the filter
+        $("#experiments_datatable thead th input[type=text]").on( 'keyup change', function () {
+            otable
+                .column( $(this).parent().index()+':visible' )
+                .search( this.value )
+                .draw();
+
+        } );
+        /* END COLUMN FILTER */
 	}
 
 	function build_tree() {
@@ -521,7 +535,7 @@ function deselect_node(e, data) {
                 });
                 return;
             }
-            
+
 			build_experiments_table();
 
 			exists = [];
