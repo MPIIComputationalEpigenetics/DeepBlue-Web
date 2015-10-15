@@ -24,370 +24,81 @@ require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 $client = new IXR_Client(get_server());
 
-if ((!isset($_GET)) || !isset($_GET["option"])) {
-	return;
-}
-$option = $_GET["option"];
+/* list all request for the request manager*/
+if (isset($_GET["filter"])) {
+    $request_state = $_GET["filter"];
 
-switch ($option) {
-	case 'orequest':
-		/* retrieve columns data of selected experiments*/
-		if (!isset($_GET["ids"])) {
-			return;
-		}
+    if(!$client->query("list_requests", $request_state, $user_key)){
+        die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+    }
 
-		$format = [];
-		$experiment = [];
+    $response = $client->getResponse();
+    if ($response[0] == "error") {
+        //echo json_encode($response);
+        $data['request_list'] = [];
+        //die();
+    }
+    else {
+        $data['request_list'] = $response[1];
+    }
 
-		$data['common'] = [];
-		$data['calculated'] = [];
-		$data['optional'] = [];
-		$data['experiment'] = [];
+    $rrow = [];
+    foreach($data['request_list'] as $request) {
+        $rid = $request[0];
+        $temp[] = $rid;
+        $qdetail = '';
+        $rdetail = '<div style="display: block;">';
 
-		$getIds = $_GET["ids"];
-
-		for ($i = 0; $i < count($getIds); $i++) {
-			if(!$client->query("info", $getIds[$i], $user_key)){
-				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-			}
-			$infoList[] = $client->getResponse();
-            if ($infoList[0][0] == "error") {
-                echo json_encode($infoList[0]);
-                die();
-            }
-            
-			$columns = $infoList[0][1][0]['columns'];
-			$length = count($columns);
-
-			for ($j = 0; $j < $length; $j++) {
-				$column_name = $columns[$j]['name'];
-				if (array_key_exists($column_name, $format)) {
-					$format[$column_name] = $format[$column_name] + 1;
-					$experiment[$column_name] = $experiment[$column_name].'; '.$getIds[$i];
-				}
-				else {
-					$format[$column_name] = 1;
-					$experiment[$column_name] = $getIds[$i];
-				}
-			}
-
-			$infoList = null;
-		}
-
-		if(!$client->query("list_column_types", $user_key)){
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-
-		$colList[] = $client->getResponse();
-        if ($colList[0][0] == "error") {
-            echo json_encode($colList[0]);
-            die();
+        // obtain initial query id
+        if(!$client->query("info", $rid, $user_key)){
+            die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
         }
 
-        $type = 'calculated';
-		foreach ($colList[0][1] as $column) {
+        $response = $client->getResponse();
+        if ($response[0] == "error") {
+            //echo json_encode($response);
+            $qid = '';
+            //die();
+        }
+        else {
+            $qid = $response[1][0]['query_id'];
+        }
+        // retrieve initial query details
+        query_detail($qid, $rdetail);
+        $rdetail = $rdetail.'</div>';
 
-			$colID = $column[0];
-
-			/* retrieve column details */
-			if(!$client->query("info", $colID, $user_key)){
-				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-			}
-			else {
-				$colDetail[] = $client->getResponse();
-                if ($colDetail[0][0] == "error") {
-                    echo json_encode(['data' => $colDetail[0]]);
-                    die();
-                }
-                
-				if ($colDetail[0][1][0]['column_type'] == $type) {
-					$colName = $colDetail[0][1][0]['name'];
-					$colCode = $colDetail[0][1][0]['code'];
-					$temp = [$colCode, $colName];
-					$data['calculated'][] = $temp;
-				}
-				$colDetail = "";
-			}
-		}
-
-		$common_count = max(array_values($format));
-		$common_format = array_keys($format, $common_count);
-		$optional_format = array_values(array_diff(array_keys($format), $common_format));
-
-		$data['common'] = $common_format;
-		$data['optional'] = $optional_format;
-		$data['experiment'] = $experiment;
-
-		echo json_encode($data);
-		break;
-
-	case 'rrequest':
-		/* manage region requests including, selecting regions, selecting annotations
-			intersection and get_regions	*/
-
-		if (!isset($_GET["experiments_ids"])) {
-			return;
-		}
-
-		if (!isset($_GET["columns"])) {
-			$format = 'CHROMOSOME,START,END';
-		}
-		else {
-			$format = $_GET['columns'];
-		}
-
-		if (!isset($_GET["annotation_names"])) {
-			$annotation_names = [];
-		}
-		else {
-			$annotation_names = $_GET["annotation_names"];
-		}
-
-		if (!isset($_GET["chromosome"])) {
-			$chromosome = [];
-		}
-		else {
-			$chromosome = $_GET["chromosome"];
-		}
-
-		$experiments_ids = $_GET["experiments_ids"];
-		$genome = "";
-		$allgenomes = $_GET["allgenomes"];
-		$epigenetic_mark = "";
-		$sample_id = "";
-		$technique = "";
-		$project = "";
-
-		$start = $_GET["start"];
-		if (!is_numeric($start)) {
-			$start = 0;
-		}
-		$start = (int)$start;
-
-		$end = $_GET["end"];
-		if (!is_numeric($end)) {
-			$end = PHP_INT_MAX;
-		}
-		$end = (int)$end;
-
-		if (!$client->query("select_regions", $experiments_ids, $genome, $epigenetic_mark, $sample_id, $technique, $project, $chromosome, $start, $end, $user_key)) {
-		    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-
-		$result[] = $client->getResponse();
-        if ($result[0][0] == "error") {
-            echo json_encode($result[0]);
-            die();
+        if(!$client->query("info", $request[0], $user_key)){
+            die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
         }
 
-		$query_ida = $result[0][1];
-		$query_id = $query_ida;
-
-		$result = [];
-		$annlen = count($annotation_names);
-
-		if ($annlen > 0) {
-			// select annotations
-			if (!$client->query("select_annotations", $annotation_names, $allgenomes, $chromosome, $start, $end, $user_key)) {
-			    die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-			}
-
-			$result[] = $client->getResponse();
-            if ($result[0][0] == "error") {
-                echo json_encode($result[0]);
-                die();
-            }
-
-			$query_idb = $result[0][1];
-			$result = [];
-
-			if (!$client->query("intersection", $query_ida, $query_idb, $user_key)) {
-		    	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-			}
-
-			$result[] = $client->getResponse();
-            if ($result[0][0] == "error") {
-                echo json_encode($result[0]);
-                die();
-            }
-			$query_id = $result[0][1];
-			$result = [];
-		}
-
-		if (!$client->query("get_regions", $query_id, $format, $user_key)) {
-	    	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-
-		$result[] = $client->getResponse();
-        if ($result[0][0] == "error") {
-            echo json_encode($result[0]);
-            die();
+        $response = $client->getResponse();
+        if ($response[0] == "error") {
+            //echo json_encode($response);
+            $rstate = '';
+            //die();
         }
-		$request_id = $result[0][1];
+        else {
+            $rstate = $response[1][0]['state'];
+        }
 
-		echo json_encode(array('request_id' => $request_id));
-		break;
-
-	case 'lrequest':
-		/* list all request for the request manager*/
-		if (isset($_GET["filter"])) {
-		    $request_state = $_GET["filter"];
-
-			if(!$client->query("list_requests", $request_state, $user_key)){
-				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-			}
-
-			$response = $client->getResponse();
-            if ($response[0] == "error") {
-                //echo json_encode($response);
-                $data['request_list'] = [];
-                //die();
-            }
-            else {
-                $data['request_list'] = $response[1];
-            }
-
-			$rrow = [];
-			foreach($data['request_list'] as $request) {
-				$rid = $request[0];
-				$temp[] = $rid;
-				$qdetail = '';
-				$rdetail = '<div style="display: block;">';
-
-				// obtain initial query id
-				if(!$client->query("info", $rid, $user_key)){
-					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-				}
-
-				$response = $client->getResponse();
-                if ($response[0] == "error") {
-                    //echo json_encode($response);
-                    $qid = '';
-                    //die();
-                }
-                else {
-                    $qid = $response[1][0]['query_id'];
-                }
-				// retrieve initial query details
-				query_detail($qid, $rdetail);
-				$rdetail = $rdetail.'</div>';
-
-				if(!$client->query("info", $request[0], $user_key)){
-					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-				}
-
-				$response = $client->getResponse();
-                if ($response[0] == "error") {
-                    //echo json_encode($response);
-                    $rstate = '';
-                    //die();
-                }
-                else {
-                    $rstate = $response[1][0]['state'];
-                }
-                
-				if ($rstate == 'done') {
-					$temp[] = 'ready';
-					$temp[] = substr($response[1][0]['create_time'], 0, -7);
-					$temp[] = substr($response[1][0]['finish_time'], 0, -7);
-					$temp[] = $rdetail;
-					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion(event)">Download</button>';
-				}
-				else {
-					$temp[] = $rstate;
-					$temp[] = substr($response[1][0]['create_time'], 0, -7);
-					$temp[] = '--';
-					$temp[] = $rdetail;
-					$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
-				}
-				$rrow[] = $temp;
-				$temp = [];
-			}
-			echo json_encode(array('data' => $rrow));
-		}
-		break;
-
-	case 'crequest':
-		/* process genomes, chromosomes and annotations attributes of the selected experiments */
-		if (!isset($_GET["ids"])) {
-			return;
-		}
-
-		$getIds = $_GET["ids"];
-		$genomes = [];
-		for ($i = 0; $i < count($getIds); $i++) {
-			if(!$client->query("info", $getIds[$i], $user_key)){
-				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-			}
-			$infoList[] = $client->getResponse();
-            if ($infoList[0][0] == "error") {
-                echo json_encode($infoList[0]);
-                die();
-            }
-
-			$genome = $infoList[0][1][0]['genome'];
-			if (!in_array($genome, $genomes)) {
-				$genomes[] = $genome;
-			}
-			$infoList = [];
-		}
-
-		$length = count($genomes);
-		$data['chromosome'] = [];
-		$data['genomes'] = $genomes;
-		$data['annotations'] = [];
-		$data['annotations_id'] = [];
-
-		for ($j = 0; $j < $length; $j++) {
-			// get chromosomes matching genome
-			if(!$client->query("chromosomes", $genomes[$j], $user_key)){
-				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-			}
-			$result[] = $client->getResponse();
-            if ($result[0][0] == "error") {
-                echo json_encode($result[0]);
-                die();
-            }
-			//$chroms = array_merge($chroms, $result[0][1]);
-
-			$chrlen = count($result[0][1]);
-			for ($k = 0; $k < $chrlen; $k++) {
-				$chr = $result[0][1][$k][0];
-				if (!in_array($chr, $data['chromosome'])) {
-					$data['chromosome'][] = $chr;
-				}
-			}
-
-			$result = '';
-
-			// get annotations matching genome
-			if(!$client->query("list_annotations", $genomes[$j], $user_key)){
-				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-			}
-			$result[] = $client->getResponse();
-            if ($result[0][0] == "error") {
-                echo json_encode($result[0]);
-                die();
-            }
-			//$annots = array_merge($annots, $result[0][1]);
-
-			$annlen = count($result[0][1]);
-			for ($k = 0; $k < $annlen; $k++) {
-				$ann_id = $result[0][1][$k][0];
-				if (!in_array($ann_id, $data['annotations'])) {
-					$ann = $result[0][1][$k][1];
-					$data['annotations'][] = $ann;
-					$data['annotations_id'][] = $ann_id;
-				}
-			}
-			//var_dump($annots);
-			$result = '';
-		}
-		//$data['chromosome'] = $chroms;
-		//$data['annotations'] = $annots;
-		//var_dump($data['chromosome'])
-		echo json_encode($data);
-		break;
+        if ($rstate == 'done') {
+            $temp[] = 'ready';
+            $temp[] = substr($response[1][0]['create_time'], 0, -7);
+            $temp[] = substr($response[1][0]['finish_time'], 0, -7);
+            $temp[] = $rdetail;
+            $temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion(event)">Download</button>';
+        }
+        else {
+            $temp[] = $rstate;
+            $temp[] = substr($response[1][0]['create_time'], 0, -7);
+            $temp[] = '--';
+            $temp[] = $rdetail;
+            $temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
+        }
+        $rrow[] = $temp;
+        $temp = [];
+    }
+    echo json_encode(array('data' => $rrow));
 }
 
 function query_detail($qud, &$rdetail) {

@@ -148,7 +148,6 @@ require_once("inc/init.php");
 		    "ajax": {
 			    "url": "ajax/server_side/manage_requests_server_processing.php",
 				"data" : {
-					option : "lrequest",
 					filter : ""
 			    },
 			    "iDisplayLength": 10,

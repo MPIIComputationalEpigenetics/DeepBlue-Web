@@ -335,10 +335,9 @@ require_once("inc/init.php");
 
         /* Pull Column Options Data */
         var request = $.ajax({
-            url: "ajax/server_side/manage_requests_server_processing.php",
+            url: "ajax/server_side/list_columns_server_processing.php",
             dataType: "json",
             data : {
-                option : 'orequest',
                 ids : selected
             }
         });
@@ -348,10 +347,10 @@ require_once("inc/init.php");
                 swal({
                     title: "An error has occurred",
                     text: data[1]
-                });                                    
-                return;            
+                });
+                return;
             }
-            
+
             // Meta Columns
             var meta_col = ['@LENGTH','@NAME','@SEQUENCE', '@EPIGENETIC_MARK','@PROJECT','@BIOSOURCE','@SAMPLE_ID'];
             for (i=0; i<meta_col.length; i++) {
@@ -410,10 +409,9 @@ require_once("inc/init.php");
 
         /* Pull Additional Settings Options Data */
         var request = $.ajax({
-            url: "ajax/server_side/manage_requests_server_processing.php",
+            url: "ajax/server_side/list_chromosomes_server_processing.php",
             dataType: "json",
             data : {
-                option : 'crequest',
                 ids : selected
             }
         });
@@ -423,10 +421,10 @@ require_once("inc/init.php");
                 swal({
                     title: "An error has occurred",
                     text: data[1]
-                });                                    
-                return;            
+                });
+                return;
             }
-            
+
             var chr = data['chromosome'];
             for (i=0; i < chr.length; i++) {
                 var value = chr[i];
@@ -488,10 +486,9 @@ require_once("inc/init.php");
             var end = $('#genome_end').val();
 
             var request = $.ajax({
-                url: "ajax/server_side/manage_requests_server_processing.php",
+                url: "ajax/server_side/manage_regions_server_processing.php",
                 dataType: "json",
                 data : {
-                    option : 'rrequest',
                     experiments_ids : selected,
                     annotation_names : annot,
                     columns :  columns_format,
@@ -502,15 +499,15 @@ require_once("inc/init.php");
                 }
             });
 
-            request.done( function(data) {                
+            request.done( function(data) {
                 if (data[0] == "error") {
                     swal({
                         title: "Request Failed.",
                         text: data[1]
-                    });                                    
-                    return;            
-                }                
-                
+                    });
+                    return;
+                }
+
                 swal({
                     title: "Request Sent.",
                     text: "The request ID is " + data.request_id + ".\nWould you like to go to the Manage Request page ?",
