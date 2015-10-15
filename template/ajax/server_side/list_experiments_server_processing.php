@@ -79,6 +79,7 @@ foreach($infoList[1] as $metadata) {
 
 	$tempArr[] = $metadata['_id'];
 	$tempArr[] = $metadata['name'];
+    $tempArr[] = $metadata['data_type'];
 	$tempArr[] = $metadata['description'];
 	$tempArr[] = $metadata['genome'];
 	$tempArr[] = $metadata['epigenetic_mark'];
