@@ -9,7 +9,7 @@
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *   Obaro Odiete <s8obodie@stud.uni-saarland.de>
-*   
+*
 *   Created : 07-08-2015
 */
 
@@ -49,12 +49,12 @@ require_once("inc/init.php");
 					<div class="apiDiv widget-body">
 						<div class="row">
 							<ul>
-								<li><a href="tutorials/01-access.html">Accessing DeepBlue</a></li>
-								<li><a href="tutorials/02-listing.html">Data Listing</a></li>
-								<li><a href="tutorials/03-biosources.html">BioSources</a></li>
-								<li><a href="tutorials/04-samples.html">Samples</a></li>
-								<li><a href="tutorials/05-experiments.html">Downloading data from Experiments</a></li>
-								<li><a href="tutorials/11-blueprint_monocyte_signal_methylation_cpg_island.html">Summarizing methylation level by CpG Island of the monocyte cells</a></li>
+								<li><a href="https://gist.github.com/felipealbrecht/6e84aa529551e20268a2#file-01-01-connect_to_the_server-py">Accessing DeepBlue</a></li>
+								<li><a href="https://gist.github.com/felipealbrecht/64655b560fac6a1f9674#file-01-02-data-listing-py">Data Listing</a></li>
+								<li><a href="https://gist.github.com/felipealbrecht/0e61b615f0ca018510cc#file-01-03-biosources-py">BioSources</a></li>
+								<li><a href="https://gist.github.com/felipealbrecht/876793c496066609940b#file-01-04-samples-py">Samples</a></li>
+								<li><a href="https://gist.github.com/felipealbrecht/6d166087d4d77584b1bb#file-01-05-experiments-py">Downloading data from experiments</a></li>
+								<li><a href="https://gist.github.com/felipealbrecht/28105a18e3ae3c5f3dd6#file-01-06-summarizing-py">Summarizing methylation level by CpG Island of the monocyte cells</a></li>
 							</ul>
 						</div>
 					</div>
