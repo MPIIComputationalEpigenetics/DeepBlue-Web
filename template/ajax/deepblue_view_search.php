@@ -39,13 +39,20 @@ require_once("inc/init.php");
 				<br>
 				<div class="alert alert-info alert-block">
 					<a class="close" data-dismiss="alert" href="#">×</a>
-					<h4 class="alert-heading">Options</h4>
+					<h6 class="alert-heading">Usage</h6>
 					<ul>
-						<li>Use +term for terms that must be in the document.</li>
-						<li>Use -term for terms that must not be in the document.</li>
-						<li>Use " " to define a single term that must be in the document. e.g. "DNA Methylation".
+						<li>Use +<i>keyword</i> for keywords that must be in the search results.</li>
+						<li>Use -<i>keyword</i> for keywords that must not be in the search results.</li>
+						<li>Use " " (double quotes) to enclose composite keywords, e.g., <i>"DNA methylation"</i></li>
 					</ul>
-					<p>e.g. The search <i>"DNA methylation" +grch38 -wgbs</i> will look for all data in DeepBlue that contains "DNA methylation" and "grch38" and does <b>not</b> contain "wgbs".</p>
+					<br />
+					<h6 class="alert-heading">Example</h6>
+					The search<br/>
+					<i>"DNA methylation" +grch38 -wgbs</i><br/>
+					will look for all data in DeepBlue that match "DNA methylation" and "grch38", but not "wgbs".
+					<h6 class="alert-heading">Scope</h6>
+					You can define where to perform the search clicking on the button <i>Everything</i> and selecting the appropriated scope.
+					</p>
 				</div>
 				<div class="input-group input-group-lg hidden-mobile">
 					<div class="input-group-btn">

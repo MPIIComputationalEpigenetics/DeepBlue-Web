@@ -33,13 +33,24 @@ require_once("inc/init.php");
 
 	<div class="col-sm-12">
 
-		<div id="myTabContent1" class="tab-content bg-color-white padding-10">
+		<div id="info_content" class="tab-content bg-color-white padding-10">
 			<div class="tab-pane fade in active" id="s1">
+				<br />
+				<div class="alert alert-info alert-block">
+					<a class="close" data-dismiss="alert" href="#">×</a>
+					<h6 class="alert-heading">Information</h6>
+					Each data item in DeepBlue has an internal ID, e.g., the ID <i>e16917</i> refers to the experiment named <i>E002-H3K9ac.narrowPeak.bed</i> from <i>Roadmap Epigenomics</i> project.<br/>
+					If you want to look up all information linked to a DeepBlue ID, enter the ID in the above field and press <i>enter</i> or hit the info button.
+					<h6 class="alert-heading">Example</h6>
+					The id <i>g1</i> refers to the genome assembly <i>hg19</i>.<br/>
+					The id <i>em60</i> refers to the Epigenetic Mark <i>H3K27ac</i><br/>
+					The id <i>a10</i> refers to the annotation <i>Cpg Islands</i> for the genome assembly <i>hg19</i>.
+				</div>
 				<div class="input-group input-group-lg hidden-mobile">
 					<input id="query_input" class="form-control input-lg" type="text" placeholder="Enter ID" />
 					<div class="input-group-btn">
 						<button type="button" id="query_bt" class="btn btn-default">
-							&nbsp;&nbsp;&nbsp;<i class="fa fa-fw fa-search fa-lg"></i>&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;<i class="fa fa-fw fa-info-circle fa-lg"></i>&nbsp;&nbsp;&nbsp;
 						</button>
 					</div>
 				</div>
