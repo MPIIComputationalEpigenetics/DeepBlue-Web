@@ -24,13 +24,29 @@ require_once("inc/init.php");
 ?>
 
 <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark">
+            <i class="fa fa-search fa-fw "></i>
+                Full text search
+            </span>
+        </h1>
+    </div>
 
 	<div class="col-sm-12">
 
-		<div id="myTabContent1" class="tab-content bg-color-white padding-10">
+		<div id="search_content" class="tab-content bg-color-white padding-10">
 			<div class="tab-pane fade in active" id="s1">
-				<h1> Search <span id="seach-type-title" class="semi-bold">Everything</span></h1>
 				<br>
+				<div class="alert alert-info alert-block">
+					<a class="close" data-dismiss="alert" href="#">×</a>
+					<h4 class="alert-heading">Options</h4>
+					<ul>
+						<li>Use +term for terms that must be in the document.</li>
+						<li>Use -term for terms that must not be in the document.</li>
+						<li>Use " " to define a single term that must be in the document. e.g. "DNA Methylation".
+					</ul>
+					<p>e.g. The search <i>"DNA methylation" +grch38 -wgbs</i> will look for all data in DeepBlue that contains "DNA methylation" and "grch38" and does <b>not</b> contain "wgbs".</p>
+				</div>
 				<div class="input-group input-group-lg hidden-mobile">
 					<div class="input-group-btn">
 						<button id='typeSelect' type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -260,13 +276,13 @@ require_once("inc/init.php");
                 $( "#tempSearchResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
                     " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
                     "Your search - "+$search+" - did not match any documents.<ul><li>Make sure all words are spelled correctly.</li>"+
-                    "<li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");                
+                    "<li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");
 			}
 			else{
                 if (data.data[0] == 'error') {
                     $( "#tempSearchResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
                         " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " +
-                        "An error has occurred. " + data.data[1] + "</div>");                                    
+                        "An error has occurred. " + data.data[1] + "</div>");
                     return;
                 }
                 else {
@@ -346,7 +362,7 @@ require_once("inc/init.php");
                     swal({
                         title: "An error has occurred",
                         text: data.data[1]
-                    });                                                        
+                    });
                     return;
                 }
 				$('#modal_for_experiment').empty();
@@ -561,7 +577,7 @@ require_once("inc/init.php");
 				    break;
 				case 'sample':
 					initFilter[7] = {"sSearch": text};
-					break;			    
+					break;
 				case 'technique':
 				    initFilter[8] = {"sSearch": text};
 				    break;
