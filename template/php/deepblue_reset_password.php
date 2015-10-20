@@ -16,7 +16,7 @@
 	$mail_host = $mpi_env["mail_host"];
 
     $mail = new phpmailer();
-
+    $mail->CharSet  = 'UTF-8';
     $mail->From     = 'deepblue@mpi-inf.mpg.de';
     $mail->FromName = 'DeepBlue';
     $mail->Host     = $mail_host;
