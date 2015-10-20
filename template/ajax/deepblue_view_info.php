@@ -23,13 +23,18 @@ require_once("inc/init.php");
 
 ?>
 <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark">
+            <i class="fa fa-info-circle fa-fw "></i>
+                DeepBlue Data info
+            </span>
+        </h1>
+    </div>
 
 	<div class="col-sm-12">
 
 		<div id="myTabContent1" class="tab-content bg-color-white padding-10">
 			<div class="tab-pane fade in active" id="s1">
-				<h1> Deepblue Data Info </h1>
-				<br>
 				<div class="input-group input-group-lg hidden-mobile">
 					<input id="query_input" class="form-control input-lg" type="text" placeholder="Enter ID" />
 					<div class="input-group-btn">
@@ -51,12 +56,12 @@ require_once("inc/init.php");
 	$("#query_bt").button().click(query_function);
 
 	function query_function() {
-		
+
 		$id = $('#query_input').val();
-		
+
 		/* Checking query if is empty or not */
 		if($id == ''){
-			$( "#tempInfoResult" ).empty();	
+			$( "#tempInfoResult" ).empty();
             $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
                     " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
                     "Enter a valid ID, ID cannot be empty!</div>");
@@ -71,11 +76,11 @@ require_once("inc/init.php");
 			}
 		});
 
-		request.done( function(data) {			
+		request.done( function(data) {
 			$( "#tempInfoResult" ).empty();
 			result = data.data;
 			if (result[0] == 'error') {
-				var msg = result[1]; 
+				var msg = result[1];
                 $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
                         " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " +
                         "Error encountered when retrieving infomation for the ID '"+$id+"': "+ msg +"</div>");
@@ -87,7 +92,7 @@ require_once("inc/init.php");
 				    "<div><p class='note'><span><i class='fa fa-circle txt-color-black'></i> " + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p>"+
 				    "<p class='description marginTop'>" + item[2] +"</p></div>"+
 				    "<div class='searchMetadata'>"+item[3]+"</div></div>" );
-			    });				
+			    });
 			}
 		});
 
