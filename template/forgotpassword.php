@@ -102,7 +102,7 @@ include("inc/header.php");
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">
-							<form action="<?php echo APP_URL; ?>/index.php" id="login-form" class="smart-form client-form">
+							<form action="php/deepblue_reset_password.php" method="POST" id="reset-pwd-form" class="smart-form client-form">
 								<header>
 									Forgot Password
 								</header>
@@ -114,15 +114,6 @@ include("inc/header.php");
 										<label class="input"> <i class="icon-append fa fa-envelope"></i>
 											<input type="email" name="email">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-envelope txt-color-teal"></i> Please enter email address for password reset</b></label>
-									</section>
-									<section>
-										<span class="timeline-seperator text-center text-primary"> <span class="font-sm">OR</span>
-									</section>
-									<section>
-										<label class="label">Your Username</label>
-										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="username">
-											<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Enter your username</b> </label>
 										<div class="note">
 											<a href="<?php echo APP_URL; ?>/index.php">I remembered my password!</a>
 										</div>
@@ -134,6 +125,13 @@ include("inc/header.php");
 										<i class="fa fa-refresh"></i> Reset Password
 									</button>
 								</footer>
+                                <div class="message">
+                                    <i class="fa fa-check"></i>
+                                    <p>
+                                        A new password would be sent to you shortly.
+                                        Meanwhile, click <a href="php\deepblue_checkuser.php">here</a> to access DeepBlue from an anonymous account.
+                                    </p>
+                                </div>
 							</form>
 
 						</div>
@@ -154,10 +152,45 @@ include("inc/header.php");
 <!-- PAGE RELATED PLUGIN(S)
 <script src="..."></script>-->
 
-		<script type="text/javascript">
-			runAllForms();
+<script type="text/javascript">
+    runAllForms();
 
-		</script>
+    // Validation
+    $(function() {
+        // Validation
+        $("#reset-pwd-form").validate({
+            // Rules for form validation
+            rules : {
+                email : {
+                    required : true,
+                    email : true
+                }
+            },
+
+            // Messages for form validation
+            messages : {
+                email : {
+                    required : 'Please enter your email address',
+                    email : 'Please enter a VALID email address'
+                }
+            },
+
+            // Ajax form submition
+            submitHandler : function(form) {
+                $(form).ajaxSubmit({
+                    success : function() {
+                        $("#reset-pwd-form").addClass('submited');
+                    }
+                });
+            },
+
+            // Do not change code below
+            errorPlacement : function(error, element) {
+                error.insertAfter(element.parent());
+            }
+        });
+    });
+</script>
 
 <?php
 	//include footer
