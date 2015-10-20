@@ -58,7 +58,7 @@ $deepBlueObj = new DeepblueApi();
 
 					<!-- widget content -->
 					<div class="apiDiv widget-body">
-						<?php $deepBlueObj->displayAPIList();?>
+						<?php $deepBlueObj->displayAPIList(False);?>
 					</div>
 					<!-- end widget content -->
 

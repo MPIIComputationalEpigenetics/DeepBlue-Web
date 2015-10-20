@@ -18,7 +18,7 @@
 </div>
 
 <div style="margin:30px; padding:20px; overflow:hidden; z-index:999999; background:#FFF">
-	<?php $deepBlueObj->displayAPIList();?>
+	<?php $deepBlueObj->displayAPIList(True);?>
 </div>
 
 <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->

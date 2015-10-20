@@ -50,7 +50,7 @@ class DeepblueApi{
 
     /* Displaying API List Completly */
 
-    public function displayAPIList(){
+    public function displayAPIList($show_sub){
 
     	/* Collecting title and description */
 
@@ -72,14 +72,23 @@ class DeepblueApi{
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
             $norm_name = str_replace(' ', '-', strtolower($sKeyOne));
 
-    	    echo "<a onclick=\"$(function() { $(document).scrollTop( $('#api-". $norm_name."').offset().top ); location.href = '#api-".$norm_name."'});\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> — $sValueOne</h3>";
+
+            echo "<a onclick=\"$(function() { $(document).scrollTop( $('#api-". $norm_name."').offset().top );";
+            if ($show_sub) {
+                echo " location.href = '#api-".$norm_name."'";
+            }
+            echo "});\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> — $sValueOne</h3>";
 
 		    foreach($commands as $tKeyOne => $tValueOne){
 			    if($sKeyOne == $tValueOne['description'][0]) {
 
                     $norm_name2 = str_replace(' ', '-', strtolower($tKeyOne));
                     echo "<div class='api-description-listing'>".$n." )\n";
-                    echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". $norm_name2."').offset().top ); location.href = '#api-".$norm_name2."'});\" href='javascript:void(0);'>$tKeyOne</a> — ".$tValueOne['description'][2];
+                    echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". $norm_name2."').offset().top );";
+                    if ($show_sub) {
+                        echo "location.href = '#api-".$norm_name2."'";
+                    }
+                    echo "});\" href='javascript:void(0);'>$tKeyOne</a> — ".$tValueOne['description'][2];
                     $n++;
                 }
                 ?>
