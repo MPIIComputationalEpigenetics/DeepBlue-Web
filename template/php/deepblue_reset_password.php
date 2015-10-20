@@ -8,7 +8,7 @@
 
 	$mpi_env = WebDomain::getDetails("deepblue");
 
-	$str = "New User: \n";
+	$str = "Reset password: \n";
 	foreach ($_POST as $key => $value) {
 		$str .= $key . " " . $value . "\n";
 	}
