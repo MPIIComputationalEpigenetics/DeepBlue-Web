@@ -56,7 +56,7 @@ include("inc/header.php");
 			<h1> Tutorials List </h1>
 			<ul>
 				<li><a href="https://gist.github.com/felipealbrecht/6e84aa529551e20268a2#file-01-01-connect_to_the_server-py">Accessing DeepBlue</a></li>
-				<li><a href="tutorials/02-listing.html">Data Listing</a></li>
+				<li><a href="https://gist.github.com/felipealbrecht/64655b560fac6a1f9674#file-01-02-data-listing-py">Data Listing</a></li>
 				<li><a href="tutorials/03-biosources.html">BioSources</a></li>
 				<li><a href="tutorials/04-samples.html">Samples</a></li>
 				<li><a href="tutorials/05-experiments.html">Downloading data from Experiments</a></li>
