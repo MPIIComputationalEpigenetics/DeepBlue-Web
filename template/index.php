@@ -76,7 +76,7 @@ include("inc/header.php");
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 hidden-xs hidden-sm no-padding">
 					<br/>
 					<br/>
-            		<h3>Try DeepBlue right now! Just click on the <a href="php\deepblue_checkuser.php">anonymous user</a> login!</h3>
+            		<h3>Try DeepBlue right now! Just click on the <a href="php/deepblue_checkuser.php">anonymous user</a> login!</h3>
             	</div>
 			</div>
 			<br/>
