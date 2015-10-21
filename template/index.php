@@ -69,16 +69,39 @@ include("inc/header.php");
 	<div id="content" class="container">
 
 		<div class="row">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 hidden-xs hidden-sm no-padding" >
+					<img src="<?php echo ASSETS_URL; ?>/img/logo.png" class="display-image index-middle-logo" alt="">
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 hidden-xs hidden-sm no-padding">
+					<br/>
+					<br/>
+            		<h3>Try DeepBlue right now! Just click on the <a href="php\deepblue_checkuser.php">anonymous user</a> login !</h3>
+            	</div>
+			</div>
+			<br/>
+			<br/>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+			</div>
+
 			<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-				<h1 class="txt-color-red login-header-big">DeepBlue Epigenomic Data Server</h1>
-				<div class="hero">
-					<div class="pull-left login-desc-box-l">
-						<h4 class="paragraph-header">DeepBlue provides a central data access hub for large collections of epigenomic data. It organizes the data from different sources using controlled vocabularies and ontologies. The data is stored in our server server, where the users can access the data programmatically or by or web interface.</h4>
-						<h4 class="paragraph-header">DeepBlue contains a set of operations designed for operation on epigenomic data, for example, data overlapping and aggregations. The users can execute all the operations in a pipeline fashion in the server and transfer only the meaningful data. DeepBlue is open and free or charge. Request your account and start using it.</h4>
+
+				<div class="row">
+					<div class="col-md-6 col-lg-7">
+						<div class="pull-left">
+							<h4 class="paragraph-header" style="text-align:justify">DeepBlue Epigenomic Data Server provides a central data access hub for large collections of epigenomic data. It organizes the data from different sources using controlled vocabularies and ontologies. The data is stored in our server server, where the users can access the data programmatically or by or web interface.</h4>
+							<h4 class="paragraph-header" style="text-align:justify">DeepBlue contains a set of operations designed for operation on epigenomic data, for example, data overlapping and aggregations. The users can execute all the operations in a pipeline fashion in the server and transfer only the meaningful data. DeepBlue is open and free or charge. Request your account and start using it.</h4>
+						</div>
 					</div>
-					<img src="<?php echo ASSETS_URL; ?>/img/logo.png" class="pull-right display-image index-middle-logo" alt="">
+					<div class="col-md-4 col-lg-5">
+						<a class="twitter-timeline" href="https://twitter.com/deepblue_data" data-widget-id="656811788294582273">Tweets by @deepblue_data</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+					</div>
 				</div>
 			</div>
+
+
 			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 				<div class="well no-padding">
 					<form action="<?php echo APP_URL.'/php/deepblue_checkuser.php' ?>" id="login-form" class="smart-form client-form" method="post">
@@ -140,12 +163,6 @@ include("inc/header.php");
     <div class="container features">
         <div class="row">
             <div class="col-lg-12 text-center">
-            	<div class="navy-line"></div>
-            	<h3>Try DeepBlue right now! Just click on the <a href="php\deepblue_checkuser.php">anonymous login</a> link</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
                 <div class="navy-line"></div>
                 <h1>Over 30,000 experiments accessible by </br>
                 a set of commands developed for handling epigenomic data</span> </h1>
@@ -199,6 +216,8 @@ include("inc/header.php");
     </div>
 </div>
 
+
+
 <div class="container">
     <div class="row">
       	<div class="col-lg-12 text-center">
@@ -226,6 +245,7 @@ include("inc/header.php");
 		</div>
 	</div>
 </div>
+
 
 
 
