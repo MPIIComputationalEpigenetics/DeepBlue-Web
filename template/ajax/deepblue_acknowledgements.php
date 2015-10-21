@@ -66,6 +66,7 @@ require_once("inc/init.php");
 							<p class="lead"><a href="https://github.com/cppformat/cppformat">cppformat</a></p>
 							<p class="lead"><a href="http://luajit.org/">lualit</a></p>
 							<p class="lead"><a href="http://www.partow.net/programming/strtk/">StrTk</a></p>
+							<p class="lead"><a href="https://github.com/jemalloc/jemalloc">jemalloc</a></p>
 							<p class="lead"><a href="http://think-async.com/Urdl/doc/html/index.html">Urdl</a></p>
 							<p class="lead"><a href="https://github.com/temporaer/MDBQ">MDBQ</a></p>
 						</td>
