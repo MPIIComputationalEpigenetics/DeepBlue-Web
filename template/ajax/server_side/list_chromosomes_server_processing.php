@@ -5,12 +5,12 @@
 *   Copyright (c) 2014 Max Planck Institute for Computer Science.
 *   All rights reserved.
 *
-*   File : manage_requests_server_processing.php
+*   File : list_chromosomes_server_processing.php
 *
 *   Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>
 *	Obaro Odiete <s8obodie@stud.uni-saarland.de>
 *
-*   Created : 05-01-2015
+*   Created : 10-15-2015
 */
 
 ini_set('memory_limit', '-1');
