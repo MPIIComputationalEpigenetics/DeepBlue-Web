@@ -72,7 +72,7 @@
 					<div id="logo-group">
 
 						<!-- PLACE YOUR LOGO HERE -->
-						<span id="logo"> <img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="DeepBlue"> </span>
+						<span id="logo"> <img src="<?php echo ASSETS_URL; ?>/img/deepblue_no_sub.png" alt="DeepBlue"> </span>
 						<!-- END LOGO PLACEHOLDER -->
 
 					</div>
