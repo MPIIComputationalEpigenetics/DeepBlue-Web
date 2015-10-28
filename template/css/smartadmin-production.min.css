@@ -19414,13 +19414,15 @@ button {
   box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
   width: 100%;
   margin: 0px !important;
+  margin-left: 10px !important;
   border-bottom: 1px solid #525151;
 }
 .login-info a {
   text-decoration: none !important;
-  color: #a8a8a8;
+  color: #a1a1a1;
   display: inline-block;
-  margin-top: 6px;
+  margin-left: 10px !important;
+  margin-top: 10px;
 }
 .login-info a span {
   text-transform: capitalize;
@@ -19446,34 +19448,7 @@ button {
   padding: 0 10px;
   border-bottom: 1px solid #1A1817;
 }
-.login-info img {
-  width: 25px;
-  height: auto;
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: 1px;
-  margin-right: 5px;
-  margin-left: 0px;
-  border-left: 3px solid #ffffff;
-}
-img.online,
-img.busy,
-img.offline,
-img.away {
-  border-left: 3px solid #fff;
-}
-img.online {
-  border-left-color: #40ac2b !important;
-}
-img.busy {
-  border-left-color: #ed1c24 !important;
-}
-img.offline {
-  border-left-color: #dddddd !important;
-}
-img.away {
-  border-left-color: #ffc40d !important;
-}
+
 /*
  * Client page forms
  */

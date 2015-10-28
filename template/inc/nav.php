@@ -3,15 +3,14 @@
 		<aside id="left-panel">
 
 			<!-- User info -->
-			<div class="login-info">
-				<span> <!-- User image size is adjusted inside CSS, it should stay as is -->
-					<a data-container="body" class="menu-item-parent bootstro" data-bootstro-step=0 data-bootstro-placement="bottom" data-bootstro-content="You can view and edit your profile. You can also see your permission level and user-key." href="#ajax/profile.php" title="Profile">
-						<span>
-							<?php echo $_SESSION['user_name'] ?> - Profile
-						</span>
-					</a>
-				</span>
-			</div>
+			<span class="login-info">
+				<i class="fa fa-user"></i>
+				<a data-container="body" class="menu-item-parent bootstro" data-bootstro-step=0 data-bootstro-placement="bottom"
+					data-bootstro-content="You can view and edit your profile. You can also see your permission level and user-key."
+					href="#ajax/profile.php" title="Profile">
+					<?php echo $_SESSION['user_name'] ?>
+				</a>
+			</span>
 			<!-- end user info -->
 
 			<!-- NAVIGATION : This navigation is also responsive
