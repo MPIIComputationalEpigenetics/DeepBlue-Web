@@ -69,98 +69,113 @@ include("inc/header.php");
 	<div id="content" class="container">
 
 		<div class="row">
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 hidden-xs hidden-sm no-padding" >
+			<div class="row" style="padding-bottom:20px;">
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 hidden-xs hidden-sm no-padding">
 					<img src="<?php echo ASSETS_URL; ?>/img/logo.png" class="display-image index-middle-logo" alt="">
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 hidden-xs hidden-sm no-padding">
 					<br/>
 					<br/>
-            		<h3>Try DeepBlue right now! Just click on the <a href="php/deepblue_checkuser.php">anonymous user</a> login!</h3>
-            	</div>
+          <h3>Try DeepBlue right now! Just click on the <a href="php/deepblue_checkuser.php">Access DeepBlue</a> button!</h3>
+         </div>
 			</div>
-			<br/>
-			<br/>
+
 			<div class="row">
-				<div class="col-lg-12 text-center">
-			</div>
-
-			<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-
-				<div class="row">
-					<div class="col-md-6 col-lg-7">
+				<div class="col-md-14">
+					<div class="col-md-4 col-lg-4 hidden-xs hidden-sm">
 						<div class="pull-left">
 							<h4 class="paragraph-header" style="text-align:justify">DeepBlue Epigenomic Data Server provides a central data access hub for large collections of epigenomic data. It organizes the data from different sources using controlled vocabularies and ontologies. The data is stored in our server server, where the users can access the data programmatically or by or web interface.</h4>
 							<h4 class="paragraph-header" style="text-align:justify">DeepBlue contains a set of operations designed for operation on epigenomic data, for example, data overlapping and aggregations. The users can execute all the operations in a pipeline fashion in the server and transfer only the meaningful data. DeepBlue is open and free or charge. Request your account and start using it.</h4>
 						</div>
 					</div>
-					<div class="col-md-4 col-lg-5">
-						<a class="twitter-timeline" href="https://twitter.com/deepblue_data" data-widget-id="656811788294582273">Tweets by @deepblue_data</a>
+
+					<div class="col-md-5 col-lg-5" style="margin-top: 15px">
+						<div style=>
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		  					<div class="panel panel-default">
+		    					<div class="panel-heading" role="tab" id="headingOne">
+		      					<h3 class="panel-title">
+		        					<a role="button" style="text-decoration: none" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Direct access to DeepBlue</a>
+		      					</h3>
+		    					</div>
+		    					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		      					<div class="panel-body">
+											<a style="padding: 10px; font-size: 150%;" class="btn btn-primary btn-block" href=<?php echo APP_URL.'/php/deepblue_checkuser.php' ?> role="button">Access DeepBlue</a>
+		      					</div>
+		    					</div>
+		  					</div>
+		  					<div class="panel panel-default">
+		    					<div class="panel-heading" role="tab" id="headingTwo">
+		      					<h3 class="panel-title">
+		        					<a class="collapsed" role="button" style="text-decoration: none" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+		          				Login with your credentials
+		        					</a>
+		      					</h3>
+		    					</div>
+		    					<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+		      					<div class="panel-body no-padding">
+		        					<form action="<?php echo APP_URL.'/php/deepblue_checkuser.php' ?>" id="login-form" class="smart-form client-form" method="post">
+												<fieldset>
+													<?php if (isset($_SESSION['login_attempt'])) {
+													echo
+			                                '<section>
+			                                    <div class="alert alert-danger fade in" id="login-banner">
+			                                        <button class="close" data-dismiss="alert">×</button>
+			                                        <i class="fa-fw fa fa-times"></i><strong>Error! </strong>'.
+			                                        $_SESSION['login_attempt'].
+			                                    '</div>
+			                                </section>';
+			                                }
+			                                unset($_SESSION['login_attempt']);
+													?>
+													<section>
+														<label class="label">E-mail</label>
+														<label class="input"> <i class="icon-append fa fa-user"></i>
+															<input type="email" name="email">
+															<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b>
+														</label>
+													</section>
+
+													<section>
+														<label class="label">Password</label>
+														<label class="input"> <i class="icon-append fa fa-lock"></i>
+															<input type="password" name="password">
+															<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b>
+														</label>
+														<div class="note">
+															<a href="<?php echo APP_URL; ?>/forgotpassword.php">Forgot password?</a>
+														</div>
+													</section>
+
+													<section>
+														<label class="checkbox">
+															<input type="checkbox" name="remember" checked=""><i></i>Stay signed in</input>
+														</label>
+													</section>
+
+												</fieldset>
+												<footer>
+													<button type="submit" class="btn btn-primary">Login with your credentials</button>
+												</footer>
+											</form>
+										</div>
+		      				</div>
+		    				</div>
+		  				</div>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-lg-3 hidden-xs hidden-sm" style="margin-top: 15px">
+						<a class="twitter-timeline" href="https://twitter.com/deepblue_data" data-widget-id="659363721148551169">Tweets by @deepblue_data</a>
 						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 					</div>
 				</div>
 			</div>
-
-
-			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-				<div class="well no-padding">
-					<form action="<?php echo APP_URL.'/php/deepblue_checkuser.php' ?>" id="login-form" class="smart-form client-form" method="post">
-						<header>
-							Sign In
-						</header>
-						<fieldset>
-							<?php if (isset($_SESSION['login_attempt'])) {
-                                echo
-                                '<section>
-                                    <div class="alert alert-danger fade in" id="login-banner">
-                                        <button class="close" data-dismiss="alert">×</button>
-                                        <i class="fa-fw fa fa-times"></i><strong>Error! </strong>'.
-                                        $_SESSION['login_attempt'].
-                                    '</div>
-                                </section>';
-                                }
-                                unset($_SESSION['login_attempt']);
-							?>
-							<section>
-								<label class="label">E-mail</label>
-								<label class="input"> <i class="icon-append fa fa-user"></i>
-									<input type="email" name="email">
-									<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b></label>
-							</section>
-
-							<section>
-								<label class="label">Password</label>
-								<label class="input"> <i class="icon-append fa fa-lock"></i>
-									<input type="password" name="password">
-									<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
-								<div class="note">
-									<a href="<?php echo APP_URL; ?>/forgotpassword.php">Forgot password?</a>
-                                    <a href="<?php echo APP_URL; ?>/php/deepblue_checkuser.php" style="float: right">Anonymous login</a>
-								</div>
-							</section>
-
-							<section>
-								<label class="checkbox">
-									<input type="checkbox" name="remember" checked="">
-									<i></i>Stay signed in</label>
-							</section>
-						</fieldset>
-						<footer>
-							<button type="submit" class="btn btn-primary">
-								Sign in
-							</button>
-						</footer>
-					</form>
-
-				</div>
-
-			</div>
 		</div>
-    </div>
-    <!-- END MAIN PANEL -->
+	</div>
 
-    <!-- Features view -->
-    <div class="container features">
+  <!-- Features view -->
+  <div class="container features">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="navy-line"></div>
@@ -179,9 +194,9 @@ include("inc/header.php");
                 </div>
                 <br>
                 <div class="m-t-lg">
-                    <i class="fa fa-book fa-3x fa-blue"></i>
-                    <h2 class="txt-color-red login-header-big">Documentation</h2>
-                    <p align="justify">DeepBlue contains a full API reference, a complete manual, and tutorials for easing the initial steps.</p>
+                    <i class="fa fa-cloud fa-3x fa-blue"></i>
+                    <h2 class="txt-color-red login-header-big">Web interface</h2>
+                    <p align="justify">Together with the API, DeepBlue has an intuitive web portal, where the users can access and handle the epigenomic data.</p>
                 </div>
             </div>
             <div class="col-md-6 text-center wow zoomIn">
@@ -205,49 +220,43 @@ include("inc/header.php");
                     <br/>
                 </div>
                 <br>
-
                 <div class="m-t-lg">
-                    <i class="fa fa-cloud fa-3x fa-blue"></i>
-                    <h2 class="txt-color-red login-header-big">Web interface</h2>
-                    <p align="justify">Together with the API, DeepBlue has an intuitive web portal, where the users can access and handle the epigenomic data.</p>
+                    <i class="fa fa-book fa-3x fa-blue"></i>
+                    <h2 class="txt-color-red login-header-big">Documentation</h2>
+                    <p align="justify">DeepBlue contains a full API reference, a complete manual, and tutorials for easing the initial steps.</p>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+  </div>
 
-
-
-<div class="container">
+	<div class="container">
     <div class="row">
-      	<div class="col-lg-12 text-center">
-      		<br/>
-			<div class="navy-line"></div>
-			<br/>
-            <p>DeepBlue is possible because the support of:</p>
-            <br/>
-        </div>
+      <div class="col-lg-12 text-center">
+      	<br/>
+				<div class="navy-line"></div>
+				<br/>
+        <p>DeepBlue is possible because the support of:</p>
+        <br/>
+      </div>
     </div>
     <div class="container-fluid">
 	    <div class="row">
-			<div class="col-xs-6 col-sm-5cols">
-				<a href="http://www.mpg.de/en"><img height="80px" src="img/minerva-MPG-small.png"/></a>
-			</div>
-			<div class="col-xs-6 col-sm-5cols">
-				<a href="http://www.mpi-inf.mpg.de/"><img height="80px" src="img/mpilogo-inf-compact.png"/></a>
-			</div>
-			<div class="col-xs-6 col-sm-5cols">
-				<a href="http://www.deutsches-epigenom-programm.de/"><img height="80px" src="img/DEEP_Logo.jpg"/></a>
-			</div>
-			<div class="col-xs-6 col-sm-5cols">
-				<a href="http://www.blueprint-epigenome.eu/"><img height="80px" src="img/blueprint.png"/></a>
+				<div class="col-xs-6 col-sm-5cols">
+					<a href="http://www.mpg.de/en"><img height="80px" src="img/minerva-MPG-small.png"/></a>
+				</div>
+				<div class="col-xs-6 col-sm-5cols">
+					<a href="http://www.mpi-inf.mpg.de/"><img height="80px" src="img/mpilogo-inf-compact.png"/></a>
+				</div>
+				<div class="col-xs-6 col-sm-5cols">
+					<a href="http://www.deutsches-epigenom-programm.de/"><img height="80px" src="img/DEEP_Logo.jpg"/></a>
+				</div>
+				<div class="col-xs-6 col-sm-5cols">
+					<a href="http://www.blueprint-epigenome.eu/"><img height="80px" src="img/blueprint.png"/></a>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-
-
 
 <section id="contact" class="gray-section contact">
     <div class="container">
