@@ -25,7 +25,7 @@
 		<script src="<?php echo ASSETS_URL; ?>/js/bootstrap/bootstrap.min.js"></script>
 
 		<!-- BOOTSTRO TUTORIAL JS -->
-		<script src="js/bootstro.js"></script>
+		<script src="<?php echo ASSETS_URL; ?>/js/bootstro.js"></script>
 
 		<!-- CUSTOM NOTIFICATION -->
 		<script src="<?php echo ASSETS_URL; ?>/js/notification/SmartNotification.min.js"></script>
