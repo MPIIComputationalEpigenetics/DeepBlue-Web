@@ -17,6 +17,7 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 require_once("../../lib/server_settings.php");
+require_once("../../lib/error.php");
 
 $client = new IXR_Client(get_server());
 
@@ -26,10 +27,7 @@ if(!$client->query("list_experiments", '','','','','', $user_key)){
 }
 else{
 	$epList[] = $client->getResponse();
-	if ($epList[0][0] == "error") {
-		echo json_encode($epList[0]);
-        die();
-	}
+	check_error($epList[0]);
 }
 $lists['experiment'] = $epList[0][1];
 

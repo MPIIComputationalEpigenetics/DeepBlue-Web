@@ -8,6 +8,7 @@
 /* include IXR Library for RPC-XML */
 require_once("../lib/deepblue.IXR_Library.php");
 require_once("../lib/server_settings.php");
+require_once("../../lib/error.php");
 
 if (session_id() == '') {
 	session_start();
@@ -24,64 +25,51 @@ $institution = $_POST['affiliation'];
 $username = $_POST['username'];
 
 if(!$client->query("user_auth", $email, $oldpassword)){
-	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
+	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 $response = $client->getResponse();
+check_error($response);
+
 $code = $response[0];
 $msg = $response[1];
 
-if ($code == 'error') {
-    echo json_encode($response);
-    die();
-}
-else {
-	$user_key = $msg;
-	if ($newpassword != '') {
-		if(!$client->query("modify_user", "password", $newpassword, $user_key)) {
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
-		}
-		$response = $client->getResponse();
-		if ($response[0] == 'error') {
-            echo json_encode($response);
-            die();
-        }
-	}
 
-	if ($username != '') {	
-		if(!$client->query("modify_user", "name", $username, $user_key)) {
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
-		}
-		$response = $client->getResponse();
-		if ($response[0] == 'error') {
-            echo json_encode($response);
-            die();
-        }
-		$_SESSION['user_name'] = $username;
+$user_key = $msg;
+if ($newpassword != '') {
+	if(!$client->query("modify_user", "password", $newpassword, $user_key)) {
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
-
-	if ($institution != '') {
-		if(!$client->query("modify_user", "institution", $institution, $user_key)) {
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
-		}
-		$response = $client->getResponse();
-		if ($response[0] == 'error') {
-            echo json_encode($response);
-            die();
-        }
-		$_SESSION['institution'] = $institution;
-	}
-	
-	if ($newemail != '') {
-		if(!$client->query("modify_user", "email", $newemail, $user_key)) {
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());	
-		}
-		$response = $client->getResponse();
-		if ($response[0] == 'error') {
-            echo json_encode($response);
-            die();
-        }
-		$_SESSION['user_email'] = $newemail;
-	}
-    $response = ['okay', 'Profile edit succesful'];
-    echo json_encode($response);
+	$response = $client->getResponse();
+	check_error($response);
 }
+
+if ($username != '') {
+	if(!$client->query("modify_user", "name", $username, $user_key)) {
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+	}
+	$response = $client->getResponse();
+	check_error($response);
+	$_SESSION['user_name'] = $username;
+}
+
+if ($institution != '') {
+	if(!$client->query("modify_user", "institution", $institution, $user_key)) {
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+	}
+	$response = $client->getResponse();
+	check_error($response);
+	$_SESSION['institution'] = $institution;
+}
+
+if ($newemail != '') {
+	if(!$client->query("modify_user", "email", $newemail, $user_key)) {
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+	}
+	$response = $client->getResponse();
+	check_error($response);
+	$_SESSION['user_email'] = $newemail;
+}
+
+$response = ['okay', 'Profile edit successfully'];
+echo json_encode($response);
+?>

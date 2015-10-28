@@ -67,3 +67,5 @@ else {
     isset($_POST['remember']) ? setcookie('PHPSESSID',$cookie_val, time() + (86400 * 365), '/') : setcookie('PHPSESSID',$cookie_val, 0, '/' );
 	header("Location:  ../dashboard.php");
 }
+
+?>

@@ -15,7 +15,9 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
+
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
@@ -40,10 +42,7 @@ switch ($caller) {
 		}
 		else{
 			$epList[] = $client->getResponse();
-			if ($epList[0][0] == "error") {
-                echo json_encode($epList[0]);
-                die();
-			}			
+			check_error($epList[0]);
 		}
 		$lists = $epList[0][1];
 		break;
@@ -54,10 +53,7 @@ switch ($caller) {
 		}
 		else{
 			$emList[] = $client->getResponse();
-			if ($emList[0][0] == "error") {
-                echo json_encode($emList[0]);
-                die();
-			}
+			check_error($emList[0]);
 		}
 		$lists = $emList[0][1];
 		break;
@@ -68,10 +64,7 @@ switch ($caller) {
 		}
 		else{
 			$samples[] = $client->getResponse();
-			if ($samples[0][0] == "error") {
-				echo json_encode($samples[0]);
-                die();
-			}
+			check_error($samples[0]);
 			$sampleIds = array();
 			$smList = [];
 			$i = 0;
@@ -91,10 +84,7 @@ switch ($caller) {
 		}
 		else{
 			$tqList[] = $client->getResponse();
-			if ($tqList[0][0] == "error") {
-                echo json_encode($tqList[0]);
-                die();
-			}
+			check_error($tqList[0]);
 		}
 		$lists = $tqList[0][1];
 		break;
@@ -105,10 +95,7 @@ switch ($caller) {
 		}
 		else{
 			$prList[] = $client->getResponse();
-			if ($prList[0][0] == "error") {
-                echo json_encode($prList[0]);
-                die();
-			}
+			check_error($prList[0]);
 		}
 		$lists = $prList[0][1];
 		break;
@@ -119,10 +106,8 @@ switch ($caller) {
 		}
 		else{
 			$coList[] = $client->getResponse();
-			if ($coList[0][0] == "error") {
-				echo json_encode($coList[0]);
-                die();
-			}
+			check_error($prList[0]);
+
 			//echo json_encode($coList);
 			$type = explode("xyz123abc", $caller)[1];
 			if ($type == 'range') {
@@ -143,11 +128,7 @@ switch ($caller) {
 				}
 				else {
 					$colDetail[] = $client->getResponse();
-
-					if ($colDetail[0][0] == "error") {
-						echo json_encode($colDetail[0]);
-                        die();
-					}
+					check_error($prList[0]);
 
 					if ($colDetail[0][1][0]['column_type'] == $type) {
 						if ($type == 'calculated') {

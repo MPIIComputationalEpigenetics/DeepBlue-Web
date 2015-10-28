@@ -17,6 +17,7 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 require_once("../../lib/server_settings.php");
+require_once("../../lib/error.php");
 
 $client = new IXR_Client(get_server());
 
@@ -26,10 +27,7 @@ if(!$client->query("list_column_types", $user_key)){
 }
 else{
 	$colList[] = $client->getResponse();
-	if ($colList[0][0] == "error") {
-        echo json_encode($colList[0]);
-        die();
-	}
+	check_error($colList[0]);
 }
 
 $i = 0;
@@ -43,14 +41,12 @@ foreach ($colList[0][1] as $column) {
 	}
 	else {
 		$colDetail[] = $client->getResponse();
-		if ($colDetail[0][0] == "error") {
-            echo json_encode($colDetail[0]);
-            die();
-		}		
+		check_error($colDetail);
+
 		$strList[] = $colDetail[0][1][0]['name'];
 
 		$colDetail = "";
-	}	
+	}
 }
 
 echo json_encode($strList);

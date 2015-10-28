@@ -19,6 +19,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
+require_once("../../lib/error.php");
 
 /* include IXR Library for RPC-XML */
 require_once("../../lib/deepblue.IXR_Library.php");
@@ -33,14 +34,9 @@ if (isset($_GET["filter"])) {
     }
 
     $response = $client->getResponse();
-    if ($response[0] == "error") {
-        //echo json_encode($response);
-        $data['request_list'] = [];
-        //die();
-    }
-    else {
-        $data['request_list'] = $response[1];
-    }
+    check_error($response);
+
+    $data['request_list'] = $response[1];
 
     $rrow = [];
     foreach($data['request_list'] as $request) {
@@ -55,14 +51,10 @@ if (isset($_GET["filter"])) {
         }
 
         $response = $client->getResponse();
-        if ($response[0] == "error") {
-            //echo json_encode($response);
-            $qid = '';
-            //die();
-        }
-        else {
-            $qid = $response[1][0]['query_id'];
-        }
+        check_error($response);
+
+        $qid = $response[1][0]['query_id'];
+
         // retrieve initial query details
         query_detail($qid, $rdetail);
         $rdetail = $rdetail.'</div>';
@@ -72,14 +64,9 @@ if (isset($_GET["filter"])) {
         }
 
         $response = $client->getResponse();
-        if ($response[0] == "error") {
-            //echo json_encode($response);
-            $rstate = '';
-            //die();
-        }
-        else {
-            $rstate = $response[1][0]['state'];
-        }
+        check_error($response);
+
+		$rstate = $response[1][0]['state'];
 
         if ($rstate == 'done') {
             $temp[] = 'ready';
@@ -111,10 +98,7 @@ function query_detail($qud, &$rdetail) {
 	}
 
 	$response = $client->getResponse();
-    if ($response[0] == "error") {
-        echo json_encode($response);
-        die();
-    }
+	check_error($response);
 
 	$qtype = $response[1][0]['type'];
 	$qdetail = json_decode($response[1][0]['args'], true);
@@ -137,10 +121,7 @@ function query_detail($qud, &$rdetail) {
 			}
 
 			$result[] = $client->getResponse();
-            if ($result[0][0] == "error") {
-                echo json_encode($result[0]);
-                die();
-            }
+			check_error($result[0]);
 
 			$chrlen = count($result[0][1]);
 			for ($k = 0; $k < $chrlen; $k++) {

@@ -17,6 +17,7 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
+require_once("../../lib/error.php");
 
 $client = new IXR_Client(get_server());
 
@@ -33,11 +34,7 @@ if (isset($_GET) && isset($_GET["id"])) {
 	}
 
 	$response = $client->getResponse();
-
-	if ($response[0] == 'error') {
-		echo json_encode(['data' => $response]);
-        die();
-	}
+	check_error($response);
 
 	$deepBlueObj->searchResultToJson($response[1]);
 }
