@@ -37,7 +37,7 @@ $calculated = false;
 switch ($caller) {
 	case 'experiment':
 		/* retrieve list of all epigenetic marks */
-		if(!$client->query("list_experiments", '','','','','', $user_key)){
+		if(!$client->query("list_experiments", '', '', '','','','','', $user_key)){
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{

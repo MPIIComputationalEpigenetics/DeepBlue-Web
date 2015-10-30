@@ -329,8 +329,10 @@ class Deepblue{
             $project = "";
         }
 
+        $type = "";
+        $biosource = "";
 
-        if(!$this->client->query("list_experiments", $genome, $epigenetic_mark, $sampleIds, $technique, $project, $this->privateUserKey)){
+        if(!$this->client->query("list_experiments", $genome, $type, $epigenetic_mark, $biosource, $sampleIds, $technique, $project, $this->privateUserKey)){
             die('An error occurred - '.$this->client->getErrorCode().":".$this->client->getErrorMessage());
         }
         else{

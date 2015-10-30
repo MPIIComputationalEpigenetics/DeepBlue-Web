@@ -22,7 +22,7 @@ require_once("../../lib/error.php");
 $client = new IXR_Client(get_server());
 
 /* retrieve list of all experiments */
-if(!$client->query("list_experiments", '','','','','', $user_key)){
+if(!$client->query("list_experiments", '', '', '','','','','', $user_key)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 else{

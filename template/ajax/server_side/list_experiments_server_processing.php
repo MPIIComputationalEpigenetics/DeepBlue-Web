@@ -49,8 +49,11 @@ if (isset($_GET) && isset($_GET["projects"])) {
 	$projects = "";
 }
 
+$type = "";
+$biosource = "";
+
 $client = new IXR_Client(get_server());
-if(!$client->query("list_experiments", $genomes, $epigenetic_marks, $samples, $techniques, $projects, $user_key)){
+if(!$client->query("list_experiments", $genomes, $type, $epigenetic_marks, $biosource, $samples, $techniques, $projects, $user_key)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 
