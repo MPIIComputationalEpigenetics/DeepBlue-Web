@@ -92,7 +92,7 @@ include("inc/header.php");
 					<p>We use the <a href="api.php#api-count_regions"</a>count_regions</a>, giving as parameters the <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a>.
 					<p>The <a href="api.php#api-count_regions"</a>count_regions</a> command is asynchronous. It means that the user receive a <i>request_id</i>, where the user can use the <a href="api.php#api-info"</a>info</a> command for checking its status.</p>
 					<p>The processing is over when the <i>request_status</i> is <i>done</i> or <i>failed</i>.</p>
-					<p>The request data can be retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+					<p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/6b503fb93612cab9f47d.js"></script></dd>
 
@@ -102,7 +102,7 @@ include("inc/header.php");
 					<p>We use the <a href="api.php#api-get_regions"</a>get_regions</a>, giving as parameters the <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns. The columns <i>@NAME</i> and <i>@BIOSOURCE</i> include the experiment name and experiment biosource in the row output.</p>
 					<p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receive a <i>request_id</i>, where the user can use the <a href="api.php#api-info"</a>info</a> command for checking its status.</p>
 					<p>The processing is over when the <i>request_status</i> is <i>done</i> or <i>failed</i>.</p>
-					<p>The request data can be retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+					<p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/9bafb162d8d61f2c234c.js"></script></dd>
 
@@ -114,7 +114,7 @@ include("inc/header.php");
 					<p>After, we use the <a href="api.php#api-get_regions"</a>get_regions</a>, giving as parameters the <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns. The columns <i>@NAME</i>, <i>SAMPLE_ID</i>, and <i>@BIOSOURCE</i> include the experiment name, the sample ID, and experiment biosource in the row output.</p>
 					<p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receive a <i>request_id</i>, where the user can use the <a href="api.php#api-info"</a>info</a> command for checking its status.</p>
 					<p>The processing is over when the <i>request_status</i> is <i>done</i> or <i>failed</i>.</p>
-					<p>The request data can be retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+					<p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/0debbec441804f62c045.js"></script></dd>
 
@@ -126,7 +126,7 @@ include("inc/header.php");
 					<p>After, we use the <a href="api.php#api-get_regions"</a>get_regions</a>, giving as parameters the <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns. The columns <i>@NAME</i> and <i>@BIOSOURCE</i> include the experiment name and experiment biosource in the row output.</p>
 					<p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receive a <i>request_id</i>, where the user can use the <a href="api.php#api-info"</a>info</a> command for checking its status.</p>
 					<p>The processing is over when the <i>request_status</i> is <i>done</i> or <i>failed</i>.</p>
-					<p>The request data can be retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+					<p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/61b9329decc31c3fa1ec.js"></script></dd>
 
@@ -138,7 +138,7 @@ include("inc/header.php");
 					<p>We use the <a href="api.php#api-get_regions"</a>get_regions</a>, giving as parameters the <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns. The columns <i>@NAME</i> and <i>@BIOSOURCE</i> include the experiment name and experiment biosource in the row output.</p>
 					<p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receive a <i>request_id</i>, where the user can use the <a href="api.php#api-info"</a>info</a> command for checking its status.</p>
 					<p>The processing is over when the <i>request_status</i> is <i>done</i> or <i>failed</i>.</p>
-					<p>The request data can be retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+					<p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/63999ad6da020eedf740.js"></script></dd>
 
@@ -151,7 +151,7 @@ include("inc/header.php");
 					<p>We use the <a href="api.php#api-get_regions"</a>get_regions</a> with the <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns. In this case, we use the meta-column @SEQUENCE, that includes the <i>DNA Sequence</i> in the genomic region output.</p>
 					<p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receive a <i>request_id</i>, where the user can use the <a href="api.php#api-info"</a>info</a> command for checking its status.</p>
 					<p>The processing is over when the <i>request_status</i> is <i>done</i> or <i>failed</i>.</p>
-					<p>The request data can be retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+					<p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/b8f200c6e591dd41bb51.js"></script></dd>
 
@@ -165,19 +165,19 @@ include("inc/header.php");
 					<p>We use the <a href="api.php#api-get_regions"</a>get_regions</a> with the <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns.</p>
 					<p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receive a <i>request_id</i>, where the user can use the <a href="api.php#api-info"</a>info</a> command for checking its status.</p>
 					<p>The processing is over when the <i>request_status</i> is <i>done</i> or <i>failed</i>.</p>
-					<p>The request data can be retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+					<p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/58740596a2f75ddf11f9.js"></script></dd>
 
 				<dt>
 					<h5>Genes</h5>
-					<p>We use the <a href="api.php#api-select_genes"</a>find_pattern</a> command for selecting the gene <i>RP11-34P13</i> from the gene set <i>gencode v23</i>.</p>
+					<p>We use the <a href="api.php#api-select_genes"</a>select_genes</a> command for selecting the gene <i>RP11-34P13</i> from the gene set <i>gencode v23</i>.</p>
 					<p>The selected genes behave like a usual genomic region, that for example, can be filtered by their content.</p>
 					<p>We use the <i>@GENE_ATTRIBUTE</i> meta-column to select the genomic regions that are <i>lincRNA</i>.</p>
 					<p>We use the <a href="api.php#api-get_regions"</a>get_regions</a> with the <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns.</p>
 					<p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receive a <i>request_id</i>, where the user can use the <a href="api.php#api-info"</a>info</a> command for checking its status.</p>
 					<p>The processing is over when the <i>request_status</i> is <i>done</i> or <i>failed</i>.</p>
-					<p>The request data can be retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+					<p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/9a49cc901b57d96867f8.js"></script></dd>
 
@@ -199,6 +199,16 @@ include("inc/header.php");
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/c42b37e39b18d210d6cb.js"></script></dd>
 
+
+				<dt>
+					<h5>Flanking regions</h5>
+					<p>We use the <a href="api.php#api-select_genes"</a>select_genes</a> command for selecting a set of genes from te gene set <i>gencode v19</i>.</p>
+					<p>The command <a href="api.php#api-flank"</a>flank</a> obtain flanking regions based on the existing regions. Firstly we obtain the regions that starts 2500 bases pair before the regions start and have 2000 base pairs. After, we obtain the regions that starts 1500 bases pair after the regions end and have 500 base pairs. We consider the regions strand in both cases.</p>
+					<p>The command <a href="api.php#api-merge_queries"</a>merge_queries</a> merge the region sets defined by the queries ID. We merge the two flanking regions sets with the genes regions set.</p>
+					<p>We use the <a href="api.php#api-get_regions"</a>get_regions</a> with the <i>query_id</i> returned by the <a href="api.php#api-merge_queries"</a>merge_queries</a>.
+				</dt>
+				<dd><script src="https://gist.github.com/felipealbrecht/3f3b7439cc270949dcfb.js"></script></dd>
+
 				<dt>
 					<h5>Calculated columns</h5>
 					<p>We use the <a href="api.php#api-get_regions"</a>get_regions</a> with the <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns.</p>
@@ -218,7 +228,7 @@ include("inc/header.php");
 					<p>The <a href="api.php#api-score_matrix"</a>score_matrix</a> command received the dictionary with the experiment names and columns that will be used for aggregation, the regions boundaries, and the operation that will be performed (min, max, mean, var, sd, median, count).</p>
 					<p>The <a href="api.php#api-score_matrix"</a>score_matrix</a> command is asynchronous. It means that the user receive a <i>request_id</i>, where the user can use the <a href="api.php#api-info"</a>info</a> command for checking its status.</p>
 					<p>The processing is over when the <i>request_status</i> is <i>done</i> or <i>failed</i>.</p>
-					<p>The request data can be retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+					<p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
 				</dt>
 				<dd><script src="https://gist.github.com/felipealbrecht/a555f21642406c3d8676.js"></script></dd>
 			</dl>
