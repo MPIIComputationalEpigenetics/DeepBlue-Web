@@ -120,18 +120,16 @@ function query_detail($qud, &$rdetail) {
 				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 			}
 
-			$result[] = $client->getResponse();
-			check_error($result[0]);
+			$result = $client->getResponse();
+			check_error($result);
 
-			$chrlen = count($result[0][1]);
+			$chrlen = count($result[1]);
 			for ($k = 0; $k < $chrlen; $k++) {
-				$chr = $result[0][1][$k][0];
+				$chr = $result[1][$k][0];
 				if (!in_array($chr, $chroms)) {
 					$chroms[] = $chr;
 				}
 			}
-
-			$result = [];
 		}
 		$chroms_count = count($chroms);
 	}
