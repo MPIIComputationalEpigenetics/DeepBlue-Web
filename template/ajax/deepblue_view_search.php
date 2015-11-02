@@ -286,13 +286,7 @@ require_once("inc/init.php");
                     "<li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");
 			}
 			else{
-                if (data.data[0] == 'error') {
-                    $( "#tempSearchResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
-                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " +
-                        "An error has occurred. " + data.data[1] + "</div>");
-                    return;
-                }
-                else {
+
                     $.each(data.data, function(i, item) {
                         //$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
                         $( "#tempSearchResult" ).append( "<div class='search-results clearfix'>"+
@@ -301,7 +295,7 @@ require_once("inc/init.php");
                         "<p class='description marginTop'>" + item[2] +"</p></div>"+
                         "<div class='searchMetadata'>"+item[3]+"</div></div>" );
                     });
-                }
+
 			}
 
 			/* Make metadata short with MORE button */
