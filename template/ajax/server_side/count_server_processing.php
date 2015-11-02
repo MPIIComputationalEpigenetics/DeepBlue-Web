@@ -17,6 +17,7 @@
 require_once("../../lib/lib.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
+require_once("../../lib/error.php");
 
 
 if (isset($_GET) && isset($_GET["request"])) {
@@ -32,10 +33,8 @@ foreach ($request[0] as $vocab) {
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
 	$response = $client->getResponse();
-    if ($response[0] == "error") {
-        echo json_encode($response);
-        die();
-	}
+    check_error($response);
+
     $counts[] = count($response[1]);
 }
 echo json_encode($counts);

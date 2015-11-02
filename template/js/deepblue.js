@@ -4,7 +4,7 @@
 *   All rights reserved.
 *
 *   File : deepblue.js
-*	
+*
 *	Process deepblue wide client-side script functionalities such as:
 *		> Retrieving all required deepblue data to the browser
 *
@@ -27,12 +27,12 @@ var request1 = $.ajax({
 });
 
 request1.done( function(data) {
-    if (data[0] == "error") {
+    if ("error" in data) {
         swal({
             title: "An error has occurred listing experiments",
-            text: data[1]
-        });                                    
-        return;                    
+            text: data['message']
+        });
+        return;
     }
 
     // store data in local storage
@@ -55,13 +55,13 @@ var request2 = $.ajax({
 });
 
 request2.done( function(data) {
-    if (data[0] == "error") {
+    if ("error" in data) {
         swal({
             title: "An error has occurred listing experiments",
-            text: data[1]
-        });                                    
-        return;            
-    }    
+            text: data['message']
+        });
+        return;
+    }
     // store data in local storage
     localStorage.setItem("all_experiments", JSON.stringify(data[0]));
 });
