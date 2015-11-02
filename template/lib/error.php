@@ -18,9 +18,13 @@ function check_error($response) {
 			echo json_encode(array("error" => "Unknown error.", "code" => "unknown", "message" => "An unknown error happened in DeepBlue. Please, inform us (deepblue@mpi-inf.mpg.de about this error. Thank you for the comprehension."));
 			die;
 		}
-		echo "is in\n";
-		list($code, $msg) = explode(":", $error_msg);
-		echo json_encode(array("error" => $response[1], "code" => $code, "message" => $msg));
+
+		$explode_result = explode(":", $error_msg);
+		if (count($explode_result) == 2) {
+			echo json_encode(array("error" => $response[1], "code" => $explode_result[0], "message" => $explode_result[1]));
+			die;
+		}
+		echo json_encode(array("error" => $response[1], "code" => "missing", "message" => $error_msg));
 		die;
 	}
 }
