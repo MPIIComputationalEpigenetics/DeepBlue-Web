@@ -106,7 +106,7 @@ switch ($caller) {
 		}
 		else{
 			$coList[] = $client->getResponse();
-			check_error($prList[0]);
+			check_error($coList[0]);
 
 			//echo json_encode($coList);
 			$type = explode("xyz123abc", $caller)[1];
@@ -128,7 +128,7 @@ switch ($caller) {
 				}
 				else {
 					$colDetail[] = $client->getResponse();
-					check_error($prList[0]);
+					check_error($colDetail[0]);
 
 					if ($colDetail[0][1][0]['column_type'] == $type) {
 						if ($type == 'calculated') {

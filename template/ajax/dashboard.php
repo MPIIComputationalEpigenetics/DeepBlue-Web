@@ -823,7 +823,7 @@
 		var list_in_use = null;
 
 		// check local storage first
-		list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+        list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 		if (list_in_use == null) {
 			var request1 = $.ajax({
 				url: "ajax/server_side/list_in_use.php",
@@ -835,10 +835,10 @@
 
 			request1.done( function(data) {
 
-                if (data[0] == "error") {
+                if ("error" in data) {
                     swal({
                         title: "An error has occurred listing experiments",
-                        text: data[1]
+                        text: data['message']
                     });
                     return;
                 }
@@ -857,7 +857,6 @@
 			});
 		}
 		else {
-			//alert("0");
 			loadDashboard();
 		}
 
@@ -871,10 +870,10 @@
             }
         });
         request1.done( function(data) {
-            if (data[0] == "error") {
+            if ("error" in data) {
                 swal({
                     title: "Error listing experiments",
-                    text: data[1]
+                    text: data['message']
                 });
                 return;
             }

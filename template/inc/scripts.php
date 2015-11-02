@@ -63,10 +63,6 @@
 		<!-- MAIN APP JS FILE -->
 		<script src="<?php echo ASSETS_URL; ?>/js/app.min.js"></script>
 
-		<!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
-		<!-- Voice command : plugin -->
-		<script src="<?php echo ASSETS_URL; ?>/js/speech/voicecommand.min.js"></script>
-
 		<!-- JQuery Read More Plugin -->
 		<script src="<?php echo ASSETS_URL; ?>/js/jquery.plugin.min.js"></script>
 		<script src="<?php echo ASSETS_URL; ?>/js/jquery.more.min.js"></script>

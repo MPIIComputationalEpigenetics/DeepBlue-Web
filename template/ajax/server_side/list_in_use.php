@@ -27,12 +27,17 @@ if (isset($_GET) && isset($_GET["request"])) {
 }
 
 $client = new IXR_Client(get_server());
+$listInUse = [];
 
 foreach ($request[0] as $vocab) {
+    $listInUse[$vocab] = [];
+    $listInUse[$vocab]['amt'] = null;
+    $listInUse[$vocab]['alp'] = null;
+
 	if(!$client->query("list_in_use", $vocab, $user_key)){
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
-	$response['alp'] = $client->getResponse();
+    $response['alp'] = $client->getResponse();
     check_error($response['alp']);
 
 	usort($response['alp'][1], function($a, $b) {
