@@ -164,10 +164,16 @@ require_once("inc/init.php");
 				},
 				"drawCallback" : function(oSettings) {
 					responsiveHelper_datatable_fixed_column.respond();
-				},
-                "failure": function(result) {alert(result)}
+				}
 			}
 		});
+
+    	otable.on('xhr.dt', function ( e, settings, json, xhr ) {
+    		if ("error" in json) {
+    			swal("Error while loading table content.", json["message"], "error");
+    			json.aaData = [];
+    		}
+    	});
 
 		$("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
 		    otable
