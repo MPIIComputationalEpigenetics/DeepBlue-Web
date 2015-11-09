@@ -197,7 +197,7 @@ require_once("inc/init.php");
 			if (window_focus) {
 				otable.ajax.reload();
 			}
-		}, 30000);
+		}, 60000);
 	};
 
 	// load related plugins
