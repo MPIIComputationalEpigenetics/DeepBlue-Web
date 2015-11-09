@@ -99,7 +99,7 @@ if (isset($_GET["filter"])) {
 
 function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries) {
 	if (array_key_exists($qud, $cache_queries)) {
-		$rdetail = $cache_queries[$qud];
+		$rdetail = $rdetail . $cache_queries[$qud];
 		return;
 	}
 
