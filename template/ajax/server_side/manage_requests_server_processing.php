@@ -29,6 +29,11 @@ $client = new IXR_Client(get_server());
 if (isset($_GET["filter"])) {
     $request_state = $_GET["filter"];
 
+    $cache_chromosomes = array();
+   	$cache_queries = array();
+
+    $requests = array();
+
     if(!$client->query("list_requests", $request_state, $user_key)){
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
@@ -36,48 +41,52 @@ if (isset($_GET["filter"])) {
     $response = $client->getResponse();
     check_error($response);
 
-    $data['request_list'] = $response[1];
+    $user_requests = $response[1];
+
+    $requests_ids = array();
+	foreach($user_requests as $user_request) {
+        $requests_ids[] = $user_request[0];
+    }
+
+    if(!$client->query("info", $requests_ids, $user_key)){
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+     }
+    $requests_response = $client->getResponse();
+    check_error($requests_response);
+
+    $requests_info = $requests_response[1];
 
     $rrow = [];
-    foreach($data['request_list'] as $request) {
-        $rid = $request[0];
+    foreach($requests_info as $request_info) {
+        $rid = $request_info["_id"];
         $temp[] = $rid;
         $qdetail = '';
         $rdetail = '<div style="display: block;">';
 
-        // obtain initial query id
-        if(!$client->query("info", $rid, $user_key)){
-            die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-        }
-
-        $response = $client->getResponse();
-        check_error($response);
-
-        $qid = $response[1][0]['query_id'];
-
+        $qid = $request_info['query_id'];
         // retrieve initial query details
-        query_detail($qid, $rdetail);
+        query_detail($qid, $rdetail, $cache_chromosomes, $cache_queries);
         $rdetail = $rdetail.'</div>';
 
-        if(!$client->query("info", $request[0], $user_key)){
-            die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-        }
-
-        $response = $client->getResponse();
-        check_error($response);
-
-		$rstate = $response[1][0]['state'];
+		$rstate = $request_info['state'];
 
         if ($rstate == 'done') {
             $temp[] = 'ready';
-            $temp[] = substr($response[1][0]['create_time'], 0, -7);
-            $temp[] = substr($response[1][0]['finish_time'], 0, -7);
+            $temp[] = substr($request_info['create_time'], 0, -7);
+            $temp[] = substr($request_info['finish_time'], 0, -7);
             $temp[] = $rdetail;
             $temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion(event)">Download</button>';
         }
+        else if ($rstate == 'failed') {
+            $temp[] = $rstate . ":<br />" . $request_info["message"];
+            $temp[] = substr($request_info['create_time'], 0, -7);
+            $temp[] = '--';
+            $temp[] = $rdetail;
+            $temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
+        }
         else {
             $temp[] = $rstate;
-            $temp[] = substr($response[1][0]['create_time'], 0, -7);
+            $temp[] = substr($request_info['create_time'], 0, -7);
             $temp[] = '--';
             $temp[] = $rdetail;
             $temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
@@ -88,7 +97,12 @@ if (isset($_GET["filter"])) {
     echo json_encode(array('data' => $rrow));
 }
 
-function query_detail($qud, &$rdetail) {
+function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries) {
+	if (array_key_exists($qud, $cache_queries)) {
+		$rdetail = $cache_queries[$qud];
+		return;
+	}
+
 	$client = new IXR_Client(get_server());
 	$user_key = get_user_key();
 	$chroms = [];
@@ -115,17 +129,23 @@ function query_detail($qud, &$rdetail) {
 		$length = count($genomes);
 
 		for ($j = 0; $j < $length; $j++) {
-			// get chromosomes matching genome
-			if(!$client->query("chromosomes", $genomes[$j], $user_key)){
-				die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+			// get the genome chromosomes
+			if (array_key_exists($genomes[$j], $cache_chromosomes)) {
+				$chromosomes = $cache_chromosomes[$genomes[$j]];
+			} else {
+				if(!$client->query("chromosomes", $genomes[$j], $user_key)){
+					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+				}
+				$result = $client->getResponse();
+				check_error($result);
+				$chromosomes = $result[1];
+				$cache_chromosomes[$genomes[$j]] = $chromosomes;
 			}
 
-			$result = $client->getResponse();
-			check_error($result);
+			$chrlen = count($chromosomes);
 
-			$chrlen = count($result[1]);
 			for ($k = 0; $k < $chrlen; $k++) {
-				$chr = $result[1][$k][0];
+				$chr = $chromosomes[$k][0];
 				if (!in_array($chr, $chroms)) {
 					$chroms[] = $chr;
 				}
@@ -137,7 +157,7 @@ function query_detail($qud, &$rdetail) {
 	foreach ($qdetail as $key => $value) {
 		if ($key == 'qid_1' || $key == 'qid_2') {
 			$rdetail = $rdetail."<hr>";
-			query_detail($value, $rdetail);
+			query_detail($value, $rdetail, $cache_chromosomes, $cache_queries);
 			continue;
 		}
 
@@ -181,4 +201,5 @@ function query_detail($qud, &$rdetail) {
 		}
 		$rdetail = $rdetail."  \n\r  <br/>";
 	}
+	$cache_queries[$qud] = $rdetail;
 }
