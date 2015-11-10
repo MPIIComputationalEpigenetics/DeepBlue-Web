@@ -223,7 +223,7 @@ $page_nav = array(
 );
 
 //configuration variables
-$page_title = "DeepBlue Epigenomic Data Server - Web Interface";
+$page_title = "DeepBlue Epigenomic Data Server";
 $page_css = array();
 $no_main_header = false; //set true for lock.php and index.php
 $page_body_prop = array(); //optional properties for <body>
