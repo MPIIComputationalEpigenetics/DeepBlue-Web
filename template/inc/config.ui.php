@@ -122,7 +122,7 @@ $page_nav = array(
    	"deepblue_request" => array(
 		"title" => "Manage Requests",
 		"url"=> "ajax/deepblue_manage_request.php",
-		"icon" => "fa-shopping-cart",
+		"icon" => "fa-download",
 		"description" => "You can view and download all your download requests."
 	),
 
