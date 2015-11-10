@@ -19,6 +19,12 @@ function check_error($response) {
 			die;
 		}
 
+		// Usually the case in the info() command errors answer, that returns an array with one element in the error.
+		// It must be changed in the server, but lets survive with this now.
+		if (is_array($error_msg)) {
+			$error_msg = $error_msg[0];
+		}
+
 		$explode_result = explode(":", $error_msg);
 		if (count($explode_result) == 2) {
 			echo json_encode(array("error" => $response[1], "code" => $explode_result[0], "message" => $explode_result[1]));
