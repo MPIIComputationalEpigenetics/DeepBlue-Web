@@ -92,8 +92,7 @@ require_once("inc/init.php");
 			if ('error' in data) {
 				var msg = data['message'];
                 $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
-                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " +
-                        "Error encountered when retrieving infomation for the ID '"+$id+"': "+ msg +"</div>");
+                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " + msg +"</div>");
             }
 			else {
 				$.each(data.data, function(i, item) {

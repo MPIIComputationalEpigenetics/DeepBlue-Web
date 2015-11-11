@@ -55,19 +55,19 @@ require_once("inc/init.php");
 	$("#query_input").focus();
 	$("#query_bt").button().click(query_function);
     $("#remove_bt").button().click(remove_function);
-    
+
     var id;
-    
+
 	function query_function() {
-		
+
 		id = $('#query_input').val();
-		
+
 		/* Checking query if is empty or not */
 		if(id == ''){
-			$( "#tempInfoResult" ).empty();	
+			$( "#tempInfoResult" ).empty();
             $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
                     " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
-                    "Enter a valid ID, ID cannot be empty!</div>");            
+                    "Enter a valid ID, ID cannot be empty!</div>");
 			return;
 		}
 
@@ -79,13 +79,12 @@ require_once("inc/init.php");
 			}
 		});
 
-		request.done( function(data) {			
+		request.done( function(data) {
 			$( "#tempInfoResult" ).empty();
 			if ('error' in data) {
 				var msg = data['message'];
                 $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
-                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " +
-                        "Error encountered when retrieving infomation for the ID '"+id+"': "+ msg +"</div>");                
+                        " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " + msg +"</div>");
 			}
 			else {
 				$.each(data.data, function(i, item) {
@@ -108,16 +107,16 @@ require_once("inc/init.php");
 	}
 
     function remove_function() {
-        swal({   
-            title: "Are you sure?",   
-            text: "You will not be able to recover this data!",   
-            type: "warning",   
-            showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Yes, delete it!",   
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this data!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
             closeOnConfirm: true },
-        
-            function(){                
+
+            function(){
                	var request = $.ajax({
                     url: "ajax/server_side/remove_server_processing.php",
                     dataType: "json",
@@ -125,7 +124,7 @@ require_once("inc/init.php");
                         id : id
                     }
                 });
-                request.done( function(data) {			
+                request.done( function(data) {
                     $( "#tempInfoResult" ).empty();
                     $("#remove_bt").prop('disabled', true);
                     if ('error' in data) {
@@ -145,7 +144,7 @@ require_once("inc/init.php");
             }
         );
     }
-    
+
 	/* Trigger searching with pressing ENTER Key */
 	$("#query_input").keyup(function(event){
 		if(event.keyCode == 13){

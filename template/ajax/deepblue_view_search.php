@@ -280,8 +280,8 @@ require_once("inc/init.php");
 			$( "#tempSearchResult" ).empty();
 
 			if(data.data == ''){
-                $( "#tempSearchResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
-                    " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i><strong>Error!</strong> " +
+                $( "#tempSearchResult" ).append( "<br\><div class='alert alert-warning fade in'><button class='close'" +
+                    " data-dismiss='alert'>×</button>" +
                     "Your search - "+$search+" - did not match any documents.<ul><li>Make sure all words are spelled correctly.</li>"+
                     "<li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");
 			}
