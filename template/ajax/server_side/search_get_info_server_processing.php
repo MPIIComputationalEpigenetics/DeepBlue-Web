@@ -15,6 +15,7 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 
@@ -33,14 +34,10 @@ $getId = $_GET["getId"];
 if(!$client->query("info", $getId, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-else{
-    $infoList[] = $client->getResponse();
-	if ($infoList[0][0] == 'error') {
-		echo json_encode(['data' => $infoList[0]]);
-        die();
-	}
-}
 
-$deepBlueObj->searchResultToJson($infoList[0][1]);
+$infoList = $client->getResponse();
+check_error($infoList);
+
+$deepBlueObj->searchResultToJson($infoList[1]);
 
 ?>

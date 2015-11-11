@@ -57,11 +57,11 @@ if(!$client->query("list_experiments", $genomes, $type, $epigenetic_marks, $bios
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 
-$experimentsList[] = $client->getResponse();
-check_error($experimentsList[0]);
+$experimentsList = $client->getResponse();
+check_error($experimentsList);
 
 $experiment_ids = array();
-foreach($experimentsList[0][1] as $experiment){
+foreach($experimentsList[1] as $experiment){
 	$experiment_ids[] = $experiment[0];
 }
 
@@ -90,5 +90,5 @@ foreach($infoList[1] as $metadata) {
     array_push($orderedDataStr, $tempArr);
 }
 
-echo json_encode(array('data' => $orderedDataStr));
+echo json_encode($orderedDataStr);
 ?>

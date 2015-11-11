@@ -15,6 +15,7 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 require_once("../../lib/server_settings.php");
 
@@ -47,4 +48,6 @@ if(!$client->query("add_annotation", $name, $genome, $desc, $data, $format, $met
 }
 
 $response = $client->getResponse();
-echo json_encode(['data' => $response]);
+check_error($response);
+
+echo json_encode($response);

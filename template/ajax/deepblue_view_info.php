@@ -89,9 +89,8 @@ require_once("inc/init.php");
 
 		request.done( function(data) {
 			$( "#tempInfoResult" ).empty();
-			result = data.data;
-			if (result[0] == 'error') {
-				var msg = result[1];
+			if ('error' in data) {
+				var msg = data['message'];
                 $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
                         " data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " +
                         "Error encountered when retrieving infomation for the ID '"+$id+"': "+ msg +"</div>");

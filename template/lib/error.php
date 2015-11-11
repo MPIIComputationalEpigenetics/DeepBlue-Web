@@ -19,7 +19,11 @@ function check_error($response) {
 			die;
 		}
 
-		$explode_result = explode(":", $error_msg);
+        $explode_result = [];
+		if (is_string($error_msg)) {
+            $explode_result = explode(":", $error_msg);
+        }
+
 		if (count($explode_result) == 2) {
 			echo json_encode(array("error" => $response[1], "code" => $explode_result[0], "message" => $explode_result[1]));
 			die;

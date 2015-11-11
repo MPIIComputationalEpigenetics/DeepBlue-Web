@@ -286,16 +286,22 @@ require_once("inc/init.php");
                     "<li>Try different keywords.</li><li>Try more general keywords.</li><li>Try fewer keywords.</li></ul></div>");
 			}
 			else{
-
-                    $.each(data.data, function(i, item) {
-                        //$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
-                        $( "#tempSearchResult" ).append( "<div class='search-results clearfix'>"+
-                            "<h4><span class='seach-result-title'><i class='fa fa-star txt-color-yellow'></i> <b>"+item[0]+ "</b> - <span data-toggle='modal' data-target='#myModal' class='"+item[4]+"'>" + item[1]+ "</span></span></h4>"+
-                        "<div><p class='note'><span><i class='fa fa-circle txt-color-black'></i> " + item[4] +" "+ item[5] +" "+ item[6] +" "+ item[7] +" "+ item[8] +" "+ item[9] + "</span></p>"+
-                        "<p class='description marginTop'>" + item[2] +"</p></div>"+
-                        "<div class='searchMetadata'>"+item[3]+"</div></div>" );
-                    });
-
+				if ("error" in data) {
+					$( "#tempSearchResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
+							" data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i> " +
+							"An error has occurred. " + data['message'] + "</div>");
+					return;
+				}
+				else {
+					$.each(data.data, function (i, item) {
+						//$( "#tempSearchResult" ).append(item+'['+i+']'+"####<br/>");
+						$("#tempSearchResult").append("<div class='search-results clearfix'>" +
+								"<h4><span class='seach-result-title'><i class='fa fa-star txt-color-yellow'></i> <b>" + item[0] + "</b> - <span data-toggle='modal' data-target='#myModal' class='" + item[4] + "'>" + item[1] + "</span></span></h4>" +
+								"<div><p class='note'><span><i class='fa fa-circle txt-color-black'></i> " + item[4] + " " + item[5] + " " + item[6] + " " + item[7] + " " + item[8] + " " + item[9] + "</span></p>" +
+								"<p class='description marginTop'>" + item[2] + "</p></div>" +
+								"<div class='searchMetadata'>" + item[3] + "</div></div>");
+					});
+				}
 			}
 
 			/* Make metadata short with MORE button */
@@ -349,7 +355,6 @@ require_once("inc/init.php");
 		if(type == 'experiment' || type == 'annotation'){
 
 			var getId = $(this).prev().text();
-
 			var infoRequest = $.ajax({
 				url: "ajax/server_side/search_get_info_server_processing.php",
 				dataType: "json",
@@ -359,13 +364,14 @@ require_once("inc/init.php");
 			});
 
 			infoRequest.done( function(data) {
-                if (data.data[0] == 'error') {
+                if ('error' in data) {
                     swal({
                         title: "An error has occurred",
-                        text: data.data[1]
+                        text: data['message']
                     });
                     return;
                 }
+
 				$('#modal_for_experiment').empty();
 				$.each(data.data, function(i, item) {
 				    if(type == 'experiment'){
@@ -419,7 +425,6 @@ require_once("inc/init.php");
 						selectedItem = item;
 					}
 					else{
-
 						$('#modal_for_experiment').append(
 				    	"<table class='table table-striped search-modal-table-td'>"+
 						    "<tbody>"+
