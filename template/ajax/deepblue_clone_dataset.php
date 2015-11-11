@@ -281,10 +281,10 @@ require_once("inc/init.php");
 		});
 
 		request1.done( function(data) {
-            if (data[0] ==  "error") {
+            if ("error" in data) {
                 swal({
                     title: "Error listing experiments",
-                    text: data[1]
+                    text: data['message']
                 });                                    
                 // disable filter button
                 $("#filter_bt").attr('disabled', 'disabled');                
@@ -322,10 +322,10 @@ require_once("inc/init.php");
 
 		request2.done( function(data) {
 			// store data in local storage
-            if (data[0] == "error") {
+            if ("error" in data) {
                 swal({
                     title: "Error listing experiments",
-                    text: data[1]
+                    text: data['message']
                 });                                    
                
                 // disable experiment id clone search button
@@ -573,10 +573,10 @@ require_once("inc/init.php");
 		});
 
 		cloneInfoRequest.done( function(data) {
-            if (data[0] == "error") {
+            if ("error" in data) {
                 swal({
                     title: "Error occurred",
-                    text: data[1]
+                    text: data['message']
                 });                                    
                 return;
             }
@@ -670,10 +670,10 @@ require_once("inc/init.php");
 			          	}
 			          	var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id;
 			          	$.getJSON( url, request, function( data, status, xhr ) {
-                            if (data[0] == "error") {
+                            if ("error" in data) {
                                 swal({
                                     title: "Error occurred",
-                                    text: data[1]
+                                    text: data['message']
                                 });                                    
                                 return;
                             }
@@ -759,7 +759,7 @@ require_once("inc/init.php");
 						}
 					}
                     swal({
-                        title: "Error occurred",
+                        title: "Experiment Cloning Report",
                         text: report
                     });                    
 					$('#cloneExperimentButton').removeAttr('disabled');
@@ -821,10 +821,10 @@ require_once("inc/init.php");
 	          	var term = request.term;
 	          	var url = "ajax/server_side/clone_get_data_server_processing.php?caller=" + current.id;
 	          	$.getJSON( url, request, function( data, status, xhr ) {
-                    if (data[0] == "error") {
+                    if ("error" in data) {
                         swal({
                             title: "Error occurred",
-                            text: data[1]
+                            text: data['message']
                         });                                    
                         return;
                     }

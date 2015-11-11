@@ -41,5 +41,5 @@ if ($content == "") {
 
 $response = [$status, $content];
 
-echo json_encode(array('data' => $response));
+echo json_encode($response);
 ?>

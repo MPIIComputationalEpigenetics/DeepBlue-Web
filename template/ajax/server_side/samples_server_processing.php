@@ -15,6 +15,7 @@
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 
@@ -27,13 +28,10 @@ else {
     if(!$client->query("list_biosources", (Object)Null, $user_key)) {
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
-    $bioSourceList[] = $client->getResponse();
-    if ($bioSourceList[0][0] == 'error') {
-        echo json_encode(['data' => $bioSourceList[0]]);
-        die();
-    }
+    $bioSourceList = $client->getResponse();
+    check_error($bioSourceList);
 
-    foreach($bioSourceList[0][1] as $bioSourceName) {
+    foreach($bioSourceList[1] as $bioSourceName) {
         $bioNames[] = $bioSourceName[1];
     }
 }
@@ -41,14 +39,11 @@ else {
 if(!$client->query("list_samples", $bioNames, (object) null, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-$sampleList[] = $client->getResponse();
-if ($sampleList[0][0] == 'error') {
-    echo json_encode(['data' => $sampleList[0]]);
-    die();
-}
+$sampleList = $client->getResponse();
+check_error($sampleList);
 
 $sampleIds = array();
-foreach ($sampleList[0][1] as $samples) {
+foreach ($sampleList[1] as $samples) {
     $sampleIds[] = $samples[0];
 }
 
@@ -56,17 +51,14 @@ if(!$client->query("info", $sampleIds, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 
-$infoList[] = $client->getResponse();
-if ($infoList[0][0] == 'error') {
-    echo json_encode(['data' => $infoList[0]]);
-    die();
-}
+$infoList = $client->getResponse();
+check_error($infoList);
 
 $orderedDataStr = array();
 $tempArr = array();
 $tempStr = "";
 
-foreach ($infoList[0][1] as $val_1) {
+foreach ($infoList[1] as $val_1) {
     $tempArr[] = $val_1['_id'];
     $tempArr[] = $val_1['biosource_name'];
 

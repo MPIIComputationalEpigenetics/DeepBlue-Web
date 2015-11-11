@@ -21,14 +21,14 @@ require_once("../../lib/error.php");
 
 
 if (isset($_GET) && isset($_GET["request"])) {
-    $request[] = $_GET["request"];
+    $request = $_GET["request"];
 } else {
 	return;
 }
 
 $client = new IXR_Client(get_server());
 
-foreach ($request[0] as $vocab) {
+foreach ($request as $vocab) {
 	if(!$client->query("list_in_use", $vocab, $user_key)){
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}

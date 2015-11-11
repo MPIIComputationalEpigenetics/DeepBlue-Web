@@ -26,13 +26,13 @@ if(!$client->query("list_column_types", $user_key)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 else{
-	$colList[] = $client->getResponse();
-	check_error($colList[0]);
+	$colList = $client->getResponse();
+	check_error($colList);
 }
 
 $i = 0;
 $strList = [];
-foreach ($colList[0][1] as $column) {
+foreach ($colList[1] as $column) {
 	$colID = $column[0];
 
 	/* retrieve column details */
@@ -40,12 +40,10 @@ foreach ($colList[0][1] as $column) {
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
 	else {
-		$colDetail[] = $client->getResponse();
+		$colDetail = $client->getResponse();
 		check_error($colDetail);
 
-		$strList[] = $colDetail[0][1][0]['name'];
-
-		$colDetail = "";
+		$strList[] = $colDetail[1][0]['name'];
 	}
 }
 

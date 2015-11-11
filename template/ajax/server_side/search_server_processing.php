@@ -56,9 +56,9 @@ $sizeOfItemIds = sizeof($items_ids);
 if(!$client->query("info", $items_ids, $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
-$infoList[] = $client->getResponse();
-check_error($infoList[0]);
+$infoList = $client->getResponse();
+check_error($infoList);
 
-$deepBlueObj->searchResultToJson($infoList[0][1]);
+$deepBlueObj->searchResultToJson($infoList[1]);
 
 ?>

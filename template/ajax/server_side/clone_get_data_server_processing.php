@@ -41,10 +41,10 @@ switch ($caller) {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
-			$epList[] = $client->getResponse();
-			check_error($epList[0]);
+			$epList = $client->getResponse();
+			check_error($epList);
 		}
-		$lists = $epList[0][1];
+		$lists = $epList[1];
 		break;
 	case 'epigenetic_mark':
 		/* retrieve list of all epigenetic marks */
@@ -52,10 +52,10 @@ switch ($caller) {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
-			$emList[] = $client->getResponse();
-			check_error($emList[0]);
+			$emList = $client->getResponse();
+			check_error($emList);
 		}
-		$lists = $emList[0][1];
+		$lists = $emList[1];
 		break;
 	case 'sample':
 		/* retrieve list of all samples */
@@ -63,12 +63,12 @@ switch ($caller) {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
-			$samples[] = $client->getResponse();
-			check_error($samples[0]);
+			$samples = $client->getResponse();
+			check_error($samples);
 			$sampleIds = array();
 			$smList = [];
 			$i = 0;
-			foreach ($samples[0][1] as $sample) {
+			foreach ($samples[1] as $sample) {
 				$smList[$i][1] = $sample[0];
 				$smList[$i][0] = $sample[1]['biosource_name'];
 				$i = $i + 1;
@@ -83,10 +83,10 @@ switch ($caller) {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
-			$tqList[] = $client->getResponse();
-			check_error($tqList[0]);
+			$tqList = $client->getResponse();
+			check_error($tqList);
 		}
-		$lists = $tqList[0][1];
+		$lists = $tqList[1];
 		break;
 	case 'project':
 		/* retrieve list of all projects */
@@ -94,10 +94,10 @@ switch ($caller) {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
-			$prList[] = $client->getResponse();
-			check_error($prList[0]);
+			$prList = $client->getResponse();
+			check_error($prList);
 		}
-		$lists = $prList[0][1];
+		$lists = $prList[1];
 		break;
 	default:
 		/* retrieve list of all columns */
@@ -105,8 +105,8 @@ switch ($caller) {
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
-			$coList[] = $client->getResponse();
-			check_error($coList[0]);
+			$coList = $client->getResponse();
+			check_error($coList);
 
 			//echo json_encode($coList);
 			$type = explode("xyz123abc", $caller)[1];
@@ -119,7 +119,7 @@ switch ($caller) {
 
 			$i = 0;
 			$strList = [];
-			foreach ($coList[0][1] as $column) {
+			foreach ($coList[1] as $column) {
 				$colID = $column[0];
 
 				/* retrieve column details */
@@ -127,20 +127,19 @@ switch ($caller) {
 					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 				}
 				else {
-					$colDetail[] = $client->getResponse();
-					check_error($colDetail[0]);
+					$colDetail = $client->getResponse();
+					check_error($colDetail);
 
-					if ($colDetail[0][1][0]['column_type'] == $type) {
+					if ($colDetail[1][0]['column_type'] == $type) {
 						if ($type == 'calculated') {
-							$strList[$i][0] =$colDetail[0][1][0]['code']; ;
+							$strList[$i][0] =$colDetail[1][0]['code']; ;
 						}
 						else {
 							$strList[$i][0] = $type;
 						}
-						$strList[$i][1] = $colDetail[0][1][0]['name'];
+						$strList[$i][1] = $colDetail[1][0]['name'];
 						$i = $i + 1;
 					}
-					$colDetail = "";
 				}
 			}
 		}

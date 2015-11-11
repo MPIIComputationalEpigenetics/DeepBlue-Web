@@ -274,13 +274,13 @@ require_once("inc/init.php");
 			request.done( function(data) {
 				var title = "Create column type";
                 var msg = "";
-				if (data.data[0] == 'okay') {
-					msg =  "Create column '" + column['name'] + "' successful:\r\n" + data.data[1];
-                    clearInputs();
-                    hideOptions();
-                }
+				if ("error" in data) {
+					msg =  "Create column '" + column['name'] + "' failed:\r\n" + data['message'];
+				}
 				else {
-                    msg =  "Create column '" + column['name'] + "' failed:\r\n" + data.data[1];
+					msg =  "Create column '" + column['name'] + "' successful:\r\n" + data[1];
+					clearInputs();
+					hideOptions();
 				}
 				$('#createColumnButton').removeAttr('disabled');
 				swal({

@@ -26,10 +26,10 @@ if(!$client->query("list_experiments", '', '', '','','','','', $user_key)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 else{
-	$epList[] = $client->getResponse();
-	check_error($epList[0]);
+	$epList = $client->getResponse();
+	check_error($epList);
 }
-$lists['experiment'] = $epList[0][1];
+$lists['experiment'] = $epList[1];
 
 
 $result = [];

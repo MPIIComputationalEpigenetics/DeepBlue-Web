@@ -50,13 +50,15 @@ for ($i = 0; $i < count($ids); $i++) {
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
 	else{
-		$infoList[] = $client->getResponse();
-		if ($infoList[0][0] == "error") {
-			echo json_encode($infoList);
-            die();
+		$infoList = $client->getResponse();
+		if ($infoList[0] == "error") {
+			$clone[] = ['error', $infoList[1]];
+			break;
 		}
 	}
-	$experiment = $infoList[0][1][0];
+	$experiment = $infoList[1][0];
+	$infoList = null;
+
 
 	// update the experiment name
 	if (count($ids) >  1)
@@ -151,13 +153,7 @@ for ($i = 0; $i < count($ids); $i++) {
 	}
 	else{
 		$clone[] = $client->getResponse();
-		if ($clone[0][0] == "error") {
-			echo json_encode($clone);
-            die();
-		}
 	}
-
-	$infoList = null;
 }
 
 echo json_encode($clone);

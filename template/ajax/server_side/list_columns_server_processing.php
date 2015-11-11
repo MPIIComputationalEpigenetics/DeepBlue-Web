@@ -18,6 +18,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
@@ -43,13 +44,10 @@ for ($i = 0; $i < count($getIds); $i++) {
     if(!$client->query("info", $getIds[$i], $user_key)){
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
-    $infoList[] = $client->getResponse();
-    if ($infoList[0][0] == "error") {
-        echo json_encode($infoList[0]);
-        die();
-    }
+    $infoList = $client->getResponse();
+    check_error($infoList);
 
-    $columns = $infoList[0][1][0]['columns'];
+    $columns = $infoList[1][0]['columns'];
     $length = count($columns);
 
     for ($j = 0; $j < $length; $j++) {
@@ -63,22 +61,17 @@ for ($i = 0; $i < count($getIds); $i++) {
             $experiment[$column_name] = $getIds[$i];
         }
     }
-
-    $infoList = null;
 }
 
 if(!$client->query("list_column_types", $user_key)){
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 
-$colList[] = $client->getResponse();
-if ($colList[0][0] == "error") {
-    echo json_encode($colList[0]);
-    die();
-}
+$colList = $client->getResponse();
+check_error($colList);
 
 $type = 'calculated';
-foreach ($colList[0][1] as $column) {
+foreach ($colList[1] as $column) {
 
     $colID = $column[0];
 
@@ -87,19 +80,15 @@ foreach ($colList[0][1] as $column) {
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
     else {
-        $colDetail[] = $client->getResponse();
-        if ($colDetail[0][0] == "error") {
-            echo json_encode(['data' => $colDetail[0]]);
-            die();
-        }
+        $colDetail = $client->getResponse();
+        check_error($colDetail);
 
-        if ($colDetail[0][1][0]['column_type'] == $type) {
-            $colName = $colDetail[0][1][0]['name'];
-            $colCode = $colDetail[0][1][0]['code'];
+        if ($colDetail[1][0]['column_type'] == $type) {
+            $colName = $colDetail[1][0]['name'];
+            $colCode = $colDetail[1][0]['code'];
             $temp = [$colCode, $colName];
             $data['calculated'][] = $temp;
         }
-        $colDetail = "";
     }
 }
 

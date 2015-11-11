@@ -343,10 +343,10 @@ require_once("inc/init.php");
         });
 
         request.done( function(data) {
-            if (data[0] == "error") {
+            if ("error" in data) {
                 swal({
                     title: "An error has occurred",
-                    text: data[1]
+                    text: data['message']
                 });
                 return;
             }
@@ -417,10 +417,10 @@ require_once("inc/init.php");
         });
 
         request.done( function(data) {
-            if (data[0] == "error") {
+            if ("error" in data) {
                 swal({
                     title: "An error has occurred",
-                    text: data[1]
+                    text: data['message']
                 });
                 return;
             }
@@ -500,10 +500,10 @@ require_once("inc/init.php");
             });
 
             request.done( function(data) {
-                if (data[0] == "error") {
+                if ("error" in data) {
                     swal({
                         title: "Request Failed.",
-                        text: data[1]
+                        text: data['message']
                     });
                     return;
                 }

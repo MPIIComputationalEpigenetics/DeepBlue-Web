@@ -18,6 +18,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
@@ -35,17 +36,13 @@ for ($i = 0; $i < count($getIds); $i++) {
     if(!$client->query("info", $getIds[$i], $user_key)){
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
-    $infoList[] = $client->getResponse();
-    if ($infoList[0][0] == "error") {
-        echo json_encode($infoList[0]);
-        die();
-    }
+    $infoList = $client->getResponse();
+    check_error($infoList);
 
-    $genome = $infoList[0][1][0]['genome'];
+    $genome = $infoList[1][0]['genome'];
     if (!in_array($genome, $genomes)) {
         $genomes[] = $genome;
     }
-    $infoList = [];
 }
 
 $length = count($genomes);
@@ -59,12 +56,8 @@ for ($j = 0; $j < $length; $j++) {
     if(!$client->query("chromosomes", $genomes[$j], $user_key)){
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
-    $result[] = $client->getResponse();
-    if ($result[0][0] == "error") {
-        echo json_encode($result[0]);
-        die();
-    }
-    //$chroms = array_merge($chroms, $result[0][1]);
+    $result = $client->getResponse();
+    check_error($result);
 
     $chrlen = count($result[0][1]);
     for ($k = 0; $k < $chrlen; $k++) {
@@ -80,12 +73,9 @@ for ($j = 0; $j < $length; $j++) {
     if(!$client->query("list_annotations", $genomes[$j], $user_key)){
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
-    $result[] = $client->getResponse();
-    if ($result[0][0] == "error") {
-        echo json_encode($result[0]);
-        die();
-    }
-    //$annots = array_merge($annots, $result[0][1]);
+    $result = $client->getResponse();
+    check_error($result);
+
 
     $annlen = count($result[0][1]);
     for ($k = 0; $k < $annlen; $k++) {

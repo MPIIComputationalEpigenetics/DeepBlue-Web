@@ -21,7 +21,7 @@ require_once("../../lib/error.php");
 
 
 if (isset($_GET) && isset($_GET["request"])) {
-    $request[] = $_GET["request"];
+    $request = $_GET["request"];
 } else {
 	return;
 }
@@ -29,7 +29,7 @@ if (isset($_GET) && isset($_GET["request"])) {
 $client = new IXR_Client(get_server());
 $listInUse = [];
 
-foreach ($request[0] as $vocab) {
+foreach ($request as $vocab) {
     $listInUse[$vocab] = [];
     $listInUse[$vocab]['amt'] = null;
     $listInUse[$vocab]['alp'] = null;

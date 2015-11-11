@@ -198,10 +198,10 @@ require_once("inc/init.php");
             }
         });
         request1.done( function(data) {
-            if (data[0] == "error") {
+            if ("error" in data) {
                 swal({
                     title: "An error has occurred listing experiments",
-                    text: data[1]
+                    text: data['message']
                 });                                    
                 return;            
             }
@@ -273,12 +273,12 @@ require_once("inc/init.php");
 				processData: false      		
 		    });
 		    request.done( function(data) {
-		    	if (data.data[0] == "okay") {
-		    		annotation_data = data.data[1];	
+		    	if (data[0] == "okay") {
+		    		annotation_data = data[1];
 		    		$("#data_err").text('Successful');
 		    	}
 		    	else {
-		    		$("#data_err").text(data.data[1]);
+		    		$("#data_err").text(data[1]);
 		    	}		    	
 		    });
 		    request.fail( function(jqXHR, textStatus) {
@@ -296,12 +296,12 @@ require_once("inc/init.php");
     });
 
     request.done( function(data) {
-        if (data[0] == "error") {
+        if ("error" in data) {
             swal({
                 title: "An error has occurred listing columns",
-                text: data[1]
+                text: data['message']
             });                                    
-            return;            
+            return;
         }
         
         for (i=0; i<data.length; i++) {
@@ -429,17 +429,20 @@ require_once("inc/init.php");
 
 			request.done( function(data) {
 				var title = "";
-				if (data.data[0] == 'okay') {
-					title = "Insert annotation '" + annotation['name'] + "' successful";
+				var text = "";
+				if ('error' in data) {
+					title = "Insert annotation '" + annotation['name'] + "' failed";
+					text = data['message'];
 				}
 				else {
-					title = "Insert annotation '" + annotation['name'] + "' failed";
+					title = "Insert annotation '" + annotation['name'] + "' successful";
+					text = data[1];
 				}
 				$('#addAnnotationButton').removeAttr('disabled');
 				clear_input();
 				swal({
                     title: title,
-                    text: data.data[1]
+                    text: text
                 });
 			});
 

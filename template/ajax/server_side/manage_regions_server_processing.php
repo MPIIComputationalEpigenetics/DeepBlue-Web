@@ -20,6 +20,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 
 /* DeepBlue Configuration */
 require_once("../../lib/lib.php");
+require_once("../../lib/error.php");
 require_once("../../lib/server_settings.php");
 
 /* include IXR Library for RPC-XML */
@@ -76,16 +77,12 @@ if (!$client->query("select_regions", $experiments_ids, $genome, $epigenetic_mar
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 
-$result[] = $client->getResponse();
-if ($result[0][0] == "error") {
-    echo json_encode($result[0]);
-    die();
-}
+$result = $client->getResponse();
+check_error($result);
 
-$query_ida = $result[0][1];
+$query_ida = $result[1];
 $query_id = $query_ida;
 
-$result = [];
 $annlen = count($annotation_names);
 
 if ($annlen > 0) {
@@ -94,37 +91,28 @@ if ($annlen > 0) {
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
 
-    $result[] = $client->getResponse();
-    if ($result[0][0] == "error") {
-        echo json_encode($result[0]);
-        die();
-    }
+    $result = $client->getResponse();
+    check_error($result);
 
-    $query_idb = $result[0][1];
-    $result = [];
+    $query_idb = $result[1];
 
     if (!$client->query("intersection", $query_ida, $query_idb, $user_key)) {
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
 
-    $result[] = $client->getResponse();
-    if ($result[0][0] == "error") {
-        echo json_encode($result[0]);
-        die();
-    }
-    $query_id = $result[0][1];
-    $result = [];
+    $result = $client->getResponse();
+    check_error($result);
+
+    $query_id = $result[1];
 }
 
 if (!$client->query("get_regions", $query_id, $format, $user_key)) {
     die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 
-$result[] = $client->getResponse();
-if ($result[0][0] == "error") {
-    echo json_encode($result[0]);
-    die();
-}
-$request_id = $result[0][1];
+$result = $client->getResponse();
+check_error($result);
+
+$request_id = $result[1];
 
 echo json_encode(array('request_id' => $request_id));
