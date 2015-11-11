@@ -39,7 +39,7 @@ for ($i = 0; $i < count($getIds); $i++) {
     $infoList = $client->getResponse();
     check_error($infoList);
 
-    $genome = $infoList[1][0]['name'];
+    $genome = $infoList[1][0]['genome'];
     if (!in_array($genome, $genomes)) {
         $genomes[] = $genome;
     }
