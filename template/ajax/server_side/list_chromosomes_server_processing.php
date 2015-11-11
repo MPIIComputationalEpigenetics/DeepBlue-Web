@@ -39,7 +39,7 @@ for ($i = 0; $i < count($getIds); $i++) {
     $infoList = $client->getResponse();
     check_error($infoList);
 
-    $genome = $infoList[1][0]['genome'];
+    $genome = $infoList[1][0]['name'];
     if (!in_array($genome, $genomes)) {
         $genomes[] = $genome;
     }
@@ -59,15 +59,13 @@ for ($j = 0; $j < $length; $j++) {
     $result = $client->getResponse();
     check_error($result);
 
-    $chrlen = count($result[0][1]);
+    $chrlen = count($result[1]);
     for ($k = 0; $k < $chrlen; $k++) {
-        $chr = $result[0][1][$k][0];
+        $chr = $result[1][$k][0];
         if (!in_array($chr, $data['chromosome'])) {
             $data['chromosome'][] = $chr;
         }
     }
-
-    $result = '';
 
     // get annotations matching genome
     if(!$client->query("list_annotations", $genomes[$j], $user_key)){
@@ -76,12 +74,11 @@ for ($j = 0; $j < $length; $j++) {
     $result = $client->getResponse();
     check_error($result);
 
-
-    $annlen = count($result[0][1]);
+    $annlen = count($result[1]);
     for ($k = 0; $k < $annlen; $k++) {
-        $ann_id = $result[0][1][$k][0];
+        $ann_id = $result[1][$k][0];
         if (!in_array($ann_id, $data['annotations'])) {
-            $ann = $result[0][1][$k][1];
+            $ann = $result[1][$k][1];
             $data['annotations'][] = $ann;
             $data['annotations_id'][] = $ann_id;
         }
