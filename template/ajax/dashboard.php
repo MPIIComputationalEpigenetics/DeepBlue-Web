@@ -877,7 +877,7 @@
                 });
                 return;
             }
-            total_samples = data[0];
+            total_samples = data;
             $("#total_samples").text(total_samples);
         });
         request1.fail( function(jqXHR, textStatus) {
@@ -1059,6 +1059,15 @@
 							stopOnBackdropClick: false,
 							finishButtonText : "Return to DeepBlue"
 						});
+					}
+					else {
+						// NO?
+						// cookie expire after 1year
+						var today = new Date();
+						var expire = new Date();
+
+						expire.setYear(today.getFullYear() + 1);
+						document.cookie="tour='true'; expires=" + expire.toUTCString() + " path=/";
 					}
 				}
 			);
