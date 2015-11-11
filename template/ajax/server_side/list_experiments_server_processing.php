@@ -90,5 +90,5 @@ foreach($infoList[1] as $metadata) {
     array_push($orderedDataStr, $tempArr);
 }
 
-echo json_encode($orderedDataStr);
+echo json_encode(array('data' => $orderedDataStr));
 ?>

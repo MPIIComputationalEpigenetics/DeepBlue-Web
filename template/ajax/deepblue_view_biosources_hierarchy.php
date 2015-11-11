@@ -227,7 +227,7 @@ function get_experiments(sample_id) {
             title: "An error has occurred",
             text: result['message']
         });
-        result = [];
+        result.data = [];
         return result;
     }
     return result;
