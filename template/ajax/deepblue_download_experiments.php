@@ -508,6 +508,16 @@ require_once("inc/init.php");
                     return;
                 }
 
+                // save requestid to local storage
+                var rid = [data.request_id];
+                var rids = JSON.parse(localStorage.getItem("request"));
+
+                if (rids == null) {
+                    rids = [];
+                }
+
+                rids.push(rid);
+                localStorage.setItem("request", JSON.stringify(rids));
                 swal({
                     title: "Request Sent.",
                     text: "The request ID is " + data.request_id + ".\nWould you like to go to the Manage Request page ?",

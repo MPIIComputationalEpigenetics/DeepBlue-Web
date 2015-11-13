@@ -26,75 +26,99 @@ require_once("../../lib/deepblue.IXR_Library.php");
 $client = new IXR_Client(get_server());
 
 /* list all request for the request manager*/
+$request_state = '';
 if (isset($_GET["filter"])) {
-    $request_state = $_GET["filter"];
+	$request_state = $_GET["filter"];
+}
 
-    $cache_chromosomes = array();
-   	$cache_queries = array();
+$request_scope = 'user';
+if (isset($_GET["scope"])) {
+	$request_scope = $_GET["scope"];
+}
 
-    $requests = array();
+$local_requests = [];
+if (isset($_GET["local_requests"])) {
+	$local_requests = $_GET["local_requests"];
+}
 
-    if(!$client->query("list_requests", $request_state, $user_key)){
-        die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-    }
+if ($request_scope == 'user') {
+	if (!$client->query("list_requests", $request_state, $user_key)) {
+		die('An error occurred - ' . $client->getErrorCode() . ":" . $client->getErrorMessage());
+	}
 
-    $response = $client->getResponse();
-    check_error($response);
+	$response = $client->getResponse();
+	check_error($response);
 
-    $user_requests = $response[1];
+	$user_requests = $response[1];
+}
+else {
+	$user_requests = $local_requests;
+}
 
-    $requests_ids = array();
-	foreach($user_requests as $user_request) {
-        $requests_ids[] = $user_request[0];
-    }
+$requests_ids = array();
 
-    if(!$client->query("info", $requests_ids, $user_key)){
+foreach ($user_requests as $user_request) {
+	$requests_ids[] = $user_request[0];
+}
+
+$request_table = build_request_info($requests_ids);
+echo json_encode(array('data' => $request_table));
+
+function build_request_info($ids) {
+
+	$client = new IXR_Client(get_server());
+	$user_key = get_user_key();
+
+	$cache_chromosomes = array();
+	$cache_queries = array();
+
+	if(!$client->query("info", $ids, $user_key)){
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-     }
-    $requests_response = $client->getResponse();
-    check_error($requests_response);
+	}
+	$requests_response = $client->getResponse();
+	check_error($requests_response);
 
-    $requests_info = $requests_response[1];
+	$requests_info = $requests_response[1];
 
-    $rrow = [];
-    foreach($requests_info as $request_info) {
-        $rid = $request_info["_id"];
-        $temp[] = $rid;
-        $qdetail = '';
-        $rdetail = '<div style="display: block;">';
+	$rrow = [];
+	foreach($requests_info as $request_info) {
+		$rid = $request_info["_id"];
+		$temp[] = $rid;
+		$qdetail = '';
+		$rdetail = '<div style="display: block;">';
 
-        $qid = $request_info['query_id'];
-        // retrieve initial query details
-        query_detail($qid, $rdetail, $cache_chromosomes, $cache_queries);
-        $rdetail = $rdetail.'</div>';
+		$qid = $request_info['query_id'];
+		// retrieve initial query details
+		query_detail($qid, $rdetail, $cache_chromosomes, $cache_queries);
+		$rdetail = $rdetail.'</div>';
 
 		$rstate = $request_info['state'];
 
-        if ($rstate == 'done') {
-            $temp[] = 'ready';
-            $temp[] = substr($request_info['create_time'], 0, -7);
-            $temp[] = substr($request_info['finish_time'], 0, -7);
-            $temp[] = $rdetail;
-            $temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion(event)">Download</button>';
-        }
-        else if ($rstate == 'failed') {
-            $temp[] = $rstate . ":<br />" . $request_info["message"];
-            $temp[] = substr($request_info['create_time'], 0, -7);
-            $temp[] = '--';
-            $temp[] = $rdetail;
-            $temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
-        }
-        else {
-            $temp[] = $rstate;
-            $temp[] = substr($request_info['create_time'], 0, -7);
-            $temp[] = '--';
-            $temp[] = $rdetail;
-            $temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
-        }
-        $rrow[] = $temp;
-        $temp = [];
-    }
-    echo json_encode(array('data' => $rrow));
+		if ($rstate == 'done') {
+			$temp[] = 'ready';
+			$temp[] = substr($request_info['create_time'], 0, -7);
+			$temp[] = substr($request_info['finish_time'], 0, -7);
+			$temp[] = $rdetail;
+			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion(event)">Download</button>';
+		}
+		else if ($rstate == 'failed') {
+			$temp[] = $rstate . ":<br />" . $request_info["message"];
+			$temp[] = substr($request_info['create_time'], 0, -7);
+			$temp[] = '--';
+			$temp[] = $rdetail;
+			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
+		}
+		else {
+			$temp[] = $rstate;
+			$temp[] = substr($request_info['create_time'], 0, -7);
+			$temp[] = '--';
+			$temp[] = $rdetail;
+			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
+		}
+		$rrow[] = $temp;
+		$temp = [];
+	}
+	return $rrow;
 }
 
 function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries) {

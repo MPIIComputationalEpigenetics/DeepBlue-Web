@@ -135,20 +135,25 @@ require_once("inc/init.php");
 		var responsiveHelper_datatable_tabletools = undefined;
 
 		var requestObj = localStorage.getItem('request');
-		var request = JSON.parse(requestObj);
-		var request_state;
-		var request_ids = [];
-		var waiting_state = [];
-		var request_time;
-		var download_button;
-		var request_id;
+		var requests = JSON.parse(requestObj)
+		if (requests == null) {
+			var requests = [];
+		}
+
+		var scope = 'user';
+		var user = "<?php echo $_SESSION['user_email']; ?>";
+		if ( user == "anonymous.deepblue@mpi-inf.mpg.de") {
+			scope = 'anonymous';
+		}
 
 		var otable = $('#datatable_fixed_column').DataTable({
 
 		    "ajax": {
 			    "url": "ajax/server_side/manage_requests_server_processing.php",
 				"data" : {
-					filter : ""
+					filter : "",
+					scope : scope,
+					local_requests : requests
 			    },
 			    "iDisplayLength": 10,
 			    "autoWidth" : true,
