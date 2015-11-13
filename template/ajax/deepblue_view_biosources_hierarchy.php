@@ -509,6 +509,16 @@ function deselect_node(e, data) {
             }
       });
 
+        $.fn.dataTableExt.sErrMode = 'none';
+        otable.on('xhr.dt', function ( e, settings, json) {
+            if ("error" in json) {
+                swal("Error while loading the experiments table.", json["error"], "error");
+                json.aaData = [];
+            }
+        });
+
+
+
         // Apply the filter
         $("#experiments_datatable thead th input[type=text]").on( 'keyup change', function () {
             otable

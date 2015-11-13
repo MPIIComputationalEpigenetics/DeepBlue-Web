@@ -228,7 +228,15 @@ require_once("inc/init.php");
 
 	    });
 
-	    // custom toolbar
+		$.fn.dataTableExt.sErrMode = 'none';
+		otable.on('xhr.dt', function ( e, settings, json) {
+			if ("error" in json) {
+				swal("Error while loading the techniques table.", json["error"], "error");
+				json.aaData = [];
+			}
+		});
+
+		// custom toolbar
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
 	    // Apply the filter

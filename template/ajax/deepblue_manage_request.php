@@ -168,9 +168,10 @@ require_once("inc/init.php");
 			}
 		});
 
-    	otable.on('xhr.dt', function ( e, settings, json, xhr ) {
+		$.fn.dataTableExt.sErrMode = 'none';
+		otable.on('xhr.dt', function ( e, settings, json, xhr ) {
     		if ("error" in json) {
-    			swal("Error while loading table content.", json["message"], "error");
+    			swal("Error while loading user's requests table.", json["message"], "error");
     			json.aaData = [];
     		}
     	});

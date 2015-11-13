@@ -166,6 +166,15 @@ require_once("inc/init.php");
 	    // custom toolbar
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
+		$.fn.dataTableExt.sErrMode = 'none';
+		otable.on('xhr.dt', function ( e, settings, json) {
+			if ("error" in json) {
+				swal("Error while loading the biosources table.", json["error"], "error");
+				json.aaData = [];
+			}
+		});
+
+
 	    // Apply the filter
 	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
 
