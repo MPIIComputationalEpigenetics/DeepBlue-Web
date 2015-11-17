@@ -129,7 +129,8 @@ require_once("inc/init.php");
                     $("#remove_bt").prop('disabled', true);
                     if ('error' in data) {
                         var msg = data['message'];
-                        $("#tempInfoResult").append( "<div class='search-results clearfix'><h2>Error encountered deleting '"+id+"': <span style='color:red'>"+ msg +"</span></h2></div>");
+                        $( "#tempInfoResult" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
+                        	" data-dismiss='alert'>×</button><i class='fa-fw fa fa-times'></i>Error encountered deleting '"+id+"' : " + msg +"</div>");
                     }
                     else {
                         $('#query_input').val("");
