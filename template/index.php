@@ -334,6 +334,9 @@ include("inc/header.php");
 			}
 		});
 	});
+
+	// clear previous session local storage
+	localStorage.clear();
 </script>
 
 <?php
