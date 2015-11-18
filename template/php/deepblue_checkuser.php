@@ -33,7 +33,13 @@ if(!$client->query("user_auth", $email, $password)){
 
 $response = $client->getResponse();
 if ($response[0] == 'error') {
-    $_SESSION['login_attempt'] = $response[1];
+
+    $explode_result = explode(":", $response[1]);
+    if (count($explode_result) == 2) {
+        $_SESSION['login_attempt'] = $explode_result[1];
+    } else {
+        $_SESSION['login_attempt'] = $response[1];
+    }
 	header("Location: ../index.php");
 }
 else {
@@ -44,7 +50,12 @@ else {
 
 	$response = $client->getResponse();
     if ($response[0] == 'error') {
-        $_SESSION['login_attempt'] = $response[1];
+        $explode_result = explode(":", $response[1]);
+        if (count($explode_result) == 2) {
+            $_SESSION['login_attempt'] = $explode_result[1];
+        } else {
+            $_SESSION['login_attempt'] = $response[1];
+        }
         header("Location: ../index.php");
         die();
     }

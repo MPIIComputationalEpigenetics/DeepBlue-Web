@@ -121,8 +121,7 @@ include("inc/header.php");
 			                                '<section>
 			                                    <div class="alert alert-danger fade in" id="login-banner">
 			                                        <button class="close" data-dismiss="alert">×</button>
-			                                        <i class="fa-fw fa fa-times"></i><strong>Error! </strong>'.
-			                                        $_SESSION['login_attempt'].
+			                                        <i class="fa-fw fa fa-times"></i>'.$_SESSION['login_attempt'].
 			                                    '</div>
 			                                </section>';
 			                                }
