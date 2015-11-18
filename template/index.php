@@ -33,6 +33,8 @@ $page_body_prop = array("id"=>"extr-page", "class"=>"landing-page");
 include("inc/header.php");
 
 ?>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <!-- ==========================CONTENT STARTS HERE ========================== -->
 <!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
 <header id="header">
@@ -115,10 +117,14 @@ include("inc/header.php");
 		    					<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 		      					<div class="panel-body no-padding">
 		        					<form action="<?php echo APP_URL.'/php/deepblue_checkuser.php' ?>" id="login-form" class="smart-form client-form" method="post">
-												<fieldset>
-													<?php if (isset($_SESSION['login_attempt'])) {
+											<?php if (isset($_SESSION['login_attempt'])) {
 													echo
-			                                '<section>
+			                                '
+			                                <script>
+			                                	$(collapseOne).removeClass("in");
+			                                	$(collapseTwo).addClass("in");
+			                                </script>
+			                                <section>
 			                                    <div class="alert alert-danger fade in" id="login-banner">
 			                                        <button class="close" data-dismiss="alert">×</button>
 			                                        <i class="fa-fw fa fa-times"></i>'.$_SESSION['login_attempt'].
@@ -127,6 +133,7 @@ include("inc/header.php");
 			                                }
 			                                unset($_SESSION['login_attempt']);
 													?>
+												<fieldset>
 													<section>
 														<label class="label">E-mail</label>
 														<label class="input"> <i class="icon-append fa fa-user"></i>
