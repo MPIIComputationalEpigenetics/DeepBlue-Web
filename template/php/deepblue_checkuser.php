@@ -15,6 +15,8 @@ session_start();
 $url = get_server();
 $client = new IXR_Client($url);
 
+$remember = False;
+
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -22,6 +24,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 else {
     $email = "anonymous.deepblue@mpi-inf.mpg.de";
     $password = "anonymous";
+    $remember = True;
 }
 
 if(!$client->query("user_auth", $email, $password)){
@@ -56,6 +59,8 @@ else {
     $_SESSION['permission'] = $user_details['permission_level'];
     $_SESSION['time'] = time();
 
+    $remember = isset($_POST['remember']) || $remember;
+
     // get cookies for tutorial tour settings
     $_SESSION['tour'] = isset($_COOKIE['tour']) ? $_COOKIE['tour'] : "true";
 
@@ -63,8 +68,13 @@ else {
     if (isset($_COOKIE['PHPSESSID'])) {
         $cookie_val = $_COOKIE['PHPSESSID'];
     }
-    // set expiry date of session cookie to after one year if user checked remember
-    isset($_POST['remember']) ? setcookie('PHPSESSID',$cookie_val, time() + (86400 * 365), '/') : setcookie('PHPSESSID',$cookie_val, 0, '/' );
+
+    if ($remember) {
+        setcookie('PHPSESSID',$cookie_val, time() + (86400 * 365), '/');
+    } else {
+        setcookie('PHPSESSID',$cookie_val, 0, '/' );
+    }
+
 	header("Location:  ../dashboard.php");
 }
 
