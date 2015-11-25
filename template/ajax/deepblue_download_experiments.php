@@ -520,16 +520,14 @@ require_once("inc/init.php");
                 localStorage.setItem("request", JSON.stringify(rids));
                 swal({
                     title: "Request Sent.",
-                    text: "The request ID is " + data.request_id + ".\nWould you like to go to the Manage Request page ?",
+                    text: "The request ID is " + data.request_id + ".\nWould you like to go to this request status page ?",
                     type: "success",
                     showCancelButton: true
                 },
                 function(yes){
+                    window.history.go(-1);
                     if (yes) {
-                        window.location.href = "dashboard.php#ajax/deepblue_manage_request.php";
-                    }
-                    else {
-                        window.history.go(-1);
+                        window.open("/request.php?_id=" + data.request_id, '_blank')
                     }
                 });
             });
