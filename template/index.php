@@ -37,33 +37,8 @@ include("inc/header.php");
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <!-- ==========================CONTENT STARTS HERE ========================== -->
 <!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
-<header id="header">
-	<!--<span id="logo"></span>-->
 
-	<div id="logo-group">
-		<span id="logo">
-			<a href="<?php echo ASSETS_URL; ?>">
-				<img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="DeepBlue Epigenomic Data Server">
-			</a>
-		</span>
-	</div>
-
-	<div class="navbar-collapse collapse hidden-mobile">
-    	<ul class="nav navbar-nav navbar-left">
-			<li><span id="extr-page-header-space"><a href="features.php">Features</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="examples.php">Examples</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="tutorials.php">Tutorials</a></span></li>
-    	</ul>
-  	</div>
-
-	<span id="extr-page-header-space">
-		<span class="hidden-mobile">Need an account?</span>
-		<a href="<?php echo APP_URL; ?>/register.php" class="btn btn-danger">Request an account</a>
-	</span>
-
-</header>
+<?php include("landing_menu.php"); ?>
 
 <div id="main" role="main">
 
@@ -97,12 +72,12 @@ include("inc/header.php");
 		  					<div class="panel panel-default">
 		    					<div class="panel-heading" role="tab" id="headingOne">
 		      					<h3 class="panel-title">
-		        					<a role="button" style="text-decoration: none" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Direct access to DeepBlue</a>
+		        					<a role="button" style="text-decoration: none" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Direct access to DeepBlue Web Interface</a>
 		      					</h3>
 		    					</div>
 		    					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 		      					<div class="panel-body">
-											<a style="padding: 10px; font-size: 150%;" class="btn btn-primary btn-block" href=<?php echo APP_URL.'/php/deepblue_checkuser.php' ?> role="button">Access DeepBlue</a>
+											<a style="padding: 10px; font-size: 150%;" class="btn btn-primary btn-block" href=<?php echo APP_URL.'/php/deepblue_checkuser.php' ?> role="button">Access DeepBlue Web Interface</a>
 		      					</div>
 		    					</div>
 		  					</div>

@@ -67,8 +67,6 @@ class DeepblueApi{
 		/* Counter for order number */
 		$n = 1;
 
-		echo "<div class='api-title'>Table of contents</div>";
-
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
             $norm_name = str_replace(' ', '-', strtolower($sKeyOne));
 

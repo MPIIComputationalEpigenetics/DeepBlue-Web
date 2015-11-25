@@ -62,6 +62,7 @@ require_once("inc/init.php");
 							<h3 class="text-primary">Third-party softwares - Server</h3>
 							<p class="lead"><a href="https://www.mongodb.org/">MongoDB</a></p>
 							<p class="lead"><a href="http://www.boost.org/">Boost C++ Libraries</a></p>
+							<p class="lead"><a href="http://expat.sourceforge.net/">Expat XML Parser</a></p>
 							<p class="lead"><a href="http://www.bzip.org/">bzip2</a></p>
 							<p class="lead"><a href="https://github.com/cppformat/cppformat">cppformat</a></p>
 							<p class="lead"><a href="http://luajit.org/">lualit</a></p>
