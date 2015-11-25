@@ -24,6 +24,9 @@
 						<li>
 							<a href="acknowledgements.php">Acknowledgements</a>
 						</li>
+						<li>
+							<a href="http://www.mpi-inf.mpg.de/imprint/" target="_blank">Imprint</a>
+						</li>
 				  	</ul>
         		</li>
 
@@ -41,7 +44,7 @@
 							<a href="tutorials.php">Tutorials</a>
 						</li>
 						<li>
-							<a href="manual/">Manual</a>
+							<a href="manual/" target="_blank">Manual</a>
 						</li>
 						<li>
 							<a href="api.php">API References Commands</a>
