@@ -520,7 +520,7 @@ require_once("inc/init.php");
                 localStorage.setItem("request", JSON.stringify(rids));
                 swal({
                     title: "Request Sent.",
-                    text: "The request ID is " + data.request_id + ".\nWould you like to go to this request status page ?",
+                    text: "Your request (ID " + data.request_id + ") was submitted. Would you like to go to this request status page?",
                     type: "success",
                     showCancelButton: true
                 },
