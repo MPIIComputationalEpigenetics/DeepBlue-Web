@@ -19,7 +19,7 @@ else {
 YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
 E.G. $page_title = "Custom Title" */
 
-$page_title = "DeepBlue Epigenomic Data Server";
+$page_title = "Requesting account - DeepBlue Epigenomic Data Server";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -29,9 +29,11 @@ $page_title = "DeepBlue Epigenomic Data Server";
 $page_css[] = "deepblue.css";
 $no_main_header = true;
 $page_body_prop = array("id"=>"extr-page");
-
 include("inc/header.php");
+
 ?>
+
+<?php include "landing_menu.php";?>
 
 <div class="container">
     <div class="row">
@@ -62,7 +64,14 @@ include("inc/header.php");
     </div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<?php
+    //include required scripts
+    include("inc/scripts.php");
+
+    //include footer
+    include("inc/google-analytics.php");
+?>
+
 <script type="text/javascript">
     function getRegion(event) {
         var id = event.target.id.split('_')[1];
