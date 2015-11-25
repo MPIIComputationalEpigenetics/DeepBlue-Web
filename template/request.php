@@ -12,7 +12,7 @@ include_once("lib/server_settings.php");
 YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
 E.G. $page_title = "Custom Title" */
 
-$page_title = "DeepBlue Epigenomic Data Server";
+$page_title = "Requesting account - DeepBlue Epigenomic Data Server";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -26,15 +26,7 @@ include("inc/header.php");
 
 ?>
 
-<header id="header">
-    <div id="logo-group">
-        <span id="logo">
-            <a href="<?php echo ASSETS_URL; ?>">
-                <img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="DeepBlue Epigenomic Data Server">
-            </a>
-        </span>
-    </div>
-</header>
+<?php include("landing_menu.php"); ?>
 
 <div class="row">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">

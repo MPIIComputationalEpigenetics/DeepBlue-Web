@@ -11,7 +11,7 @@ require_once("inc/config.ui.php");
 YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
 E.G. $page_title = "Custom Title" */
 
-$page_title = "DeepBlue Epigenomic Data Server";
+$page_title = "Tutorials - DeepBlue Epigenomic Data Server";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -24,30 +24,8 @@ $page_body_prop = array("id"=>"extr-page");
 include("inc/header.php");
 
 ?>
-<!-- ==========================CONTENT STARTS HERE ========================== -->
-<!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
-<header id="header">
-	<!--<span id="logo"></span>-->
 
-	<div id="logo-group">
-		<span id="logo">
-			<a href="<?php echo ASSETS_URL; ?>">
-				<img src="<?php echo ASSETS_URL; ?>/img/logo.png" alt="DeepBlue Epigenomic Data Server">
-			</a>
-		</span>
-	</div>
-
-	<div class="navbar-collapse collapse">
-    	<ul class="nav navbar-nav navbar-left">
-			<li><span id="extr-page-header-space"><a href="features.php">Features</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="examples.php">Examples</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="manual">Manual</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="api.php">API Reference</a></span></li>
-        	<li><span id="extr-page-header-space"><a href="tutorials.php">Tutorials</a></span></li>
-    	</ul>
-  	</div>
-
-</header>
+<?php include("landing_menu.php"); ?>
 
 <div id="main" role="main">
 	<!-- MAIN CONTENT -->
