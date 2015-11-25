@@ -128,7 +128,7 @@ function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries, $us
 	foreach ($qdetail as $key => $value) {
 		if ($key == 'qid_1' || $key == 'qid_2') {
 			$rdetail = $rdetail."<hr>";
-			query_detail($value, $rdetail, $cache_chromosomes, $cache_queries);
+			query_detail($value, $rdetail, $cache_chromosomes, $cache_queries, $user_key);
 			continue;
 		}
 
