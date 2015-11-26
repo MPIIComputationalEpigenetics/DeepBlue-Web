@@ -464,7 +464,7 @@ function deselect_node(e, data) {
                 });
 
                 /* process experiment selection by row clicking*/
-                $('#experiments_datatable').on('dblclick', 'tr', function () {
+                $('#experiments_datatable').on('click', 'tr', function () {
 
                     var id = $('td', this).eq(0).text();
                     if (id ==  "") {

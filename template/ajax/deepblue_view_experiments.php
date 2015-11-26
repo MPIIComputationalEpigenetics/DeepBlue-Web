@@ -329,7 +329,7 @@ require_once("inc/init.php");
 
 
         /* process experiment selection by row clicking*/
-        $('#datatable_fixed_column').on('dblclick', 'tr', function () {
+        $('#datatable_fixed_column').on('click', 'tr', function () {
 
             var id = $('td', this).eq(0).text();
 
@@ -374,7 +374,7 @@ require_once("inc/init.php");
 
 
         /* remove selection by clicking of row in the selection table*/
-        $('#datatable_selected_column').on('dblclick', 'tr', function () {
+        $('#datatable_selected_column').on('click', 'tr', function () {
             var id = $('td', this).eq(0).text();
             if (id ==  "") {
                 return;
