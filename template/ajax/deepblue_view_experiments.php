@@ -39,7 +39,7 @@ require_once("inc/init.php");
 <section id="widget-grid" class="">
     <div class="alert alert-info alert-block" id="main-banner">
         <h4 class="alert-heading">Experiments Datatable</h4>
-        Double click the row to select an experiment; It would be added to the Selected Experiments Datatable. Double click again to unselect a selected experiment. Selected experiments are highlighted in green.
+        Click the row to select an experiment; It would be added to the Selected Experiments Datatable. Click again to unselect a selected experiment. Selected experiments are highlighted in green.
     </div>
 
     <div class="row" id="main-table">
@@ -132,7 +132,7 @@ require_once("inc/init.php");
 
     <div class="alert alert-info alert-block" id="main-banner">
         <h4 class="alert-heading">Selected Experiments</h4>
-        Double click the row to unselect an experiment; It would be removed from the Datatable. Click Download Options to specify options for download the regions.
+        Click the row to unselect an experiment; It would be removed from the Datatable. Click Download Options to specify options for download the regions.
     </div>
 
     <div class="row" id="selection-table">
