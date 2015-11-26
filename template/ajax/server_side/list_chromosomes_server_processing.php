@@ -25,8 +25,14 @@ require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 $client = new IXR_Client(get_server());
 
+$data['chromosome'] = [];
+$data['genomes'] = [];
+$data['annotations'] = [];
+$data['annotations_id'] = [];
+
 /* process genomes, chromosomes and annotations attributes of the selected experiments */
 if (!isset($_GET["ids"])) {
+    echo json_encode($data);
     return;
 }
 $getIds = $_GET["ids"];
@@ -46,10 +52,7 @@ for ($i = 0; $i < count($getIds); $i++) {
 }
 
 $length = count($genomes);
-$data['chromosome'] = [];
 $data['genomes'] = $genomes;
-$data['annotations'] = [];
-$data['annotations_id'] = [];
 
 for ($j = 0; $j < $length; $j++) {
     // get chromosomes matching genome

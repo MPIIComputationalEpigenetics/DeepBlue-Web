@@ -212,7 +212,7 @@ require_once("inc/init.php");
                             </thead>
 
                         </table>
-                        <div class="downloadButtonDiv"><button type="button" id="downloadBtnBottom" class="btn btn-primary"><i class="fa fa-forward"></i> Download</button></div>
+                        <div class="downloadButtonDiv"><button type="button" id="downloadBtnBottom" class="btn btn-primary" disabled><i class="fa fa-forward"></i> Download</button></div>
                     </div>
                     <!-- end widget content -->
                 </div>
@@ -370,6 +370,13 @@ require_once("inc/init.php");
                 $(this).removeClass("success");
             }
 
+            if (selected.length > 0) {
+                $('#downloadBtnBottom').removeAttr('disabled');
+            }
+            else {
+                $('#downloadBtnBottom').attr('disabled','disabled');
+            }
+
         });
 
 
@@ -389,6 +396,10 @@ require_once("inc/init.php");
 
             var rowId = otable.columns(0).data().eq(0).indexOf(id);
             otable.row(rowId).nodes().to$().removeClass("success");
+
+            if (selected.length == 0) {
+                $('#downloadBtnBottom').attr('disabled','disabled');
+            }
         } );
 
         /* Show Options button */

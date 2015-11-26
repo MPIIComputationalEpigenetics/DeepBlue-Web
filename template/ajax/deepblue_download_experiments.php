@@ -470,6 +470,11 @@ require_once("inc/init.php");
             var calculated = $('#calculated_col').select2("val");
             var meta = $('#meta_col').select2("val");
 
+            if (selected.length == 0) {
+                swal("Request Download","No ExperimentID selected", "error");
+                return;
+            }
+
             columns_format = common.concat(optional, calculated, meta).join();
             var chrom = [];
             var annot = [];

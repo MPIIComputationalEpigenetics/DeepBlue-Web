@@ -26,19 +26,20 @@ require_once("../../lib/deepblue.IXR_Library.php");
 $client = new IXR_Client(get_server());
 
 /* retrieve columns data of selected experiments*/
-if (!isset($_GET["ids"])) {
-    return;
-}
-
-$format = [];
-$experiment = [];
 
 $data['common'] = [];
 $data['calculated'] = [];
 $data['optional'] = [];
 $data['experiment'] = [];
 
+if (!isset($_GET["ids"])) {
+    echo json_encode($data);
+    return;
+}
+
 $getIds = $_GET["ids"];
+$format = [];
+$experiment = [];
 
 for ($i = 0; $i < count($getIds); $i++) {
     if(!$client->query("info", $getIds[$i], $user_key)){

@@ -125,7 +125,7 @@
                             </tr>
                             </thead>
                             </table>
-                            <button type="button" id="downloadExperimentButton" class="btn btn-primary download-btn-size">
+                            <button type="button" id="downloadExperimentButton" class="btn btn-primary download-btn-size" disabled>
                     Download
                 </button>
                         </div>
@@ -498,6 +498,13 @@ function deselect_node(e, data) {
 
                         //$('#datatable_selected_column').dataTable().fnDeleteRow(index);
                         $(this).removeClass("success");
+                    }
+
+                    if (selected.length > 0) {
+                        $('#downloadExperimentButton').removeAttr('disabled');
+                    }
+                    else {
+                        $('#downloadExperimentButton').attr('disabled','disabled');
                     }
                 });
 
