@@ -48,7 +48,7 @@ switch ($caller) {
 		break;
 	case 'epigenetic_mark':
 		/* retrieve list of all epigenetic marks */
-		if(!$client->query("list_epigenetic_marks", $user_key)){
+		if(!$client->query("list_epigenetic_marks", (Object)Null, $user_key)){
 			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 		}
 		else{
