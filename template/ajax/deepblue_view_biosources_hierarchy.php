@@ -69,7 +69,7 @@
                                     <div class="alert alert-info alert-block">
                                         <a class="close" data-dismiss="alert" href="#">×</a>
                                         <h4 class="alert-heading">Experiments</h4>
-                                        All experiments from the selected samples are listed here. Please, double click on the ones you are interested in and click on Download button.
+                                        All experiments from the selected samples are listed here. Please, click on the ones you are interested in and click on Download button.
                                     </div>
                                         <div class="input-group">
                         <table id="experiments_datatable" class="table table-striped table-bordered" width="100%">
