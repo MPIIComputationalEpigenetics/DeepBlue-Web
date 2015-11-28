@@ -76,6 +76,7 @@ include("inc/header.php");
 
 <script src="js/get_request_data.js"></script>
 <script type="text/javascript">
+
     if (location.search.split('_id=') == "")  {
         var msg = "RequestID not specified. Read instructions above";
         $( "#request_info" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +
@@ -115,4 +116,9 @@ include("inc/header.php");
             alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
         });
     }
+
+    setTimeout(function(){
+        window.location.reload(1);
+    }, 60000);
+
 </script>
