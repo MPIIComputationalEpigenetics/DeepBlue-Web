@@ -27,6 +27,8 @@ $page_title = "Requesting account - DeepBlue Epigenomic Data Server";
 //you can add your custom css in $page_css array.
 //Note: all css files are inside css/ folder
 $page_css[] = "deepblue.css";
+$page_css[] = "sweetalert.css";
+
 $no_main_header = true;
 $page_body_prop = array("id"=>"extr-page");
 include("inc/header.php");
@@ -46,7 +48,7 @@ include("inc/header.php");
                         <h1 class="alert-heading">
                             Request Status
                         </h1>
-                        Please bookmark this page for each access to this request download.<br/>
+                        Please bookmark this page for easy access to this request download.<br/>
                         If you know the request id, you can change the id from the address of the page.
 
                         <h6 class="alert-heading">Example</h6>
@@ -72,13 +74,8 @@ include("inc/header.php");
     include("inc/google-analytics.php");
 ?>
 
+<script src="js/get_request_data.js"></script>
 <script type="text/javascript">
-    function getRegion(event) {
-        var id = event.target.id.split('_')[1];
-        window.open('<?php echo get_server() ?>/download/?r='+id+'&key=<?php echo $_SESSION['key'] ?>','_blank');
-
-    }
-
     if (location.search.split('_id=') == "")  {
         var msg = "RequestID not specified. Read instructions above";
         $( "#request_info" ).append( "<br\><div class='alert alert-danger fade in'><button class='close'" +

@@ -117,15 +117,10 @@ require_once("inc/init.php");
 </section>
 <!-- end widget grid -->
 
+<script src="js/get_request_data.js"></script>
 <script type="text/javascript">
 
 	pageSetUp();
-
-	function getRegion(event) {
-		var id = event.target.id.split('_')[1];
-		window.open('<?php echo get_server() ?>/download/?r='+id+'&key=<?php echo $user_key ?>','_blank');
-	}
-
 	var pagefunction = function() {
 
 		/* BASIC ;*/

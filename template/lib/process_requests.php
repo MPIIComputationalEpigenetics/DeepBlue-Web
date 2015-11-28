@@ -41,27 +41,43 @@ function build_request_info($ids, $user_key) {
 		$rdetail = $rdetail.'</div>';
 
 		$rstate = $request_info['state'];
+		$srv = get_server().'/download/?r='.$rid.'&key='.$user_key;
+		$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled>&nbspDownload&nbsp</button>';;
+		switch($request_info['command']) {
+			case "get_regions":
+				$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick=window.open("'.$srv.'","_blank")>&nbspDownload&nbsp</button>';
+				break;
+			case "count_regions":
+				$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "count_regions(event)">View Count</button>';
+				break;
+			case "score_matrix":
+				$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick=window.open("'.$srv.'","_blank")>&nbspDownload&nbsp</button>';
+				break;
+			case "get_experiments_by_query":
+				$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "experiment_query(event)">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspView&nbsp&nbsp&nbsp&nbsp&nbsp</button>';
+				break;
+		}
 
 		if ($rstate == 'done') {
 			$temp[] = 'ready';
 			$temp[] = substr($request_info['create_time'], 0, -7);
 			$temp[] = substr($request_info['finish_time'], 0, -7);
 			$temp[] = $rdetail;
-			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "getRegion(event)">Download</button>';
+			$temp[] = $cusbutton;
 		}
 		else if ($rstate == 'failed') {
 			$temp[] = $rstate . ":<br />" . $request_info["message"];
 			$temp[] = substr($request_info['create_time'], 0, -7);
 			$temp[] = '--';
 			$temp[] = $rdetail;
-			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
+			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled>&nbspDownload&nbsp</button>';;
 		}
 		else {
 			$temp[] = $rstate;
 			$temp[] = substr($request_info['create_time'], 0, -7);
 			$temp[] = '--';
 			$temp[] = $rdetail;
-			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled onclick = "getRegion(event)">Download</button>';
+			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled>&nbspDownload&nbsp</button>';;
 		}
 		$rrow[] = $temp;
 		$temp = [];
