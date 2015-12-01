@@ -495,6 +495,7 @@ require_once("inc/init.php");
 		    },
 		    "iDisplayLength": 50,
 		    "autoWidth" : true,
+			"scrollX": true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {

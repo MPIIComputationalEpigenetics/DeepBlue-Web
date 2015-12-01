@@ -155,6 +155,7 @@ require_once("inc/init.php");
       			aoData.push( { "name": "col_2", "value": "description"} );
       			aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
     		},
+			"scrollX": true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
