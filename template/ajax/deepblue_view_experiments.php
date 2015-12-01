@@ -235,8 +235,8 @@ require_once("inc/init.php");
     var pagefunction = function() {
 
         var isShow = false;
-        $(document).on("click", '.exp-metadata-more-view', function () {
             //var metadata = $(this).prev();
+        $("#datatable_fixed_column").on("click", '.exp-metadata-more-view', function (e) {
             if(isShow == false){
                 $(this).prev().show(10);
                 $(this).text("-- Hide --");
@@ -247,6 +247,7 @@ require_once("inc/init.php");
                 $(this).text("-- View metadata --");
                 isShow = false;
             }
+            e.stopPropagation();
         });
 
         /**/
@@ -331,7 +332,6 @@ require_once("inc/init.php");
 
         /* process experiment selection by row clicking*/
         $('#datatable_fixed_column').on('click', 'tr', function () {
-
             var id = $('td', this).eq(0).text();
 
             if (id ==  "") {
