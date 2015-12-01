@@ -432,7 +432,6 @@ function deselect_node(e, data) {
         var otable = $('#experiments_datatable').DataTable({
         "iDisplayLength": 50,
         "autoWidth" : true,
-            "scrollX": true,
 
             "preDrawCallback" : function() {
                 if (!experiments_datatable) {
