@@ -80,11 +80,15 @@ require_once("inc/init.php");
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Description"/>
 									</th>
+									<th class="hasinput">
+										<input type="text" class="form-control" placeholder="Metadata"/>
+									</th>
 								</tr>
 					            <tr>
 				                    <th>ID</th>
 				                    <th>Epigenetic Marks</th>
 				                    <th>Description</th>
+				                    <th>Metadata</th>
 					            </tr>
 					        </thead>
 
@@ -137,6 +141,7 @@ require_once("inc/init.php");
       			aoData.push( { "name": "col_0", "value": "_id"} );
       			aoData.push( { "name": "col_1", "value": "name"} );
       			aoData.push( { "name": "col_2", "value": "description"} );
+      			aoData.push( { "name": "col_3", "value": "extra_metadata"} );
       			aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
     			},
 	        //"sServerMethod": "POST",
