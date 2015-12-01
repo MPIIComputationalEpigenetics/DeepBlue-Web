@@ -286,7 +286,6 @@ require_once("inc/init.php");
             //"sServerMethod": "POST",
             "iDisplayLength": 10,
             "autoWidth" : true,
-            "scrollX": true,
 
             "preDrawCallback" : function() {
                 // Initialize the responsive datatables helper once.
@@ -382,10 +381,6 @@ require_once("inc/init.php");
 
 
         /* remove selection by clicking of row in the selection table*/
-        $('#datatable_selected_column').DataTable({
-            "scrollX": true
-        });
-
         $('#datatable_selected_column').on('click', 'tr', function () {
             var id = $('td', this).eq(0).text();
             if (id ==  "") {
