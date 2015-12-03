@@ -16,6 +16,13 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 
+<script>
+	$(window).off();
+	$(window).off("hashchange", function(e){ checkURL() });
+	$(window).on("hashchange",function(e){ console.log(e); e.stopPropagation(); });
+</script>
+
+
 <?php include("landing_menu.php"); ?>
 
 <div style="padding-left:20px">
@@ -26,8 +33,3 @@
 	<?php $deepBlueObj->displayAPIList(True);?>
 </div>
 
-
-<?php
-	//include required scripts
-	include("inc/scripts.php");
-?>
