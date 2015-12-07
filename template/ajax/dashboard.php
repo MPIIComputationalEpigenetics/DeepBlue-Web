@@ -1026,7 +1026,7 @@
 		if (tour == 1) {
 			swal({
 					title: "",
-					text: "Welcome to the DeepBlue web interface tour. Would you like to proceed?",
+					text: "Welcome to the DeepBlue Web interface.\nWould you like to have a brief overview?",
 					type: "info",
 					showCancelButton: true,
 					confirmButtonText: "Yes",

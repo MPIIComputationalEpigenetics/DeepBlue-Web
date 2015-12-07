@@ -41,34 +41,34 @@ $page_nav = array(
         "title" => "Dashboard",
         "url" => "ajax/dashboard.php",
         "icon" => "fa-home",
-        "description" => "You can view DeepBlue data displayed using beautiful charts."
+        "description" => "Overview of DeepBlue data."
     ),
 
     "search" => array(
         "title" => "Search",
         "url"=> "ajax/deepblue_view_search.php",
         "icon" => "fa-search",
-        "description" => "You can search everything on DeepBlue server."
+        "description" => "Perform full text search on DeepBlue data."
     ),
 
     "info" => array(
         "title" => "Info",
         "url"=> "ajax/deepblue_view_info.php",
         "icon" => "fa-info-circle",
-        "description" => "You can retrieve information about DeepBlue data."
+        "description" => "Obtain information about DeepBlue data."
     ),
 
     "experiments" => array(
-        "title" => "Experiments Data",
+        "title" => "Epigenomic Data",
         "url" => "ajax/deepblue_view_experiments.php",
         "icon" => "fa-database",
-        "description" => "Shows deepblue experiments."
+        "description" => "List and download DeepBlue epigenomic data."
     ),
 
     "deepblue_tables" => array(
         "title" => "Auxiliary Data",
         "icon" => "fa-table",
-        "description" => "You can view and download all DeepBlue data organized into different tables.",
+        "description" => "You can have access to all auxiliary data used by DeepBlue.",
         "sub" => array(
             "annotations" => array(
                 "title" => "Annotations",
@@ -88,7 +88,7 @@ $page_nav = array(
             "biosources" => array(
                 "title" => "BioSources",
                 "url" =>"ajax/deepblue_view_biosources.php",
-                "description" => "List existing biosources in DeepBlue."
+                "description" => "list(varname) existing biosources in DeepBlue."
             ),
             "samples" => array(
                 "title" => "Samples",
@@ -118,20 +118,20 @@ $page_nav = array(
         "title" => "BioSources - Hierarchy",
         "url"=> "ajax/deepblue_view_biosources_hierarchy.php",
         "icon" => "fa-sitemap",
-        "description" => "You can view DeepBlue experiments retrieved from their biosource hierarchy."
+        "description" => "Display the biosources in an hierarchy fashion (imported from the ontologies)."
     ),
 
     "deepblue_request" => array(
         "title" => "Previous Requests",
         "url"=> "ajax/deepblue_manage_request.php",
         "icon" => "fa-download",
-        "description" => "You can view and download all your download requests."
+        "description" => "Access and download all your download requests."
     ),
 
     "insert_data" => array(
         "title" => "Insert Data",
         "icon" => "fa-suitcase",
-        "description" => "You can insert new data such as annotations, column_types into DeepBlue",
+        "description" => "Insert new data such as annotations, column_types into DeepBlue (It requires permission)",
         "sub" => array(
             "insert_annotation" => array(
                 "title" => "Annotation",
@@ -152,7 +152,7 @@ $page_nav = array(
     "data_curation" => array(
         "title" => "Curate Data",
         "icon" => "fa-edit",
-        "description" => "You can clone and edit other DeepBlue data.",
+        "description" => "Curate DeepBlue data. (It requires permission)",
         "sub" => array(
             "clone" => array(
                 "title" => "Experiments Cloning",
@@ -168,7 +168,7 @@ $page_nav = array(
         "title" => "Remove Data",
         "url"=> "ajax/deepblue_remove_data.php",
         "icon" => "fa-minus-square",
-        "description" => "You can completely remove your data from DeepBlue."
+        "description" => "Remove your data from DeepBlue."
     ),
 
 /*  "deepblue_workflow" => array(
@@ -180,7 +180,7 @@ $page_nav = array(
     "documentation" => array(
         "title" => "Documentation",
         "icon" => "fa-question",
-        "description" => "You can view DeepBlue's extensive documentation, manual and tutorials.",
+        "description" => "Access DeepBlue examples, manual and tutorials.",
         "sub" => array(
             "api_reference" => array(
                 "title" => "API Reference",
@@ -213,14 +213,14 @@ $page_nav = array(
         "title" => "Feedback",
         "url"=> "ajax/deepblue_view_feedback.php",
         "icon" => "fa-step-backward",
-        "description" => "You can give feedback to improve DeepBlue"
+        "description" => "Give feedback to improve DeepBlue. We appreciate this!"
     ),
 
     "acknowledgement" => array(
         "title" => "Acknowledgements",
         "url"=> "ajax/deepblue_acknowledgements.php",
         "icon" => "fa-university",
-        "description" => "You can view the people and institutions working on or funding the DeepBlue project"
+        "description" => "View the people, projects, and institutions that help the DeepBlue project"
     )
 );
 

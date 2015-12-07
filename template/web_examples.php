@@ -79,7 +79,7 @@ include("inc/header.php");
                 <hr>
                 <dt>
                     <h5>Select epigenomic data</h5>
-                    <p>Just double click the experiments that you want at <i>Data Tables > Experiments</i> and they will be selected for download.</p>
+                    <p>Just click on the experiments that you want at <i>Experiments Data</i> and they will be selected for download.</p>
                     <p>After selecting the desired experiments, click on the <i>Download</i> button.</p>
                 </dt>
                 <dd>
