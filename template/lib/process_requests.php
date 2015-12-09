@@ -59,24 +59,27 @@ function build_request_info($ids, $user_key) {
 		}
 
 		if ($rstate == 'done') {
-			$temp[] = 'ready';
+			$temp[] = $request_info['command'];
+			$temp[] = $rdetail;
 			$temp[] = substr($request_info['create_time'], 0, -7);
 			$temp[] = substr($request_info['finish_time'], 0, -7);
-			$temp[] = $rdetail;
+			$temp[] = 'ready';
 			$temp[] = $cusbutton;
 		}
 		else if ($rstate == 'failed') {
-			$temp[] = $rstate . ":<br />" . $request_info["message"];
+			$temp[] = $request_info['command'];
+			$temp[] = $rdetail;
 			$temp[] = substr($request_info['create_time'], 0, -7);
 			$temp[] = '--';
-			$temp[] = $rdetail;
+			$temp[] = $rstate . ":<br />" . $request_info["message"];
 			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled>&nbspDownload&nbsp</button>';;
 		}
 		else {
-			$temp[] = $rstate;
+			$temp[] = $request_info['command'];
+			$temp[] = $rdetail;
 			$temp[] = substr($request_info['create_time'], 0, -7);
 			$temp[] = '--';
-			$temp[] = $rdetail;
+			$temp[] = $rstate;
 			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled>&nbspDownload&nbsp</button>';;
 		}
 		$rrow[] = $temp;

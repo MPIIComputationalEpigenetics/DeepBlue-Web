@@ -74,27 +74,31 @@ require_once("inc/init.php");
 			                                    <th class="hasinput">
 			                                        <input type="text" class="form-control" placeholder="Request ID" id="request-id" />
 			                                    </th>
-			                                    <th class="hasinput">
-			                                        <input type="text" class="form-control" placeholder="Request Status" id="request-status"/>
-			                                    </th>
+												<th class="hasinput">
+													<input type="text" class="form-control" placeholder="Request Type" id="request-id" />
+												</th>
+												<th class="hasinput">
+													<input type="text" class="form-control" placeholder="Request Detail" id="request-detail"/>
+												</th>
 			                                    <th class="hasinput">
 			                                        <input type="text" class="form-control" placeholder="Request Start Time" id="request-start-time"/>
 			                                    </th>
 			                                    <th class="hasinput">
 			                                        <input type="text" class="form-control" placeholder="Request End Time" id="request-end-time"/>
 			                                    </th>
-			                                    <th class="hasinput">
-			                                        <input type="text" class="form-control" placeholder="Request Detail" id="request-detail"/>
-			                                    </th>
+												<th class="hasinput">
+													<input type="text" class="form-control" placeholder="Request Status" id="request-status"/>
+												</th>
 			                                    <th class="hasinput">
 			                                    </th>
 			                                </tr>
 			                                <tr>
 												<th>Request ID</th>
-			                                    <th>Request Status</th>
+			                                    <th>Request Type</th>
+												<th>Request Detail</th>
 												<th>Request Start Time</th>
 												<th>Request End Time</th>
-												<th>Request Detail</th>
+												<th>Request Status</th>
 												<th>Downloads</th>
 			                                </tr>
 			                            </thead>
