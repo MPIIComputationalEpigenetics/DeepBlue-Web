@@ -975,21 +975,18 @@ require_once("inc/init.php");
 	}
 
 	/* Hide and show experiment metadata */
-
-	var isShow = false;
+	$(document).off("click", '.exp-metadata-more-view');
 	$(document).on("click", '.exp-metadata-more-view', function () {
 		//var metadata = $(this).prev();
-		if(isShow == false){
-			$(this).prev().show(1000);
-			$(this).text("-- Hide --");
-			isShow = true;
-		}
-		else{
+		var toggle = $(this).text();
+		if (toggle == "-- Hide --") {
 			$(this).prev().hide(1000);
 			$(this).text("-- View metadata --");
-			isShow = false;
 		}
-
+		else {
+			$(this).prev().show(1000);
+			$(this).text("-- Hide --");
+		}
 	});
 
 	/* BASIC ;*/

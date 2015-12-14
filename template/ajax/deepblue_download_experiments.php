@@ -291,21 +291,17 @@ require_once("inc/init.php");
 
 
     var pagefunction = function() {
-
-        var isShow = false;
+        $(document).off("click", '.exp-metadata-more-view');
         $(document).on("click", '.exp-metadata-more-view', function () {
-            //var metadata = $(this).prev();
-            if(isShow == false){
-                $(this).prev().show(10);
-                $(this).text("-- Hide --");
-                isShow = true;
-            }
-            else{
+            var toggle = $(this).text();
+            if (toggle == "-- Hide --") {
                 $(this).prev().hide(10);
                 $(this).text("-- View metadata --");
-                isShow = false;
             }
-
+            else {
+                $(this).prev().show(10);
+                $(this).text("-- Hide --");
+            }
         });
 
         /**/

@@ -234,19 +234,31 @@ require_once("inc/init.php");
 
     var pagefunction = function() {
 
-        var isShow = false;
-            //var metadata = $(this).prev();
         $("#datatable_fixed_column").on("click", '.exp-metadata-more-view', function (e) {
-            if(isShow == false){
-                $(this).prev().show(10);
-                $(this).text("-- Hide --");
-                isShow = true;
-            }
-            else{
+            var toggle = $(this).text();
+            if (toggle == "-- Hide --") {
                 $(this).prev().hide(10);
                 $(this).text("-- View metadata --");
-                isShow = false;
             }
+            else {
+                $(this).prev().show(10);
+                $(this).text("-- Hide --");
+            }
+
+            e.stopPropagation();
+        });
+
+        $("#datatable_selected_column").on("click", '.exp-metadata-more-view', function (e) {
+            var toggle = $(this).text();
+            if (toggle == "-- Hide --") {
+                $(this).prev().hide(10);
+                $(this).text("-- View metadata --");
+            }
+            else {
+                $(this).prev().show(10);
+                $(this).text("-- Hide --");
+            }
+
             e.stopPropagation();
         });
 
