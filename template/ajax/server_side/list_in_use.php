@@ -21,38 +21,35 @@ require_once("../../lib/error.php");
 
 
 if (isset($_GET) && isset($_GET["request"])) {
-    $request = $_GET["request"];
+    $vocabularies = $_GET["request"];
 } else {
-	return;
+	$vocabularies = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
 }
 
 $client = new IXR_Client(get_server());
 $listInUse = [];
 
-foreach ($request as $vocab) {
-    $listInUse[$vocab] = [];
-    $listInUse[$vocab]['amt'] = null;
-    $listInUse[$vocab]['alp'] = null;
+if(!$client->query("faceting_experiments", "", "", "", "", "", "", "", $user_key)){
+	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+}
 
-	if(!$client->query("list_in_use", $vocab, $user_key)){
-		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-	}
-    $response['alp'] = $client->getResponse();
-    check_error($response['alp']);
+$response = $client->getResponse();
+check_error($response);
 
-	usort($response['alp'][1], function($a, $b) {
+$data = array();
+foreach ($vocabularies as $vocabulary) {
+	$data[$vocabulary] = array();
+	$data[$vocabulary]['alp'] = $response[1][$vocabulary];
+	$data[$vocabulary]['amt'] = $response[1][$vocabulary];
+
+	usort($data[$vocabulary]['alp'], function($a, $b) {
 		return strcasecmp($a[1], $b[1]);
 	});
 
-	$response['amt'] = $response['alp'];
-
-	usort($response['amt'][1], function($a, $b) {
+	usort($data[$vocabulary]['amt'], function($a, $b) {
 		return $a[2] > $b[2];
 	});
-
-
-	$listInUse[$vocab]['amt'] = $response['amt'][1];
-	$listInUse[$vocab]['alp'] = $response['alp'][1];
 }
-echo json_encode(array($listInUse));
+
+echo json_encode(array($data));
 ?>

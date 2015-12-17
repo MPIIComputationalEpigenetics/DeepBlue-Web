@@ -72,26 +72,10 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<!--<input class="form-control" placeholder="ID" type="text">-->
-										<select id='genomes_id' class='multi-select-size' multiple placeholder='ID'>
-											<option>ID-1</option>
-											<option>ID-2</option>
-											<option>ID-3</option>
-											<option>ID-4</option>
-											<option>ID-5</option>
-											<option>ID-6</option>
-										</select>
+										<input class="form-control" placeholder="ID" type="text">
 									</th>
 									<th class="hasinput">
-										<!--<input type="text" class="form-control" placeholder="Genome" />-->
-										<select id='genomes_genome' class='multi-select-size' multiple placeholder='Genome'>
-											<option>Genome-1</option>
-											<option>Genome-2</option>
-											<option>Genome-3</option>
-											<option>Genome-4</option>
-											<option>Genome-5</option>
-											<option>Genome-6</option>
-										</select>
+										<input type="text" class="form-control" placeholder="Genome" />
 									</th>
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Description" />
@@ -191,8 +175,6 @@ require_once("inc/init.php");
 	    } );
 
 	    /* END COLUMN FILTER */
-
-	    $("#genomes_id, #genomes_genome").select2();
 
 	};
 
