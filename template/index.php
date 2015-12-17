@@ -61,8 +61,8 @@ include("inc/header.php");
 				<div class="col-md-14">
 					<div class="col-md-4 col-lg-4 hidden-xs hidden-sm">
 						<div class="pull-left">
-							<h4 class="paragraph-header" style="text-align:justify">DeepBlue Epigenomic Data Server provides a central data access hub for large collections of epigenomic data. It organizes the data from different sources using controlled vocabularies and ontologies. The data is stored in our server server, where the users can access the data programmatically or by or web interface.</h4>
-							<h4 class="paragraph-header" style="text-align:justify">DeepBlue contains a set of operations designed for operation on epigenomic data, for example, data overlapping and aggregations. The users can execute all the operations in a pipeline fashion in the server and transfer only the meaningful data. DeepBlue is open and free or charge. Request your account and start using it.</h4>
+							<h4 class="paragraph-header" style="text-align:justify">The DeepBlue Epigenomic Data Server provides a central data access hub for large collections of epigenomic data. It organizes the data from different sources using controlled vocabularies and ontologies. The data is stored in our server, where the users can access the data programmatically or by or web interface.</h4>
+							<h4 class="paragraph-header" style="text-align:justify">DeepBlue contains a set of commands designed to perform operations on the epigenomic data, for example, data overlapping and aggregations. Users can execute all operations in a pipeline fashion in the server and transfer only meaningful data.</h4>
 						</div>
 					</div>
 
@@ -169,15 +169,17 @@ include("inc/header.php");
             <div class="col-md-3 text-center wow fadeInLeft">
                 <div>
                     <i class="fa fa-terminal fa-3x fa-blue"></i>
-                    <h2 class="txt-color-red login-header-big">API for Epigenomic data</h2>
-                    <p align="justify">DeepBlue provides a set of commands specially crafted for searching, finding, handling, and download epigenomic data. The processing is made in ours servers. The users only need to download the meaningful data.</p>
-                    <p align="justify">The commands are sent to ours servers through XMl-RPC protocol, that is a language agnostic protocol, meaning that the users can use they favorite programming language.</p>
+                    <h2 class="txt-color-red login-header-big">API for Epigenomic Data</h2>
+                    <p align="justify">DeepBlue provides a set of commands specially designed for searching, finding, handling, and downloading epigenomic data.
+                    The processing take place on our servers.
+                    Users need only to download the meaningful data.</p>
+                    <p align="justify">The commands are sent to our servers through the XML-RPC protocol, which is a language agnostic protocol, so that the users can use their preferred programming language.</p>
                 </div>
                 <br>
                 <div class="m-t-lg">
                     <i class="fa fa-cloud fa-3x fa-blue"></i>
-                    <h2 class="txt-color-red login-header-big">Web interface</h2>
-                    <p align="justify">Together with the API, DeepBlue has an intuitive web portal, where the users can access and handle the epigenomic data.</p>
+                    <h2 class="txt-color-red login-header-big">Web Interface</h2>
+                    <p align="justify">Together with the API, DeepBlue has an intuitive web portal where users can access and handle the epigenomic data.</p>
                 </div>
             </div>
             <div class="col-md-6 text-center wow zoomIn">
@@ -195,7 +197,7 @@ include("inc/header.php");
                 <div>
                     <i class="fa fa-database fa-3x fa-blue"></i>
                     <h2 class="txt-color-red login-header-big">Epigenomic Data</h2>
-                    <p align="justify">DeepBlue contains more than 30 thousand experiments (peaks and signal) files from the main epigenome mapping projects: ENCODE, BLUEPRINT, NIH Roadmap, and DEEP. We also allow and encourage the users to upload their own data.</p>
+                    <p align="justify">DeepBlue contains more than 30 thousand experiment (peaks and signal) files from the main epigenome mapping projects: ENCODE, BLUEPRINT, NIH Roadmap, and DEEP. We also allow and encourage users to upload their own data.</p>
                     <p align="justify">The data is organized using controlled vocabularies and well defined terms from ontologies (EFO, CL, and UBERON).</p>
                     <br/>
                     <br/>
@@ -204,7 +206,7 @@ include("inc/header.php");
                 <div class="m-t-lg">
                     <i class="fa fa-book fa-3x fa-blue"></i>
                     <h2 class="txt-color-red login-header-big">Documentation</h2>
-                    <p align="justify">DeepBlue contains a full API reference, a complete manual, and tutorials for easing the initial steps.</p>
+                    <p align="justify">DeepBlue contains a full API reference, a complete manual, and tutorials that help with the initial steps.</p>
                 </div>
             </div>
         </div>
@@ -216,7 +218,7 @@ include("inc/header.php");
       	<br/>
 				<div class="navy-line"></div>
 				<br/>
-        <p>DeepBlue is possible because the support of:</p>
+        <p>DeepBlue is possible through the support of:</p>
         <br/>
       </div>
     </div>
