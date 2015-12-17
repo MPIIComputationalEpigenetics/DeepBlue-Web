@@ -94,7 +94,7 @@ include("inc/header.php");
 				</dd>
 
 				<dt>Anonymous access</dt>
-				<dd>You are not obligated to create an account. You can access DeepBlue data and its mean features without having to register.
+				<dd>You are not obligated to create an account. You can access DeepBlue data and its main features without having to register.
 				</dd>
 			</dl>
 		</div>
