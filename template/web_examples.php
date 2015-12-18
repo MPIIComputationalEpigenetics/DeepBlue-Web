@@ -69,7 +69,7 @@ include("inc/header.php");
                 <hr>
                 <dt>
                     <h5>Listing experiments</h5>
-                    <p>You can list all epigenomic experiments under <i>Epigenetic data</i>.</p>
+                    <p>You can list all epigenomic experiments under <i>Experiments data</i>.</p>
                     <p>The data tables provide full filtering and ordering.</p>
                 </dt>
                 <dd>
