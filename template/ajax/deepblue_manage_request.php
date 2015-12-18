@@ -29,7 +29,7 @@ require_once("inc/init.php");
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark"><i class="fa fa-download"></i>
-			Previous Requests
+			Previous requests
 		</h1>
 	</div>
 </div>
@@ -64,8 +64,8 @@ require_once("inc/init.php");
 							<div class="col-md-12 col-md-offset-0">
 								<div class="alert alert-info alert-block">
 									<a class="close" data-dismiss="alert" href="#">×</a>
-									<h4 class="alert-heading">Download Queue</h4>
-									When the download is ready, (Request status: Ready), the download button would be enabled.
+									<h4 class="alert-heading">Requests list</h4>
+									When the download is ready, (Request status: Ready), the download button will be enabled.
 								</div>
 			                    <div class="widget-body">
 			                        <table id="datatable_fixed_column" name='experiment-table' class="table table-striped table-bordered table-hover" width="100%">

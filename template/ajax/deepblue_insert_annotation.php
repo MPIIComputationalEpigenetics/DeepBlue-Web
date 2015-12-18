@@ -33,7 +33,7 @@ require_once("inc/init.php");
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark"><i class="fa fa-tags"></i>
-			Insert Annotation
+			Insert annotation
 		</h1>
 	</div>
 </div>
@@ -88,7 +88,7 @@ require_once("inc/init.php");
 											<tr>
 												<td class='search-modal-table'>Format</td>
 												<td class='search-modal-name'><select id="format" multiple style="width:100%" class="select2"></select></td>
-											</tr>											
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -100,7 +100,7 @@ require_once("inc/init.php");
 								<div id="dataDesc" class="alert alert-info alert-block">
 									<a class="close" data-dismiss="alert" href="#">×</a>
 									<h4 class="alert-heading">Data</h4>
-									<p>The data must be in the BED format. The BED format uses tabs as field separators. For upload, the file must be a text file - '.txt' extension</p>
+									<p>The data must be in the <i>BED</i> format. The <i>BED</i> format uses tabs as field separators.</p>
 								</div>
 								<div id="uploadData">
 									<table id='info' class='table table-striped table-hover'>
@@ -128,7 +128,7 @@ require_once("inc/init.php");
 											<tr id='copy_row' style="display: none">
 												<td class='search-modal-table'>Copy and Paste</td>
 												<td class='search-modal-name'><textarea class='form-control' id='copy' placeholder='Copy and Paste Data into Field' rows="10"></textarea></td>
-											</tr>                        
+											</tr>
 										</tbody>
 	                                </table>
 								</div>
@@ -139,16 +139,16 @@ require_once("inc/init.php");
 							<div class="col-md-12 col-md-offset-0">
 								<div id="metadataDesc" class="alert alert-info alert-block">
 									<a class="close" data-dismiss="alert" href="#">×</a>
-									<h4 class="alert-heading">Extra Metadata Table</h4>
-									<p>Click button to add metadata. Click the 'x' on the row to remove the metadata. </p>									
+									<h4 class="alert-heading">Extra metadata table</h4>
+									<p>Click to add metadata. Click the 'x' in the row to remove the metadata. </p>
 								</div>
 								<div id="metadataResult">
 									<table id='metatable' class='table table-striped table-hover'>
-										<tbody>							
+										<tbody>
 										</tbody>
 									</table>
 									<button type='button' id='addmetabutton' class='btn btn-success' onclick='addMetadata()'>Add Metadata</button>
-									<br/><br/><br/>									
+									<br/><br/><br/>
 								</div>
 							</div>
 						</div>
@@ -202,14 +202,14 @@ require_once("inc/init.php");
                 swal({
                     title: "An error has occurred listing experiments",
                     text: data['message']
-                });                                    
-                return;            
+                });
+                return;
             }
 
             // store data in local storage
             localStorage.setItem("list_in_use", JSON.stringify(data[0]));
             list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-            
+
             genomeInput();
         });
         request1.fail( function(jqXHR, textStatus) {
@@ -247,7 +247,7 @@ require_once("inc/init.php");
                 }
                 if (event.target.value == "") {
                     $(event.target).closest(".search-modal-name").removeClass('has-error');
-                }			
+                }
             }
         });
     }
@@ -270,7 +270,7 @@ require_once("inc/init.php");
         		type: "POST",
 				cache: false,
 				contentType: false,
-				processData: false      		
+				processData: false
 		    });
 		    request.done( function(data) {
 		    	if (data[0] == "okay") {
@@ -279,13 +279,13 @@ require_once("inc/init.php");
 		    	}
 		    	else {
 		    		$("#data_err").text(data[1]);
-		    	}		    	
+		    	}
 		    });
 		    request.fail( function(jqXHR, textStatus) {
 		        console.log(jqXHR);
 		        console.log('Error: '+ textStatus);
 		        alert( "error1" );
-		    });		
+		    });
     	}
     });
 
@@ -300,10 +300,10 @@ require_once("inc/init.php");
             swal({
                 title: "An error has occurred listing columns",
                 text: data['message']
-            });                                    
+            });
             return;
         }
-        
+
         for (i=0; i<data.length; i++) {
             var key = data[i];
             var value = data[i];
@@ -324,7 +324,7 @@ require_once("inc/init.php");
         alert( "error1" );
     });
 
-	
+
 	// Add annotation Button
 	$('#addAnnotationButton').bind('click', function (e) {
 
@@ -336,12 +336,12 @@ require_once("inc/init.php");
 		annotation['genome'] = $("#genome").val();
 		annotation['format'] = $('#format').select2("val").join();
 		annotation['desc'] = $("#desc").val();
-		
+
 		if (sel == 'copy') {
 			annotation['data'] = $('#copy').val();
 		}
 		else {
-			annotation['data'] = annotation_data;			
+			annotation['data'] = annotation_data;
 		}
 
 		var tempMeta = {};
@@ -369,7 +369,7 @@ require_once("inc/init.php");
 		else {
 			$('#genome').closest(".search-modal-name").removeClass('has-error');
 		}
-		
+
 
 		// confirm that the important format is included
 		// annotation's format
@@ -462,7 +462,7 @@ require_once("inc/init.php");
 
 	// clear input entries
 	function clear_input() {
-		annotation = [];		
+		annotation = [];
 
 		$("#name").val("");
 		$("#genome").val("");
@@ -483,7 +483,7 @@ require_once("inc/init.php");
 	}
 
 	// function to toggle between the methods for uploading the annotation data
-	function toggle_upload() {		
+	function toggle_upload() {
 		sel = $("input[name=optionsRadios]:checked").val();
 		if (sel == 'copy') {
 			$("#file_row").hide();
@@ -491,7 +491,7 @@ require_once("inc/init.php");
 		}
 		else {
 			$("#copy_row").hide();
-			$("#file_row").show();			
+			$("#file_row").show();
 		}
 	}
 
@@ -522,7 +522,7 @@ require_once("inc/init.php");
 
 	/* add metadata */
 	function addMetadata() {
-		
+
 		newMeta =  newMeta + 1;
 		var newrow = buildHTML("Enter Key", "Enter Value", newMeta);
 		if (empty) {
@@ -534,7 +534,7 @@ require_once("inc/init.php");
 		}
 		metadata_key[newMeta] = "New key " + newMeta;
 		metadata_val[newMeta] = "New Value " + newMeta;
-		
+
 	}
 
 	/* delete metadata */
@@ -545,9 +545,9 @@ require_once("inc/init.php");
 		$("#row_" + idx).remove();
 
 		if (deletedrowskeys.length == newMeta) {
-			empty = true;			
+			empty = true;
 		}
-	}	
+	}
 
 	// load related plugins
 	loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){

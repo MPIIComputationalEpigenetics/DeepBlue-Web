@@ -33,7 +33,7 @@ require_once("inc/init.php");
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark"><i class="fa fa-copy"></i>
-			Experiments Cloning
+			Experiments cloning
 		</h1>
 	</div>
 </div>
@@ -50,7 +50,7 @@ require_once("inc/init.php");
 
 				<header>
 					<span class="widget-icon"> <i class="fa fa-copy"></i> </span>
-					<h2>Experiment Selection</h2>
+					<h2>Experiment selection</h2>
 
 				</header>
 
@@ -70,8 +70,8 @@ require_once("inc/init.php");
 								<div class="col-md-12 col-md-offset-0">
 									<div class="alert alert-info alert-block">
 										<a class="close" data-dismiss="alert" href="#">×</a>
-										<h4 class="alert-heading">Filter by Experiment Name or ID</h4>
-										Enter experiment name or id and click on Clone button. Suitable for single cloning task.
+										<h4 class="alert-heading">Filter by experiment name or ID</h4>
+										Enter experiment name or ID and click on the <i>Clone</i> button.
 									</div>
 									<div class="input-group">
 										<input id="clone_input" class="form-control" type="text" placeholder="Experiment ID or Name ..." />
@@ -89,8 +89,8 @@ require_once("inc/init.php");
 								<div class="col-md-12 col-md-offset-0">
 									<div class="alert alert-info alert-block">
 										<a class="close" data-dismiss="alert" href="#">×</a>
-										<h4 class="alert-heading">Filter by Metadata</h4>
-										Please, select the desired metadata. The selected project, genome, epigenetic_marks, technique, sample is used to filter the experiments for cloning.
+										<h4 class="alert-heading">Filter by metadata</h4>
+										Please select the desired metadata. The selected project, genome, epigenetic mark, technique, and sample are used to filter the experiments for cloning.
 									</div>
 								</div>
 								<div class="col-md-6 col-md-offset-0" style="padding-bottom: 20px;">
@@ -248,7 +248,7 @@ require_once("inc/init.php");
 	var removedColn = []; // remove columns
 	var clonemetadata = []; // store new metadata val
 	var clonemetakey = []; // store new metadata key
-	var clone = false; // clone enabled 
+	var clone = false; // clone enabled
 	var batch = false; // batch cloning
 	var empty = false; // to show the metadata table is empty
 
@@ -285,16 +285,16 @@ require_once("inc/init.php");
                 swal({
                     title: "Error listing experiments",
                     text: data['message']
-                });                                    
+                });
                 // disable filter button
-                $("#filter_bt").attr('disabled', 'disabled');                
-                return;                
+                $("#filter_bt").attr('disabled', 'disabled');
+                return;
             }
-			
+
             // store data in local storage
 			localStorage.setItem("list_in_use", JSON.stringify(data[0]));
 			list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-            
+
           	/* Trigger searching using filter with pressing ENTER Key */
             $("#user_epigenetic_mark, #user_project, #user_biosource, #user_sample, #user_technique, #user_genome").keypress(function(event){
                 if(event.keyCode == 13){
@@ -326,23 +326,23 @@ require_once("inc/init.php");
                 swal({
                     title: "Error listing experiments",
                     text: data['message']
-                });                                    
-               
+                });
+
                 // disable experiment id clone search button
-                $("#clone_bt").attr('disabled', 'disabled');                
-                return;            
+                $("#clone_bt").attr('disabled', 'disabled');
+                return;
             }
             localStorage.setItem("all_experiments", JSON.stringify(data[0]));
 			suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
 			cloneFunction();
-            
+
             /* Trigger single experiment search with presssing ENTER key */
             $("#clone_input").keypress(function(event){
                 if(event.keyCode == 13){
                     search_function();
                     isSelected = 1;
                 }
-            });            
+            });
 		});
 
 		request2.fail( function(jqXHR, textStatus) {
@@ -457,9 +457,9 @@ require_once("inc/init.php");
 				}
 			});
 		}
-	
+
 	}
-	
+
 
 	// add click event listener to the filter button
 	$("#filter_bt").button().click(filter_function);
@@ -585,10 +585,10 @@ require_once("inc/init.php");
                 swal({
                     title: "Error occurred",
                     text: data['message']
-                });                                    
+                });
                 return;
             }
-        
+
             columns = [];
 			infoResult = "<table id='infoclone' class='table table-striped table-hover'><tbody>";
 			cloneData = data.data['info'];
@@ -682,7 +682,7 @@ require_once("inc/init.php");
                                 swal({
                                     title: "Error occurred",
                                     text: data['message']
-                                });                                    
+                                });
                                 return;
                             }
 			            	cache2[current.id][ term ] = data;
@@ -769,7 +769,7 @@ require_once("inc/init.php");
                     swal({
                         title: "Experiment Cloning Report",
                         text: report
-                    });                    
+                    });
 					$('#cloneExperimentButton').removeAttr('disabled');
 				});
 
@@ -833,7 +833,7 @@ require_once("inc/init.php");
                         swal({
                             title: "Error occurred",
                             text: data['message']
-                        });                                    
+                        });
                         return;
                     }
 	            	response( data );
@@ -892,7 +892,7 @@ require_once("inc/init.php");
 		$("#row_" + idx).remove();
 
 		if (deletedrowskeys.length == newMeta - 1) {
-			empty = true;			
+			empty = true;
 		}
 	}
 

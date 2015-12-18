@@ -18,24 +18,13 @@ $data = "";
 $status = "okay";
 if (isset($_FILES['file'])) {
 	$tmp_filename = $_FILES['file']['tmp_name'];
-	$filename = $_FILES['file']['name'];
-	$allowed =  array('txt');
-	
-	$ext = pathinfo($filename, PATHINFO_EXTENSION);
-
-	if(in_array($ext, $allowed) ) {
-		$content = file_get_contents($tmp_filename);
-	}
-	else {
-		$status = "error";
-		$content = "File extension not supported. Use supported file type";
-	}
+	$content = file_get_contents($tmp_filename);
 }
 
 // check if file is empty
 if ($content == "") {
 	$status = "error";
-	$content = "The file selected is empty";
+	$content = "The uploaded file is empty";
 }
 
 

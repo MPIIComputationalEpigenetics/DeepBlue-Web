@@ -29,7 +29,7 @@ require_once("inc/init.php");
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark">
 			<i class="fa fa-table fa-fw "></i>
-				Auxiliary Data > Column Types
+				Auxiliary data > Column types
 			</span>
 		</h1>
 	</div>
@@ -49,7 +49,7 @@ require_once("inc/init.php");
 
 				<header>
 					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-					<h2>Column Types </h2>
+					<h2>Column types </h2>
 
 				</header>
 

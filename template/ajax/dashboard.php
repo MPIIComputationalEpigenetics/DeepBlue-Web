@@ -234,7 +234,7 @@
 				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>Epigenetic Marks</h2>
+					<h2>Epigenetic marks</h2>
 
 				</header>
 
