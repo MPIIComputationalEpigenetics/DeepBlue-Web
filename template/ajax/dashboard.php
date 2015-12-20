@@ -752,6 +752,7 @@
 		    "bDestroy": true,
 		    "aoSearchCols" : initFilter,
 		    "oSearch": {"bSmart": false},
+
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
@@ -821,7 +822,7 @@
 		var total_experiments = [];
         var total_samples = 0;
 		var vocab;
-		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
+		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
 
 		/* retrieve deepblue list_in_use data */
 		var list_in_use = null;
@@ -838,7 +839,6 @@
 			});
 
 			request1.done( function(data) {
-
                 if ("error" in data) {
                     swal({
                         title: "An error has occurred listing experiments",
@@ -864,81 +864,52 @@
 			loadDashboard();
 		}
 
-        /* retrieve counts */
-        // samples (experiment count will be retrieve while loading the dashboard)
-		var samples_count = JSON.parse(localStorage.getItem('samples_count'));
-		if (samples_count == null) {
-			var request1 = $.ajax({
-				url: "ajax/server_side/count_server_processing.php",
-				dataType: "json",
-				data: {
-					request: ["samples"]
-				}
-			});
-			request1.done(function (data) {
-				if ("error" in data) {
-					swal({
-						title: "Error listing experiments",
-						text: data['message']
-					});
-					return;
-				}
-				total_samples = data;
-
-				// store data in local storage
-				localStorage.setItem("samples_count", JSON.stringify(total_samples));
-				$("#total_samples").text(total_samples);
-			});
-			request1.fail(function (jqXHR, textStatus) {
-				console.log(jqXHR);
-				console.log('Error: ' + textStatus);
-				alert("Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint");
-			});
-		}
-		else {
-			$("#total_samples").text(samples_count);
-		}
-
 		function loadDashboard() {
 			//alert("3");
 			for (i in vocabulary) {
 				vocab = vocabulary[i];
-				list[vocab] = []; // index for each controlled vocabulary
-				list[vocab]['alp'] = [];
-				list[vocab]['amt'] = [];
+				if (vocab == 'samples') {
+					total_samples = list_in_use[vocab]['alp'].length;
+					$("#total_samples").text(total_samples);
+				}
+				else {
+					list[vocab] = []; // index for each controlled vocabulary
+					list[vocab]['alp'] = [];
+					list[vocab]['amt'] = [];
 
-				page[vocab] = []; // index for each page or view
-				page[vocab]['alp'] = [];
-				page[vocab]['amt'] = [];
+					page[vocab] = []; // index for each page or view
+					page[vocab]['alp'] = [];
+					page[vocab]['amt'] = [];
 
-				total_experiments[vocab] = 0; // total experiments in each vocabulary - would be the same value
-				othersvalue = 0;
+					total_experiments[vocab] = 0; // total experiments in each vocabulary - would be the same value
+					othersvalue = 0;
 
-				var currentvocab = [];
-				currentvocab['alp'] = list_in_use[vocab]['alp'];
-				currentvocab['amt'] = list_in_use[vocab]['amt'];
+					var currentvocab = [];
+					currentvocab['alp'] = list_in_use[vocab]['alp'];
+					currentvocab['amt'] = list_in_use[vocab]['amt'];
 
-				var ct = 0;
-				var pg = 0;
+					var ct = 0;
+					var pg = 0;
 
-				for (j=0; j < currentvocab['alp'].length; j++) {
-					// divide into pages of size 35
-					list[vocab]['alp'][ct] = {'label' : currentvocab['alp'][j][1], 'value' : currentvocab['alp'][j][2]};
-					list[vocab]['amt'][ct] = {'label' : currentvocab['amt'][j][1], 'value' : currentvocab['amt'][j][2]};
+					for (j=0; j < currentvocab['alp'].length; j++) {
+						// divide into pages of size 35
+						list[vocab]['alp'][ct] = {'label' : currentvocab['alp'][j][1], 'value' : currentvocab['alp'][j][2]};
+						list[vocab]['amt'][ct] = {'label' : currentvocab['amt'][j][1], 'value' : currentvocab['amt'][j][2]};
 
-					ct = ct + 1;
-					page[vocab]['alp'][pg] = list[vocab]['alp'];
-					page[vocab]['amt'][pg] = list[vocab]['amt'];
+						ct = ct + 1;
+						page[vocab]['alp'][pg] = list[vocab]['alp'];
+						page[vocab]['amt'][pg] = list[vocab]['amt'];
 
-					if (ct ==  35) {
-						list[vocab]['alp'] = [];
-						list[vocab]['amt'] = [];
-						ct = 0;
-						pg = pg + 1;
+						if (ct ==  35) {
+							list[vocab]['alp'] = [];
+							list[vocab]['amt'] = [];
+							ct = 0;
+							pg = pg + 1;
+						}
+
+						//list[vocab][ct] = {'label' : otherslabel, 'value' : othersvalue};
+						total_experiments[vocab] = total_experiments[vocab] + currentvocab['alp'][j][2];
 					}
-
-					//list[vocab][ct] = {'label' : otherslabel, 'value' : othersvalue};
-					total_experiments[vocab] = total_experiments[vocab] + currentvocab['alp'][j][2];
 				}
 			}
 

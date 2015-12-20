@@ -23,7 +23,7 @@ require_once("../../lib/error.php");
 if (isset($_GET) && isset($_GET["request"])) {
     $vocabularies = $_GET["request"];
 } else {
-	$vocabularies = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
+	$vocabularies = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
 }
 
 $client = new IXR_Client(get_server());
@@ -40,15 +40,17 @@ $data = array();
 foreach ($vocabularies as $vocabulary) {
 	$data[$vocabulary] = array();
 	$data[$vocabulary]['alp'] = $response[1][$vocabulary];
-	$data[$vocabulary]['amt'] = $response[1][$vocabulary];
 
 	usort($data[$vocabulary]['alp'], function($a, $b) {
 		return strcasecmp($a[1], $b[1]);
 	});
 
-	usort($data[$vocabulary]['amt'], function($a, $b) {
-		return $a[2] > $b[2];
-	});
+	if ($vocabulary != "samples") {
+		$data[$vocabulary]['amt'] = $response[1][$vocabulary];
+		usort($data[$vocabulary]['amt'], function($a, $b) {
+			return $a[2] > $b[2];
+		});
+	}
 }
 
 echo json_encode(array($data));

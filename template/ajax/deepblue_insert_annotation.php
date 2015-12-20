@@ -187,7 +187,7 @@ require_once("inc/init.php");
 
 	/* Genome Autocomplete */
     /* retrieve deepblue list_in_use data */
-    var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
+    var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
     var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
     if (list_in_use == null) {
         var request1 = $.ajax({

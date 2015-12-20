@@ -257,9 +257,9 @@ require_once("inc/init.php");
 	};
 
 	var cache = {};
-	var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
-	var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes']
-	var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome']
+	var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
+	var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes'];
+	var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome'];
 	var vocabname;
 	var vocabid;
 	var count;
@@ -502,6 +502,7 @@ require_once("inc/init.php");
 		    },
 		    "iDisplayLength": 50,
 		    "autoWidth" : true,
+
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
