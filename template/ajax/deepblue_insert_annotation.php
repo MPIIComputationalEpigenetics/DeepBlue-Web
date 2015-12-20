@@ -290,41 +290,59 @@ require_once("inc/init.php");
     });
 
     /* Pull Format Data */
-    var request = $.ajax({
-        url: "ajax/server_side/list_all_columns.php",
-        dataType: "json"
-    });
+	var list_all_columns = JSON.parse(localStorage.getItem('list_all_columns'));
+	if (list_all_columns == null) {
+		var request = $.ajax({
+			url: "ajax/server_side/list_all_columns.php",
+			dataType: "json"
+		});
+		request.done( function(data) {
+			if ("error" in data) {
+				swal({
+					title: "An error has occurred listing columns",
+					text: data['message']
+				});
+				return;
+			}
 
-    request.done( function(data) {
-        if ("error" in data) {
-            swal({
-                title: "An error has occurred listing columns",
-                text: data['message']
-            });                                    
-            return;
-        }
-        
-        for (i=0; i<data.length; i++) {
-            var key = data[i];
-            var value = data[i];
-            $('#format')
-                .append($("<option></option>")
-                .attr("value", key)
-                .text(value));
-        }
-	    var important = ['CHROMOSOME', 'START', 'END'];
-	    $('#format').select2("val", important);
-	    $('#uploadButton').removeAttr('disabled');
-	    $('#addAnnotationButton').removeAttr('disabled');
-    });
+			for (i=0; i<data.length; i++) {
+				var key = data[i];
+				var value = data[i];
+				$('#format')
+						.append($("<option></option>")
+								.attr("value", key)
+								.text(value));
+			}
+			var important = ['CHROMOSOME', 'START', 'END'];
+			$('#format').select2("val", important);
+			$('#uploadButton').removeAttr('disabled');
+			$('#addAnnotationButton').removeAttr('disabled');
 
-    request.fail( function(jqXHR, textStatus) {
-        console.log(jqXHR);
-        console.log('Error: '+ textStatus);
-        alert( "error1" );
-    });
+			localStorage.setItem("list_all_columns", JSON.stringify(data));
+		});
 
-	
+		request.fail( function(jqXHR, textStatus) {
+			console.log(jqXHR);
+			console.log('Error: '+ textStatus);
+			alert( "error1" );
+		});
+	}
+	else{
+		var data = JSON.parse(localStorage.getItem('list_all_columns'));
+		for (i=0; i<data.length; i++) {
+			var key = data[i];
+			var value = data[i];
+			$('#format')
+					.append($("<option></option>")
+							.attr("value", key)
+							.text(value));
+		}
+		var important = ['CHROMOSOME', 'START', 'END'];
+		$('#format').select2("val", important);
+		$('#uploadButton').removeAttr('disabled');
+		$('#addAnnotationButton').removeAttr('disabled');
+	}
+
 	// Add annotation Button
 	$('#addAnnotationButton').bind('click', function (e) {
 

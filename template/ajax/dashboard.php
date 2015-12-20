@@ -866,29 +866,38 @@
 
         /* retrieve counts */
         // samples (experiment count will be retrieve while loading the dashboard)
-        var request1 = $.ajax({
-            url: "ajax/server_side/count_server_processing.php",
-            dataType: "json",
-            data : {
-                request : ["samples"]
-            }
-        });
-        request1.done( function(data) {
-            if ("error" in data) {
-                swal({
-                    title: "Error listing experiments",
-                    text: data['message']
-                });
-                return;
-            }
-            total_samples = data;
-            $("#total_samples").text(total_samples);
-        });
-        request1.fail( function(jqXHR, textStatus) {
-            console.log(jqXHR);
-            console.log('Error: '+ textStatus);
-            alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
-        });
+		var samples_count = JSON.parse(localStorage.getItem('samples_count'));
+		if (samples_count == null) {
+			var request1 = $.ajax({
+				url: "ajax/server_side/count_server_processing.php",
+				dataType: "json",
+				data: {
+					request: ["samples"]
+				}
+			});
+			request1.done(function (data) {
+				if ("error" in data) {
+					swal({
+						title: "Error listing experiments",
+						text: data['message']
+					});
+					return;
+				}
+				total_samples = data;
+
+				// store data in local storage
+				localStorage.setItem("samples_count", JSON.stringify(total_samples));
+				$("#total_samples").text(total_samples);
+			});
+			request1.fail(function (jqXHR, textStatus) {
+				console.log(jqXHR);
+				console.log('Error: ' + textStatus);
+				alert("Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint");
+			});
+		}
+		else {
+			$("#total_samples").text(samples_count);
+		}
 
 		function loadDashboard() {
 			//alert("3");

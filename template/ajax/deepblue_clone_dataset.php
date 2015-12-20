@@ -256,11 +256,7 @@ require_once("inc/init.php");
 		$("#clone_input").focus();
 	};
 
-	$("#clone_bt").button().click(search_function);
-
 	var cache = {};
-	var suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
-	var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 	var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes"];
 	var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes']
 	var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome']
@@ -271,6 +267,7 @@ require_once("inc/init.php");
 	var filter = true;
 	filterdata = {'user_project' : "", 'user_epigenetic_mark' : "" , 'user_technique': "", 'user_sample':"", 'user_genome':"",'user_biosource':""};
 
+	var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 	if (list_in_use == null) {
 		var request1 = $.ajax({
 			url: "ajax/server_side/list_in_use.php",
@@ -294,14 +291,7 @@ require_once("inc/init.php");
             // store data in local storage
 			localStorage.setItem("list_in_use", JSON.stringify(data[0]));
 			list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-            
-          	/* Trigger searching using filter with pressing ENTER Key */
-            $("#user_epigenetic_mark, #user_project, #user_biosource, #user_sample, #user_technique, #user_genome").keypress(function(event){
-                if(event.keyCode == 13){
-                    filter_function();
-                    isSelected = 1;
-                }
-            });
+            fetchExperiments();
 		});
 
 		request1.fail( function(jqXHR, textStatus) {
@@ -310,49 +300,48 @@ require_once("inc/init.php");
 			alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
 		});
 	}
-
-	/* retrieve deepblue list_experiment data */
-	if (suggestions1 == null) {
-		var request2 = $.ajax({
-			url: "ajax/server_side/list_all_experiment.php",
-			dataType: "json",
-			data : {
-			}
-		});
-
-		request2.done( function(data) {
-			// store data in local storage
-            if ("error" in data) {
-                swal({
-                    title: "Error listing experiments",
-                    text: data['message']
-                });                                    
-               
-                // disable experiment id clone search button
-                $("#clone_bt").attr('disabled', 'disabled');                
-                return;            
-            }
-            localStorage.setItem("all_experiments", JSON.stringify(data[0]));
-			suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
-			cloneFunction();
-            
-            /* Trigger single experiment search with presssing ENTER key */
-            $("#clone_input").keypress(function(event){
-                if(event.keyCode == 13){
-                    search_function();
-                    isSelected = 1;
-                }
-            });            
-		});
-
-		request2.fail( function(jqXHR, textStatus) {
-			console.log(jqXHR);
-		    console.log('Error: '+ textStatus);
-		    alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
-		});
-	}
 	else {
-		cloneFunction();
+		fetchExperiments();
+	}
+
+	function fetchExperiments() {
+		/* retrieve deepblue list_experiment data */
+		suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
+		if (suggestions1 == null) {
+			var request2 = $.ajax({
+				url: "ajax/server_side/list_all_experiment.php",
+				dataType: "json",
+				data : {
+				}
+			});
+
+			request2.done( function(data) {
+				// store data in local storage
+				if ("error" in data) {
+					swal({
+						title: "Error listing experiments",
+						text: data['message']
+					});
+
+					// disable experiment id clone search button
+					$("#clone_bt").attr('disabled', 'disabled');
+					return;
+				}
+				localStorage.setItem("all_experiments", JSON.stringify(data[0]));
+				suggestions1 = JSON.parse(localStorage.getItem('all_experiments'));
+				cloneFunction();
+
+			});
+
+			request2.fail( function(jqXHR, textStatus) {
+				console.log(jqXHR);
+				console.log('Error: '+ textStatus);
+				alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+			});
+		}
+		else {
+			cloneFunction();
+		}
 	}
 
 	function cloneFunction() {
@@ -459,7 +448,25 @@ require_once("inc/init.php");
 		}
 	
 	}
-	
+
+	/* Trigger single experiment search with presssing ENTER key */
+	$("#clone_input").keypress(function(event){
+		if(event.keyCode == 13){
+			search_function();
+			isSelected = 1;
+		}
+	});
+
+	/* Trigger searching using filter with pressing ENTER Key */
+	$("#user_epigenetic_mark, #user_project, #user_biosource, #user_sample, #user_technique, #user_genome").keypress(function(event){
+		if(event.keyCode == 13){
+			filter_function();
+			isSelected = 1;
+		}
+	});
+
+	// add click event listener to the search button
+	$("#clone_bt").button().click(search_function);
 
 	// add click event listener to the filter button
 	$("#filter_bt").button().click(filter_function);

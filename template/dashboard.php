@@ -62,6 +62,3 @@ include("inc/nav.php");
 	//include footer
 	include("inc/google-analytics.php");
 ?>
-
-<!-- include script to load deepblue data -->
-<script src="<?php echo ASSETS_URL; ?>/js/deepblue.js"></script>
