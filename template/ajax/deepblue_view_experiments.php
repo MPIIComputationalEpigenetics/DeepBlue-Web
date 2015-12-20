@@ -162,38 +162,38 @@ require_once("inc/init.php");
                             <thead>
                                 <tr>
                                     <th class="hasinput">
-                                        <input class="form-control" placeholder="ID" type="text" id="experiment-id">
+                                        <input class="form-control" placeholder="ID" type="text" id="experiment-id2">
                                     </th>
 
                                     <th class="hasinput" style="width:20px">
-                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
+                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-name2" />
                                     </th>
                                     <th class="hasinput" style="width:20px">
-                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-datatype" />
+                                        <input type="text" class="form-control" placeholder="Type" id="experiment-datatype2" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
+                                        <input type="text" class="form-control" placeholder="Description" id="experiment-description2" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Genome" id="experiment-genome" />
+                                        <input type="text" class="form-control" placeholder="Genome" id="experiment-genome2" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Epigenetic mark" id="experiment-epigenetic_mark" />
+                                        <input type="text" class="form-control" placeholder="Epigenetic mark" id="experiment-epigenetic_mark2" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Biosource" id="experiment-biosource" />
+                                        <input type="text" class="form-control" placeholder="Biosource" id="experiment-biosource2" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Sample" id="experiment-sample" />
+                                        <input type="text" class="form-control" placeholder="Sample" id="experiment-sample2" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Technique" id="experiment-technique" />
+                                        <input type="text" class="form-control" placeholder="Technique" id="experiment-technique2" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Project" id="experiment-project" />
+                                        <input type="text" class="form-control" placeholder="Project" id="experiment-project2" />
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Meta data" id="experiment-metadata" />
+                                        <input type="text" class="form-control" placeholder="Meta data" id="experiment-metadata2" />
                                     </th>
                                 </tr>
                                 <tr>
@@ -298,6 +298,7 @@ require_once("inc/init.php");
             //"sServerMethod": "POST",
             "iDisplayLength": 10,
             "autoWidth" : true,
+            "scrollX" : true,
 
             "preDrawCallback" : function() {
                 // Initialize the responsive datatables helper once.
@@ -331,15 +332,15 @@ require_once("inc/init.php");
         $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
         // Apply the filter
-        $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
+        $("#experiment-id, #experiment-name, #experiment-datatype, #experiment-epigenetic_mark, #experiment-project, " +
+            "#experiment-biosource, #experiment-sample, #experiment-technique, #experiment-genome, #experiment-metadata, " +
+            "#experiment-description").on('keyup change', function () {
             otable
                 .column( $(this).parent().index()+':visible' )
                 .search( this.value )
                 .draw();
-
-        } );
+        });
         /* END COLUMN FILTER */
-
 
         /* process experiment selection by row clicking*/
         $('#datatable_fixed_column').on('click', 'tr', function () {
@@ -391,6 +392,10 @@ require_once("inc/init.php");
 
         });
 
+        // selected datatable
+        $('#datatable_selected_column').DataTable({
+            "scrollX": true
+        });
 
         /* remove selection by clicking of row in the selection table*/
         $('#datatable_selected_column').on('click', 'tr', function () {
