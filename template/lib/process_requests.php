@@ -52,7 +52,7 @@ function build_request_info($ids, $user_key) {
 					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 				}
 				$response2 = $client->getResponse();
-				$cusbutton = "Count = ".$response2[1]['count'];
+				$cusbutton = "Total regions = ".$response2[1]['count'];
 				break;
 			case "score_matrix":
 				$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick=window.open("'.$srv.'","_blank")>&nbspDownload&nbsp</button>';
