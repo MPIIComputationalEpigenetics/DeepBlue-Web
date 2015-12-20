@@ -99,7 +99,7 @@ require_once("inc/init.php");
 												<th>Request Start Time</th>
 												<th>Request End Time</th>
 												<th>Request Status</th>
-												<th>Downloads</th>
+												<th>Request Data</th>
 			                                </tr>
 			                            </thead>
 			                        </table>

@@ -47,7 +47,12 @@ function build_request_info($ids, $user_key) {
 				$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick=window.open("'.$srv.'","_blank")>&nbspDownload&nbsp</button>';
 				break;
 			case "count_regions":
-				$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "count_regions(event)">View Count</button>';
+				// simple implement server call to get_request_data here
+				if(!$client->query("get_request_data", $rid, $user_key)){
+					die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
+				}
+				$response2 = $client->getResponse();
+				$cusbutton = "Count = ".$response2[1]['count'];
 				break;
 			case "score_matrix":
 				$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick=window.open("'.$srv.'","_blank")>&nbspDownload&nbsp</button>';
@@ -107,7 +112,7 @@ function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries, $us
 	$qdetail = json_decode($response[1][0]['args'], true);
 
 	$rdetail = $rdetail.'<li><b>'.$qtype.'</b>';
-	$rdetail = $rdetail.' (query '.$qud.')';
+	$rdetail = $rdetail.' (query '.$qud.'): ';
 	$rdetail = $rdetail."  </li><ul>";
 
 	// call server processing to check the size of the chromosomes

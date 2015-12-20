@@ -11,7 +11,9 @@
 *   Created : 27-11-2015
 */
 
-function get_data(request_id, source) {
+function experiment_query(event) {
+    var request_id = event.target.id.split('_')[1];
+
     var request2 = $.ajax({
         url: "ajax/server_side/get_request_data_server_processing.php",
         dataType: "json",
@@ -25,17 +27,12 @@ function get_data(request_id, source) {
             swal('Get Data', msg, 'error');
             return;
         }
-        if (source == 'count') {
-            var msg = "Count = " + data[1]['count'];
-            swal('Count Regions', msg, 'success');
+
+        var msg = '';
+        for (i=0; i < data[1].length; i++) {
+            msg = msg + data[1][i][0] + ": " + data[1][i][1] + "\n";
         }
-        else{
-            var msg = '';
-            for (i=0; i < data[1].length; i++) {
-                msg = msg + data[1][i][0] + ": " + data[1][i][1] + "\n";
-            }
-            swal('Experiments By Query', msg, 'success');
-        }
+        swal('Experiments By Query', msg, 'success');
     });
 
     request2.fail( function(jqXHR, textStatus) {
@@ -43,14 +40,4 @@ function get_data(request_id, source) {
         console.log('Error: '+ textStatus);
         alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
     });
-}
-
-function count_regions(event) {
-    var id = event.target.id.split('_')[1];
-    get_data(id, 'count');
-}
-
-function experiment_query(event) {
-    var id = event.target.id.split('_')[1];
-    get_data(id, 'query');
 }
