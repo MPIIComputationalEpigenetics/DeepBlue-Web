@@ -32,13 +32,12 @@ function build_request_info($ids, $user_key) {
 	foreach($requests_info as $request_info) {
 		$rid = $request_info["_id"];
 		$temp[] = $rid;
-		$qdetail = '';
-		$rdetail = '<div style="display: block;">';
+		$rdetail = '<div style="display: block;"><ul class="list-unstyled">';
 
 		$qid = $request_info['query_id'];
 		// retrieve initial query details
 		query_detail($qid, $rdetail, $cache_chromosomes, $cache_queries, $user_key);
-		$rdetail = $rdetail.'</div>';
+		$rdetail = $rdetail.'</ul></div>';
 
 		$rstate = $request_info['state'];
 		$srv = get_server().'/download/?r='.$rid.'&key='.$user_key;
@@ -107,9 +106,9 @@ function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries, $us
 	$qtype = $response[1][0]['type'];
 	$qdetail = json_decode($response[1][0]['args'], true);
 
-	$rdetail = $rdetail.'<b>'.$qtype.'</b>';
+	$rdetail = $rdetail.'<li><b>'.$qtype.'</b>';
 	$rdetail = $rdetail.' (query '.$qud.')';
-	$rdetail = $rdetail."  \n\r  <br/>";
+	$rdetail = $rdetail."  </li><ul>";
 
 	// call server processing to check the size of the chromosomes
 	$chroms_count = 0;
@@ -145,8 +144,13 @@ function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries, $us
 	}
 
 	foreach ($qdetail as $key => $value) {
-		if ($key == 'qid_1' || $key == 'qid_2') {
-			$rdetail = $rdetail."<hr>";
+		if ($key == 'qid_2') {
+			$rdetail = $rdetail."</ul>";
+			query_detail($value, $rdetail, $cache_chromosomes, $cache_queries, $user_key);
+			continue;
+		}
+
+		if ($key == 'qid_1') {
 			query_detail($value, $rdetail, $cache_chromosomes, $cache_queries, $user_key);
 			continue;
 		}
@@ -167,14 +171,12 @@ function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries, $us
 			$key = 'experiment name';
 		}
 
-		$rdetail = $rdetail.'<b>'.$key.'</b>: ';
+		$rdetail = $rdetail.'<li><b>'.$key.'</b>: ';
 		if ($key == 'chromosomes'){
 			if (count($value) == $chroms_count) {
 				$rdetail = $rdetail.' all';
-				$rdetail = $rdetail."  \n\r  <br/>";
 				continue;
 			}
-			//echo json_encode(array('len' => $length, 'qid' => $qud, 'chrcount' => $chroms_count, 'countvalue' => count($value)));
 		}
 
 		if (is_array($value)) {
@@ -189,7 +191,7 @@ function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries, $us
 		else {
 			$rdetail = $rdetail.$value;
 		}
-		$rdetail = $rdetail."  \n\r  <br/>";
+		$rdetail = $rdetail."</li>";
 	}
 	$cache_queries[$qud] = $rdetail;
 }
