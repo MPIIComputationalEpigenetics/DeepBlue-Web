@@ -18,7 +18,7 @@ require_once("inc/init.php");
 <div class="row">
 	<div class="col-sm-6">
 		<div class="bs-example bs-example-type">
-			<h3 class="text-primary" style="margin: 20px 0;">Acknowledgements</h3>
+			<h2 class="text-primary" style="margin: 20px 0;">Acknowledgements</h2>
 			<table class="table" style="background-color: #fafafa;">
 				<tbody>
 					<tr>
