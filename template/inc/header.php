@@ -73,7 +73,7 @@
 
 					<!-- pulled right: nav area -->
 					<!--  -->
-                    <div data-container="body" class="pull-right bootstro" data-bootstro-step=13 data-bootstro-placement="bottom" data-bootstro-content="The menu provides options to logout, close the side menu, search all of DeepBlue's data and expand to full screen">
+                    <div data-container="body" class="pull-right bootstro" data-bootstro-step=14 data-bootstro-placement="bottom" data-bootstro-content="The menu provides options to logout, close the side menu, search all of DeepBlue's data and expand to full screen">
 						<!-- logout button -->
 						<div  id="logout" class="btn-header transparent pull-right">
 							<span> <a href="<?php echo APP_URL.'/php/deepblue_logout.php' ?>" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>

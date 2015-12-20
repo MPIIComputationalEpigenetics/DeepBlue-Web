@@ -49,6 +49,8 @@ include("inc/header.php");
         <div class="row">
 
             <h1>DeepBlue API - usage examples</h1>
+            <h3>These examples are ready to use - Copy and paste into your favorite python environment. <small>(Python version 2.6 or higher is required.)</small></h3>
+
             <dl class="dl-horizontal" id="freelance">
                 <dt>
                     <h5>Searching for experiments</h5>
@@ -90,7 +92,7 @@ include("inc/header.php");
                     <p>We use the <a href="api.php#api-list_samples">list_samples</a> command to obtain all samples from the biosource <i>myeloid cell</i> from the BLUEPRINT project. The <a href="api.php#api-list_samples">list_samples</a> returns a list of samples with their IDs and content.</p>
                     <p>We extract the IDs from this list and use it in the <a href="api.php#api-select_regions"</a>select_regions</a> command.</p>
                     <p>The <a href="api.php#api-select_regions"</a>select_regions</a> command selects the genomic regions that are in the chromosome 1, position 0 to 50,000 of all experiments that have the given samples IDs.</p>
-                    <p>Them, we use the <a href="api.php#api-get_regions"</a>get_regions</a> command with the parameters: <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns. The columns <i>@NAME</i>, <i>SAMPLE_ID</i>, and <i>@BIOSOURCE</i> include the experiment name, the sample ID, and the experiment biosource in the row output.</p>
+                    <p>Then, we use the <a href="api.php#api-get_regions"</a>get_regions</a> command with the parameters: <i>query_id</i> returned by the <a href="api.php#api-select_regions"</a>select_regions</a> and the desired file columns. The columns <i>@NAME</i>, <i>SAMPLE_ID</i>, and <i>@BIOSOURCE</i> include the experiment name, the sample ID, and the experiment biosource in the row output.</p>
                     <p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receives a <i>request_id</i> and should use the <a href="api.php#api-info"</a>info</a> command to check the status of this request.</p>
                     <p>The processing is over when the <i>request_status</i> value is <i>done</i> or <i>failed</i>.</p>
                     <p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
@@ -102,7 +104,7 @@ include("inc/header.php");
                     <p>We use the <a href="api.php#api-select_experiments"</a>select_experiments</a> command for selecting the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.</p>
                     <p>We filter the genomic regions that have the value of the column <i>SIGNAL_VALUE</i> higher than 10.</p>
                     <p>We filter the genomic regions that have the value of the column <i>PEAK</i> higher than 1000.</p>
-                    <p>Them, we use the <a href="api.php#api-get_regions"</a>get_regions</a> command with the parameters: <i>query_id</i> returned by the <a href="api.php#api-select_experiments"</a>select_experiments</a> and the desired file columns. The columns <i>@NAME</i> and <i>@BIOSOURCE</i> include the experiment name and the experiment biosource in the row output.</p>
+                    <p>Then, we use the <a href="api.php#api-get_regions"</a>get_regions</a> command with the parameters: <i>query_id</i> returned by the <a href="api.php#api-select_experiments"</a>select_experiments</a> and the desired file columns. The columns <i>@NAME</i> and <i>@BIOSOURCE</i> include the experiment name and the experiment biosource in the row output.</p>
                     <p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receives a <i>request_id</i> and should use the <a href="api.php#api-info"</a>info</a> command to check the status of this request.</p>
                     <p>The processing is over when the <i>request_status</i> value is <i>done</i> or <i>failed</i>.</p>
                     <p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>

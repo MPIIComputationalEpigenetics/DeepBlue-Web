@@ -45,7 +45,7 @@
                                     <div class="alert alert-info alert-block">
                                         <a class="close" data-dismiss="alert" href="#">×</a>
                                         <h4 class="alert-heading">BioSources</h4>
-                                        Please, select the desired BioSources. The selected BioSources will be listed in the list on the right position, where they will also contains their samples.
+                                        Please, select the desired BioSources. The selected BioSources will appear in a list in the right-position where they will also contain their samples.
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon">@</span>
@@ -57,7 +57,7 @@
                                     <div class="alert alert-info alert-block">
                                         <a class="close" data-dismiss="alert" href="#">×</a>
                                         <h4 class="alert-heading">Samples</h4>
-                                        Please, verify and select the desired Samples. Click on the Plus symbol to see all samples from a BioSource (+)
+                                        Please verify and select the desired Samples. Click on the plus symbol (+) to see all samples from a BioSource.
                                     </div>
                                     <div class="dd" id="selected-biosources-nestable">
                                         <ol class="dd-list" id="selected-biosources"> </ol>
@@ -69,7 +69,7 @@
                                     <div class="alert alert-info alert-block">
                                         <a class="close" data-dismiss="alert" href="#">×</a>
                                         <h4 class="alert-heading">Experiments</h4>
-                                        All experiments from the selected samples are listed here. Please, click on the ones you are interested in and click on Download button.
+                                        All experiments from the selected samples are listed here. Please, click on the ones you are interested in and click on the <i>Download</i> button.
                                     </div>
                                         <div class="input-group">
                         <table id="experiments_datatable" class="table table-striped table-bordered" width="100%">

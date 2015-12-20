@@ -596,7 +596,7 @@ class Deepblue{
                                 <tr>
                                     $checkbox_td
                                     <th>ID</th>
-                                    <th>Annotation Name</th>
+                                    <th>Annotation name</th>
                                     <th>Genome</th>
                                     <th>Description</th>
                                     <th>Metadata</th>

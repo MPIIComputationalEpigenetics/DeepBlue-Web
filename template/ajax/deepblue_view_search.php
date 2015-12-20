@@ -42,7 +42,7 @@ require_once("inc/init.php");
 					<h6 class="alert-heading">Usage</h6>
 					<ul>
 						<li>Use +<i>keyword</i> for keywords that must be in the search results.</li>
-						<li>Use -<i>keyword</i> for keywords that must not be in the search results.</li>
+						<li>Use -<i>keyword</i> for keywords that need not be in the search results.</li>
 						<li>Use " " (double quotes) to enclose composite keywords, e.g., <i>"DNA methylation"</i></li>
 					</ul>
 					<br />
@@ -51,7 +51,7 @@ require_once("inc/init.php");
 					<i>"DNA methylation" +grch38 -wgbs</i><br/>
 					will look for all data in DeepBlue that match "DNA methylation" and "grch38", but not "wgbs".
 					<h6 class="alert-heading">Scope</h6>
-					You can define where to perform the search clicking on the button <i>Everything</i> and selecting the appropriated scope.
+					You can define where you want to perform the search by clicking on the button <i>Everything</i> and them selecting the appropriated scope.
 					</p>
 				</div>
 				<div class="input-group input-group-lg hidden-mobile">
@@ -73,8 +73,8 @@ require_once("inc/init.php");
 							<li id='Genomes'>
 								<a href="javascript:void(0)" id='Genomes'>Genomes</a>
 							</li>
-							<li id='Epigenetic Marks'>
-								<a href="javascript:void(0)" id='Epigenetic Marks'>Epigenetic Marks</a>
+							<li id='Epigenetic marks'>
+								<a href="javascript:void(0)" id='Epigenetic marks'>Epigenetic marks</a>
 							</li>
 							<li id='BioSources'>
 								<a href="javascript:void(0)" id='BioSources'>BioSources</a>

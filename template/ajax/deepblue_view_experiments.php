@@ -29,7 +29,7 @@ require_once("inc/init.php");
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
         <h1 class="page-title txt-color-blueDark">
             <i class="fa fa-database fa-fw "></i>
-                Experiments Data
+                Experiments data
             </span>
         </h1>
     </div>
@@ -38,8 +38,8 @@ require_once("inc/init.php");
 <!-- widget grid -->
 <section id="widget-grid" class="">
     <div class="alert alert-info alert-block" id="main-banner">
-        <h4 class="alert-heading">Experiments Datatable</h4>
-        Click the row to select an experiment; It would be added to the Selected Experiments Datatable. Double click again to unselect a selected experiment. Selected experiments are highlighted in green.
+        <h4 class="alert-heading">Experiments data table</h4>
+        Click the row to select an experiment. It will be added to the selected experiments data table. Double click again to unselect a selected experiment. Selected experiments are highlighted in green.
     </div>
 
     <div class="row" id="main-table">
@@ -131,8 +131,8 @@ require_once("inc/init.php");
     </div>
 
     <div class="alert alert-info alert-block" id="main-banner">
-        <h4 class="alert-heading">Selected Experiments</h4>
-        Click the row to unselect an experiment; It would be removed from the Datatable. Click Download Options to specify options for download the regions.
+        <h4 class="alert-heading">Selected experiments</h4>
+        Click the row to unselect an experiment. It will be removed from the data table. Click <i>Download</i> to specify options for downloading the regions.
     </div>
 
     <div class="row" id="selection-table">
@@ -141,7 +141,7 @@ require_once("inc/init.php");
 
                 <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                    <h2>Selected Experiment(s) </h2>
+                    <h2>Selected experiment(s) </h2>
 
                 </header>
 

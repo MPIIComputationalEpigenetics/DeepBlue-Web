@@ -25,7 +25,7 @@ require_once("inc/init.php");
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark"><i class="fa fa-columns"></i>
-			 Create Column Type
+			 Create column type
 		</h1>
 	</div>
 </div>
@@ -39,7 +39,7 @@ require_once("inc/init.php");
 			<div class="jarviswidget jarviswidget-color-blue" id="tree-biosources" data-widget-editbutton="true">
 				<header>
 					<span class="widget-icon"> <i class="fa fa-columns"></i> </span>
-					<h2>Column Types</h2>
+					<h2>Column types</h2>
 				</header>
 				<!-- widget div-->
 				<div>
@@ -57,8 +57,8 @@ require_once("inc/init.php");
 									<a class="close" data-dismiss="alert" href="#">×</a>
 									<h4 class="alert-heading">Options</h4>
 									<p> Enter the annotation information. For the format, use the dropdown to include a format, and X to remove it.</p>
-                                    <p> If column type is category, in the items field, enter a comma seperated list of items in the category.</p>
-                                    <p> If column type is calculated, in the code field, enter the LUA code to be executed.</p>
+                                    <p> If the column type is category, enter a comma separated list of items in the items field.</p>
+                                    <p> If the column type is calculated, enter the LUA code to be executed in the code field.</p>
 								</div>
 								<div id="generalDiv">
 									<table id='general' class='table table-striped table-hover'>
@@ -70,7 +70,7 @@ require_once("inc/init.php");
                                             <tr>
 												<td class='search-modal-table'>Type</td>
 												<td class='search-modal-name'><input type='input' class='form-control' id='type' placeholder='Type'></td>
-											</tr>                                            
+											</tr>
 											<tr>
 												<td class='search-modal-table'>Description</td>
 												<td class='search-modal-name'><textarea class='form-control' id='desc' placeholder='Enter a description of the column type'></textarea></td>
@@ -85,7 +85,7 @@ require_once("inc/init.php");
 											</tr>
                                             <tr id='codeRow' hidden="hidden">
 												<td class='search-modal-table'>Code</td>
-												<td class='search-modal-name'><input type='input' class='form-control' id='code' 
+												<td class='search-modal-name'><input type='input' class='form-control' id='code'
                                                     placeholder="return value_of('column_name') .. 'operation' .. value_of('column_name')"></td>
 											</tr>
                                             <tr id='minRow' hidden="hidden">
@@ -161,7 +161,7 @@ require_once("inc/init.php");
         switch (type) {
             case 'Range':
                 $("#minRow").show();
-                $("#maxRow").show();                
+                $("#maxRow").show();
                 break;
             case 'Category':
                 $("#itemRow").show();
@@ -172,13 +172,13 @@ require_once("inc/init.php");
                 break
         }
     }
-    
+
     // Add annotation Button
 	$('#createColumnButton').bind('click', function (e) {
 		var valid = true;
-        
+
         // read all the information
-		var column = [];        
+		var column = [];
 		column['name'] = $("#name").val();
 		column['type'] = $("#type").val();
 		column['item'] = $('#item').val();
@@ -186,7 +186,7 @@ require_once("inc/init.php");
 		column['min'] = $("#min").val();
 		column['max'] = $("#max").val();
 		column['code'] = $("#code").val();
-        
+
 		// check for required missing entries and  add error to input
 		if (column['name'] == "") {
 			$('#name').closest(".search-modal-name").addClass('has-error');
@@ -202,7 +202,7 @@ require_once("inc/init.php");
 		}
 		else {
 			$('#type').closest(".search-modal-name").removeClass('has-error');
-            
+
             switch (column['type']) {
                 case 'Range':
                     if (column['min'] == "") {
@@ -212,14 +212,14 @@ require_once("inc/init.php");
                     else {
                         $('#min').closest(".search-modal-name").removeClass('has-error');
                     }
-                    
+
                     if (column['max'] == "") {
                         $('#max').closest(".search-modal-name").addClass('has-error');
                         $('#max').focus();
                     }
                     else {
                         $('#max').closest(".search-modal-name").removeClass('has-error');
-                    }                
+                    }
                     break;
                 case 'Category':
                     if (column['item'] == "") {
@@ -241,7 +241,7 @@ require_once("inc/init.php");
                     break;
             }
         }
-        
+
 		// check for error bars around input
 		var entries = ['#name','#type','#desc', '#min', 'max', '#code','#item'];
 		for (i in entries) {
@@ -309,13 +309,13 @@ require_once("inc/init.php");
         $("#minRow").hide();
         $("#maxRow").hide();
         $("#itemRow").hide();
-        $("#codeRow").hide();     
+        $("#codeRow").hide();
         $("#codeDesc").hide();
     }
-    
+
 	// clear input entries
 	function clearInputs() {
-		column = [];		
+		column = [];
 
 		$("#name").val("");
 		$("#desc").val("");
@@ -323,7 +323,7 @@ require_once("inc/init.php");
 		$("#code").val("");
 		$("#item").val("");
         $("#max").val("");
-        $("#min").val("");        
+        $("#min").val("");
 		// clear variables
 	}
 

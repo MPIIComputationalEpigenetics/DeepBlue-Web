@@ -59,14 +59,14 @@ $page_nav = array(
     ),
 
     "experiments" => array(
-        "title" => "Epigenomic Data",
+        "title" => "Experiments data",
         "url" => "ajax/deepblue_view_experiments.php",
         "icon" => "fa-database",
         "description" => "List and download DeepBlue epigenomic data."
     ),
 
     "deepblue_tables" => array(
-        "title" => "Auxiliary Data",
+        "title" => "Auxiliary data",
         "icon" => "fa-table",
         "description" => "You can have access to all auxiliary data used by DeepBlue.",
         "sub" => array(
@@ -122,14 +122,14 @@ $page_nav = array(
     ),
 
     "deepblue_request" => array(
-        "title" => "Previous Requests",
+        "title" => "Previous requests",
         "url"=> "ajax/deepblue_manage_request.php",
         "icon" => "fa-download",
         "description" => "Access and download all your download requests."
     ),
 
     "insert_data" => array(
-        "title" => "Insert Data",
+        "title" => "Insert data",
         "icon" => "fa-suitcase",
         "description" => "Insert new data such as annotations, column_types into DeepBlue (It requires permission)",
         "sub" => array(
@@ -141,7 +141,7 @@ $page_nav = array(
 
             ),
             "insert_column_type" => array(
-                "title" => "Column Type",
+                "title" => "Column type",
                 "url"=> "ajax/deepblue_create_column_type.php",
                 "icon" => "fa-columns",
                 "description" => "Insert a new column type."
@@ -150,12 +150,12 @@ $page_nav = array(
     ),
 
     "data_curation" => array(
-        "title" => "Curate Data",
+        "title" => "Curate data",
         "icon" => "fa-edit",
         "description" => "Curate DeepBlue data. (It requires permission)",
         "sub" => array(
             "clone" => array(
-                "title" => "Experiments Cloning",
+                "title" => "Experiments cloning",
                 "url"=> "ajax/deepblue_clone_dataset.php",
                 "icon" => "fa-copy",
                 "description" => "Allows experiments cloning."
@@ -165,7 +165,7 @@ $page_nav = array(
     ),
 
     "remove" => array(
-        "title" => "Remove Data",
+        "title" => "Remove data",
         "url"=> "ajax/deepblue_remove_data.php",
         "icon" => "fa-minus-square",
         "description" => "Remove your data from DeepBlue."

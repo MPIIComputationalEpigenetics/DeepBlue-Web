@@ -28,7 +28,7 @@ require_once("inc/init.php");
 
 		<div id="myTabContent1" class="tab-content bg-color-white padding-10">
 			<div class="tab-pane fade in active" id="s1">
-				<h1> Deepblue Remove Data </h1>
+				<h1> Deepblue remove data </h1>
 				<br>
 				<div class="input-group input-group-lg hidden-mobile">
 					<input id="query_input" class="form-control input-lg" type="text" placeholder="Enter ID" />

@@ -28,7 +28,7 @@ require_once("inc/init.php");
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark">
 			<i class="fa fa-table fa-fw "></i>
-				Auxiliary Data > Epigenetic Marks
+				Auxiliary data > Epigenetic marks
 			</span>
 		</h1>
 	</div>
@@ -50,7 +50,7 @@ require_once("inc/init.php");
 
 				<header>
 					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-					<h2>Epigenetic Marks </h2>
+					<h2>Epigenetic marks </h2>
 
 				</header>
 
@@ -75,7 +75,7 @@ require_once("inc/init.php");
 										<input class="form-control" placeholder="ID" type="text"/>
 									</th>
 									<th class="hasinput" style="width:10%">
-										<input type="text" class="form-control" placeholder="Epigenetic Marks"/>
+										<input type="text" class="form-control" placeholder="Epigenetic marks"/>
 									</th>
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Description"/>
@@ -86,7 +86,7 @@ require_once("inc/init.php");
 								</tr>
 					            <tr>
 				                    <th>ID</th>
-				                    <th>Epigenetic Marks</th>
+				                    <th>Epigenetic marks</th>
 				                    <th>Description</th>
 				                    <th>Metadata</th>
 					            </tr>
