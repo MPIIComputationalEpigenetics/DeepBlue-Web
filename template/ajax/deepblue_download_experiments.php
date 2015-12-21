@@ -289,7 +289,6 @@ require_once("inc/init.php");
 
     pageSetUp();
 
-
     var pagefunction = function() {
         $(document).off("click", '.exp-metadata-more-view');
         $(document).on("click", '.exp-metadata-more-view', function () {
@@ -322,6 +321,9 @@ require_once("inc/init.php");
             selectedData = JSON.parse(localStorage.getItem('selectedData'));
         }
 
+        $('#datatable_download_column').DataTable({
+            "scrollX": true
+        });
         for (var i=0; i<selectedData.length; i++) {
             // initially load the data table
             selected[i] = selectedData[i][0];
