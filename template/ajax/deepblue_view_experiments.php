@@ -365,7 +365,7 @@ require_once("inc/init.php");
             if (index == -1) {
                 selected.push(id);
                 selectedNames.push(name);
-                selectedData.push([ id, type, name , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta])
+                selectedData.push([ id, name, type , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta])
 
                 $('#datatable_selected_column').dataTable().fnAddData(
                     [ id, name, type, desc ,genome , epi ,bio ,samp ,tech ,proj ,meta]
