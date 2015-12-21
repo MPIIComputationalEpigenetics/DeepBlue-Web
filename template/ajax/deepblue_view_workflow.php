@@ -332,6 +332,7 @@ require_once("inc/init.php");
 		    "iDisplayLength": 50,
 		    "autoWidth" : true,
 		    "bDestroy": true,
+			"scrollX" : true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
@@ -392,15 +393,15 @@ require_once("inc/init.php");
 	}
 
 	/* Apply DataTable filtering */
-
 	function apply_filer(table_id, otable){
-		$(table_id + " thead th input[type=text]").on( 'keyup change', function () {
-
-		    otable
-		        .column( $(this).parent().index()+':visible' )
-		        .search( this.value )
-		        .draw();
-
+		$("#experiment-id, #experiment-name, #experiment-datatype, #experiment-epigenetic_mark, #experiment-project, " +
+				"#experiment-biosource, #experiment-sample, #experiment-technique, #experiment-genome, #experiment-metadata, " +
+				"#experiment-description, #annotation-id, #annotation-name, #annotation-genome, #annotation-metadata, " +
+				"#annotation-description").on('keyup change', function () {
+			otable
+				.column( $(this).parent().index()+':visible' )
+				.search( this.value )
+				.draw();
 		});
 	}
 

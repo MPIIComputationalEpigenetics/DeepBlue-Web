@@ -85,13 +85,13 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput" style="width:10%">
-										<input class="form-control" placeholder="ID" type="text">
+										<input class="form-control" placeholder="ID" type="text" id="technique-id">
 									</th>
 									<th class="hasinput" style="width:10%">
-										<input type="text" class="form-control" placeholder="Techniques" />
+										<input type="text" class="form-control" placeholder="Techniques" id="technique-name" />
 									</th>
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Description" />
+										<input type="text" class="form-control" placeholder="Description" id="technique-description" />
 									</th>
 								</tr>
 					            <tr>
@@ -213,6 +213,7 @@ require_once("inc/init.php");
       			aoData.push( { "name": "col_2", "value": "description"} );
       			aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
     		},
+			"scrollX" : true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
@@ -240,14 +241,12 @@ require_once("inc/init.php");
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
 	    // Apply the filter
-	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-
-	        otable
-	            .column( $(this).parent().index()+':visible' )
-	            .search( this.value )
-	            .draw();
-
-	    } );
+		$("#technique-id, #technique-name, #technique-description").on('keyup change', function () {
+			otable
+				.column( $(this).parent().index()+':visible' )
+				.search( this.value )
+				.draw();
+		});
 	    /* END COLUMN FILTER */
 
 	};

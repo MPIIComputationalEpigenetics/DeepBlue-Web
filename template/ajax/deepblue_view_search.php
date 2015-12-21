@@ -622,6 +622,7 @@ require_once("inc/init.php");
 	      		},
 			    "iDisplayLength": 50,
 			    "autoWidth" : true,
+				"scrollX" : true,
 			    "bDestroy": true,
 			    "aoSearchCols" : initFilter,
 			    "oSearch": {"bSmart": false},
@@ -669,13 +670,14 @@ require_once("inc/init.php");
 			$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
 			// Apply the filter
-			$("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-			    otable
-			        .column( $(this).parent().index()+':visible' )
-			        .search( this.value )
-			        .draw();
+			$("#experiment-id, #experiment-name, #experiment-datatype, #experiment-epigenetic_mark, #experiment-project, " +
+					"#experiment-biosource, #experiment-sample, #experiment-technique, #experiment-genome, #experiment-metadata, " +
+					"#experiment-description").on('keyup change', function () {
+				otable
+					.column( $(this).parent().index()+':visible' )
+					.search( this.value )
+					.draw();
 			});
-
 		}
 	});
 

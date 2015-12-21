@@ -83,7 +83,7 @@
                                 <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
                             </th>
                                 <th class="hasinput" style="width:20px">
-                                    <input type="text" class="form-control" placeholder="Type" id="experiment-type" />
+                                    <input type="text" class="form-control" placeholder="Type" id="experiment-datatype" />
                                 </th>
                             <th class="hasinput">
                                 <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
@@ -430,9 +430,9 @@ function deselect_node(e, data) {
 
     function build_experiments_table() {
         var otable = $('#experiments_datatable').DataTable({
-        "iDisplayLength": 50,
-        "autoWidth" : true,
-
+            "iDisplayLength": 50,
+            "autoWidth" : true,
+            "scrollX" : true,
             "preDrawCallback" : function() {
                 if (!experiments_datatable) {
                     experiments_datatable = new ResponsiveDatatablesHelper($('#experiments_datatable'), breakpointDefinition);
@@ -524,16 +524,15 @@ function deselect_node(e, data) {
             }
         });
 
-
-
         // Apply the filter
-        $("#experiments_datatable thead th input[type=text]").on( 'keyup change', function () {
+        $("#experiment-id, #experiment-name, #experiment-datatype, #experiment-epigenetic_mark, #experiment-project, " +
+            "#experiment-biosource, #experiment-sample, #experiment-technique, #experiment-genome, #experiment-metadata, " +
+            "#experiment-description").on('keyup change', function () {
             otable
                 .column( $(this).parent().index()+':visible' )
                 .search( this.value )
                 .draw();
-
-        } );
+        });
         /* END COLUMN FILTER */
     }
 

@@ -70,15 +70,15 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="ID" type="text" />
+										<input class="form-control" placeholder="ID" type="text" id="sample-id" />
 									</th>
 
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="BioSource" />
+										<input type="text" class="form-control" placeholder="BioSource" id="sample-biosource" />
 									</th>
 
 									<th class="hasinput" style="width:25%">
-										<input class="form-control" placeholder="Metadata" type="text" />
+										<input class="form-control" placeholder="Metadata" type="text" id="sample-metadata" />
 									</th>
 
 								</tr>
@@ -147,6 +147,7 @@ require_once("inc/init.php");
 	        //"sServerMethod": "POST",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
+			"scrollX" : true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
@@ -173,15 +174,13 @@ require_once("inc/init.php");
 		// custom toolbar
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
-	    // Apply the filter
-	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-
-	        otable
-	            .column( $(this).parent().index()+':visible' )
-	            .search( this.value )
-	            .draw();
-
-	    } );
+		// Apply the filter
+		$("#sample-id, #sample-biosource, #sample-metadata").on('keyup change', function () {
+			otable
+				.column( $(this).parent().index()+':visible' )
+				.search( this.value )
+				.draw();
+		});
 	    /* END COLUMN FILTER */
 	};
 

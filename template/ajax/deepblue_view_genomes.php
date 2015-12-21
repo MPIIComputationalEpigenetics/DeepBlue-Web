@@ -72,13 +72,13 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="ID" type="text">
+										<input class="form-control" placeholder="ID" type="text" id="genome-id">
 									</th>
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Genome" />
+										<input type="text" class="form-control" placeholder="Genome" id="genome-name" />
 									</th>
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Description" />
+										<input type="text" class="form-control" placeholder="Description" id="genome-description"/>
 									</th>
 								</tr>
 					            <tr>
@@ -145,6 +145,7 @@ require_once("inc/init.php");
 					responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
 				}
 			},
+			"scrollX" : true,
 			"rowCallback" : function(nRow) {
 				responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
 			},
@@ -164,16 +165,13 @@ require_once("inc/init.php");
 		// custom toolbar
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
-	    // Apply the filter
-	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-
-	        otable
-	            .column( $(this).parent().index()+':visible' )
-	            .search( this.value )
-	            .draw();
-
-	    } );
-
+		// Apply the filter
+		$("#genome-id, #genome-name, #genome-description").on('keyup change', function () {
+			otable
+				.column( $(this).parent().index()+':visible' )
+				.search( this.value )
+				.draw();
+		});
 	    /* END COLUMN FILTER */
 
 	};
