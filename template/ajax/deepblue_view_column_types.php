@@ -71,23 +71,23 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="ID" type="text" />
+										<input class="form-control" placeholder="ID" type="text" id="column-id" />
 									</th>
 
 									<th class="hasinput">
-										<input class="form-control" placeholder="Name" type="text">
+										<input class="form-control" placeholder="Name" type="text" id="column-name">
 									</th>
 
 									<th class="hasinput">
-										<input class="form-control" placeholder="Description" type="text">
+										<input class="form-control" placeholder="Description" type="text" id="column-description">
 									</th>
 
 									<th class="hasinput">
-										<input class="form-control" placeholder="Type" type="text">
+										<input class="form-control" placeholder="Type" type="text" id="column-type">
 									</th>
 
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Information" />
+										<input type="text" class="form-control" placeholder="Information" id="column-information" />
 									</th>
 
 								</tr>
@@ -157,6 +157,7 @@ require_once("inc/init.php");
 	        //"sServerMethod": "POST",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
+			"scrollX" : true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
@@ -184,15 +185,13 @@ require_once("inc/init.php");
 		// custom toolbar
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
-	    // Apply the filter
-	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-
-	        otable
-	            .column( $(this).parent().index()+':visible' )
-	            .search( this.value )
-	            .draw();
-
-	    } );
+		// Apply the filter
+		$("#column-id, #column-name, #column-type, #column-description, #column-information").on('keyup change', function () {
+			otable
+				.column( $(this).parent().index()+':visible' )
+				.search( this.value )
+				.draw();
+		});
 	    /* END COLUMN FILTER */
 
 	};

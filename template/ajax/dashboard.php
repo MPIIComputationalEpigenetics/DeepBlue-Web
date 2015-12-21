@@ -373,7 +373,7 @@
                                         <input type="text" class="form-control" placeholder="Experiment" id="experiment-name" />
                                     </th>
                                     <th class="hasinput" style="width:20px">
-                                        <input type="text" class="form-control" placeholder="Experiment" id="experiment-datatype" />
+                                        <input type="text" class="form-control" placeholder="Type" id="experiment-datatype" />
                                     </th>
                                     <th class="hasinput">
                                         <input type="text" class="form-control" placeholder="Description" id="experiment-description" />
@@ -752,7 +752,7 @@
 		    "bDestroy": true,
 		    "aoSearchCols" : initFilter,
 		    "oSearch": {"bSmart": false},
-
+			"scrollX": true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
@@ -797,11 +797,13 @@
 		$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
 		// Apply the filter
-		$("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-		    otable
-		        .column( $(this).parent().index()+':visible' )
-		        .search( this.value )
-		        .draw();
+		$("#experiment-id, #experiment-name, #experiment-datatype, #experiment-epigenetic_mark, #experiment-project, " +
+				"#experiment-biosource, #experiment-sample, #experiment-technique, #experiment-genome, #experiment-metadata, " +
+				"#experiment-description").on('keyup change', function () {
+			otable
+				.column( $(this).parent().index()+':visible' )
+				.search( this.value )
+				.draw();
 		});
 
 		/* Download button :: Getting selected elements */

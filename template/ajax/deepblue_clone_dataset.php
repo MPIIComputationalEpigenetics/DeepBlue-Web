@@ -502,7 +502,7 @@ require_once("inc/init.php");
 		    },
 		    "iDisplayLength": 50,
 		    "autoWidth" : true,
-
+			"scrollX" :  true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
 				if (!responsiveHelper_datatable_fixed_column) {
@@ -545,15 +545,15 @@ require_once("inc/init.php");
 		// custom toolbar
 		$("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
-	    /* Apply the filter */
-	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-
-	        otable
-	            .column( $(this).parent().index()+':visible' )
-	            .search( this.value )
-	        .draw();
-
-	    });
+		// Apply the filter
+		$("#experiment-id, #experiment-name, #experiment-datatype, #experiment-epigenetic_mark, #experiment-project, " +
+				"#experiment-biosource, #experiment-sample, #experiment-technique, #experiment-genome, #experiment-metadata, " +
+				"#experiment-description").on('keyup change', function () {
+			otable
+					.column( $(this).parent().index()+':visible' )
+					.search( this.value )
+					.draw();
+		});
 
 		// launch a modal view to allow selection of experiments
 		$('#modal_for_experiment').show();

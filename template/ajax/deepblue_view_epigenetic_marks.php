@@ -72,16 +72,16 @@ require_once("inc/init.php");
 					        <thead>
 								<tr>
 									<th class="hasinput" style="width:10%">
-										<input class="form-control" placeholder="ID" type="text"/>
+										<input class="form-control" placeholder="ID" type="text" id="epigenetic_mark-id"/>
 									</th>
 									<th class="hasinput" style="width:10%">
-										<input type="text" class="form-control" placeholder="Epigenetic marks"/>
+										<input type="text" class="form-control" placeholder="Epigenetic marks" id="epigenetic_mark-name"/>
 									</th>
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Description"/>
+										<input type="text" class="form-control" placeholder="Description" id="epigenetic_mark-description"/>
 									</th>
 									<th class="hasinput">
-										<input type="text" class="form-control" placeholder="Metadata"/>
+										<input type="text" class="form-control" placeholder="Metadata" id="epigenetic_mark-metadata"/>
 									</th>
 								</tr>
 					            <tr>
@@ -147,6 +147,7 @@ require_once("inc/init.php");
 	        //"sServerMethod": "POST",
 	        "iDisplayLength": 50,
 	        "autoWidth" : true,
+			"scrollX" : true,
 
 					"preDrawCallback" : function() {
 						// Initialize the responsive datatables helper once.
@@ -174,15 +175,13 @@ require_once("inc/init.php");
 		// custom toolbar
 	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
-	    // Apply the filter
-	    $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
-
-	        otable
-	            .column( $(this).parent().index()+':visible' )
-	            .search( this.value )
-	            .draw();
-
-	    } );
+		// Apply the filter
+		$("#epigenetic_mark-id, #epigenetic_mark-name, #epigenetic_mark-description, #epigenetic_mark-metadata").on('keyup change', function () {
+			otable
+				.column( $(this).parent().index()+':visible' )
+				.search( this.value )
+				.draw();
+		});
 	    /* END COLUMN FILTER */
 
 	};

@@ -578,19 +578,19 @@ class Deepblue{
                                 <tr>
                                     $checkbox_th_top
                                     <th class="hasinput">
-                                        <input class="form-control" placeholder="ID" type="text"/>
+                                        <input class="form-control" placeholder="ID" type="text" id="annotation-id"/>
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Annotation"/>
+                                        <input type="text" class="form-control" placeholder="Annotation" id="annotation-name"/>
                                     </th>
                                     <th class="hasinput">
                                         <input class="form-control" placeholder="Genome" type="text" id="annotation-genome"/>
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Description"/>
+                                        <input type="text" class="form-control" placeholder="Description" id="annotation-description"/>
                                     </th>
                                     <th class="hasinput">
-                                        <input type="text" class="form-control" placeholder="Metadata"/>
+                                        <input type="text" class="form-control" placeholder="Metadata" id="annotation-metadata"/>
                                     </th>
                                 </tr>
                                 <tr>
