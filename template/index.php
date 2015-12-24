@@ -61,7 +61,7 @@ include("inc/header.php");
 				<div class="col-md-14">
 					<div class="col-md-4 col-lg-4 hidden-xs hidden-sm">
 						<div class="pull-left">
-							<h4 class="paragraph-header" style="text-align:justify">The DeepBlue Epigenomic Data Server provides a central data access hub for large collections of epigenomic data. It organizes the data from different sources using controlled vocabularies and ontologies. The data is stored in our server, where the users can access the data programmatically or by or web interface.</h4>
+							<h4 class="paragraph-header" style="text-align:justify">The DeepBlue Epigenomic Data Server provides a central data access hub for large collections of epigenomic data. It organizes the data from different sources using controlled vocabularies and ontologies. The data is stored in our server, where the users can access the data programmatically or by our web interface.</h4>
 							<h4 class="paragraph-header" style="text-align:justify">DeepBlue contains a set of commands designed to perform operations on the epigenomic data, for example, data overlapping and aggregations. Users can execute all operations in a pipeline fashion in the server and transfer only meaningful data.</h4>
 						</div>
 					</div>
