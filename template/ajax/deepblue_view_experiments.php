@@ -229,15 +229,42 @@ require_once("inc/init.php");
     var selected = [];
     var selectedNames = [];
     var selectedData = [];
+    var list_in_use;
 
     pageSetUp();
 
-    var pagefunction = function() {
-
-        var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-        var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
+    function loadTableAutoComplete() {
         var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks"];
         var vocabids = ['#experiment-project','#experiment-genome', "#experiment-technique", "#experiment-epigenetic_mark"];
+        var suggestion2 = [];
+
+        for (i in vocabnames) {
+            vocabname = vocabnames[i];
+            vocabid = vocabids[i];
+            suggestion2[vocabname] = []; // index for each controlled vocabulary
+            count = 0;
+            var currentvocab = list_in_use[vocabname]['alp'];
+            for (j in currentvocab) {
+                suggestion2[vocabname][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};
+                count = count + 1;
+            }
+            $(vocabid).autocomplete({
+                source : suggestion2[vocabname],
+                autoFocus: false,
+                focus: function( event, ui ) { return false;},
+                minLength: 0,
+                select: function( event, ui ) {
+                    this.value = ui.item.value;
+                    $(this).trigger("change");
+                }
+            });
+        }
+    }
+
+    var pagefunction = function() {
+
+        list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+        var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
         if (list_in_use == null) {
             var request1 = $.ajax({
                 url: "ajax/server_side/list_in_use.php",
@@ -258,7 +285,9 @@ require_once("inc/init.php");
 
                 // store data in local storage
                 localStorage.setItem("list_in_use", JSON.stringify(data[0]));
-                list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+                list_in_use = data[0];
+
+                loadTableAutoComplete();
             });
 
             request1.fail(function (jqXHR, textStatus) {
@@ -267,29 +296,8 @@ require_once("inc/init.php");
                 alert("Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint");
             });
         }
-
-        var suggestion2 = [];
-        for (i in vocabnames) {
-
-            vocabname = vocabnames[i];
-            vocabid = vocabids[i];
-            suggestion2[vocabname] = []; // index for each controlled vocabulary
-            count = 0;
-            var currentvocab = list_in_use[vocabname]['alp'];
-            for (j in currentvocab) {
-                suggestion2[vocabname][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};
-                count = count + 1;
-            }
-            $(vocabid).autocomplete({
-                source : suggestion2[vocabname],
-                autoFocus: false,
-                focus: function( event, ui ) { return false;},
-                minLength: 0,
-                select: function( event, ui ) {
-                    this.value = ui.item.value;
-                    $(this).trigger("change");
-                }
-            });
+        else {
+            loadTableAutoComplete();
         }
 
         $("#datatable_fixed_column").on("click", '.exp-metadata-more-view', function (e) {
@@ -355,7 +363,7 @@ require_once("inc/init.php");
             },
             //"sServerMethod": "POST",
             "iDisplayLength": 10,
-            "autoWidth" : true,
+            "autoWidth" : false,
             "scrollX" : true,
 
             "preDrawCallback" : function() {
