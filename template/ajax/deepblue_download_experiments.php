@@ -321,9 +321,20 @@ require_once("inc/init.php");
             selectedData = JSON.parse(localStorage.getItem('selectedData'));
         }
 
-        $('#datatable_download_column').DataTable({
+        var otable = $('#datatable_download_column').DataTable({
             "scrollX": true
         });
+
+        // apply filter
+        $("#experiment-id, #experiment-name, #experiment-datatype, #experiment-epigenetic_mark, #experiment-project, " +
+            "#experiment-biosource, #experiment-sample, #experiment-technique, #experiment-genome, #experiment-metadata, " +
+            "#experiment-description").on('keyup change', function () {
+            otable
+                .column( $(this).parent().index()+':visible' )
+                .search( this.value )
+                .draw();
+        });
+
         for (var i=0; i<selectedData.length; i++) {
             // initially load the data table
             selected[i] = selectedData[i][0];
