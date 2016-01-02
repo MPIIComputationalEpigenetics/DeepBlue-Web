@@ -459,8 +459,17 @@ require_once("inc/init.php");
         });
 
         // selected datatable
-        $('#datatable_selected_column').DataTable({
+        var otable2 = $('#datatable_selected_column').DataTable({
             "scrollX": true
+        });
+
+        $("#experiment-id2, #experiment-name2, #experiment-datatype2, #experiment-epigenetic_mark2, #experiment-project2, " +
+            "#experiment-biosource2, #experiment-sample2, #experiment-technique2, #experiment-genome2, #experiment-metadata2, " +
+            "#experiment-description2").on('keyup change', function () {
+            otable2
+                .column( $(this).parent().index()+':visible' )
+                .search( this.value )
+                .draw();
         });
 
         /* remove selection by clicking of row in the selection table*/
