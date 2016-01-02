@@ -234,8 +234,8 @@ require_once("inc/init.php");
     pageSetUp();
 
     function loadTableAutoComplete() {
-        var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks"];
-        var vocabids = ['#experiment-project','#experiment-genome', "#experiment-technique", "#experiment-epigenetic_mark"];
+        var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources"];
+        var vocabids = ['#experiment-project','#experiment-genome', "#experiment-technique", "#experiment-epigenetic_mark", "#experiment-biosource"];
         var suggestion2 = [];
 
         for (i in vocabnames) {
@@ -363,7 +363,7 @@ require_once("inc/init.php");
             },
             //"sServerMethod": "POST",
             "iDisplayLength": 10,
-            "autoWidth" : false,
+            "bAutoWidth" : true,
             "scrollX" : true,
 
             "preDrawCallback" : function() {
