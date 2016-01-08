@@ -23,7 +23,7 @@ require_once("../../lib/error.php");
 if (isset($_GET) && isset($_GET["request"])) {
     $vocabularies = $_GET["request"];
 } else {
-	$vocabularies = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
+	$vocabularies = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
 }
 
 $client = new IXR_Client(get_server());

@@ -824,7 +824,7 @@
 		var total_experiments = [];
         var total_samples = 0;
 		var vocab;
-		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
+		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
 
 		/* retrieve deepblue list_in_use data */
 		var list_in_use = null;

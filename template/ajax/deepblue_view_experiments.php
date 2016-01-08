@@ -234,8 +234,8 @@ require_once("inc/init.php");
     pageSetUp();
 
     function loadTableAutoComplete() {
-        var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources"];
-        var vocabids = ['#experiment-project','#experiment-genome', "#experiment-technique", "#experiment-epigenetic_mark", "#experiment-biosource"];
+        var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
+        var vocabids = ['#experiment-project','#experiment-genome', "#experiment-technique", "#experiment-epigenetic_mark", "#experiment-biosource", "#experiment-datatype"];
         var suggestion2 = [];
 
         for (i in vocabnames) {
@@ -243,9 +243,11 @@ require_once("inc/init.php");
             vocabid = vocabids[i];
             suggestion2[vocabname] = []; // index for each controlled vocabulary
             count = 0;
+
+
             var currentvocab = list_in_use[vocabname]['alp'];
             for (j in currentvocab) {
-                suggestion2[vocabname][count] = {'label' : currentvocab[j][1] + " (" + currentvocab[j][0] + ")", 'value' : currentvocab[j][1]};
+                suggestion2[vocabname][count] = {'label' : currentvocab[j][1], 'value' : currentvocab[j][1]};
                 count = count + 1;
             }
             $(vocabid).autocomplete({
@@ -264,7 +266,7 @@ require_once("inc/init.php");
     var pagefunction = function() {
 
         list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-        var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
+        var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
         if (list_in_use == null) {
             var request1 = $.ajax({
                 url: "ajax/server_side/list_in_use.php",

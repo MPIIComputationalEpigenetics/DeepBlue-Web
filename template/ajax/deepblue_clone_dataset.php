@@ -22,14 +22,6 @@
 require_once("inc/init.php");
 ?>
 
-<style>
-	.ui-autocomplete {
-		max-height : 200px;
-		overflow-x: hidden;
-		overflow-y: auto;
-	}
-</style>
-
 <div class="row">
 	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 		<h1 class="page-title txt-color-blueDark"><i class="fa fa-copy"></i>
@@ -257,7 +249,7 @@ require_once("inc/init.php");
 	};
 
 	var cache = {};
-	var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
+	var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
 	var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes'];
 	var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome'];
 	var vocabname;

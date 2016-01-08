@@ -149,7 +149,7 @@ require_once("inc/init.php");
 	var pagefunction = function() {
 
 		list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
+		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
 		if (list_in_use == null) {
 			var request1 = $.ajax({
 				url: "ajax/server_side/list_in_use.php",
