@@ -68,6 +68,13 @@ class Deepblue{
                 $fullMetadata = $this->experimentMetadata($info, "searchResult");
                 $tempArr[] = substr($fullMetadata, 0, -2);
             }
+            else if ($info["type"] == 'genome') {
+                $chromInfo = "<b> Chromosomes: name  </b>(size)</br>";
+                foreach ($info['chromosomes'] as $chromosome) {
+                    $chromInfo.='<b>'.$chromosome['name'].'</b> ('.$chromosome['size'].'), ';
+                }
+                $tempArr[] = substr($chromInfo, 0, -2);
+            }
             else if ($info["type"] == 'sample') {
                 $sampleInfo = "";
                 $sampleInfo .= '<b> Biosource </b> : ' . $info['biosource_name'] . "<br />";
