@@ -210,10 +210,10 @@ $page_nav = array(
     ),
 
     "feedback" => array(
-        "title" => "Feedback",
+        "title" => "Users' feedback",
         "url"=> "ajax/deepblue_view_feedback.php",
         "icon" => "fa-step-backward",
-        "description" => "Give feedback to improve DeepBlue. We appreciate this!"
+        "description" => "Give your feedback to improve DeepBlue!"
     ),
 
     "acknowledgement" => array(
