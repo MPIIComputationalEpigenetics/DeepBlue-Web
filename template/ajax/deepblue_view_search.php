@@ -54,7 +54,7 @@ require_once("inc/init.php");
 					You can define where you want to perform the search by clicking on the button <i>Everything</i> and them selecting the appropriated scope.
 					</p>
 				</div>
-				<div class="input-group input-group-lg hidden-mobile">
+				<div class="input-group input-group-lg">
 					<div class="input-group-btn">
 						<button id='typeSelect' type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span id='select-show'>Everything</span> <span class="caret"></span>

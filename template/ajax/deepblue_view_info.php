@@ -46,7 +46,7 @@ require_once("inc/init.php");
 					The ID <i>em60</i> refers to the Epigenetic Mark <i>H3K27ac</i><br/>
 					The ID <i>a10</i> refers to the annotation <i>Cpg Islands</i> for the genome assembly <i>hg19</i>.
 				</div>
-				<div class="input-group input-group-lg hidden-mobile">
+				<div class="input-group input-group-lg">
 					<input id="query_input" class="form-control input-lg" type="text" placeholder="Enter ID" />
 					<div class="input-group-btn">
 						<button type="button" id="query_bt" class="btn btn-default">

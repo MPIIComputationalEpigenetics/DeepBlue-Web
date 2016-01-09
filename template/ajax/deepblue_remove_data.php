@@ -30,7 +30,7 @@ require_once("inc/init.php");
 			<div class="tab-pane fade in active" id="s1">
 				<h1> Deepblue remove data </h1>
 				<br>
-				<div class="input-group input-group-lg hidden-mobile">
+				<div class="input-group input-group-lg">
 					<input id="query_input" class="form-control input-lg" type="text" placeholder="Enter ID" />
 					<div class="input-group-btn">
 						<button type="button" id="query_bt" class="btn btn-default">
