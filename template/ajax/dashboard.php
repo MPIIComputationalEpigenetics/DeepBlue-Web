@@ -1014,13 +1014,6 @@
 				function(yes){
 					if (yes) {
 						bootstro.start(".bootstro", {
-							onStep : function(params) {
-                                if ($(params.elm).hasClass('side-menu')) {
-                                    $combo = $(params.elm).parent();
-                                    $combo.siblings().find('ul').slideUp();
-                                    $combo.find('ul').slideDown();
-                                }
-                            },
                             onExit : function(params) {
                               swal({
                                   title: "",
