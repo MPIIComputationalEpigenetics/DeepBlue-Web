@@ -69,9 +69,9 @@ class Deepblue{
                 $tempArr[] = substr($fullMetadata, 0, -2);
             }
             else if ($info["type"] == 'genome') {
-                $chromInfo = "<b> Chromosomes: name  </b>(size)</br>";
+                $chromInfo = "<b>Chromosomes</b>:</br>";
                 foreach ($info['chromosomes'] as $chromosome) {
-                    $chromInfo.='<b>'.$chromosome['name'].'</b> ('.$chromosome['size'].'), ';
+                    $chromInfo.=$chromosome['name'].' <small>('.$chromosome['size'].')</small><br />';
                 }
                 $tempArr[] = substr($chromInfo, 0, -2);
             }
@@ -91,8 +91,18 @@ class Deepblue{
             else if ($info["type"] == 'request') {
                 $details = "";
                 foreach ($info as $k => $v) {
-                    if ($v != '' && $v != '-' && $k != 'type') {
+                    if ($v != '' && $v != '-' && $k != 'type' && $k != 'parameters') {
                         $details .= '<b>'.$k.'</b> : ' . $v . "<br />";
+                    }
+                }
+                if (array_key_exists("parameters", $info)) {
+                    if ($info["command"] == "score_matrix") {
+                        $details.="<b>Experiments and columns:</b><br />";
+                    } else {
+                        $details.="<b>Parameters:</b><br />";
+                    }
+                    foreach ($info['parameters'] as $k => $v) {
+                        $details.=$k.' - '.$v.'<br />';
                     }
                 }
                 $tempArr[] = $details;
