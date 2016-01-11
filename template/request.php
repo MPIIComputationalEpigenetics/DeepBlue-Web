@@ -19,7 +19,7 @@ else {
 YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
 E.G. $page_title = "Custom Title" */
 
-$page_title = "Requesting account - DeepBlue Epigenomic Data Server";
+$page_title = "Request Status - DeepBlue Epigenomic Data Server";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
