@@ -824,7 +824,7 @@
 		var total_experiments = [];
         var total_samples = 0;
 		var vocab;
-		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
+		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
 
 		/* retrieve deepblue list_in_use data */
 		var list_in_use = null;
@@ -833,11 +833,8 @@
         list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 		if (list_in_use == null) {
 			var request1 = $.ajax({
-				url: "ajax/server_side/list_in_use.php",
+				url: "ajax/server_side/faceting_experiments.php",
 				dataType: "json",
-				data : {
-					request : vocabulary
-				}
 			});
 
 			request1.done( function(data) {

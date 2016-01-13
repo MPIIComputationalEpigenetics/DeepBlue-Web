@@ -249,7 +249,6 @@ require_once("inc/init.php");
 	};
 
 	var cache = {};
-	var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
 	var vocabnames = ['projects','epigenetic_marks','techniques', 'biosources','genomes'];
 	var vocabids = ['#user_project', '#user_epigenetic_mark','#user_technique','#user_biosource','#user_genome'];
 	var vocabname;
@@ -262,11 +261,8 @@ require_once("inc/init.php");
 	var list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
 	if (list_in_use == null) {
 		var request1 = $.ajax({
-			url: "ajax/server_side/list_in_use.php",
+			url: "ajax/server_side/faceting_experiments.php",
 			dataType: "json",
-			data : {
-				request : vocabulary
-			}
 		});
 
 		request1.done( function(data) {
