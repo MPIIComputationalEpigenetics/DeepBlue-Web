@@ -31,7 +31,7 @@ include("inc/header.php");
     <!-- MAIN CONTENT -->
     <div id="content" class="container">
 
-            <h2 class="text-primary" style="margin: 20px 0;">Acknowledgements</h2>
+            <h1>Acknowledgements</h1>
             <table class="table">
                 <tbody>
                     <tr>

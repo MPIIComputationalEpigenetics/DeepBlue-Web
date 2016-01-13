@@ -824,7 +824,7 @@
 		var total_experiments = [];
         var total_samples = 0;
 		var vocab;
-		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples"];
+		var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
 
 		/* retrieve deepblue list_in_use data */
 		var list_in_use = null;
@@ -1014,13 +1014,6 @@
 				function(yes){
 					if (yes) {
 						bootstro.start(".bootstro", {
-							onStep : function(params) {
-                                if ($(params.elm).hasClass('side-menu')) {
-                                    $combo = $(params.elm).parent();
-                                    $combo.siblings().find('ul').slideUp();
-                                    $combo.find('ul').slideDown();
-                                }
-                            },
                             onExit : function(params) {
                               swal({
                                   title: "",

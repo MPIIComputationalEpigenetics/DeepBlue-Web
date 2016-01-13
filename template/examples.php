@@ -48,7 +48,7 @@ include("inc/header.php");
     <div id="content" class="container">
         <div class="row">
 
-            <h1>DeepBlue API - usage examples</h1>
+            <h1>DeepBlue API - examples</h1>
             <h3>These examples are ready to use - Copy and paste into your favorite python environment. <small>(Python version 2.6 or higher is required.)</small></h3>
 
             <dl class="dl-horizontal" id="freelance">

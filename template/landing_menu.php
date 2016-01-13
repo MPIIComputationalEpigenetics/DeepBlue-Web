@@ -41,6 +41,8 @@
 							<a href="examples.php">Examples</a>
 						</li>
 						<li>
+							<a href="use_cases.php">Use cases</a>
+						<li>
 							<a href="tutorials.php">Tutorials</a>
 						</li>
 						<li>

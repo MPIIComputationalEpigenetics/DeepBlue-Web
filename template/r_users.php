@@ -43,7 +43,11 @@ include("inc/header.php");
             </blockquote>
         </p>
 
-        <p class="lead" style="text-align: justify;">This library provides the DeepBlue API commands. We are currently working to include more high level commands. Please, contact us if you have some suggestion or would like to provide come code. You can also access your <a href="https://github.com/MPIIComputationalEpigenetics/DeepBlue-R">github repository</a> and create an issue there.</p>
+
+        <p class="lead" style="text-align: justify;">This library provides the DeepBlue API commands. We are currently working to include more high level commands. We strongly advice to use the command <i>deepblue.get_request_data_r</i> to retrieve the requests data. This function is faster and consume less memory than the original <i>deepblue.get_request_data</i>.</p>
+
+
+        <p class="lead" style="text-align: justify;">Please, contact us if you have some suggestion or would like to provide come code. You can also access your <a href="https://github.com/MPIIComputationalEpigenetics/DeepBlue-R">github repository</a> and create an issue there.</p>
     </div>
 </div>
 

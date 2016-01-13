@@ -229,10 +229,78 @@ require_once("inc/init.php");
     var selected = [];
     var selectedNames = [];
     var selectedData = [];
+    var list_in_use;
 
     pageSetUp();
 
+    function loadTableAutoComplete() {
+        var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
+        var vocabids = ['#experiment-project','#experiment-genome', "#experiment-technique", "#experiment-epigenetic_mark", "#experiment-biosource", "#experiment-datatype"];
+        var suggestion2 = [];
+
+        for (i in vocabnames) {
+            vocabname = vocabnames[i];
+            vocabid = vocabids[i];
+            suggestion2[vocabname] = []; // index for each controlled vocabulary
+            count = 0;
+
+
+            var currentvocab = list_in_use[vocabname]['alp'];
+            for (j in currentvocab) {
+                suggestion2[vocabname][count] = {'label' : currentvocab[j][1], 'value' : currentvocab[j][1]};
+                count = count + 1;
+            }
+            $(vocabid).autocomplete({
+                source : suggestion2[vocabname],
+                autoFocus: false,
+                focus: function( event, ui ) { return false;},
+                minLength: 0,
+                select: function( event, ui ) {
+                    this.value = ui.item.value;
+                    $(this).trigger("change");
+                }
+            });
+        }
+    }
+
     var pagefunction = function() {
+
+        list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+        var vocabulary = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
+        if (list_in_use == null) {
+            var request1 = $.ajax({
+                url: "ajax/server_side/list_in_use.php",
+                dataType: "json",
+                data: {
+                    request: vocabulary
+                }
+            });
+
+            request1.done(function (data) {
+                if ("error" in data) {
+                    swal({
+                        title: "Error listing experiments",
+                        text: data['message']
+                    });
+                    return;
+                }
+
+                // store data in local storage
+                localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+                list_in_use = data[0];
+
+                loadTableAutoComplete();
+            });
+
+            request1.fail(function (jqXHR, textStatus) {
+                console.log(jqXHR);
+                console.log('Error: ' + textStatus);
+                alert("Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint");
+            });
+        }
+        else {
+            loadTableAutoComplete();
+        }
 
         $("#datatable_fixed_column").on("click", '.exp-metadata-more-view', function (e) {
             var toggle = $(this).text();
@@ -297,7 +365,7 @@ require_once("inc/init.php");
             },
             //"sServerMethod": "POST",
             "iDisplayLength": 10,
-            "autoWidth" : true,
+            "bAutoWidth" : true,
             "scrollX" : true,
 
             "preDrawCallback" : function() {
@@ -393,8 +461,17 @@ require_once("inc/init.php");
         });
 
         // selected datatable
-        $('#datatable_selected_column').DataTable({
+        var otable2 = $('#datatable_selected_column').DataTable({
             "scrollX": true
+        });
+
+        $("#experiment-id2, #experiment-name2, #experiment-datatype2, #experiment-epigenetic_mark2, #experiment-project2, " +
+            "#experiment-biosource2, #experiment-sample2, #experiment-technique2, #experiment-genome2, #experiment-metadata2, " +
+            "#experiment-description2").on('keyup change', function () {
+            otable2
+                .column( $(this).parent().index()+':visible' )
+                .search( this.value )
+                .draw();
         });
 
         /* remove selection by clicking of row in the selection table*/

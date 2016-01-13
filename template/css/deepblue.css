@@ -330,3 +330,9 @@ a.morelink {
   margin: 60px auto 0;
   border-bottom: 2px solid rgb(39,91,137);
 }
+
+.ui-autocomplete {
+     max-height : 200px;
+     overflow-x: hidden;
+     overflow-y: auto;
+ }
