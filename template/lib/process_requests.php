@@ -35,9 +35,20 @@ function build_request_info($ids, $user_key) {
 		$rdetail = '<div style="display: block;"><ul class="list-unstyled">';
 
 		$qid = $request_info['query_id'];
+		if (array_key_exists("parameters", $request_info)) {
+			$rdetail .= '<b>parameters : </b><br/>';
+			foreach ($request_info['parameters'] as $k => $v) {
+				$rdetail.=$k.' - '.$v.'<br />';
+			}
+		}
+		if (array_key_exists("aggregation_function", $request_info)) {
+			$rdetail .= '<b>aggregation_function : </b>' . $request_info['aggregation_function'] . "<br />";
+		}
+
 		// retrieve initial query details
-		query_detail($qid, $rdetail, $cache_chromosomes, $cache_queries, $user_key);
-		$rdetail = $rdetail.'</ul></div>';
+		$tdetail = '';
+		query_detail($qid, $tdetail, $cache_chromosomes, $cache_queries, $user_key);
+		$rdetail = $rdetail.$tdetail.'</ul></div>';
 
 		$rstate = $request_info['state'];
 		$srv = get_server().'/download/?r='.$rid.'&key='.$user_key;
