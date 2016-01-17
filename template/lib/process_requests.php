@@ -32,18 +32,28 @@ function build_request_info($ids, $user_key) {
 	foreach($requests_info as $request_info) {
 		$rid = $request_info["_id"];
 		$temp[] = $rid;
-		$rdetail = '<div style="display: block;"><ul class="list-unstyled">';
+		$mdetail = '';
 
-		$qid = $request_info['query_id'];
-		if (array_key_exists("parameters", $request_info)) {
-			$rdetail .= '<b>parameters : </b><br/>';
-			foreach ($request_info['parameters'] as $k => $v) {
-				$rdetail.=$k.' - '.$v.'<br />';
+		if (array_key_exists("format", $request_info)) {
+
+			$request_info['format'] = str_replace(',', ', ', $request_info['format']);
+		}
+
+		foreach ($request_info as $k => $v) {
+			if ($k != 'user_id' && $k != 'type' && $k != '_id' && $k != 'state' && $k != 'query_id' && $k != 'message' &&
+					$k != 'parameters' && $k != 'create_time' && $k != 'finish_time') {
+				$mdetail .= '<b>'.$k.'</b> : ' . $v . "<br />";
 			}
 		}
-		if (array_key_exists("aggregation_function", $request_info)) {
-			$rdetail .= '<b>aggregation_function : </b>' . $request_info['aggregation_function'] . "<br />";
+		if (array_key_exists("parameters", $request_info)) {
+			$mdetail .= '<b>Experiments and columns : </b><br/>';
+			foreach ($request_info['parameters'] as $k => $v) {
+				$mdetail.=$k.' - '.$v.'<br />';
+			}
 		}
+		$temp[] = $mdetail;
+		$rdetail = '<div style="display: block;"><ul class="list-unstyled">';
+		$qid = $request_info['query_id'];
 
 		// retrieve initial query details
 		$tdetail = '';
@@ -72,9 +82,7 @@ function build_request_info($ids, $user_key) {
 				$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" onclick = "experiment_query(event)">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspView&nbsp&nbsp&nbsp&nbsp&nbsp</button>';
 				break;
 		}
-
 		if ($rstate == 'done') {
-			$temp[] = $request_info['command'];
 			$temp[] = $rdetail;
 			$temp[] = substr($request_info['create_time'], 0, -7);
 			$temp[] = substr($request_info['finish_time'], 0, -7);
@@ -82,7 +90,6 @@ function build_request_info($ids, $user_key) {
 			$temp[] = $cusbutton;
 		}
 		else if ($rstate == 'failed') {
-			$temp[] = $request_info['command'];
 			$temp[] = $rdetail;
 			$temp[] = substr($request_info['create_time'], 0, -7);
 			$temp[] = '--';
@@ -90,7 +97,6 @@ function build_request_info($ids, $user_key) {
 			$temp[] = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled>&nbspDownload&nbsp</button>';;
 		}
 		else {
-			$temp[] = $request_info['command'];
 			$temp[] = $rdetail;
 			$temp[] = substr($request_info['create_time'], 0, -7);
 			$temp[] = '--';

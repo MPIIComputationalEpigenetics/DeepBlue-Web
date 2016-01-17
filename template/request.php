@@ -103,8 +103,8 @@ include("inc/header.php");
             $( "#request_info" ).append(
             "<table class='table'>" +
             "<tr><td>ID</td><td>" + item[0] + "</td></tr>" +
-            "<tr><td>Request Type</td><td>" + item[1] + "</td></tr>" +
-            "<tr><td>Details</td><td>" + item[2] + "</td></tr>" +
+            "<tr><td>Request Info</td><td>" + item[1] + "</td></tr>" +
+            "<tr><td>Request Details</td><td>" + item[2] + "</td></tr>" +
             "<tr><td>Start Time</td><td>" + item[3] + "</td></tr>" +
             "<tr><td>End Time</td><td>" + item[4] + "</td></tr>" +
             "<tr><td>State</td><td>" + item[5] + "</td></tr>" +
