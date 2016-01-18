@@ -75,10 +75,10 @@ require_once("inc/init.php");
 			                                        <input type="text" class="form-control" placeholder="Request ID" id="request-id" />
 			                                    </th>
 												<th class="hasinput">
-													<input type="text" class="form-control" placeholder="Request Type" id="request-id" />
+													<input type="text" class="form-control" placeholder="Request Info" id="request-id" />
 												</th>
 												<th class="hasinput">
-													<input type="text" class="form-control" placeholder="Request Detail" id="request-detail"/>
+													<input type="text" class="form-control" placeholder="Request Details" id="request-detail"/>
 												</th>
 			                                    <th class="hasinput">
 			                                        <input type="text" class="form-control" placeholder="Request Start Time" id="request-start-time"/>
@@ -94,8 +94,8 @@ require_once("inc/init.php");
 			                                </tr>
 			                                <tr>
 												<th>Request ID</th>
-			                                    <th>Request Type</th>
-												<th>Request Detail</th>
+			                                    <th>Request Info</th>
+												<th>Request Details</th>
 												<th>Request Start Time</th>
 												<th>Request End Time</th>
 												<th>Request Status</th>
@@ -169,7 +169,8 @@ require_once("inc/init.php");
 				"drawCallback" : function(oSettings) {
 					responsiveHelper_datatable_fixed_column.respond();
 				}
-			}
+			},
+			"scrollX": true
 		});
 
 		$.fn.dataTableExt.sErrMode = 'none';
