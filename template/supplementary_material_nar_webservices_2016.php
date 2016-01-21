@@ -47,8 +47,11 @@ include("inc/header.php");
 <div id="main" role="main">
     <!-- MAIN CONTENT -->
     <div id="content" class="container">
-        <h1>DeepBlue Epigenomic Data Server: Programmatic access and analysis of region-set epigenomic data</h1>
-        <h2>Supplementary Material</h2>
+
+        <div style="padding: 50px">
+          <h1>DeepBlue Epigenomic Data Server: Programmatic access and analysis of region-set epigenomic data</h1>
+          <h2><small>This web page provides supplementary information for the manuscript presenting DeepBlue Epigenomic Data Server.</small></h2>
+        </div>
 
         <h3>Experiments list</h3>
         <p class="lead" style="text-align: justify;">The list of available experiments is available in the web page &rarr; left menu  &rarr; <a href="http://deepblue.mpi-inf.mpg.de/dashboard.php#ajax/deepblue_view_experiments.php" target="_blank">Experiments data</a>.</p>
@@ -73,11 +76,34 @@ include("inc/header.php");
         <div class="navy-line"></div>
 
         <h3>Use cases</h3>
-        <p class="lead" style="text-align: justify;">As illustrative applications and use cases of the DeepBlue API and data server, we provide example code for:</p>
 
         <dl class="dl-horizontal" id="freelance">
+          <h4 id='example-search_experiments'>Use case 1:<br/><b>Summarizing DNA methylation levels in liver tissue across H3K4me3 peaks regions derived from human embryonic stem cells</b></h4>
+          <dt style="width:70%">
+            <p class="lead" style="text-align: justify; padding: 15px;">
+              We firstly list all experiments that has a sample with the biosource <i>H1-hESC</i>. After, we select the <i>peaks</i> experiments from this list. These experiments regions will be the boundaries of the aggregation that will be performed.
+            </p>
+            <p class="lead" style="text-align: justify; padding: 15px;">
+              After, we list all  experiments with <i>liver</i> or <i>hepatocypes</i> biosources.
+            <p>
+            <p class="lead" style="text-align: justify; padding: 15px;">
+              For each listed <i>liver</i> or <i>hepatocytes</i> experiment, we select the associated regions of this experiment.</p>
+            <p>
+            <p class="lead" style="text-align: justify; padding: 15px;">
+              We perform an aggregation with the selected regions using the <i>H1-hESC</i> <i>H3K27ac</i> peaks as boundaries.</p>
+            <p>
+            <p class="lead" style="text-align: justify; padding: 15px;">
+              Finally, we request the regions and download them.
+            <p>
+          </dt>
+          <dd>
+            <div align="right" style="padding: 10px">
+              <img class="img-responsive" style="align: right; width: 40%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
+            </div>
+          </dd>
+
+          <h4 style="padding: 10px 0px 20px 0px " id='example-search_experiments'><b>Source code</b>  <small>(Copy it into your python interpreter)</small></h4>
           <dt>
-            <h5 id='example-search_experiments'>Summarizing DNA methylation levels in liver tissue across H3K4me3 peaks regions derived from human embryonic stem cells</h5>
             <p>We use the <a href="api.php#api-search"</a>search</a> command to find experiments that contain the texts <i>H3k27AC</i>, <i>blood</i>, and <i>peaks</i> in their metadata.
             <p>We put the names in single quotes to show that these names must be in the metadata.</p>
           </dt>
@@ -85,6 +111,20 @@ include("inc/header.php");
             <script src="https://gist.github.com/felipealbrecht/f81c14d2a52e9543567c.js"></script>
           </dd>
 
+          <!-- -->
+          <h4 id='example-search_experiments'>Use case 2:<br/><b>Identification of H3k27ac peaks that overlap with promoters in all BLUEPRINT datasets and subsequent identification of transcription factor peaks that overlap with these promoters, on all ENCODE datasets</b></h4>
+          <dt style="width:70%">
+            <p class="lead" style="text-align: justify; padding: 15px;">
+            blabla
+            </p>
+          </dt>
+          <dd>
+            <div align="right" style="padding: 10px">
+              <img class="img-responsive" style="align: right; width: 40%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
+            </div>
+          </dd>
+
+          <h4 style="padding: 10px 0px 20px 0px " id='example-search_experiments'><b>Source code</b>  <small>(Copy it into your python interpreter)</small></h4>
           <dt>
             <h5 id='example-search_experiments'>Identification of H3k27ac peaks that overlap with promoters in all BLUEPRINT datasets and subsequent identification of transcription factor peaks that overlap with these promoters, on all ENCODE datasets</h5>
             <p>We use the <a href="api.php#api-search"</a>search</a> command to find experiments that contain the texts <i>H3k27AC</i>, <i>blood</i>, and <i>peaks</i> in their metadata.
@@ -94,6 +134,20 @@ include("inc/header.php");
             <script src="https://gist.github.com/felipealbrecht/058d4fc13adab7f9c146.js"></script>
           </dd>
 
+          <!---      -->
+          <h4 id='example-search_experiments'>Use case 3:<br/><b>Calculating the mRNA expression level for your favorite genes across all hematopoietic cell types and subsequent filtering regarding those genes regions where the value of the column named “score” is higher than a given threshold</b></h4>
+          <dt style="width:70%">
+            <p class="lead" style="text-align: justify; padding: 15px;">
+            blabla
+            </p>
+          </dt>
+          <dd>
+            <div align="right" style="padding: 10px">
+              <img class="img-responsive" style="align: right; width: 40%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
+            </div>
+          </dd>
+
+          <h4 style="padding: 10px 0px 20px 0px " id='example-search_experiments'><b>Source code</b>  <small>(Copy it into your python interpreter)</small></h4>
           <dt>
             <h5 id='example-search_experiments'>Calculating the mRNA expression level for your favorite genes across all hematopoietic cell types and subsequent filtering regarding those genes regions where the value of the column named “score” is higher than a given threshold</h5>
             <p>We use the <a href="api.php#api-search"</a>search</a> command to find experiments that contain the texts <i>H3k27AC</i>, <i>blood</i>, and <i>peaks</i> in their metadata.
@@ -108,7 +162,11 @@ include("inc/header.php");
 
         <h3>Data model</h3>
 
-        <img style="border: 1px solid #ccc;" class="img-responsive"  src="supplementary_nar_webservices_2016/DeepBlue Data Model - ERD.png"/>
+        <center>
+          <a href="supplementary_nar_webservices_2016/DeepBlue Data Model - ERD.png" target="_blank">
+            <img width="60%" style="border: 1px solid #ccc;" class="img-responsive"  src="supplementary_nar_webservices_2016/DeepBlue Data Model - ERD.png"/>
+          </a>
+        </center>
 
 
     </div>
