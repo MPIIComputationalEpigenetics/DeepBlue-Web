@@ -104,8 +104,45 @@ include("inc/header.php");
 
           <h4 style="padding: 10px 0px 20px 0px " id='example-search_experiments'><b>Source code</b>  <small>(Copy it into your python interpreter)</small></h4>
           <dt>
-            <p>We use the <a href="api.php#api-search"</a>search</a> command to find experiments that contain the texts <i>H3k27AC</i>, <i>blood</i>, and <i>peaks</i> in their metadata.
-            <p>We put the names in single quotes to show that these names must be in the metadata.</p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>We import the necessary libraries and assign to the variable <i>server</i> an instance to a proxy to the DeepBlue. <small>(lines 1 - 10)</small></p>
+            <br />
+            <br />
+            <p>After, we test the connection to the server. The expected output is <i>['okay', 'DeepBlue (1.6.5) says hi to anonymous']</i>. <small>(line 11)</small></p>
+            <br />
+            <br />
+            <p>We list and extract all samples IDs with the biosource <i>H1-hESC</i> from the <i>ENCODE</i> project. <small>(lines 15-)</small></p>
+            <p>We list all peaks experiments that contains the previously selected samples IDS, the histone modification H3K4me3 from the <i>ENCODE</i> project.<small>(line 19)</small></p>
+            <p>After we extract the IDs from the listed experiments, obtain information about the experiment using the ID, and generate a list of experiments that the original file name ends with "bed.gz". <small>(lines 22-24)</small></p>
+            <p>As we are interested only on one experiment file, we do a check if found only one experiment. <small>(lines 26-28)</small></p>
+            <p>We select the regions of the selected experiment. <small>(line 30)</small>
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>Then, we list the <i>DNA Methylation</i> experiments that contains <i>liver</i> or <i>hepatocyte</i> biosource. <small>(lines 35-37)</small></p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>We iterate in each selected <i>DNA Methylation</i>, selecting its regions. <small>(lines 41-45)</small></p>
+            <p>We aggregate the selected regions using the <i>H1-hESC</i> regions.  We perform the aggregation on the column '<i>SCORE</i>'. <small>(line 46)</small></p>
+            <p>We filter and remove the aggregated regions whom did not aggregated any region. <small>(line 47)</small></p>
+            <p>Finally, we request the regions with the desired columns. We store the experiment name with the associated request ID, and also the request ID in a list of IDs. <small>(line 49-52)</small>
+            <br />
+            <br />
+            <br />
+            <br />
+            <p> We create an directory to store the data download from DeepBlue. <small>(lines 57-58)</small>
+            <br />
+            <br />
+            <br />
+            <p>The data is retrieved later. Were each request status is verified. If the request is <i>done</i>, its data is downloaded, stored in a file, and the request is removed from the list. It is repeated until all requests are processed. <small>(lines 60-75)</small>
+
           </dt>
           <dd>
             <script src="https://gist.github.com/felipealbrecht/f81c14d2a52e9543567c.js"></script>
