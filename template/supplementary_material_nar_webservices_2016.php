@@ -99,7 +99,7 @@ include("inc/header.php");
           <dd style="width: 40%;  margin-left: 55%">
             <div align="right" style="padding: 20px 0px 0px 0px">
               <center>
-                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
+                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="supplementary_nar_webservices_2016/DeepBlue Use Case 1 - Use Case 1.png">
               </center>
             </div>
           </dd>
@@ -200,7 +200,7 @@ include("inc/header.php");
           <dd>
             <div align="right" style="padding: 20px 0px 0px 0px">
               <center>
-                <img class="img-responsive" style="align: right; width: 50%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/003debf9-865b-4928-9a19-7600d51a2a0c/image.png">
+                <img class="img-responsive" style="align: right; width: 50%; border: 1px solid #ccc" src="supplementary_nar_webservices_2016/DeepBlue Use Case 1 - Use case 2.png">
               </center>
             </div>
           </dd>
