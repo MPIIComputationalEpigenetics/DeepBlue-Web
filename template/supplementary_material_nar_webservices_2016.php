@@ -27,14 +27,14 @@ include("inc/header.php");
 <style type="text/css">
 @media (min-width: 768px) {
     .dl-horizontal dt {
-        width:45%;
+        width:42%;
         padding-right: 12px;
         white-space: normal;
         text-align: justify;
         text-justify: inter-word;
     }
     .dl-horizontal dd {
-        margin-left:45%;
+        margin-left:43%;
         margin-bottom: 12px;
     }
 }
@@ -79,7 +79,7 @@ include("inc/header.php");
 
         <dl class="dl-horizontal" id="freelance">
           <h4 id='example-search_experiments'>Use case 1:<br/><b>Summarizing DNA methylation levels in liver tissue across H3K4me3 peaks regions derived from human embryonic stem cells</b></h4>
-          <dt>
+          <dt style="width: 60%">
             <p class="lead" style="text-align: justify; padding: 15px;">
               We firstly list all experiments that has a sample with the biosource <i>H1-hESC</i>. After, we select the <i>peaks</i> experiments from this list. These experiments regions will be the boundaries of the aggregation that will be performed.
             </p>
@@ -96,10 +96,10 @@ include("inc/header.php");
               Finally, we request the regions and download them.
             <p>
           </dt>
-          <dd>
+          <dd style="width: 40%;  margin-left: 55%">
             <div align="right" style="padding: 20px 0px 0px 0px">
               <center>
-                <img class="img-responsive" style="align: right; width: 50%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
+                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
               </center>
             </div>
           </dd>
@@ -109,7 +109,7 @@ include("inc/header.php");
             <br />
             <br />
             <br />
-            <p>We import the necessary libraries and assign to the variable <i>server</i> an instance to a proxy to the DeepBlue. <small>(lines 1 - 7)</small></p>
+            <p>We import the necessary libraries and assign to the variable <i>server</i> to a XML-RPC object for accessing the DeepBlue server. <small>(lines 1 - 7)</small></p>
             <p>After, we test the connection to the server. The expected output is <i>['okay', 'DeepBlue (1.6.5) says hi to anonymous']</i>. <small>(line 8)</small></p>
             <br />
             <br />
@@ -180,7 +180,7 @@ include("inc/header.php");
 
           <!-- -->
           <h4 id='example-search_experiments'>Use case 2:<br/><b>Identification of H3k27ac peaks that overlap with promoters in all BLUEPRINT datasets and subsequent identification of transcription factor peaks that overlap with these promoters, on all ENCODE datasets</b></h4>
-          <dt>
+          <dt style="width: 60%">
             <p class="lead" style="text-align: justify; padding: 15px;">
               We select the promoters regions and the H3K27ac peaks from BLUEPRINT.</p>
             </p>
@@ -197,10 +197,10 @@ include("inc/header.php");
               Finally, we request the regions and download them.
             <p>
           </dt>
-          <dd>
+          <dd style="width: 40%;  margin-left: 55%">
             <div align="right" style="padding: 20px 0px 0px 0px">
               <center>
-                <img class="img-responsive" style="align: right; width: 50%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/003debf9-865b-4928-9a19-7600d51a2a0c/image.png">
+                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/003debf9-865b-4928-9a19-7600d51a2a0c/image.png">
               </center>
             </div>
           </dd>
@@ -210,7 +210,7 @@ include("inc/header.php");
             <h4 id='example-search_experiments'>Identification of H3k27ac peaks that overlap with promoters in all BLUEPRINT datasets and subsequent identification of transcription factor peaks that overlap with these promoters, on all ENCODE datasets</h4>
             <br />
             <br />
-            <p>We import the necessary libraries and assign to the variable <i>server</i> an instance to a proxy to the DeepBlue. <small>(lines 1 - 9)</small></p>
+            <p>We import the necessary libraries and assign to the variable <i>server</i> to a XML-RPC object for accessing the DeepBlue server. <small>(lines 1 - 7)</small></p>
             <br />
             <br />
             <p>We list and extract all samples IDs with the biosource <i>H1-hESC</i> from the <i>ENCODE</i> project. <small>(lines 15-)</small></p>
