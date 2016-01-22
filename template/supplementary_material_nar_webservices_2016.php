@@ -139,11 +139,11 @@ include("inc/header.php");
             <br />
             <br />
             <p>We download and print the regions that contains the TFs that overlap with the H3K27ac and the promoters regions. <small>(lines 37-38)</small></p>
-
           </dt>
           <dd>
             <script src="https://gist.github.com/felipealbrecht/058d4fc13adab7f9c146.js"></script>
           </dd>
+          <div style="width: 550px" class="navy-line"></div>
 
 
           <!-- -->
@@ -347,7 +347,7 @@ include("inc/header.php");
           </dd>
         </dl>
 
-        <div class="navy-line"></div>
+        <div style="width: 550px" class="navy-line"></div>
 
         <h3>Data model</h3>
 
