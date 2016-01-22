@@ -84,6 +84,7 @@ include("inc/header.php");
           <!-- -->
           <h4 id='example-search_experiments'>Use case 1:<br/><b>Identification of H3k27ac peaks that overlap with promoters in all BLUEPRINT datasets and subsequent identification of transcription factor peaks that overlap with these promoters in all ENCODE datasets</b></h4>
           <dt style="width: 60%">
+            <br />
             <p class="lead" style="text-align: justify; padding: 15px;">
               We select the promoters regions and the H3K27ac peaks from BLUEPRINT.</p>
             </p>
@@ -149,6 +150,7 @@ include("inc/header.php");
 
           <h4 id='example-search_experiments'>Use case 2:<br/><b>Summarizing DNA methylation levels in liver tissue across H3K4me3 peaks regions derived from human embryonic stem cells</b></h4>
           <dt style="width: 60%">
+            <br />
             <p class="lead" style="text-align: justify; padding: 15px;">
               We first list all experiments that have a sample with the biosource <i>H1-hESC</i>. After, we select the <i>peaks</i> experiments from this list. These experiment regions will be the boundaries of the aggregation.
             </p>
@@ -248,32 +250,34 @@ include("inc/header.php");
           <div style="width: 550px" class="navy-line"></div>
 
 
-
           <!---      -->
+
           <h4 id='example-search_experiments'>Use case 3:<br/><b>Calculating the mRNA expression level for your favorite genes across all hematopoietic cell types and subsequent filtering regarding those genes regions where the value of the column named “score” is higher than a given threshold</b></h4>
-          <dt style="width:70%">
+          <dt style="width: 60%">
+            <br />
             <p class="lead" style="text-align: justify; padding: 15px;">
-              We firstly list all experiments that has a sample with the biosource <i>H1-hESC</i>. After, we select the <i>peaks</i> experiments from this list. These experiments regions will be the boundaries of the aggregation that will be performed.
+              We first select the regions of some genes ('<i>CCR1</i>', '<i>CD164</i>', '<i>CD1D</i>', '<i>CD2</i>', '<i>CD34</i>', '<i>CD3G</i>', '<i>CD44</i>') and filter those regions that are protein coding.
             </p>
             <p class="lead" style="text-align: justify; padding: 15px;">
-              After, we list all  experiments with <i>liver</i> or <i>hepatocypes</i> biosources.
+              We list all signal experiments with <i>liver</i>, <i>hematopoietic</i>, <i>hematopoietic stem cell</i>  biosources.
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
-              For each listed <i>liver</i> or <i>hepatocytes</i> experiment, we select the associated regions of this experiment.</p>
+              For each listed experiment, we select the associated regions of this experiment.</p>
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
-              We perform an aggregation with the selected regions using the <i>H1-hESC</i> <i>H3K27ac</i> peaks as boundaries.</p>
+              We perform an aggregation with the selected regions using the genes regions as boundaries.</p>
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               Finally, we request the regions and download them.
             <p>
           </dt>
-          <dd>
-            <div align="right" style="padding: 5px">
-              <img class="img-responsive" style="align: right; width: 90%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
-            </div>
+          <dd style="width: 40%;  margin-left: 55%">
+            <div align="right" style="padding: 20px 0px 0px 0px">
+              <center>
+                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="supplementary_nar_webservices_2016/deepblue_use_cases - case_3.png">
+              </center>
+           </div>
           </dd>
-
           <h4 style="padding: 10px 0px 20px 0px " id='example-search_experiments'><b>Source code</b>  <small>(Copy it into your python interpreter)</small></h4>
           <dt>
             <h5 id='example-search_experiments'>Calculating the mRNA expression level for your favorite genes across all hematopoietic cell types and subsequent filtering regarding those genes regions where the value of the column named “score” is higher than a given threshold</h5>
