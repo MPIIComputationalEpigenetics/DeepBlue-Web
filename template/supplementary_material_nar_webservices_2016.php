@@ -197,50 +197,44 @@ include("inc/header.php");
               Finally, we request the regions and download them.
             <p>
           </dt>
-          <dd style="width: 40%;  margin-left: 55%">
+          <dd>
             <div align="right" style="padding: 20px 0px 0px 0px">
               <center>
-                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/003debf9-865b-4928-9a19-7600d51a2a0c/image.png">
+                <img class="img-responsive" style="align: right; width: 50%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/003debf9-865b-4928-9a19-7600d51a2a0c/image.png">
               </center>
             </div>
           </dd>
 
           <h4 style="padding: 10px 0px 20px 0px " id='example-search_experiments'><b>Source code</b>  <small>(Copy it into your python interpreter)</small></h4>
           <dt>
-            <h4 id='example-search_experiments'>Identification of H3k27ac peaks that overlap with promoters in all BLUEPRINT datasets and subsequent identification of transcription factor peaks that overlap with these promoters, on all ENCODE datasets</h4>
+            <br />
+            <br />
             <br />
             <br />
             <p>We import the necessary libraries and assign to the variable <i>server</i> to a XML-RPC object for accessing the DeepBlue server. <small>(lines 1 - 7)</small></p>
             <br />
             <br />
-            <p>We list and extract all samples IDs with the biosource <i>H1-hESC</i> from the <i>ENCODE</i> project. <small>(lines 15-)</small></p>
-            <p>We list all peaks experiments that contains the previously selected samples IDS, the histone modification H3K4me3 from the <i>ENCODE</i> project.<small>(line 19)</small></p>
-            <p>After we extract the IDs from the listed experiments, obtain information about the experiment using the ID, and generate a list of experiments that the original file name ends with "bed.gz". <small>(lines 22-24)</small></p>
-            <p>As we are interested only on one experiment file, we do a check if found only one experiment. <small>(lines 26-28)</small></p>
-            <p>We select the regions of the selected experiment. <small>(line 30)</small>
+            <br />
+            <p>We select all the <i>H3k27ac</i> from the BLUEPRINT project. <small>(lines 9-12)</small></p>
             <br />
             <br />
             <br />
+            <p>We select the regions of the annotation <i>promoter</i> from the genome <i>GRCh38</i>. <small>(lines 15-16)</small></p>
             <br />
-            <p>Then, we list the <i>DNA Methylation</i> experiments that contains <i>liver</i> or <i>hepatocyte</i> biosource. <small>(lines 35-37)</small></p>
+            <p>We filter the H3K27ac regions that overlap with a promoter region. <small>(line 18)</small></p>
             <br />
+            <p>We select the Transcription Factors (TF) <i>AG01</i>, <i>AG02</i>, and <i>AG03</i> from the <i>ENCODE</i> project. <small>(lines 20-21)</small></p>
             <br />
-            <br />
-            <br />
-            <br />
-            <p>We iterate in each selected <i>DNA Methylation</i>, selecting its regions. <small>(lines 41-45)</small></p>
-            <p>We aggregate the selected regions using the <i>H1-hESC</i> regions.  We perform the aggregation on the column '<i>SCORE</i>'. <small>(line 46)</small></p>
-            <p>We filter and remove the aggregated regions whom did not aggregated any region. <small>(line 47)</small></p>
-            <p>Finally, we request the regions with the desired columns. We store the experiment name with the associated request ID, and also the request ID in a list of IDs. <small>(line 49-52)</small>
+            <p>We filter the TFs regions that overlap with the previously filtered H3K27ac region. <small>(line 24)</small></p>
+            <p>We request the regions. Each line will contain a region with its chromosome, start, end, experiment name, epigenetic mark, and biosource. <small>(line 24)</small></p>
             <br />
             <br />
             <br />
-            <br />
-            <p> We create an directory to store the data download from DeepBlue. <small>(lines 57-58)</small>
-            <br />
+            <p>We wait for the processing. <small>(lines 31-35)</small></p>
             <br />
             <br />
-            <p>The data is retrieved later. Were each request status is verified. If the request is <i>done</i>, its data is downloaded, stored in a file, and the request is removed from the list. It is repeated until all requests are processed. <small>(lines 60-74)</small>
+            <br />
+            <p>We download and print the regions that contains the TFs that overlap with the H3K27ac and the promoters regions. <small>(lines 37-38)</small></p>
 
           </dt>
           <dd>
