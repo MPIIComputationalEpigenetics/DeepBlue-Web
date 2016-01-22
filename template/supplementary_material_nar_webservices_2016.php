@@ -280,9 +280,67 @@ include("inc/header.php");
           </dd>
           <h4 style="padding: 10px 0px 20px 0px " id='example-search_experiments'><b>Source code</b>  <small>(Copy it into your python interpreter)</small></h4>
           <dt>
-            <h5 id='example-search_experiments'>Calculating the mRNA expression level for your favorite genes across all hematopoietic cell types and subsequent filtering regarding those genes regions where the value of the column named “score” is higher than a given threshold</h5>
-            <p>We use the <a href="api.php#api-search"</a>search</a> command to find experiments that contain the texts <i>H3k27AC</i>, <i>blood</i>, and <i>peaks</i> in their metadata.
-            <p>We put the names in single quotes to show that these names must be in the metadata.</p>
+            <br />
+            <br />
+            <br />
+            <p>We import the necessary libraries and assign the variable <i>server</i> to a XML-RPC object for accessing the DeepBlue server. <small>(lines 1 - 6)</small></p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>We select the regions of some selected genes and after we filter those regions that are <i>protein coding</i>. <small>(lines 14-18)</small></p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>We build a list of all biosources names that are related with <i>liver</i>, <i>hematopoietic</i>, and <i>hematopoietic stem cell</i>. <small>(lines 21-25)</small></p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>We list the <i>mRNA</i> signal experiments of the biosources previously listed. <small>(lines 28-32)</small> </p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>We iterate over each selected <i>mRNA</i> experiment, selecting its regions. <small>(lines 39-41)</small></p>
+            <br />
+            <p>We aggregate the selected regions using the <i>protein encoding genes</i> regions.  We perform the aggregation on the column '<i>VALUE</i>'. <small>(line 43)</small></p>
+            <br />
+            <p>We filter and remove the aggregated regions that resulting mean is zero. <small>(lines 45-46)</small></p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>Finally, we request the regions with the desired columns. We store the experiment name with the associated request ID, and also the request ID in a list of IDs. <small>(line 50-55)</small>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p> We create an directory to store the data downloaded from DeepBlue. <small>(lines 62-63)</small>
+            <br />
+            <br />
+            <br />
+            <p>The data is retrieved later. Were each request status is verified. If the request is <i>done</i>, its data is downloaded, stored in a file, and the request is removed from the list. It is repeated until all requests are processed. <small>(lines 66-81)</small>
           </dt>
           <dd>
             <script src="https://gist.github.com/felipealbrecht/c84d81c78eb06b6a1d95.js"></script>
