@@ -77,7 +77,7 @@ include("inc/header.php");
           <dd>
             <div align="right" style="padding: 20px 0px 0px 0px">
               <center>
-                <img class="img-responsive" style="align: right; width: 50%; border: 1px solid #ccc" src="supplementary_nar_webservices_2016/deepblue_use_cases - case_1.png">
+                <img class="img-responsive" style="align: right; width: 50%; border: 1px solid #ccc" src="img/deepblue_use_cases - case_1.png">
               </center>
             </div>
           </dd>
@@ -143,7 +143,7 @@ include("inc/header.php");
           <dd style="width: 40%;  margin-left: 55%">
             <div align="right" style="padding: 20px 0px 0px 0px">
               <center>
-                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="supplementary_nar_webservices_2016/deepblue_use_cases - case_2.png">
+                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="img/deepblue_use_cases - case_2.png">
               </center>
             </div>
           </dd>
@@ -247,7 +247,7 @@ include("inc/header.php");
           <dd style="width: 40%;  margin-left: 55%">
             <div align="right" style="padding: 20px 0px 0px 0px">
               <center>
-                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="supplementary_nar_webservices_2016/deepblue_use_cases - case_3.png">
+                <img class="img-responsive" style="align: right; width: 70%; border: 1px solid #ccc" src="img/deepblue_use_cases - case_3.png">
               </center>
            </div>
           </dd>
