@@ -27,14 +27,14 @@ include("inc/header.php");
 <style type="text/css">
 @media (min-width: 768px) {
     .dl-horizontal dt {
-        width:450px;
+        width:45%;
         padding-right: 12px;
         white-space: normal;
         text-align: justify;
         text-justify: inter-word;
     }
     .dl-horizontal dd {
-        margin-left:450px;
+        margin-left:45%;
         margin-bottom: 12px;
     }
 }
@@ -79,7 +79,7 @@ include("inc/header.php");
 
         <dl class="dl-horizontal" id="freelance">
           <h4 id='example-search_experiments'>Use case 1:<br/><b>Summarizing DNA methylation levels in liver tissue across H3K4me3 peaks regions derived from human embryonic stem cells</b></h4>
-          <dt style="width:70%">
+          <dt>
             <p class="lead" style="text-align: justify; padding: 15px;">
               We firstly list all experiments that has a sample with the biosource <i>H1-hESC</i>. After, we select the <i>peaks</i> experiments from this list. These experiments regions will be the boundaries of the aggregation that will be performed.
             </p>
@@ -97,8 +97,10 @@ include("inc/header.php");
             <p>
           </dt>
           <dd>
-            <div align="right" style="padding: 10px">
-              <img class="img-responsive" style="align: right; width: 40%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
+            <div align="right" style="padding: 20px 0px 0px 0px">
+              <center>
+                <img class="img-responsive" style="align: right; width: 50%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
+              </center>
             </div>
           </dd>
 
@@ -124,6 +126,9 @@ include("inc/header.php");
             <br />
             <br />
             <p>We select the regions of the selected h1-hESC H3K4me3 experiment. <small>(line 30)</small>
+            <br />
+            <br />
+            <br />
             <br />
             <br />
             <br />
@@ -175,8 +180,7 @@ include("inc/header.php");
 
           <!-- -->
           <h4 id='example-search_experiments'>Use case 2:<br/><b>Identification of H3k27ac peaks that overlap with promoters in all BLUEPRINT datasets and subsequent identification of transcription factor peaks that overlap with these promoters, on all ENCODE datasets</b></h4>
-          <dt style="width:70%">
-          <dt style="width:70%">
+          <dt>
             <p class="lead" style="text-align: justify; padding: 15px;">
               We select the promoters regions and the H3K27ac peaks from BLUEPRINT.</p>
             </p>
@@ -193,10 +197,11 @@ include("inc/header.php");
               Finally, we request the regions and download them.
             <p>
           </dt>
-          </dt>
           <dd>
-            <div align="right" style="padding: 10px">
-              <img class="img-responsive" style="align: right; width: 40%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/003debf9-865b-4928-9a19-7600d51a2a0c/image.png">
+            <div align="right" style="padding: 20px 0px 0px 0px">
+              <center>
+                <img class="img-responsive" style="align: right; width: 50%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/003debf9-865b-4928-9a19-7600d51a2a0c/image.png">
+              </center>
             </div>
           </dd>
 
@@ -262,8 +267,8 @@ include("inc/header.php");
             <p>
           </dt>
           <dd>
-            <div align="right" style="padding: 10px">
-              <img class="img-responsive" style="align: right; width: 40%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
+            <div align="right" style="padding: 5px">
+              <img class="img-responsive" style="align: right; width: 90%; border: 1px solid #ccc" src="https://www.lucidchart.com/publicSegments/view/b5100771-6c4d-46a4-b3f3-f2fb9a5de5ba/image.png">
             </div>
           </dd>
 
