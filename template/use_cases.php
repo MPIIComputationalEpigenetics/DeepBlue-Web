@@ -65,7 +65,7 @@ include("inc/header.php");
               We filter the H3K27ac regions that overlap with some promoter region.</p>
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
-              We select the signal of three Transcription Factors (TF): AG01, AG02, and AG03.</p>
+              We select the signal of the Transcription Factors SP1.</p>
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               We filter the TFs regions that overlap with some filtered H3K27ac peaks.</p>
