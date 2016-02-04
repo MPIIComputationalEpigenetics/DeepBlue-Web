@@ -24,6 +24,7 @@ $page_body_prop = array("id"=>"extr-page");
 include("inc/header.php");
 
 ?>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
 <div role="navigation" class="navbar navbar-default">
     <div class="container-fluid">
@@ -144,6 +145,14 @@ include("inc/header.php");
                                             <i></i>I agree with the <a href="#" data-toggle="modal" data-target="#myModal"> Terms and Conditions </a></label>
                                     </section>
                                 </fieldset>
+
+                                <fieldset>
+                                    <section>
+                                            <input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha">
+                                            <div class="g-recaptcha" data-sitekey="6LdubBcTAAAAAF2nJb8UYIthV5Vy3COkg9FLazMs"></div>
+                                    </section>
+                                </fieldset>
+
                                 <footer>
                                     <button type="submit" class="btn btn-primary">
                                         Register
@@ -154,7 +163,7 @@ include("inc/header.php");
                                     <i class="fa fa-check"></i>
                                     <p>
                                         Thank you for your registration! Your request is being processed.
-                                        Meanwhile, click <a href="php\deepblue_checkuser.php">here</a> to access DeepBlue from an anonymous account.
+                                        Meanwhile, click <a href="php/deepblue_checkuser.php">here</a> to access DeepBlue from an anonymous account.
                                     </p>
                                 </div>
                             </form>
@@ -296,10 +305,13 @@ All modifications or extensions of this Agreement need to be put down in writing
         }
     });
 
+
     // Validation
     $(function() {
         // Validation
         $("#smart-form-register").validate({
+            // jquery.validate ignores hidden fields by default, not validating them.
+            ignore: ".ignore",
 
             // Rules for form validation
             rules : {
@@ -332,6 +344,15 @@ All modifications or extensions of this Agreement need to be put down in writing
                 },
                 terms : {
                     required : true
+                },
+                hiddenRecaptcha: {
+                    required: function () {
+                        if (grecaptcha.getResponse() == '') {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
                 }
             },
 
@@ -362,6 +383,9 @@ All modifications or extensions of this Agreement need to be put down in writing
                 },
                 terms : {
                     required : 'You must agree with Terms and Conditions'
+                },
+                hiddenRecaptcha: {
+                    required: "Please prove that you are not a robot"
                 }
             },
 

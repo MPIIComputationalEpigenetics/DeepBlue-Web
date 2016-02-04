@@ -7,6 +7,8 @@
     require_once("class.phpmailer.php");
     include_once("classes/class.navigation.php");
 
+    /*
+     * remove in server verification because it does not work in the mpi server
     $url = 'https://www.google.com/recaptcha/api/siteverify';
 
     $data = array('secret' => '6LdubBcTAAAAAGN9rei_K5ZbKEDw96HCEY2tQu5b',
@@ -24,7 +26,7 @@
     $context  = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
 
-    if ($result === FALSE) { /* Handle error */ }
+    if ($result === FALSE) { }
 
     $response = json_decode($result, true);
 
@@ -32,6 +34,8 @@
         print_r($response['error-codes']);
         return;
     }
+
+    */
 
     $mpi_env = WebDomain::getDetails("deepblue");
 
