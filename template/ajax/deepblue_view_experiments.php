@@ -230,6 +230,7 @@ require_once("inc/init.php");
     var selectedNames = [];
     var selectedData = [];
     var list_in_use;
+    var filters = {};
 
     pageSetUp();
 
@@ -257,41 +258,58 @@ require_once("inc/init.php");
                 select: function( event, ui ) {
                     this.value = ui.item.value;
                     $(this).trigger("change");
+                    filters[event.target.id] = this.value;
+                    pullData();
                 }
             });
+            $(vocabid).blur(function() {
+                if($(this).val() == "") {
+                    delete filters[this.id];
+                    pullData();
+                }
+            });
+
         }
+    }
+
+    function pullData() {
+        //alert(filters);
+        var request1 = $.ajax({
+            url: "ajax/server_side/faceting_experiments.php",
+            data : {
+                request : filters
+            },
+            dataType: "json"
+        });
+
+        request1.done(function (data) {
+            if ("error" in data) {
+                swal({
+                    title: "Error listing experiments",
+                    text: data['message']
+                });
+                return;
+            }
+
+            // store data in local storage
+            localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+            list_in_use = data[0];
+
+            loadTableAutoComplete();
+        });
+
+        request1.fail(function (jqXHR, textStatus) {
+            console.log(jqXHR);
+            console.log('Error: ' + textStatus);
+            alert("Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint");
+        });
     }
 
     var pagefunction = function() {
 
         list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
         if (list_in_use == null) {
-            var request1 = $.ajax({
-                url: "ajax/server_side/faceting_experiments.php",
-                dataType: "json",
-            });
-
-            request1.done(function (data) {
-                if ("error" in data) {
-                    swal({
-                        title: "Error listing experiments",
-                        text: data['message']
-                    });
-                    return;
-                }
-
-                // store data in local storage
-                localStorage.setItem("list_in_use", JSON.stringify(data[0]));
-                list_in_use = data[0];
-
-                loadTableAutoComplete();
-            });
-
-            request1.fail(function (jqXHR, textStatus) {
-                console.log(jqXHR);
-                console.log('Error: ' + textStatus);
-                alert("Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint");
-            });
+            pullData();
         }
         else {
             loadTableAutoComplete();
