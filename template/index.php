@@ -284,6 +284,11 @@ include("inc/header.php");
 <script type="text/javascript">
 	runAllForms();
 
+	// check if cookies is enabled
+	if (!navigator.cookieEnabled) {
+		alert("Cookies Required. Cookies are not enabled on your browser. Please enable cookies in your browser preferences to continue");
+	}
+
 	$(function() {
 		// Validation
 		$("#login-form").validate({
