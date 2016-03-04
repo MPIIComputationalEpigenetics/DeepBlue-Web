@@ -309,6 +309,8 @@ require_once("inc/init.php");
 
         list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
         if (list_in_use == null) {
+            // TODO: Not only if list_in_use is null because it may not be null but the data is filtered so check
+            // TODO: if any filter is active, if yes, still pull fresh data
             pullData();
         }
         else {
