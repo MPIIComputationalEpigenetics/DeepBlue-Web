@@ -62,7 +62,7 @@ require_once("inc/init.php");
             <div class="row">
               <div class="col-md-3">
                 <div>
-                  <button type="submit" class="btn btn-primary" onClick="filter()"> Clear filter </button>
+                  <button type="submit" class="btn btn-primary" onClick="clearSelections()"> Clear filter </button>
                 </div>
                 <br>
                 <div class="panel-group" id="genomes-panel">
@@ -73,42 +73,29 @@ require_once("inc/init.php");
                         <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#genomes-panel" href="#genomes-spill">+</a>
                       </h4>
                     </div>
-                    <div class="list-group" id="genomes-main">
-<!--                      <div class="list-group-item" id="genome" name="genome"><span class="badge" id="genome-span">14</span>hg19</div>-->
-<!--                      <div class="list-group-item" id="genome" name="genome"><span class="badge" id="genome-span">14</span>mm10</div>-->
-<!--                      <div></div>-->
-                    </div>
-                    <ul class="list-group panel-collapse collapse out" id="genomes-spill">
-<!--                      <a href="#" class="list-group-item"><span class="badge">1</span>MMC342</a>-->
-<!--                      <a href="#" class="list-group-item"><span class="badge">12</span>GRC87</a>-->
-                    </ul>
+                    <div class="list-group" id="genomes-main"></div>
+                    <ul class="list-group panel-collapse collapse out" id="genomes-spill"></ul>
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <select class="form-control" id="genome" name="genome">
-                    <option value="">None</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <select class="form-control" id="genome" name="genome">
-                    <option value="">None</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <select class="form-control" id="genome" name="genome">
-                    <option value="">None</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <select class="form-control" id="genome" name="genome">
-                    <option value="">None</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <select class="form-control" id="genome" name="genome">
-                    <option value="">None</option>
-                  </select>
+<!--                var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];-->
+                <div class="panel-group" id="epigenetic_marks-panel">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Epigenetic Marks</span>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#epigenetic_marks-panel" href="#epigenetic_marks-spill">+</a>
+                      </h4>
+                    </div>
+                    <div class="list-group" id="epigenetic_marks-main">
+                      <!--                      <div class="list-group-item" id="genome" name="genome"><span class="badge" id="genome-span">14</span>hg19</div>-->
+                      <!--                      <div class="list-group-item" id="genome" name="genome"><span class="badge" id="genome-span">14</span>mm10</div>-->
+                      <!--                      <div></div>-->
+                    </div>
+                    <ul class="list-group panel-collapse collapse out" id="epigenetic_marks-spill">
+                      <!--                      <a href="#" class="list-group-item"><span class="badge">1</span>MMC342</a>-->
+                      <!--                      <a href="#" class="list-group-item"><span class="badge">12</span>GRC87</a>-->
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div class="col-md-9">
@@ -138,6 +125,11 @@ require_once("inc/init.php");
   var filters = {};
 
   pageSetUp();
+
+  function clearSelections() {
+    // clear list selection
+    $('.list-group-item').removeClass('active');
+  }
 
   function pullData() {
     var request1 = $.ajax({
@@ -171,20 +163,18 @@ require_once("inc/init.php");
     });
   }
 
-  function addToList(list, element, badge, index) {
-
-    if (list != "genomes") {
-      return;
-    }
+  function addToList(type, list, element, badge, index) {
 
     // build required variables
-    var elem_id = element + "_elem_id";
+    var elem_id = element;
+    var elem_name = type;
     var badge_id = element + "_badge_id";
-    var elem_string = "<div class='list-group-item' id='" + elem_id + "'><span class='badge' id='" +
-        badge_id + "'>" + badge + "</span>" + element + "</div>";
+
+    var elem_string = "<a class='list-group-item' id='" + elem_id + "' name='" + elem_name + "'><span class='badge' id='" +
+        badge_id + "'>" + badge + "</span>" + element + "</a>";
 
     // populate the main list
-    if (index <= 5) {
+    if (index < 4) {
       var list_id = "#" + list + "-main";
       $(elem_string).appendTo(list_id);
     }
@@ -195,38 +185,41 @@ require_once("inc/init.php");
     }
   }
 
+  function clearList() {
+    $(".list-group").empty();
+  }
+
   function loadFilters() {
 
     var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
-//    var vocabids = ['#experiment-project','#experiment-genome', "#experiment-technique", "#experiment-epigenetic_mark", "#experiment-biosource", "#experiment-datatype"];
-//    var suggestion2 = [];
+    var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
 
+    // first empty all the list
+    clearList();
 
     for (i in vocabnames) {
-      vocabname = vocabnames[i];
-//      vocabid = vocabids[i];
+      var vocabname = vocabnames[i];
+      var vocabid = vocabids[i];
 
-  //    suggestion2[vocabname] = []; // index for each controlled vocabulary
-      //count = 0;
+      var currentvocab = list_in_use[vocabname]['amt'];
+      var currentvocab_size = currentvocab.length;
 
-      var currentvocab = list_in_use[vocabname]['alp'];
-
-      for (j in currentvocab) {
+      var k = 0;
+      for (j=currentvocab_size-1; j>=0; j--) {
         // use jquery to add this as a list with name = currentvocab[j][1] and badge = currentvocab[j][2]
-        addToList(vocabname,currentvocab[j][1] , currentvocab[j][2], j);
-        //addToList(vocabname, currentvocab[j][1], currentvocab[j][2], j);
-    //    suggestion2[vocabname][count] = {'label' : currentvocab[j][1], 'value' : currentvocab[j][1]};
-//        count = count + 1;
+        addToList(vocabid, vocabname, currentvocab[j][1] , currentvocab[j][2], k);
+        k++;
       }
-
-//      $(vocabid).blur(function() {
-//        if($(this).val() == "") {
-//          delete filters[this.id];
-//          pullData();
-//        }
-//      });
-
     }
+
+    // add sensitivity to the list
+    $('.list-group-item').on('click',function(e){
+      if ($(this).hasClass('active')) $(this).removeClass('active');
+      else $(this).addClass('active');
+
+      filters[this.name] = this.id;
+      pullData();
+    });
   }
 
   var pagefunction = function() {
