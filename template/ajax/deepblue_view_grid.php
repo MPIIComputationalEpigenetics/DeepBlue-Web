@@ -70,7 +70,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Genome</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#genomes-panel" href="#genomes-spill">+</a>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#genomes-panel" href="#genomes-spill" id="genomes-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-genome" id="genomes-main"></div>
@@ -83,7 +83,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Epigenetic Marks</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#epigenetic_marks-panel" href="#epigenetic_marks-spill">+</a>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#epigenetic_marks-panel" href="#epigenetic_marks-spill" id="epigenetic_marks-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-epigenetic_mark" id="epigenetic_marks-main"></div>
@@ -95,7 +95,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Biosources</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#biosources-panel" href="#biosources-spill">+</a>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#biosources-panel" href="#biosources-spill" id="biosources-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-biosource" id="biosources-main"></div>
@@ -107,7 +107,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Techniques</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#techniques-panel" href="#techniques-spill">+</a>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#techniques-panel" href="#techniques-spill" id="techniques-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-technique" id="techniques-main"></div>
@@ -119,7 +119,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Projects</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill">+</a>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill" id="projects-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-project" id="projects-main"></div>
@@ -131,7 +131,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Datatypes</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill">+</a>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill" id="types-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-datatype" id="types-main"></div>
@@ -206,11 +206,13 @@ require_once("inc/init.php");
       list_in_use = data[0];
       if (filter_active) {
         localStorage.setItem("list_in_use_filter", JSON.stringify(data[0]));
+        loadFilters();
       }
       else {
         localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+        initFilters();
       }
-      loadFilters();
+
     });
 
     request1.fail(function (jqXHR, textStatus) {
@@ -227,15 +229,52 @@ require_once("inc/init.php");
     var badge_id = element + "_badge_id";
 
     if (active) {
-      var elem_string = "<a class='list-group-item active' id='" + elem_id + "'><span class='badge' id='" +
+      var elem_string = "<a class='list-group-item active' id='" + elem_id + "' onclick='selectHandler(this)'><span class='badge' id='" +
           badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
     else {
-      var elem_string = "<a class='list-group-item' id='" + elem_id + "'><span class='badge' id='" +
+      var elem_string = "<a class='list-group-item' id='" + elem_id + "' onclick='selectHandler(this)'><span class='badge' id='" +
           badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
 
     $(elem_string).prependTo(list_id);
+  }
+
+  function selectHandler(e) {
+    filter_active = true;
+
+    var selList = $(e).parent(".list-group").attr('name');
+    var selElemName = e.id;
+
+    if ($(e).hasClass('active')) {
+      var ind = filters[selList].indexOf(selElemName);
+      $(e).removeClass('active')
+      filters[selList].splice(ind);
+    }
+    else {
+      filters[selList].push(selElemName);
+    }
+
+    // update filter, pull data and prepend selections
+    pullData();
+
+    //clear all the other lists ->clear other list badge
+    //TODO: remove segment
+    for (i in vocabids) {
+      var vocabid = vocabids[i];
+      if (vocabid != selList) {
+        clearListByName(vocabid);
+      }
+    }
+
+    // remove current selection
+    removeSelectedElements(filters[selList]);
+    if (filters[selList].length == 0) {
+      clearListByName(selList);
+    }
+
+    // set badges to zero
+    clearListBadge();
   }
 
   function removeSelectedElements(selectedElem) {
@@ -263,7 +302,6 @@ require_once("inc/init.php");
   }
 
   function loadFilters() {
-
     var size_main = 4;
 
     for (i in vocabnames) {
@@ -294,44 +332,38 @@ require_once("inc/init.php");
         }
       }
     }
+  }
 
-    // add sensitivity to the list (click event handler)
-    $('.list-group-item').on('click',function(e){
-      filter_active = true;
+  function initFilters() {
 
-      var selList = $(this).parent(".list-group").attr('name');
-      var selElemName = this.id;
+    var size_main = 4;
+    for (i in vocabnames) {
+      var vocabname = vocabnames[i];
 
-      if ($(this).hasClass('active')) {
-        var ind = filters[selList].indexOf(selElemName);
-        $(this).removeClass('active')
-        filters[selList].splice(ind);
-      }
-      else {
-        filters[selList].push(selElemName);
-      }
+      var currentvocab = list_in_use[vocabname]['amt'];
+      var currentvocab_size = currentvocab.length;
 
-      // update filter, pull data and prepend selections
-      pullData();
+      var list_id_spill = "#" + vocabname + "-spill";
+      var list_id_main  = "#" + vocabname + "-main";
 
-      //clear all the other lists ->clear other list badge
-      //TODO: remove segment
-      for (i in vocabids) {
-        var vocabid = vocabids[i];
-        if (vocabid != selList) {
-          clearListByName(vocabid);
+      for (j in currentvocab) {
+        var currentElem = currentvocab[j][1];
+        var currentBadge = currentvocab[j][2]
+        if (j < currentvocab_size - size_main) {
+          // use spill list
+          addToList(list_id_spill, currentElem , currentBadge, false);
+        }
+        else {
+          addToList(list_id_main, currentvocab[j][1] , currentvocab[j][2], false);
         }
       }
+    }
+  }
 
-      // remove current selection
-      removeSelectedElements(filters[selList]);
-      if (filters[selList].length == 0) {
-        clearListByName(selList);
-      }
-
-      // set badges to zero
-      clearListBadge();
-    });
+  function toggleButton(id) {
+    $("#"+id).text(function(i,old){
+        return old=='+' ?  '-' : '+';
+      });
   }
 
   var pagefunction = function() {
@@ -343,7 +375,7 @@ require_once("inc/init.php");
       pullData();
     }
     else {
-      loadFilters();
+      initFilters();
     }
   }
 
