@@ -237,7 +237,7 @@ require_once("inc/init.php");
           badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
 
-    $(elem_string).prependTo(list_id);
+    $(elem_string).appendTo(list_id);
   }
 
   function selectHandler(e) {
@@ -258,23 +258,8 @@ require_once("inc/init.php");
     // update filter, pull data and prepend selections
     pullData();
 
-    //clear all the other lists ->clear other list badge
-    //TODO: remove segment
-    for (i in vocabids) {
-      var vocabid = vocabids[i];
-      if (vocabid != selList) {
-        clearListByName(vocabid);
-      }
-    }
-
-    // remove current selection
-    removeSelectedElements(filters[selList]);
-    if (filters[selList].length == 0) {
-      clearListByName(selList);
-    }
-
-    // set badges to zero
-    clearListBadge();
+    //clear all the other lists
+    //clearList();
   }
 
   function removeSelectedElements(selectedElem) {
@@ -304,31 +289,59 @@ require_once("inc/init.php");
   function loadFilters() {
     var size_main = 4;
 
+
     for (i in vocabnames) {
       var vocabname = vocabnames[i];
       var vocabid = vocabids[i];
+      var filtered_elements = [];
 
-      var currentvocab = list_in_use[vocabname]['amt'];
-      var currentvocab_size = currentvocab.length;
+      var currentvocab1 = list_in_use[vocabname]['amt'];
+      var currentvocab_size1 = currentvocab1.length;
 
       var list_id_spill = "#" + vocabname + "-spill";
       var list_id_main  = "#" + vocabname + "-main";
 
-      for (j in currentvocab) {
-        var currentElem = currentvocab[j][1];
-        var currentBadge = currentvocab[j][2]
+      // clear previous content
+      clearListByName(vocabid);
+
+      for(j=currentvocab_size1-1; j >= 0; j--) {
+        var currentElem1 = currentvocab1[j][1];
+        var currentBadge1 = currentvocab1[j][2];
         var active = false;
 
-        if (filters[vocabid].indexOf(currentElem) >= 0) {
+        filtered_elements.push(currentElem1);
+
+        if (filters[vocabid].indexOf(currentElem1) >= 0) {
           active = true;
         }
 
-        if (j < currentvocab_size - size_main) {
+        if (j < currentvocab_size1 - size_main) {
           // use spill list
-          addToList(list_id_spill, currentElem , currentBadge, active);
+          addToList(list_id_spill, currentElem1 , currentBadge1, active);
         }
         else {
-          addToList(list_id_main, currentvocab[j][1] , currentvocab[j][2], active);
+          addToList(list_id_main, currentElem1 , currentBadge1, active);
+        }
+      }
+
+      var list_in_use_main = JSON.parse(localStorage.getItem('list_in_use'));
+      var currentvocab2 = list_in_use_main[vocabname]['alp'];
+      var currentvocab_size2 = currentvocab2.length;
+
+      var k = 0;
+      for (j in currentvocab2) {
+        var currentElem2 = currentvocab2[j][1];
+        if ($.inArray(currentElem2, filtered_elements) < 0) {
+          if (k + currentvocab_size1 < size_main) {
+            // use main list
+            addToList(list_id_main, currentElem2 , 0, false);
+            k++;
+          }
+          else {
+            // use spill list
+            addToList(list_id_spill, currentElem2 , 0, false);
+            k++;
+          }
         }
       }
     }
@@ -346,15 +359,16 @@ require_once("inc/init.php");
       var list_id_spill = "#" + vocabname + "-spill";
       var list_id_main  = "#" + vocabname + "-main";
 
-      for (j in currentvocab) {
+      for(j=currentvocab_size-1; j >= 0; j--) {
         var currentElem = currentvocab[j][1];
         var currentBadge = currentvocab[j][2]
+
         if (j < currentvocab_size - size_main) {
           // use spill list
           addToList(list_id_spill, currentElem , currentBadge, false);
         }
         else {
-          addToList(list_id_main, currentvocab[j][1] , currentvocab[j][2], false);
+          addToList(list_id_main, currentElem , currentBadge, false);
         }
       }
     }
