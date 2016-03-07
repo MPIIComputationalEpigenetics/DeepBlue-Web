@@ -27,6 +27,7 @@ if (isset($_SESSION['user_key'])) {
 //include header
 //you can add your custom css in $page_css array.
 //Note: all css files are inside css/ folder
+$page_css[] = "sweetalert.css";
 $page_css[] = "deepblue.css";
 $no_main_header = true;
 $page_body_prop = array("id"=>"extr-page", "class"=>"landing-page");
@@ -285,8 +286,10 @@ include("inc/header.php");
 	runAllForms();
 
 	// check if cookies is enabled
+	debugger;
+	console.log(navigator.cookieEnabled);
 	if (!navigator.cookieEnabled) {
-		alert("Cookies Required. Cookies are not enabled on your browser. Please enable cookies in your browser preferences to continue");
+		sweetAlert("Cookies Required.","Cookies are not enabled on your browser. Please enable cookies in your browser preferences to continue", "error");
 	}
 
 	$(function() {
