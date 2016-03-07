@@ -231,6 +231,7 @@ require_once("inc/init.php");
     var selectedData = [];
     var list_in_use;
     var filters = {};
+    var filter_active = false;
 
     pageSetUp();
 
@@ -258,12 +259,14 @@ require_once("inc/init.php");
                 select: function( event, ui ) {
                     this.value = ui.item.value;
                     $(this).trigger("change");
+                    filter_active = true;
                     filters[event.target.id] = this.value;
                     pullData();
                 }
             });
             $(vocabid).blur(function() {
                 if($(this).val() == "") {
+                    filter_active = true;
                     delete filters[this.id];
                     pullData();
                 }
@@ -292,9 +295,13 @@ require_once("inc/init.php");
             }
 
             // store data in local storage
-            localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+            if (filter_active) {
+                localStorage.setItem("list_in_use_filter", JSON.stringify(data[0]));
+            }
+            else {
+                localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+            }
             list_in_use = data[0];
-
             loadTableAutoComplete();
         });
 
@@ -309,8 +316,6 @@ require_once("inc/init.php");
 
         list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
         if (list_in_use == null) {
-            // TODO: Not only if list_in_use is null because it may not be null but the data is filtered so check
-            // TODO: if any filter is active, if yes, still pull fresh data
             pullData();
         }
         else {

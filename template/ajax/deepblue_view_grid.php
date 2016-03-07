@@ -73,8 +73,8 @@ require_once("inc/init.php");
                         <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#genomes-panel" href="#genomes-spill">+</a>
                       </h4>
                     </div>
-                    <div class="list-group" id="genomes-main"></div>
-                    <ul class="list-group panel-collapse collapse out" id="genomes-spill"></ul>
+                    <div class="list-group" name="experiment-genome" id="genomes-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-genome" id="genomes-spill"></ul>
                   </div>
                 </div>
 <!--                var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];-->
@@ -86,15 +86,56 @@ require_once("inc/init.php");
                         <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#epigenetic_marks-panel" href="#epigenetic_marks-spill">+</a>
                       </h4>
                     </div>
-                    <div class="list-group" id="epigenetic_marks-main">
-                      <!--                      <div class="list-group-item" id="genome" name="genome"><span class="badge" id="genome-span">14</span>hg19</div>-->
-                      <!--                      <div class="list-group-item" id="genome" name="genome"><span class="badge" id="genome-span">14</span>mm10</div>-->
-                      <!--                      <div></div>-->
+                    <div class="list-group" name="experiment-epigenetic_mark" id="epigenetic_marks-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-epigenetic_mark" id="epigenetic_marks-spill"></ul>
+                  </div>
+                </div>
+                <div class="panel-group" id="biosources-panel">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Biosources</span>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#biosources-panel" href="#biosources-spill">+</a>
+                      </h4>
                     </div>
-                    <ul class="list-group panel-collapse collapse out" id="epigenetic_marks-spill">
-                      <!--                      <a href="#" class="list-group-item"><span class="badge">1</span>MMC342</a>-->
-                      <!--                      <a href="#" class="list-group-item"><span class="badge">12</span>GRC87</a>-->
-                    </ul>
+                    <div class="list-group" name="experiment-biosource" id="biosources-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-biosource" id="biosources-spill"></ul>
+                  </div>
+                </div>
+                <div class="panel-group" id="techniques-panel">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Techniques</span>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#techniques-panel" href="#techniques-spill">+</a>
+                      </h4>
+                    </div>
+                    <div class="list-group" name="experiment-technique" id="techniques-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-technique" id="techniques-spill"></ul>
+                  </div>
+                </div>
+                <div class="panel-group" id="projects-panel">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Projects</span>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill">+</a>
+                      </h4>
+                    </div>
+                    <div class="list-group" name="experiment-project" id="projects-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-project" id="projects-spill"></ul>
+                  </div>
+                </div>
+                <div class="panel-group" id="types-panel">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Datatypes</span>
+                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill">+</a>
+                      </h4>
+                    </div>
+                    <div class="list-group" name="experiment-datatype" id="types-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-datatype" id="types-spill"></ul>
                   </div>
                 </div>
               </div>
@@ -119,16 +160,28 @@ require_once("inc/init.php");
 <script type="text/javascript">
 
   var selected = [];
-  var selectedNames = [];
-  var selectedData = [];
   var list_in_use;
   var filters = {};
+  var filter_active = false;
+  var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
+  var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
 
   pageSetUp();
 
   function clearSelections() {
     // clear list selection
-    $('.list-group-item').removeClass('active');
+    init();
+    clearList();
+
+    // reload filter data
+    list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+    loadFilters();
+  }
+
+  function init() {
+    for (i in vocabids) {
+      filters[vocabids[i]] = [];
+    }
   }
 
   function pullData() {
@@ -150,9 +203,13 @@ require_once("inc/init.php");
       }
 
       // store data in local storage
-      localStorage.setItem("list_in_use", JSON.stringify(data[0]));
       list_in_use = data[0];
-
+      if (filter_active) {
+        localStorage.setItem("list_in_use_filter", JSON.stringify(data[0]));
+      }
+      else {
+        localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+      }
       loadFilters();
     });
 
@@ -163,26 +220,42 @@ require_once("inc/init.php");
     });
   }
 
-  function addToList(type, list, element, badge, index) {
+  function addToList(list_id, element, badge, active) {
 
     // build required variables
     var elem_id = element;
-    var elem_name = type;
     var badge_id = element + "_badge_id";
 
-    var elem_string = "<a class='list-group-item' id='" + elem_id + "' name='" + elem_name + "'><span class='badge' id='" +
-        badge_id + "'>" + badge + "</span>" + element + "</a>";
-
-    // populate the main list
-    if (index < 4) {
-      var list_id = "#" + list + "-main";
-      $(elem_string).appendTo(list_id);
+    if (active) {
+      var elem_string = "<a class='list-group-item active' id='" + elem_id + "'><span class='badge' id='" +
+          badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
     else {
-      // populate the spillover list
-      var list_id = "#" + list + "-spill";
-      $(elem_string).appendTo(list_id);
+      var elem_string = "<a class='list-group-item' id='" + elem_id + "'><span class='badge' id='" +
+          badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
+
+    $(elem_string).prependTo(list_id);
+  }
+
+  function removeSelectedElements(selectedElem) {
+    for (e in selectedElem) {
+      removeListElement(selectedElem[e]);
+    }
+  }
+
+  function removeListElement(elem_id) {
+    $("#"+elem_id).remove();
+  }
+
+  function clearListBadge() {
+    // set the badge count of all list element to zero
+    $(".badge").text(0);
+    $(".badge").parent(".list-group-item").off('click');
+  }
+
+  function clearListByName(listname) {
+    $("[name='" + listname + "']").empty();
   }
 
   function clearList() {
@@ -191,11 +264,7 @@ require_once("inc/init.php");
 
   function loadFilters() {
 
-    var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
-    var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
-
-    // first empty all the list
-    clearList();
+    var size_main = 4;
 
     for (i in vocabnames) {
       var vocabname = vocabnames[i];
@@ -204,30 +273,73 @@ require_once("inc/init.php");
       var currentvocab = list_in_use[vocabname]['amt'];
       var currentvocab_size = currentvocab.length;
 
-      var k = 0;
-      for (j=currentvocab_size-1; j>=0; j--) {
-        // use jquery to add this as a list with name = currentvocab[j][1] and badge = currentvocab[j][2]
-        addToList(vocabid, vocabname, currentvocab[j][1] , currentvocab[j][2], k);
-        k++;
+      var list_id_spill = "#" + vocabname + "-spill";
+      var list_id_main  = "#" + vocabname + "-main";
+
+      for (j in currentvocab) {
+        var currentElem = currentvocab[j][1];
+        var currentBadge = currentvocab[j][2]
+        var active = false;
+
+        if (filters[vocabid].indexOf(currentElem) >= 0) {
+          active = true;
+        }
+
+        if (j < currentvocab_size - size_main) {
+          // use spill list
+          addToList(list_id_spill, currentElem , currentBadge, active);
+        }
+        else {
+          addToList(list_id_main, currentvocab[j][1] , currentvocab[j][2], active);
+        }
       }
     }
 
-    // add sensitivity to the list
+    // add sensitivity to the list (click event handler)
     $('.list-group-item').on('click',function(e){
-      if ($(this).hasClass('active')) $(this).removeClass('active');
-      else $(this).addClass('active');
+      filter_active = true;
 
-      filters[this.name] = this.id;
+      var selList = $(this).parent(".list-group").attr('name');
+      var selElemName = this.id;
+
+      if ($(this).hasClass('active')) {
+        var ind = filters[selList].indexOf(selElemName);
+        $(this).removeClass('active')
+        filters[selList].splice(ind);
+      }
+      else {
+        filters[selList].push(selElemName);
+      }
+
+      // update filter, pull data and prepend selections
       pullData();
+
+      //clear all the other lists ->clear other list badge
+      //TODO: remove segment
+      for (i in vocabids) {
+        var vocabid = vocabids[i];
+        if (vocabid != selList) {
+          clearListByName(vocabid);
+        }
+      }
+
+      // remove current selection
+      removeSelectedElements(filters[selList]);
+      if (filters[selList].length == 0) {
+        clearListByName(selList);
+      }
+
+      // set badges to zero
+      clearListBadge();
     });
   }
 
   var pagefunction = function() {
 
+    init();
+
     list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
     if (list_in_use == null) {
-      // TODO: Not only if list_in_use is null because it may not be null but the data is filtered so check
-      // TODO: if any filter is active, if yes, still pull fresh data
       pullData();
     }
     else {
@@ -235,14 +347,7 @@ require_once("inc/init.php");
     }
   }
 
-  // load related plugins
-  loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
-    loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
-      loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
-        loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
-          loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
-        });
-      });
-    });
-  });
+  // load script
+  pagefunction();
+
 </script>
