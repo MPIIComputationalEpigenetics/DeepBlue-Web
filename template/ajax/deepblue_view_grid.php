@@ -140,16 +140,16 @@ require_once("inc/init.php");
                 </div>
               </div>
               <div class="col-md-9">
+                <div id="experiment-column">
+                </div>
               </div>
             </div>
           </div>
           <!-- end widget content -->
         </div>
         <!-- end widget div -->
-
       </div>
       <!-- end widget -->
-
     </article>
     <!-- WIDGET END -->
   </div>
@@ -161,21 +161,29 @@ require_once("inc/init.php");
 
   var selected = [];
   var list_in_use;
+  var experiments;
   var filters = {};
   var filter_active = false;
   var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
   var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
+  var size_main = 4;
 
   pageSetUp();
 
   function clearSelections() {
-    // clear list selection
-    init();
-    clearList();
 
-    // reload filter data
-    list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-    loadFilters();
+    // clear list selection
+    if (filter_active) {
+      $("#experiment-column").empty();
+
+      init();
+      clearList();
+
+      // reload filter data
+      list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+      filter_active = false;
+      loadFilters();
+    }
   }
 
   function init() {
@@ -207,12 +215,12 @@ require_once("inc/init.php");
       if (filter_active) {
         localStorage.setItem("list_in_use_filter", JSON.stringify(data[0]));
         loadFilters();
+        loadExperiments();
       }
       else {
         localStorage.setItem("list_in_use", JSON.stringify(data[0]));
         initFilters();
       }
-
     });
 
     request1.fail(function (jqXHR, textStatus) {
@@ -220,6 +228,49 @@ require_once("inc/init.php");
       console.log('Error: ' + textStatus);
       alert("Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint");
     });
+  }
+
+  function loadExperiments() {
+    var request2 = $.ajax({
+      url: "ajax/server_side/list_all_experiment.php",
+      data : {
+        request : filters
+      },
+      dataType: "json"
+    });
+
+    request2.done( function(data) {
+      // store data in local storage
+      if ("error" in data) {
+        swal({
+          title: "Error listing experiments",
+          text: data['message']
+        });
+        return;
+      }
+
+      //show experiments
+      showExperiments(data[0]['experiment']);
+    });
+
+    request2.fail( function(jqXHR, textStatus) {
+      console.log(jqXHR);
+      console.log('Error: '+ textStatus);
+      alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+    });
+  }
+
+  function showExperiments(data) {
+    // show experiment in the right column
+    var table_str = "<table class='table table-hover'><thead><tr><th>Experiment</th><th>Experiment Name</th></tr></thead><tbody>"
+    for (i=0; i<data.length; i++) {
+      table_str = table_str + "<tr><td>" + data[i]['label'] + "</td><td>" + data[i]['value'] + "</td></tr>"
+    }
+
+    table_str = table_str + "</tbody><table>"
+
+    $("#experiment-column").empty();
+    $("#experiment-column").append(table_str);
   }
 
   function addToList(list_id, element, badge, active) {
@@ -249,7 +300,7 @@ require_once("inc/init.php");
     if ($(e).hasClass('active')) {
       var ind = filters[selList].indexOf(selElemName);
       $(e).removeClass('active')
-      filters[selList].splice(ind);
+      filters[selList].splice(ind, 1);
     }
     else {
       filters[selList].push(selElemName);
@@ -257,9 +308,6 @@ require_once("inc/init.php");
 
     // update filter, pull data and prepend selections
     pullData();
-
-    //clear all the other lists
-    //clearList();
   }
 
   function removeSelectedElements(selectedElem) {
@@ -272,11 +320,11 @@ require_once("inc/init.php");
     $("#"+elem_id).remove();
   }
 
-  function clearListBadge() {
-    // set the badge count of all list element to zero
-    $(".badge").text(0);
-    $(".badge").parent(".list-group-item").off('click');
-  }
+//  function clearListBadge() {
+//    // set the badge count of all list element to zero
+//    $(".badge").text(0);
+//    $(".badge").parent(".list-group-item").off('click');
+//  }
 
   function clearListByName(listname) {
     $("[name='" + listname + "']").empty();
@@ -287,8 +335,6 @@ require_once("inc/init.php");
   }
 
   function loadFilters() {
-    var size_main = 4;
-
 
     for (i in vocabnames) {
       var vocabname = vocabnames[i];
@@ -304,6 +350,7 @@ require_once("inc/init.php");
       // clear previous content
       clearListByName(vocabid);
 
+      // add returned results to list
       for(j=currentvocab_size1-1; j >= 0; j--) {
         var currentElem1 = currentvocab1[j][1];
         var currentBadge1 = currentvocab1[j][2];
@@ -324,10 +371,17 @@ require_once("inc/init.php");
         }
       }
 
+      // check if returned result is empty but not suppposed to be
+      if (filtered_elements.length == 0 && filters[vocabid].length > 0) {
+        alert("error somewhere");
+        //solution is to color those guys still
+      }
+
       var list_in_use_main = JSON.parse(localStorage.getItem('list_in_use'));
       var currentvocab2 = list_in_use_main[vocabname]['alp'];
       var currentvocab_size2 = currentvocab2.length;
 
+      // add filtered results to list with count of 0
       var k = 0;
       for (j in currentvocab2) {
         var currentElem2 = currentvocab2[j][1];
@@ -349,7 +403,6 @@ require_once("inc/init.php");
 
   function initFilters() {
 
-    var size_main = 4;
     for (i in vocabnames) {
       var vocabname = vocabnames[i];
 

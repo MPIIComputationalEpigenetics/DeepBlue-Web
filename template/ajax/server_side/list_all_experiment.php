@@ -21,8 +21,21 @@ require_once("../../lib/error.php");
 
 $client = new IXR_Client(get_server());
 
+$filters = array();
+if (isset($_GET) && isset($_GET["request"])) {
+	$filters = $_GET["request"];
+}
+
+array_key_exists("experiment-project", $filters) ? $project = $filters["experiment-project"] : $project = "";
+array_key_exists("experiment-genome", $filters) ? $genome = $filters["experiment-genome"] : $genome = "";
+array_key_exists("experiment-technique", $filters) ? $technique = $filters["experiment-technique"] : $technique = "";
+array_key_exists("experiment-epigenetic_mark", $filters) ? $epigenetic_mark = $filters["experiment-epigenetic_mark"] : $epigenetic_mark = "";
+array_key_exists("experiment-biosource", $filters) ? $biosource = $filters["experiment-biosource"] : $biosource = "";
+array_key_exists("experiment-datatype", $filters) ? $type = $filters["experiment-datatype"] : $type = "";
+array_key_exists("experiment-sample", $filters) ? $sample = $filters["experiment-sample"] : $sample = "";
+
 /* retrieve list of all experiments */
-if(!$client->query("list_experiments", '', '', '','','','','', $user_key)){
+if(!$client->query("list_experiments", $genome, $type, $epigenetic_mark, $biosource, $sample, $technique, $project, $user_key)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
 else{
