@@ -262,12 +262,12 @@ require_once("inc/init.php");
 
   function showExperiments(data) {
     // show experiment in the right column
-    var table_str = "<table class='table table-hover'><thead><tr><th>Experiment</th><th>Experiment Name</th></tr></thead><tbody>"
+    var table_str = "<table class='table table-hover'><thead><tr><th>Experiment</th><th>Experiment Name</th></tr></thead><tbody>";
     for (i=0; i<data.length; i++) {
-      table_str = table_str + "<tr><td>" + data[i]['label'] + "</td><td>" + data[i]['value'] + "</td></tr>"
+      table_str = table_str + "<tr><td>" + data[i]['label'] + "</td><td>" + data[i]['value'] + "</td></tr>";
     }
 
-    table_str = table_str + "</tbody><table>"
+    table_str = table_str + "</tbody><table>";
 
     $("#experiment-column").empty();
     $("#experiment-column").append(table_str);
@@ -320,12 +320,6 @@ require_once("inc/init.php");
     $("#"+elem_id).remove();
   }
 
-//  function clearListBadge() {
-//    // set the badge count of all list element to zero
-//    $(".badge").text(0);
-//    $(".badge").parent(".list-group-item").off('click');
-//  }
-
   function clearListByName(listname) {
     $("[name='" + listname + "']").empty();
   }
@@ -357,7 +351,6 @@ require_once("inc/init.php");
         var active = false;
 
         filtered_elements.push(currentElem1);
-
         if (filters[vocabid].indexOf(currentElem1) >= 0) {
           active = true;
         }
@@ -371,12 +364,6 @@ require_once("inc/init.php");
         }
       }
 
-      // check if returned result is empty but not suppposed to be
-      if (filtered_elements.length == 0 && filters[vocabid].length > 0) {
-        alert("error somewhere");
-        //solution is to color those guys still
-      }
-
       var list_in_use_main = JSON.parse(localStorage.getItem('list_in_use'));
       var currentvocab2 = list_in_use_main[vocabname]['alp'];
       var currentvocab_size2 = currentvocab2.length;
@@ -385,15 +372,20 @@ require_once("inc/init.php");
       var k = 0;
       for (j in currentvocab2) {
         var currentElem2 = currentvocab2[j][1];
+        var active = false;
         if ($.inArray(currentElem2, filtered_elements) < 0) {
+          // for the case where the filtering returns empty results hence even the filter selected is not returned
+          if ($.inArray(currentElem2, filters[vocabid]) >= 0) {
+            active = true;
+          }
           if (k + currentvocab_size1 < size_main) {
             // use main list
-            addToList(list_id_main, currentElem2 , 0, false);
+            addToList(list_id_main, currentElem2 , 0, active);
             k++;
           }
           else {
             // use spill list
-            addToList(list_id_spill, currentElem2 , 0, false);
+            addToList(list_id_spill, currentElem2 , 0, active);
             k++;
           }
         }

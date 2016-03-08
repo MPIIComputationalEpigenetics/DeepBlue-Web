@@ -50,6 +50,7 @@ $vocabs = array('experiment');
 
 foreach ($vocabs as $vocab) {
 	$j = 0;
+	$result[$vocab] = [];
 	for ($i = 0; $i < count($lists[$vocab]); $i++) {
 		$result[$vocab][$j]['label'] = $lists[$vocab][$i][1].' ('.$lists[$vocab][$i][0].')';
 		$result[$vocab][$j]['value'] = $lists[$vocab][$i][1];
