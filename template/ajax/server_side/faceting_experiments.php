@@ -19,18 +19,18 @@ require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 require_once("../../lib/error.php");
 
-$filters = ["","", "", "", "", "", ""];
+$filters = array();
 if (isset($_GET) && isset($_GET["request"])) {
     $filters = $_GET["request"];
 }
 
-$genome = $filters[0];
-$type = $filters[1];
-$epigenetic_mark = $filters[2];
-$biosource = $filters[3];
-$sample = $filters[4];
-$technique = $filters[5];
-$project = $filters[6];
+array_key_exists("experiment-project", $filters) ? $project = $filters["experiment-project"] : $project = "";
+array_key_exists("experiment-genome", $filters) ? $genome = $filters["experiment-genome"] : $genome = "";
+array_key_exists("experiment-technique", $filters) ? $technique = $filters["experiment-technique"] : $technique = "";
+array_key_exists("experiment-epigenetic_mark", $filters) ? $epigenetic_mark = $filters["experiment-epigenetic_mark"] : $epigenetic_mark = "";
+array_key_exists("experiment-biosource", $filters) ? $biosource = $filters["experiment-biosource"] : $biosource = "";
+array_key_exists("experiment-datatype", $filters) ? $type = $filters["experiment-datatype"] : $type = "";
+array_key_exists("experiment-sample", $filters) ? $sample = $filters["experiment-sample"] : $sample = "";
 
 $client = new IXR_Client(get_server());
 $listInUse = [];

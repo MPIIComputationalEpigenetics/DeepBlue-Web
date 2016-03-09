@@ -44,6 +44,13 @@ $page_nav = array(
         "description" => "Overview of DeepBlue data."
     ),
 
+    "grid" => array(
+        "title" => "Grid",
+        "url"=> "ajax/deepblue_view_grid.php",
+        "icon" => "fa-th",
+        "description" => "Display DeepBlue with grid."
+    ),
+
     "search" => array(
         "title" => "Search",
         "url"=> "ajax/deepblue_view_search.php",
