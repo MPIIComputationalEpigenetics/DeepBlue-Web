@@ -232,9 +232,10 @@ require_once("inc/init.php");
 
   function loadExperiments() {
     var request2 = $.ajax({
-      url: "ajax/server_side/list_all_experiment.php",
+      url: "api/grid",
       data : {
-        request : filters
+        request : filters,
+        key : "<?php echo $user_key ?>"
       },
       dataType: "json"
     });
@@ -250,7 +251,7 @@ require_once("inc/init.php");
       }
 
       //show experiments
-      showExperiments(data[0]['experiment']);
+      //showExperiments(data[0]['experiment']);
     });
 
     request2.fail( function(jqXHR, textStatus) {
@@ -262,15 +263,15 @@ require_once("inc/init.php");
 
   function showExperiments(data) {
     // show experiment in the right column
-    var table_str = "<table class='table table-hover'><thead><tr><th>Experiment</th><th>Experiment Name</th></tr></thead><tbody>";
-    for (i=0; i<data.length; i++) {
-      table_str = table_str + "<tr><td>" + data[i]['label'] + "</td><td>" + data[i]['value'] + "</td></tr>";
-    }
-
-    table_str = table_str + "</tbody><table>";
-
-    $("#experiment-column").empty();
-    $("#experiment-column").append(table_str);
+//    var table_str = "<table class='table table-hover'><thead><tr><th>Experiment</th><th>Experiment Name</th></tr></thead><tbody>";
+//    for (i=0; i<data.length; i++) {
+//      table_str = table_str + "<tr><td>" + data[i]['label'] + "</td><td>" + data[i]['value'] + "</td></tr>";
+//    }
+//
+//    table_str = table_str + "</tbody><table>";
+//
+//    $("#experiment-column").empty();
+//    $("#experiment-column").append(table_str);
   }
 
   function addToList(list_id, element, badge, active) {
