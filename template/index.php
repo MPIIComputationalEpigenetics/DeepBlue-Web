@@ -286,8 +286,6 @@ include("inc/header.php");
 	runAllForms();
 
 	// check if cookies is enabled
-	debugger;
-	console.log(navigator.cookieEnabled);
 	if (!navigator.cookieEnabled) {
 		sweetAlert("Cookies Required.","Cookies are not enabled on your browser. Please enable cookies in your browser preferences to continue", "error");
 	}
