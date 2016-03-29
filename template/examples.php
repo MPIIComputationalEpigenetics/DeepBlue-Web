@@ -230,6 +230,12 @@ include("inc/header.php");
 
 
 <?php
+    //include required scripts
+    include("inc/scripts.php");
+?>
+
+
+<?php
     //include footer
     include("inc/google-analytics.php");
 ?>
