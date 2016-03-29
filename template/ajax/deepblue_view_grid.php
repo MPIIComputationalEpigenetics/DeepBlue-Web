@@ -140,7 +140,11 @@ require_once("inc/init.php");
                 </div>
               </div>
               <div class="col-md-9">
-                <div id="experiment-column">
+                <div>
+                  <button type="submit" class="btn btn-primary" onClick="clearSelections()"> Clear filter </button>
+                </div>
+                <br>
+                <div id="experiment-column" style="overflow-x: scroll;">
                 </div>
               </div>
             </div>
@@ -232,9 +236,10 @@ require_once("inc/init.php");
 
   function loadExperiments() {
     var request2 = $.ajax({
-      url: "ajax/server_side/list_all_experiment.php",
+      url: "api/grid",
       data : {
-        request : filters
+        request : filters,
+        key : "<?php echo $user_key ?>"
       },
       dataType: "json"
     });
@@ -250,7 +255,7 @@ require_once("inc/init.php");
       }
 
       //show experiments
-      showExperiments(data[0]['experiment']);
+      showExperiments(data);
     });
 
     request2.fail( function(jqXHR, textStatus) {
@@ -262,12 +267,49 @@ require_once("inc/init.php");
 
   function showExperiments(data) {
     // show experiment in the right column
-    var table_str = "<table class='table table-hover'><thead><tr><th>Experiment</th><th>Experiment Name</th></tr></thead><tbody>";
-    for (i=0; i<data.length; i++) {
-      table_str = table_str + "<tr><td>" + data[i]['label'] + "</td><td>" + data[i]['value'] + "</td></tr>";
-    }
+    var table_rows = data['cell_biosources'].length;
+    var table_columns = data['cell_epigenetic_marks'].length;
+    var cell_colors = {'BLUEPRINT Epigenome': 'red','DEEP': 'yellow','ENCODE': 'green', 'Roadmap Epigenomics': 'blue'};
 
-    table_str = table_str + "</tbody><table>";
+    var table_str = "<table class='table table-bordered'>";
+    for (i=-1; i<table_rows; i++) {
+      if (i < 0) {
+        table_str = table_str + "<thead>";
+      }
+      table_str = table_str + "<tr>";
+      for (j=-1; j<table_columns; j++) {
+        if (i<0 && j< 0) {
+          table_str = table_str + "<th></th>";
+        }
+        else if (i < 0) {
+          table_str = table_str + "<th>"  + data['cell_epigenetic_marks'][j] + "</th>";
+        }
+        else if (j < 0) {
+          table_str = table_str + "<th scope='row'>"  + data['cell_biosources'][i] + "</th>";
+        }
+        else {
+          var bio = data['cell_biosources'][i];
+          var epi = data['cell_epigenetic_marks'][j];
+          var cell_count = data['cell_experiment_count'][bio][epi];
+
+          var cell_project = data['cell_projects'][bio][epi];
+          var project_color = "";
+          if (cell_project != "") {
+            project_color = "bgcolor=" + cell_colors[cell_project];
+          }
+          table_str = table_str + "<td " + project_color + ">"  + cell_count + "</td>";
+        }
+      }
+      table_str = table_str + "</tr>";
+      if (i < 0) {
+        table_str = table_str + "</thead>";
+      }
+//      else {
+//        table_str = table_str + "</tbody>";
+//      }
+    }
+    table_str = table_str + "</table>";
+    //table_str = table_str + "</tbody><table>";
 
     $("#experiment-column").empty();
     $("#experiment-column").append(table_str);
