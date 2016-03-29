@@ -15,13 +15,7 @@
 ?>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-
-<script>
-	$(window).off();
-	$(window).off("hashchange", function(e){ checkURL() });
-	$(window).on("hashchange",function(e){ console.log(e); e.stopPropagation(); });
-</script>
-
+<script src="js/bootstrap/bootstrap.min.js"></script>
 
 <?php include("landing_menu.php"); ?>
 
@@ -33,3 +27,7 @@
 	<?php $deepBlueObj->displayAPIList(True);?>
 </div>
 
+<?php
+    //include footer
+    include("inc/google-analytics.php");
+?>
