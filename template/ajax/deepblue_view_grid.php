@@ -166,10 +166,11 @@ require_once("inc/init.php");
   var list_in_use;
   var experiments;
   var filters = {};
-  var filter_active = false;
+  var filter_active = true;
   var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
   var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
   var size_main = 4;
+  var defaults = {};
 
   pageSetUp();
 
@@ -183,9 +184,14 @@ require_once("inc/init.php");
       clearList();
 
       // reload filter data
-      list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
       filter_active = false;
-      loadFilters();
+      list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+      if (list_in_use == null) {
+        pullData();
+      }
+      else {
+        initFilters();
+      }
     }
   }
 
@@ -193,6 +199,10 @@ require_once("inc/init.php");
     for (i in vocabids) {
       filters[vocabids[i]] = [];
     }
+  }
+
+  function setDefaults() {
+    filters['experiment-epigenetic_mark'] = ['H3K4me3','H3K9me3','H3K27me3','H3K36me3','H3K4me1','H3K27ac','Input','Dna Methylation','CTCF','DNaseI','RNA','mRNA'];
   }
 
   function pullData() {
@@ -449,7 +459,7 @@ require_once("inc/init.php");
 
       for(j=currentvocab_size-1; j >= 0; j--) {
         var currentElem = currentvocab[j][1];
-        var currentBadge = currentvocab[j][2]
+        var currentBadge = currentvocab[j][2];
 
         if (j < currentvocab_size - size_main) {
           // use spill list
@@ -471,13 +481,15 @@ require_once("inc/init.php");
   var pagefunction = function() {
 
     init();
+    setDefaults();
 
     list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
     if (list_in_use == null) {
       pullData();
     }
     else {
-      initFilters();
+      loadFilters();
+      loadExperiments();
     }
   }
 
