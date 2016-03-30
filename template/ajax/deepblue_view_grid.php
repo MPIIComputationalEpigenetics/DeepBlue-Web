@@ -201,7 +201,7 @@ require_once("inc/init.php");
   }
 
   function getDefaultsEpigeneticMarks() {
-    return [];//'H3K4me3','H3K9me3','H3K27me3','H3K36me3','H3K4me1','H3K27ac','Input','DNA Methylation','CTCF','DNaseI','RNA','mRNA'];
+    return ['H3K4me3','H3K9me3','H3K27me3','H3K36me3','H3K4me1','H3K27ac','Input','DNA Methylation','CTCF','DNaseI','RNA','mRNA'];
   }
 
   function pullData() {
