@@ -166,7 +166,7 @@ require_once("inc/init.php");
   var list_in_use;
   var experiments;
   var filters = {};
-  var filter_active = true;
+  var filter_active = false;
   var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
   var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
   var size_main = 4;
@@ -175,7 +175,6 @@ require_once("inc/init.php");
   pageSetUp();
 
   function clearSelections() {
-
     // clear list selection
     if (filter_active) {
       $("#experiment-column").empty();
@@ -201,8 +200,8 @@ require_once("inc/init.php");
     }
   }
 
-  function setDefaults() {
-    filters['experiment-epigenetic_mark'] = ['H3K4me3','H3K9me3','H3K27me3','H3K36me3','H3K4me1','H3K27ac','Input','DNA Methylation','CTCF','DNaseI','RNA','mRNA'];
+  function getDefaultsEpigeneticMarks() {
+    return [];//'H3K4me3','H3K9me3','H3K27me3','H3K36me3','H3K4me1','H3K27ac','Input','DNA Methylation','CTCF','DNaseI','RNA','mRNA'];
   }
 
   function pullData() {
@@ -333,18 +332,23 @@ require_once("inc/init.php");
     var badge_id = element + "_badge_id";
 
     if (active) {
-      var elem_string = "<a class='list-group-item active' id='" + elem_id + "' onclick='selectHandler(this)'><span class='badge' id='" +
+      var elem_string = "<a class='list-group-item active' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' id='" +
           badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
     else {
-      var elem_string = "<a class='list-group-item' id='" + elem_id + "' onclick='selectHandler(this)'><span class='badge' id='" +
+      var elem_string = "<a class='list-group-item' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' id='" +
           badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
 
     $(elem_string).appendTo(list_id);
   }
 
-  function selectHandler(e) {
+  function emulateClick(id, pull_data) {
+    var element = $("a[id='"+id+"']")[0];
+    selectHandler(element, pull_data);
+  }
+
+  function selectHandler(e, pull_data) {
     filter_active = true;
 
     var selList = $(e).parent(".list-group").attr('name');
@@ -360,7 +364,9 @@ require_once("inc/init.php");
     }
 
     // update filter, pull data and prepend selections
-    pullData();
+    if (pull_data) {
+      pullData();
+    }
   }
 
   function removeSelectedElements(selectedElem) {
@@ -470,6 +476,12 @@ require_once("inc/init.php");
         }
       }
     }
+
+    var default_epigenetic_marks = getDefaultsEpigeneticMarks();
+    for (var d in default_epigenetic_marks) {
+      emulateClick(default_epigenetic_marks[d], d == default_epigenetic_marks.length - 1);
+    }
+
   }
 
   function toggleButton(id) {
@@ -481,7 +493,6 @@ require_once("inc/init.php");
   var pagefunction = function() {
 
     init();
-    setDefaults();
 
     list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
     if (list_in_use == null) {
