@@ -344,8 +344,11 @@ require_once("inc/init.php");
   }
 
   function emulateClick(id, pull_data) {
-    var element = $("a[id='"+id+"']")[0];
-    selectHandler(element, pull_data);
+    var elements = $("a[id='"+id+"']");
+    if (elements.length == 0) {
+      return;
+    }
+    selectHandler(elements[0], pull_data);
   }
 
   function selectHandler(e, pull_data) {
