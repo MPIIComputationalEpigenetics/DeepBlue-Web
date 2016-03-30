@@ -70,7 +70,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Genome</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#genomes-panel" href="#genomes-spill" id="genomes-bttn" onclick="toggleButton(this.id)">+</a>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#genomes-panel" href="#genomes-spill" id="genomes-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-genome" id="genomes-main"></div>
@@ -83,7 +83,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Epigenetic Marks</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#epigenetic_marks-panel" href="#epigenetic_marks-spill" id="epigenetic_marks-bttn" onclick="toggleButton(this.id)">+</a>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#epigenetic_marks-panel" href="#epigenetic_marks-spill" id="epigenetic_marks-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-epigenetic_mark" id="epigenetic_marks-main"></div>
@@ -95,7 +95,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Biosources</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#biosources-panel" href="#biosources-spill" id="biosources-bttn" onclick="toggleButton(this.id)">+</a>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#biosources-panel" href="#biosources-spill" id="biosources-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-biosource" id="biosources-main"></div>
@@ -107,7 +107,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Techniques</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#techniques-panel" href="#techniques-spill" id="techniques-bttn" onclick="toggleButton(this.id)">+</a>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#techniques-panel" href="#techniques-spill" id="techniques-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-technique" id="techniques-main"></div>
@@ -119,7 +119,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Projects</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill" id="projects-bttn" onclick="toggleButton(this.id)">+</a>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill" id="projects-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-project" id="projects-main"></div>
@@ -131,7 +131,7 @@ require_once("inc/init.php");
                     <div class="panel-heading" align="right">
                       <h4 class="panel-title">
                         <span style="float: left">Datatypes</span>
-                        <a class="btn btn-xs btn-primary accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill" id="types-bttn" onclick="toggleButton(this.id)">+</a>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill" id="types-bttn" onclick="toggleButton(this.id)">+</a>
                       </h4>
                     </div>
                     <div class="list-group" name="experiment-datatype" id="types-main"></div>
@@ -140,9 +140,8 @@ require_once("inc/init.php");
                 </div>
               </div>
               <div class="col-md-9">
-                <div>
-                  <button type="submit" class="btn btn-primary" onClick="clearSelections()"> Clear filter </button>
-                </div>
+                <br>
+                <br>
                 <br>
                 <div id="experiment-column" style="overflow-x: scroll;">
                 </div>
@@ -269,9 +268,11 @@ require_once("inc/init.php");
     // show experiment in the right column
     var table_rows = data['cell_biosources'].length;
     var table_columns = data['cell_epigenetic_marks'].length;
-    var cell_colors = {'BLUEPRINT Epigenome': 'red','DEEP': 'yellow','ENCODE': 'green', 'Roadmap Epigenomics': 'blue'};
 
-    var table_str = "<table class='table table-bordered'>";
+
+    var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
+
+    var table_str = "<table class='table table-striped table-condensed'>";
     for (i=-1; i<table_rows; i++) {
       if (i < 0) {
         table_str = table_str + "<thead>";
@@ -295,9 +296,9 @@ require_once("inc/init.php");
           var cell_project = data['cell_projects'][bio][epi];
           var project_color = "";
           if (cell_project != "") {
-            project_color = "bgcolor=" + cell_colors[cell_project];
+            project_color = cell_colors[cell_project];
           }
-          table_str = table_str + "<td " + project_color + ">"  + cell_count + "</td>";
+          table_str = table_str + "<td style='background:" + project_color + "'>"  + cell_count + "</td>";
         }
       }
       table_str = table_str + "</tr>";
