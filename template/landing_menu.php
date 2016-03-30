@@ -74,6 +74,23 @@
 						</li>
 				  	</ul>
         		</li>
+
+      			<li class="dropdown">
+  					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Feedback <b class="caret"></b></a>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li class="dropdown-header">
+							Feedback
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="http://deepblue.userecho.com/">Give your feedback or suggestions</a>
+						</li>
+						<li>
+							<a href="mailto:deepblue@mpi-inf.mpg.de">Write an email to us</a>
+						</li>
+				  	</ul>
+        		</li>
+
         	 </ul>
 
 		    <ul class="nav navbar-nav navbar-right">

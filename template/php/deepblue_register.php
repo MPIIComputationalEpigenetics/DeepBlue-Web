@@ -1,19 +1,50 @@
 <?php
-	error_reporting(E_ALL);
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
-	require_once("d3-helpers.php");
-	require_once("inc_ag3/config.inc.php");
-	require_once("class.phpmailer.php");
-	include_once("classes/class.navigation.php");
+    require_once("d3-helpers.php");
+    require_once("inc_ag3/config.inc.php");
+    require_once("class.phpmailer.php");
+    include_once("classes/class.navigation.php");
 
-	$mpi_env = WebDomain::getDetails("deepblue");
+    /*
+     * remove in server verification because it does not work in the mpi server
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
 
-	$str = "New User: \n";
-	foreach ($_POST as $key => $value) {
-		$str .= $key . " " . $value . "\n";
-	}
+    $data = array('secret' => '6LdubBcTAAAAAGN9rei_K5ZbKEDw96HCEY2tQu5b',
+        'response' => $_POST["g-recaptcha-response"],
+        'remoteip' => $_SERVER['REMOTE_ADDR']
+    );
 
-	$mail_host = $mpi_env["mail_host"];
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method'  => 'POST',
+            'content' => http_build_query($data),
+        ),
+    );
+    $context  = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
+
+    if ($result === FALSE) { }
+
+    $response = json_decode($result, true);
+
+    if (!$response["success"]) {
+        print_r($response['error-codes']);
+        return;
+    }
+
+    */
+
+    $mpi_env = WebDomain::getDetails("deepblue");
+
+    $str = "New User: \n";
+    foreach ($_POST as $key => $value) {
+        $str .= $key . " " . $value . "\n";
+    }
+
+    $mail_host = $mpi_env["mail_host"];
 
     $mail = new phpmailer();
     $mail->CharSet  = 'UTF-8';
@@ -35,9 +66,8 @@
     {
             print "There was an error sending the message";
     } else {
-    		print "<h1> Thank you for your interest on DeepBlue Epigenomic Data Server.</h1>";
-			print "We will check your information and create an account for you.";
+            print "<h1> Thank you for your interest on DeepBlue Epigenomic Data Server.</h1>";
+            print "We will check your information and create an account for you.";
     }
-
 ?>
 
