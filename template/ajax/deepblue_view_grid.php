@@ -36,7 +36,7 @@ require_once("inc/init.php");
 <!-- widget grid -->
 <section id="widget-grid" class="">
   <!-- row -->
-  <div class="row">
+  <div class="row" id="main-view">
 
     <!-- NEW WIDGET START -->
     <article class="col-sm-12 col-md-12 col-lg-12">
@@ -59,6 +59,16 @@ require_once("inc/init.php");
 
           <!-- widget content -->
           <div class="widget-body">
+            <div class="alert alert-info alert-block" id="main-banner">
+              <a class="close" data-dismiss="alert" href="#">×</a>
+              <h6 class="alert-heading">Information</h6>
+              Use the filter on the left hand side to select the experiment vocabulary. By default, common epigenetic marks have been selected.
+              Using the filter would change the content of the grid on the left hand side.<br>
+              The number in each square indicates the number of experiments returned by your filter. You can click on to select the experiments for download.
+              Selected experiments are shown at the buttom of the page. Clicking on experiments will remove that single experiment.
+              Click Download to download the selected experiments
+              <h6 class="alert-heading">Legend</h6>
+            </div>
             <div class="row">
               <div class="col-md-3">
                 <div>
@@ -157,6 +167,97 @@ require_once("inc/init.php");
     <!-- WIDGET END -->
   </div>
   <!-- end row -->
+  <div class="alert alert-info alert-block" id="selection-banner">
+    <h4 class="alert-heading">Selected experiments</h4>
+    Click the row to unselect an experiment. It will be removed from the data table. Click <i>Download</i> to specify options for downloading the regions.
+  </div>
+
+  <div class="row" id="selection-table">
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="jarviswidget jarviswidget-color-blueDark" id="datable-selected-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+
+        <header>
+          <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+          <h2>Selected experiment(s) </h2>
+
+        </header>
+
+        <!-- widget div-->
+        <div>
+
+          <!-- widget edit box -->
+          <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+
+          </div>
+          <!-- end widget edit box -->
+
+          <!-- widget content -->
+          <div class="widget-body no-padding">
+
+            <table id="datatable_selected_column" name='experiment-table' class="table table-striped table-bordered table-hover" width="100%">
+              <thead>
+              <tr>
+                <th class="hasinput">
+                  <input class="form-control" placeholder="ID" type="text" id="experiment-id2">
+                </th>
+
+                <th class="hasinput" style="width:20px">
+                  <input type="text" class="form-control" placeholder="Experiment" id="experiment-name2" />
+                </th>
+                <th class="hasinput" style="width:20px">
+                  <input type="text" class="form-control" placeholder="Type" id="experiment-datatype2" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Description" id="experiment-description2" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Genome" id="experiment-genome2" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Epigenetic mark" id="experiment-epigenetic_mark2" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Biosource" id="experiment-biosource2" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Sample" id="experiment-sample2" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Technique" id="experiment-technique2" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Project" id="experiment-project2" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Meta data" id="experiment-metadata2" />
+                </th>
+              </tr>
+              <tr>
+                <th>ID</th>
+                <th>Experiment Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Genome</th>
+                <th>Epigenetic Mark</th>
+                <th>Biosource</th>
+                <th>Sample</th>
+                <th>Technique</th>
+                <th>Project</th>
+                <th>Metadata</th>
+              </tr>
+              </thead>
+
+            </table>
+            <div class="downloadButtonDiv"><button type="button" id="downloadBtnBottom" class="btn btn-primary" disabled><i class="fa fa-forward"></i> Download</button></div>
+          </div>
+          <!-- end widget content -->
+        </div>
+        <!-- end widget div -->
+      </div>
+      <!-- end widget -->
+    </article>
+  </div>
 </section>
 <!-- end widget grid -->
 
@@ -171,6 +272,8 @@ require_once("inc/init.php");
   var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
   var size_main = 4;
   var defaults = {};
+  var selectedData = [];
+  var selected = [];
 
   pageSetUp();
 
@@ -281,12 +384,17 @@ require_once("inc/init.php");
 
     var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
 
-    var table_str = "<table class='table table-striped table-condensed'>";
+    var table_str = "<table class='table table-striped table-condensed' id='grid'>";
     for (i=-1; i<table_rows; i++) {
+      var bio = "";
       if (i < 0) {
         table_str = table_str + "<thead>";
       }
-      table_str = table_str + "<tr>";
+      else{
+        bio = data['cell_biosources'][i];
+      }
+
+      table_str = table_str + "<tr id='" + bio + "'>";
       for (j=-1; j<table_columns; j++) {
         if (i<0 && j< 0) {
           table_str = table_str + "<th></th>";
@@ -298,31 +406,46 @@ require_once("inc/init.php");
           table_str = table_str + "<th scope='row'>"  + data['cell_biosources'][i] + "</th>";
         }
         else {
-          var bio = data['cell_biosources'][i];
           var epi = data['cell_epigenetic_marks'][j];
           var cell_count = data['cell_experiment_count'][bio][epi];
 
           var cell_project = data['cell_projects'][bio][epi];
-          var project_color = "";
+          var project_color = "white";
           if (cell_project != "") {
             project_color = cell_colors[cell_project];
           }
-          table_str = table_str + "<td style='background:" + project_color + "'>"  + cell_count + "</td>";
+          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "'>"  + cell_count + "</td>";
         }
       }
       table_str = table_str + "</tr>";
       if (i < 0) {
         table_str = table_str + "</thead>";
       }
-//      else {
-//        table_str = table_str + "</tbody>";
-//      }
     }
     table_str = table_str + "</table>";
-    //table_str = table_str + "</tbody><table>";
 
     $("#experiment-column").empty();
     $("#experiment-column").append(table_str);
+
+    $("#grid tr").click(function(event){
+      var epi = $(event.target).get(0).id;
+      var bio = $(this).attr('id');
+      alert(epi + "\n" + bio);
+
+      var experiments = data['cell_experiments'][bio][epi];
+      for (e in experiments) {
+        selected.push(experiments[e][0]);
+        selectedData.push(experiments[e])
+        $('#datatable_selected_column').dataTable().fnAddData(experiments[e]);
+      }
+
+      if (selectedData.length > 0) {
+        $('#downloadBtnBottom').removeAttr('disabled');
+      }
+      else {
+        $('#downloadBtnBottom').attr('disabled','disabled');
+      }
+    });
   }
 
   function addToList(list_id, element, badge, active) {
@@ -503,11 +626,76 @@ require_once("inc/init.php");
     }
     else {
       initFilters();
-      loadExperiments();
     }
-  }
 
-  // load script
-  pagefunction();
+    // selected datatable
+    var otable2 = $('#datatable_selected_column').DataTable({
+      "scrollX": true
+    });
+
+    $("#experiment-id2, #experiment-name2, #experiment-datatype2, #experiment-epigenetic_mark2, #experiment-project2, " +
+        "#experiment-biosource2, #experiment-sample2, #experiment-technique2, #experiment-genome2, #experiment-metadata2, " +
+        "#experiment-description2").on('keyup change', function () {
+      otable2
+          .column( $(this).parent().index()+':visible' )
+          .search( this.value )
+          .draw();
+    });
+
+    /* remove selection by clicking of row in the selection table*/
+    $('#datatable_selected_column').on('click', 'tr', function () {
+      var id = $('td', this).eq(0).text();
+      if (id ==  "") {
+        return;
+      }
+
+      var index = selected.indexOf(id);
+      selected.splice(index,1);
+      selectedData.splice(index,1);
+
+      // TODO
+      $('#datatable_selected_column').dataTable().fnDeleteRow(index);
+      //var rowId = otable.columns(0).data().eq(0).indexOf(id);
+      //otable.row(rowId).nodes().to$().removeClass("success");
+
+      if (selectedData.length == 0) {
+        $('#downloadBtnBottom').attr('disabled','disabled');
+      }
+    });
+
+    $("#datatable_selected_column").on("click", '.exp-metadata-more-view', function (e) {
+      var toggle = $(this).text();
+      if (toggle == "-- Hide --") {
+        $(this).prev().hide(10);
+        $(this).text("-- View metadata --");
+      }
+      else {
+        $(this).prev().show(10);
+        $(this).text("-- Hide --");
+      }
+
+      e.stopPropagation();
+    });
+    
+    /* Show Options button */
+    $('#downloadBtnBottom').click(function(e){
+      // save the rows of the selected data table into local storage
+      localStorage.setItem("selectedData", JSON.stringify(selectedData));
+      window.location.href = "dashboard.php#ajax/deepblue_download_experiments.php";
+    });
+  };
+
+  // load related plugins
+  loadScript("js/plugin/bootstrap-tags/bootstrap-tagsinput.min.js", function(){
+    loadScript("js/plugin/datatables/jquery.dataTables.min.js", function(){
+      loadScript("js/plugin/datatables/dataTables.colVis.min.js", function(){
+        loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
+          loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
+            loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", pagefunction)
+          });
+        });
+      });
+    });
+  });
 
 </script>
