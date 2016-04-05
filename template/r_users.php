@@ -31,23 +31,30 @@ include("inc/header.php");
     <!-- MAIN CONTENT -->
     <div id="content" class="container">
         <h1>Using DeepBlue with R</h1>
-        <h6>Just click <a href="https://raw.githubusercontent.com/MPIIComputationalEpigenetics/DeepBlue-R/master/py/deepblue.r">here</a> to download the DeepBlue R library</h6>
 
-        <h2>Explanation</h2>
+        <p class="lead" style="text-align: justify;">We provide a R package specially crafted for accessing DeepBlue.</br>
+        This package abstract some of the DeepBlue API and provides integration with others packages, for example, <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">genome ranges</a>.</p>
 
-        <p class="lead" style="text-align: justify;">DeepBlue uses the XML-RPC protocol for the communication between the users and the server. Unhappily, the implementation of the <a href="http://bioconductor.org/packages/devel/extra/html/XMLRPC.html">XML-RPC in R</a> is not fully complaint with the <a href="http://xmlrpc.scripting.com/spec.html">XML-RPC specification</a>.</p>
-
-        <p class="lead" style="text-align: justify;">We implemented a small R library that the users can access DeepBlue from R. You can download the library from <a href="https://raw.githubusercontent.com/MPIIComputationalEpigenetics/DeepBlue-R/master/py/deepblue.r">here</a>, put in your R project directory, and execute:
-            <blockquote>
-                <i>source("deepblue.r")</i>
-            </blockquote>
+        <p class="lead" style="text-align: justify;">For installing, just execute the following command inside R:
+        <pre>library(devtools)
+install_github("MPIIComputationalEpigenetics/DeepBlue-R")</pre>
         </p>
 
+        <br />
 
-        <p class="lead" style="text-align: justify;">This library provides the DeepBlue API commands. We are currently working to include more high level commands. We strongly advice to use the command <i>deepblue.get_request_data_r</i> to retrieve the requests data. This function is faster and consume less memory than the original <i>deepblue.get_request_data</i>.</p>
+        <p class="lead" style="text-align: justify;">For listing the use cases and examples:
+        <pre>demo(package = "DeepBlue")</pre>
+        </p>
 
+        <br />
 
-        <p class="lead" style="text-align: justify;">Please, contact us if you have some suggestion or would like to provide come code. You can also access your <a href="https://github.com/MPIIComputationalEpigenetics/DeepBlue-R">github repository</a> and create an issue there.</p>
+        <p class="lead" style="text-align: justify;">For executing the <a href="http://deepblue.mpi-inf.mpg.de/use_cases.php">Use case 1</a>:
+        <pre>demo("use_case1", package = "DeepBlue")</pre>
+        </p>
+
+        <br />
+
+        <p class="lead" style="text-align: justify;">Please, create an issue at our <a href="https://github.com/MPIIComputationalEpigenetics/DeepBlue-R">github repository if you found a bug or have suggestions.</a>.</p>
     </div>
 </div>
 
