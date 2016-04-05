@@ -502,7 +502,7 @@ require_once("inc/init.php");
       pullData();
     }
     else {
-      loadFilters();
+      initFilters();
       loadExperiments();
     }
   }
