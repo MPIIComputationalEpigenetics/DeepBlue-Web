@@ -35,6 +35,8 @@ include("inc/header.php");
         <p class="lead" style="text-align: justify;">We provide a R package specially crafted for accessing DeepBlue.</br>
         This package abstract some of the DeepBlue API and provides integration with others packages, for example, <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">genome ranges</a>.</p>
 
+        <p class="lead" style="text-align: justify;">Please, remember that it is an in progress work. Bugs and changes may and will happen!</p>
+
         <p class="lead" style="text-align: justify;">For installing, just execute the following command inside R:
         <pre>library(devtools)
 install_github("MPIIComputationalEpigenetics/DeepBlue-R")</pre>
