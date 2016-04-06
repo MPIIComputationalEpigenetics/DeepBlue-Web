@@ -611,11 +611,13 @@ require_once("inc/init.php");
       }
     }
 
+  }
+
+  function toggleDefaults() {
     var default_epigenetic_marks = getDefaultsEpigeneticMarks();
     for (var d in default_epigenetic_marks) {
       emulateClick(default_epigenetic_marks[d], d == default_epigenetic_marks.length - 1);
     }
-
   }
 
   function toggleButton(id) {
@@ -634,6 +636,7 @@ require_once("inc/init.php");
     }
     else {
       initFilters();
+      toggleDefaults();
     }
 
     // selected datatable
