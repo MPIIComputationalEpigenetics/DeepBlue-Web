@@ -414,7 +414,7 @@ require_once("inc/init.php");
           if (cell_project != "") {
             project_color = cell_colors[cell_project];
           }
-          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "'>"  + cell_count + "</td>";
+          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "'><span data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</span></td>";
         }
       }
       table_str = table_str + "</tr>";
@@ -427,16 +427,24 @@ require_once("inc/init.php");
     $("#experiment-column").empty();
     $("#experiment-column").append(table_str);
 
-    $("#grid tr").click(function(event){
-      var epi = $(event.target).get(0).id;
-      var bio = $(this).attr('id');
-      alert(epi + "\n" + bio);
+    $("#grid td").click(function(event){
+
+      var cell = $(this).children('span');
+      var epi = cell.attr('data-col');
+      var bio = cell.attr('data-row');
+
+      $(this).addClass('success');
 
       var experiments = data['cell_experiments'][bio][epi];
       for (e in experiments) {
-        selected.push(experiments[e][0]);
-        selectedData.push(experiments[e])
-        $('#datatable_selected_column').dataTable().fnAddData(experiments[e]);
+        var experiment = experiments[e];
+        var experiment_id = experiment[0];
+
+        if (selected.indexOf(experiment_id) < 0) {
+          selected.push(experiment_id);
+          selectedData.push(experiment);
+          $('#datatable_selected_column').dataTable().fnAddData(experiment);
+        }
       }
 
       if (selectedData.length > 0) {
@@ -482,7 +490,7 @@ require_once("inc/init.php");
 
     if ($(e).hasClass('active')) {
       var ind = filters[selList].indexOf(selElemName);
-      $(e).removeClass('active')
+      $(e).removeClass('active');
       filters[selList].splice(ind, 1);
     }
     else {
