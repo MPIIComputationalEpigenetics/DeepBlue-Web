@@ -26,6 +26,20 @@ require_once("inc/init.php");
 
 ?>
 
+<style>
+  .table .selected-grid-cell {
+    box-shadow: 0px 0px 10px #008000;
+    -webkit-box-shadow: 0px 0px 10px #008000;
+    -moz-box-shadow: 0px 0px 10px #008000;
+  }
+
+  .table .unselected-grid-cell {
+    box-shadow: 0px 0px 10px #FFA500;
+    -webkit-box-shadow: 0px 0px 10px #FFA500;
+    -moz-box-shadow: 0px 0px 10px #FFA500;
+  }
+</style>
+
 <div class="row">
   <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
     <h1 class="page-title txt-color-blueDark"><i class="fa fa-th"></i>
@@ -458,7 +472,7 @@ require_once("inc/init.php");
           if (cell_project != "") {
             project_color = cell_colors[cell_project];
           }
-          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "'><span data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</span></td>";
+          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + " '><span data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</span></td>";
         }
       }
       table_str = table_str + "</tr>";
@@ -477,7 +491,7 @@ require_once("inc/init.php");
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
 
-      $(this).addClass('success');
+      $(cell).addClass("selected-grid-cell");
 
       var experiments = data['cell_experiments'][bio][epi];
       for (e in experiments) {
@@ -710,8 +724,8 @@ require_once("inc/init.php");
       selected.splice(index,1);
       selectedData.splice(index,1);
 
-      // TODO
       $('#datatable_selected_column').dataTable().fnDeleteRow(index);
+
       //var rowId = otable.columns(0).data().eq(0).indexOf(id);
       //otable.row(rowId).nodes().to$().removeClass("success");
 
