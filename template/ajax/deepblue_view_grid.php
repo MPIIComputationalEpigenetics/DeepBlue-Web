@@ -72,8 +72,10 @@ require_once("inc/init.php");
             <div class="row">
               <div class="col-md-3">
                 <div>
-                  <button type="submit" class="btn btn-primary" onClick="clearSelections()"> Clear filter </button>
+                  <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear All </button>
+                  <button type="submit" id="selectAllBtn" class="btn btn-primary" onClick="selectAll()" disabled> Select All </button>
                 </div>
+                <hr>
                 <br>
                 <div class="panel-group" id="genomes-panel">
                   <div class="panel panel-default">
@@ -247,7 +249,6 @@ require_once("inc/init.php");
                 <th>Metadata</th>
               </tr>
               </thead>
-
             </table>
             <div class="downloadButtonDiv"><button type="button" id="downloadBtnBottom" class="btn btn-primary" disabled><i class="fa fa-forward"></i> Download</button></div>
           </div>
@@ -292,7 +293,49 @@ require_once("inc/init.php");
         pullData();
       }
       else {
-        initFilters();
+        initFilters(false);
+      }
+    }
+    $("#clearBtn").attr('disabled', 'disabled');
+  }
+
+  function selectAll() {
+    swal(
+        {
+          title: "Are you sure?",
+          text: "Selecting all filter will take some time to load the grid!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, select all!",
+          closeOnConfirm: true
+        },
+        function(){
+          init();
+          clearList();
+
+          // reload filter data
+          list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
+          filter_active = true;
+
+          initFilters(true);
+          loadExperiments();
+          fillFilter();
+
+          $("#selectAllBtn").attr('disabled', 'disabled');
+        }
+    );
+  }
+
+  function fillFilter() {
+    for (i in vocabnames) {
+      var vocabname = vocabnames[i];
+      var vocabid = vocabids[i];
+
+      var currentvocab = list_in_use[vocabname]['amt'];
+
+      for (j in currentvocab) {
+        filters[vocabid].push(currentvocab[j][1])
       }
     }
   }
@@ -334,7 +377,8 @@ require_once("inc/init.php");
       }
       else {
         localStorage.setItem("list_in_use", JSON.stringify(data[0]));
-        initFilters();
+        initFilters(false);
+        toggleDefaults();
       }
     });
 
@@ -454,6 +498,9 @@ require_once("inc/init.php");
         $('#downloadBtnBottom').attr('disabled','disabled');
       }
     });
+
+    $('#clearBtn').removeAttr('disabled');
+    $('#selectAllBtn').removeAttr('disabled');
   }
 
   function addToList(list_id, element, badge, active) {
@@ -586,7 +633,7 @@ require_once("inc/init.php");
     }
   }
 
-  function initFilters() {
+  function initFilters(active) {
 
     for (i in vocabnames) {
       var vocabname = vocabnames[i];
@@ -603,14 +650,13 @@ require_once("inc/init.php");
 
         if (j < currentvocab_size - size_main) {
           // use spill list
-          addToList(list_id_spill, currentElem , currentBadge, false);
+          addToList(list_id_spill, currentElem , currentBadge, active);
         }
         else {
-          addToList(list_id_main, currentElem , currentBadge, false);
+          addToList(list_id_main, currentElem , currentBadge, active);
         }
       }
     }
-
   }
 
   function toggleDefaults() {
@@ -635,7 +681,7 @@ require_once("inc/init.php");
       pullData();
     }
     else {
-      initFilters();
+      initFilters(false);
       toggleDefaults();
     }
 
