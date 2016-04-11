@@ -88,6 +88,12 @@ require_once("inc/init.php");
                 <div>
                   <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear All </button>
                   <button type="submit" id="selectAllBtn" class="btn btn-primary" onClick="selectAll()" disabled> Select All </button>
+                  <hr>
+                  <form class="form-inline">
+                    <label for="grid_row_count">Number of grid rows: </label>
+                    <input type="number" id="grid_row_count" placeholder="40" class="form-control">
+                  </form>
+
                 </div>
                 <hr>
                 <br>
@@ -365,6 +371,7 @@ require_once("inc/init.php");
   function pullData() {
     var request1 = $.ajax({
       url: "ajax/server_side/faceting_experiments.php",
+      //type : "POST",
       data : {
         request : filters
       },
@@ -402,13 +409,20 @@ require_once("inc/init.php");
   }
 
   function loadExperiments() {
+
+    var row_count =  $("#grid_row_count").val();
+    if (row_count == "") {
+     row_count = 40;
+    }
     var request2 = $.ajax({
       url: "api/grid",
+      type: "GET",
+      dataType: "JSON",
       data : {
         request : filters,
-        key : "<?php echo $user_key ?>"
-      },
-      dataType: "json"
+        key : "<?php echo $user_key ?>",
+        rows : row_count
+      }
     });
 
     request2.done( function(data) {
