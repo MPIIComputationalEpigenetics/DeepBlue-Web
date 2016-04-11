@@ -28,15 +28,15 @@ require_once("inc/init.php");
 
 <style>
   .table .selected-grid-cell {
-    box-shadow: 0px 0px 10px #008000;
-    -webkit-box-shadow: 0px 0px 10px #008000;
-    -moz-box-shadow: 0px 0px 10px #008000;
+    box-shadow: 1px 1px 1px 1px #000000;
+    -webkit-box-shadow: 1px 1px 1px 1px #000000;
+    -moz-box-shadow: 1px 1px 1px 1px #000000;
   }
 
   .table .unselected-grid-cell {
-    box-shadow: 0px 0px 10px #FFA500;
-    -webkit-box-shadow: 0px 0px 10px #FFA500;
-    -moz-box-shadow: 0px 0px 10px #FFA500;
+    box-shadow: 1px 1px 1px 1px #AAAAAA;
+    -webkit-box-shadow: 1px 1px 1px 1px #AAAAAA;
+    -moz-box-shadow: 1px 1px 1px 1px #AAAAAA;
   }
 </style>
 
@@ -166,11 +166,7 @@ require_once("inc/init.php");
                 </div>
               </div>
               <div class="col-md-9">
-                <br>
-                <br>
-                <br>
-                <div id="experiment-column" style="overflow-x: scroll;">
-                </div>
+                <div id="experiment-column"></div>
               </div>
             </div>
           </div>
@@ -287,8 +283,10 @@ require_once("inc/init.php");
   var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
   var size_main = 4;
   var defaults = {};
-  var selectedData = [];
+  var selectedData = []; // selected experiment
+  var selectedCount = {}; // selected experiment counter
   var selected = [];
+  var otable;
 
   pageSetUp();
 
@@ -450,6 +448,7 @@ require_once("inc/init.php");
       }
       else{
         bio = data['cell_biosources'][i];
+        selectedCount[bio] = {};
       }
 
       table_str = table_str + "<tr id='" + bio + "'>";
@@ -472,7 +471,8 @@ require_once("inc/init.php");
           if (cell_project != "") {
             project_color = cell_colors[cell_project];
           }
-          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + " '><span data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</span></td>";
+          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+          selectedCount[bio][epi] = 0; // selected experiment counter
         }
       }
       table_str = table_str + "</tr>";
@@ -485,9 +485,17 @@ require_once("inc/init.php");
     $("#experiment-column").empty();
     $("#experiment-column").append(table_str);
 
+    otable = $('#grid').DataTable({
+      "iDisplayLength": 1000,
+      "scrollX" : true,
+      "aoColumnDefs": [
+        { "bSortable": false, "aTargets": "_all" }
+      ]
+    });
+
     $("#grid td").click(function(event){
 
-      var cell = $(this).children('span');
+      var cell = $(this);
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
 
@@ -502,6 +510,8 @@ require_once("inc/init.php");
           selected.push(experiment_id);
           selectedData.push(experiment);
           $('#datatable_selected_column').dataTable().fnAddData(experiment);
+
+          selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
         }
       }
 
@@ -719,15 +729,32 @@ require_once("inc/init.php");
       if (id ==  "") {
         return;
       }
+      var bio = $('td', this).eq(6).text();
+      var epi = $('td', this).eq(5).text();
+
+      selectedCount[bio][epi] = selectedCount[bio][epi] - 1;
+      var current_cell = otable.cells(
+          function ( idx, data, node ) {
+            if(($(node).attr('data-row') == bio) && ($(node).attr('data-col') == epi)) {
+              return true;
+            }
+            return false;
+          }
+      ).nodes();
+      current_cell.to$().removeClass("selected-grid-cell");
+
+      if (selectedCount[bio][epi] != 0) {
+        current_cell.to$().addClass("unselected-grid-cell");
+      }
+      else {
+        current_cell.to$().removeClass("unselected-grid-cell");
+      }
 
       var index = selected.indexOf(id);
       selected.splice(index,1);
       selectedData.splice(index,1);
 
       $('#datatable_selected_column').dataTable().fnDeleteRow(index);
-
-      //var rowId = otable.columns(0).data().eq(0).indexOf(id);
-      //otable.row(rowId).nodes().to$().removeClass("success");
 
       if (selectedData.length == 0) {
         $('#downloadBtnBottom').attr('disabled','disabled');
