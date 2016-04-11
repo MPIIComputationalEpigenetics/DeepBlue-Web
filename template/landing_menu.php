@@ -22,6 +22,9 @@
 							<a href="features.php">Features</a>
 						</li>
 						<li>
+							<a href="citing.php">Citing</a>
+						</li>
+						<li>
 							<a href="acknowledgements.php">Acknowledgements</a>
 						</li>
 						<li>
