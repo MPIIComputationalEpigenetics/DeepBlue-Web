@@ -28,15 +28,15 @@ require_once("inc/init.php");
 
 <style>
   .table .selected-grid-cell {
-    box-shadow: 1px 1px 1px 1px #000000;
-    -webkit-box-shadow: 1px 1px 1px 1px #000000;
-    -moz-box-shadow: 1px 1px 1px 1px #000000;
+    border-style: solid;
+    border-width: medium;
+    border-color: green;
   }
 
   .table .unselected-grid-cell {
-    box-shadow: 1px 1px 1px 1px #AAAAAA;
-    -webkit-box-shadow: 1px 1px 1px 1px #AAAAAA;
-    -moz-box-shadow: 1px 1px 1px 1px #AAAAAA;
+    border-style: solid;
+    border-width: medium;
+    border-color: yellowgreen;
   }
 </style>
 
@@ -82,6 +82,7 @@ require_once("inc/init.php");
               Selected experiments are shown at the buttom of the page. Clicking on experiments will remove that single experiment.
               Click Download to download the selected experiments
               <h6 class="alert-heading">Legend</h6>
+
             </div>
             <div class="row">
               <div class="col-md-3">
@@ -90,8 +91,8 @@ require_once("inc/init.php");
                   <button type="submit" id="selectAllBtn" class="btn btn-primary" onClick="selectAll()" disabled> Select All </button>
                   <hr>
                   <form class="form-inline">
-                    <label for="grid_row_count">Number of grid rows: </label>
-                    <input type="number" id="grid_row_count" placeholder="40" class="form-control">
+                    <label for="grid_row_count">Number of grid columns: </label>
+                    <input type="number" id="grid_row_count" placeholder="15" class="form-control">
                   </form>
 
                 </div>
@@ -410,9 +411,9 @@ require_once("inc/init.php");
 
   function loadExperiments() {
 
-    var row_count =  $("#grid_row_count").val();
-    if (row_count == "") {
-     row_count = 40;
+    var col_count =  $("#grid_col_count").val();
+    if (col_count == "") {
+     col_count = 15;
     }
     var request2 = $.ajax({
       url: "api/grid",
@@ -421,7 +422,7 @@ require_once("inc/init.php");
       data : {
         request : filters,
         key : "<?php echo $user_key ?>",
-        rows : row_count
+        cols : col_count
       }
     });
 
