@@ -91,8 +91,8 @@ require_once("inc/init.php");
                   <button type="submit" id="selectAllBtn" class="btn btn-primary" onClick="selectAll()" disabled> Select All </button>
                   <hr>
                   <form class="form-inline">
-                    <label for="grid_row_count">Number of grid columns: </label>
-                    <input type="number" id="grid_row_count" placeholder="15" class="form-control">
+                    <label for="grid_col_count">Number of grid columns: </label>
+                    <input type="number" id="grid_col_count" placeholder="15" class="form-control">
                   </form>
 
                 </div>
@@ -412,8 +412,9 @@ require_once("inc/init.php");
   function loadExperiments() {
 
     var col_count =  $("#grid_col_count").val();
-    if (col_count == "") {
-     col_count = 15;
+    if (col_count == "" || col_count < 1) {
+      $("#grid_col_count").val(15);
+      col_count = 15;
     }
     var request2 = $.ajax({
       url: "api/grid",
