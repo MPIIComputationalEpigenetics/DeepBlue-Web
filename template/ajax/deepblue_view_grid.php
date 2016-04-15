@@ -408,7 +408,7 @@ require_once("inc/init.php");
     var request2 = $.ajax({
       url: "api/grid",
       type: "GET",
-      dataType: "application/json",
+      dataType: "json",
       data : {
         request : filters,
         key : "<?php echo $user_key ?>",
