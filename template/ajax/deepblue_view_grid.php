@@ -29,13 +29,13 @@ require_once("inc/init.php");
 <style>
   .table .selected-grid-cell {
     border-style: solid;
-    border-width: medium;
+    border-width: thin;
     border-color: green;
   }
 
   .table .unselected-grid-cell {
     border-style: solid;
-    border-width: medium;
+    border-width: thin;
     border-color: yellowgreen;
   }
 </style>
@@ -451,7 +451,7 @@ require_once("inc/init.php");
 
     var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
 
-    var table_str = "<table class='table table-striped table-condensed' id='grid'>";
+    var table_str = "<table class='table table-striped table-bordered table-condensed' id='grid'>";
     for (i=-1; i<table_rows; i++) {
       var bio = "";
       if (i < 0) {
