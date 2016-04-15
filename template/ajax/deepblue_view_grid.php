@@ -88,13 +88,7 @@ require_once("inc/init.php");
               <div class="col-md-3">
                 <div>
                   <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear All </button>
-                  <button type="submit" id="selectAllBtn" class="btn btn-primary" onClick="selectAll()" disabled> Select All </button>
-                  <hr>
-                  <form class="form-inline">
-                    <label for="grid_col_count">Number of grid columns: </label>
-                    <input type="number" id="grid_col_count" placeholder="15" class="form-control">
-                  </form>
-
+                  <button type="submit" id="selectAllBtn" class="btn btn-default" onClick="selectAll()" disabled> Select All </button>
                 </div>
                 <hr>
                 <br>
@@ -411,19 +405,13 @@ require_once("inc/init.php");
 
   function loadExperiments() {
 
-    var col_count =  $("#grid_col_count").val();
-    if (col_count == "" || col_count < 1) {
-      $("#grid_col_count").val(15);
-      col_count = 15;
-    }
     var request2 = $.ajax({
       url: "api/grid",
       type: "GET",
-      dataType: "JSON",
+      dataType: "application/json",
       data : {
         request : filters,
         key : "<?php echo $user_key ?>",
-        cols : col_count
       }
     });
 
