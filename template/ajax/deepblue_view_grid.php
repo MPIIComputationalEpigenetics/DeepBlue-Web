@@ -288,6 +288,7 @@ require_once("inc/init.php");
   var selectedCount = {}; // selected experiment counter
   var selected = [];
   var otable;
+  var otable2;
 
   pageSetUp();
 
@@ -310,6 +311,12 @@ require_once("inc/init.php");
       }
     }
     $("#clearBtn").attr('disabled', 'disabled');
+
+    otable2.clear().draw();
+
+    selected = [];
+    selectedCount = {};
+    selectedData = [];
   }
 
   function selectAll() {
@@ -503,19 +510,39 @@ require_once("inc/init.php");
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
 
-      $(cell).addClass("selected-grid-cell");
+      if ($(cell).hasClass("selected-grid-cell") || $(cell).hasClass("unselected-grid-cell")) {
 
-      var experiments = data['cell_experiments'][bio][epi];
-      for (e in experiments) {
-        var experiment = experiments[e];
-        var experiment_id = experiment[0];
+        var experiments = data['cell_experiments'][bio][epi];
+        for (e in experiments) {
+          var experiment = experiments[e];
+          var experiment_id = experiment[0];
 
-        if (selected.indexOf(experiment_id) < 0) {
-          selected.push(experiment_id);
-          selectedData.push(experiment);
-          $('#datatable_selected_column').dataTable().fnAddData(experiment);
+          var index = selected.indexOf(experiment_id);
+          if (index > -1) {
+            selected.splice(index, 1);
+            selectedData.splice(index,1);
 
-          selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
+            $('#datatable_selected_column').dataTable().fnDeleteRow(index);
+          }
+        }
+        selectedCount[bio][epi] = 0;
+        $(cell).removeClass("selected-grid-cell");
+        $(cell).removeClass("unselected-grid-cell");
+      }
+      else {
+        $(cell).addClass("selected-grid-cell");
+        var experiments = data['cell_experiments'][bio][epi];
+        for (e in experiments) {
+          var experiment = experiments[e];
+          var experiment_id = experiment[0];
+
+          if (selected.indexOf(experiment_id) < 0) {
+            selected.push(experiment_id);
+            selectedData.push(experiment);
+            $('#datatable_selected_column').dataTable().fnAddData(experiment);
+
+            selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
+          }
         }
       }
 
@@ -714,7 +741,7 @@ require_once("inc/init.php");
     }
 
     // selected datatable
-    var otable2 = $('#datatable_selected_column').DataTable({
+    otable2 = $('#datatable_selected_column').DataTable({
       "scrollX": true
     });
 
