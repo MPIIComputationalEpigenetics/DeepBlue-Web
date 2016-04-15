@@ -56,7 +56,7 @@ require_once("inc/init.php");
     <article class="col-sm-12 col-md-12 col-lg-12">
 
       <!-- Widget ID (each widget will need unique ID)-->
-      <div class="jarviswidget jarviswidget-color-blue" id="tree-biosources" data-widget-editbutton="true">
+      <div class="jarviswidget jarviswidget-color-blue" id="grid-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
 
         <header>
           <span class="widget-icon"> <i class="fa fa-th"></i> </span>
@@ -73,17 +73,6 @@ require_once("inc/init.php");
 
           <!-- widget content -->
           <div class="widget-body">
-            <div class="alert alert-info alert-block" id="main-banner">
-              <a class="close" data-dismiss="alert" href="#">×</a>
-              <h6 class="alert-heading">Information</h6>
-              Use the filter on the left hand side to select the experiment vocabulary. By default, common epigenetic marks have been selected.
-              Using the filter would change the content of the grid on the left hand side.<br>
-              The number in each square indicates the number of experiments returned by your filter. You can click on to select the experiments for download.
-              Selected experiments are shown at the buttom of the page. Clicking on experiments will remove that single experiment.
-              Click Download to download the selected experiments
-              <h6 class="alert-heading">Legend</h6>
-
-            </div>
             <div class="row">
               <div class="col-md-3">
                 <div>
@@ -509,6 +498,10 @@ require_once("inc/init.php");
       var cell = $(this);
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
+
+      if (data['cell_experiment_count'][bio][epi] == 0) {
+        return;
+      }
 
       if ($(cell).hasClass("selected-grid-cell") || $(cell).hasClass("unselected-grid-cell")) {
 
