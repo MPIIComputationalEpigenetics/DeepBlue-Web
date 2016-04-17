@@ -312,7 +312,7 @@ require_once("inc/init.php");
     swal(
         {
           title: "Are you sure?",
-          text: "Selecting all filter will take some time to load the grid!",
+          text: "Selecting all elements may take some loading time.",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",
@@ -407,6 +407,7 @@ require_once("inc/init.php");
       dataType: "json",
       data : {
         request : filters,
+        cols: 15,
         key : "<?php echo $user_key ?>",
       }
     });
@@ -441,55 +442,47 @@ require_once("inc/init.php");
     var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
 
     var table_str = "<table class='table table-striped table-bordered table-condensed' id='grid'>";
-    for (i=-1; i<table_rows; i++) {
-      var bio = "";
-      if (i < 0) {
-        table_str = table_str + "<thead>";
-      }
-      else{
-        bio = data['cell_biosources'][i];
-        selectedCount[bio] = {};
-      }
+
+    table_str = table_str + "<thead><th></th>";
+    for (j = 0; j < table_columns; j++) {
+      table_str = table_str + "<th>"  + data['cell_epigenetic_marks'][j] + "</th>";
+    }
+    table_str = table_str + "</thead>";
+
+    table_str = table_str + "<tbody>";
+    for (i=0; i<table_rows; i++) {
+      var bio = data['cell_biosources'][i];
+      selectedCount[bio] = {};
 
       table_str = table_str + "<tr id='" + bio + "'>";
-      for (j=-1; j<table_columns; j++) {
-        if (i<0 && j< 0) {
-          table_str = table_str + "<th></th>";
-        }
-        else if (i < 0) {
-          table_str = table_str + "<th>"  + data['cell_epigenetic_marks'][j] + "</th>";
-        }
-        else if (j < 0) {
-          table_str = table_str + "<th scope='row'>"  + data['cell_biosources'][i] + "</th>";
-        }
-        else {
-          var epi = data['cell_epigenetic_marks'][j];
-          var cell_count = data['cell_experiment_count'][bio][epi];
+      table_str = table_str + "<td scope='row'><b>"  + data['cell_biosources'][i] + "</b></td>";
+      for (j=0; j<table_columns; j++) {
+        var epi = data['cell_epigenetic_marks'][j];
+        var cell_count = data['cell_experiment_count'][bio][epi];
 
-          var cell_project = data['cell_projects'][bio][epi];
-          var project_color = "white";
-          if (cell_project != "") {
-            project_color = cell_colors[cell_project];
-          }
-          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
-          selectedCount[bio][epi] = 0; // selected experiment counter
+        var cell_project = data['cell_projects'][bio][epi];
+        var project_color = "white";
+        if (cell_project != "") {
+          project_color = cell_colors[cell_project];
         }
+        table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+        selectedCount[bio][epi] = 0; // selected experiment counter
       }
       table_str = table_str + "</tr>";
-      if (i < 0) {
-        table_str = table_str + "</thead>";
-      }
     }
+    table_str = table_str + "</tbody>";
     table_str = table_str + "</table>";
 
     $("#experiment-column").empty();
+    debugger;
     $("#experiment-column").append(table_str);
+
+    console.log(table_str);
 
     otable = $('#grid').DataTable({
       "iDisplayLength": 1000,
-      "scrollX" : true,
       "aoColumnDefs": [
-        { "bSortable": false, "aTargets": "_all" }
+        { "bSortable": true, "aTargets": "_all" }
       ]
     });
 
@@ -498,6 +491,12 @@ require_once("inc/init.php");
       var cell = $(this);
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
+
+      debugger;
+
+      if (data['cell_experiment_count'][bio] == undefined) {
+        return;
+      }
 
       if (data['cell_experiment_count'][bio][epi] == 0) {
         return;
@@ -798,7 +797,7 @@ require_once("inc/init.php");
 
       e.stopPropagation();
     });
-    
+
     /* Show Options button */
     $('#downloadBtnBottom').click(function(e){
       // save the rows of the selected data table into local storage
