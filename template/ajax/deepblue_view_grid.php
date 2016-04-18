@@ -28,14 +28,10 @@ require_once("inc/init.php");
 
 <style>
   .table .selected-grid-cell {
-    border-style: solid;
-    border-width: thin;
     border-color: green;
   }
 
   .table .unselected-grid-cell {
-    border-style: solid;
-    border-width: thin;
     border-color: yellowgreen;
   }
 </style>
@@ -455,7 +451,7 @@ require_once("inc/init.php");
       selectedCount[bio] = {};
 
       table_str = table_str + "<tr id='" + bio + "'>";
-      table_str = table_str + "<td scope='row'><b>"  + data['cell_biosources'][i] + "</b></td>";
+      table_str = table_str + "<td scope='row' style='border-width: 1px;'><b>"  + data['cell_biosources'][i] + "</b></td>";
       for (j=0; j<table_columns; j++) {
         var epi = data['cell_epigenetic_marks'][j];
         var cell_count = data['cell_experiment_count'][bio][epi];
@@ -465,7 +461,7 @@ require_once("inc/init.php");
         if (cell_project != "") {
           project_color = cell_colors[cell_project];
         }
-        table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+        table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px; ' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
         selectedCount[bio][epi] = 0; // selected experiment counter
       }
       table_str = table_str + "</tr>";
@@ -474,7 +470,7 @@ require_once("inc/init.php");
     table_str = table_str + "</table>";
 
     $("#experiment-column").empty();
-    debugger;
+//    debugger;
     $("#experiment-column").append(table_str);
 
     console.log(table_str);
@@ -492,7 +488,7 @@ require_once("inc/init.php");
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
 
-      debugger;
+//      debugger;
 
       if (data['cell_experiment_count'][bio] == undefined) {
         return;
