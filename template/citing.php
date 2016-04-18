@@ -34,7 +34,7 @@ include("inc/header.php");
 	<div id="content" class="container">
 		<h2>Please, use the following reference for citing DeepBlue:</h2>
 		<div class="row" style="width: 525px">
-			Albrecht,F., List,M., Bock,C. and Lengauer,T. (2016) DeepBlue epigenomic data server: programmatic data retrieval and analysis of epigenome region sets. <i>Nucleic Acids Research</i>, <a href="http://dx.doi.org/10.1093/nar/gkw211">doi:10.1093/nar/gkw211</a> <b>(In press)</b>
+			Albrecht,F., List,M., Bock,C. and Lengauer,T. (2016) DeepBlue epigenomic data server: programmatic data retrieval and analysis of epigenome region sets. <i>Nucleic Acids Research</i>, <a href="http://dx.doi.org/10.1093/nar/gkw211">doi:10.1093/nar/gkw211</a>
 		</div>
 	</div>
 
