@@ -358,7 +358,7 @@ require_once("inc/init.php");
   function pullData() {
     var request1 = $.ajax({
       url: "ajax/server_side/faceting_experiments.php",
-      //type : "POST",
+      type : "POST",
       data : {
         request : filters
       },
@@ -399,8 +399,8 @@ require_once("inc/init.php");
 
     var request2 = $.ajax({
       url: "api/grid",
-      type: "GET",
-      dataType: "json",
+      type: "POST",
+      dataType: "JSON",
       data : {
         request : filters,
         cols: 15,
@@ -472,8 +472,6 @@ require_once("inc/init.php");
     $("#experiment-column").empty();
 //    debugger;
     $("#experiment-column").append(table_str);
-
-    console.log(table_str);
 
     otable = $('#grid').DataTable({
       "iDisplayLength": 1000,
