@@ -351,6 +351,10 @@ require_once("inc/init.php");
     }
   }
 
+  function getDefaultsDataTypes() {
+    return ['peaks'];
+  }
+
   function getDefaultsEpigeneticMarks() {
     return ['H3K4me3','H3K9me3','H3K27me3','H3K36me3','H3K4me1','H3K27ac','Input','DNA Methylation','CTCF','DNaseI','RNA','mRNA'];
   }
@@ -707,6 +711,12 @@ require_once("inc/init.php");
 
   function toggleDefaults() {
     var default_epigenetic_marks = getDefaultsEpigeneticMarks();
+    var default_datatypes = getDefaultsDataTypes();
+
+    for (var d in default_datatypes) {
+      emulateClick(default_datatypes[d], false);
+    }
+
     for (var d in default_epigenetic_marks) {
       emulateClick(default_epigenetic_marks[d], d == default_epigenetic_marks.length - 1);
     }
