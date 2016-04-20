@@ -397,13 +397,18 @@ require_once("inc/init.php");
 
   function loadExperiments() {
 
+    $("#experiment-column").empty();
+    $("#experiment-column").append("<img src='../img/loader2.gif' >");
+
+    $('#clearBtn').attr('disabled', 'disabled');
+    $('#selectAllBtn').attr('disabled', 'disabled');
+
     var request2 = $.ajax({
       url: "api/grid",
       type: "POST",
       dataType: "JSON",
       data : {
         request : filters,
-        cols: 15,
         key : "<?php echo $user_key ?>",
       }
     });
