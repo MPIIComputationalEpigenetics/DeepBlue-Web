@@ -460,7 +460,7 @@ require_once("inc/init.php");
       selectedCount[bio] = {};
 
       table_str = table_str + "<tr id='" + bio + "'>";
-      table_str = table_str + "<td scope='row' style='border-width: 1px;'><b>"  + data['cell_biosources'][i] + "</b></td>";
+      table_str = table_str + "<td scope='row' style='border-width: 1px; cursor: pointer;'><b>"  + data['cell_biosources'][i] + "</b></td>";
       for (j=0; j<table_columns; j++) {
         var epi = data['cell_epigenetic_marks'][j];
         var cell_count = data['cell_experiment_count'][bio][epi];
@@ -470,7 +470,7 @@ require_once("inc/init.php");
         if (cell_project != "") {
           project_color = cell_colors[cell_project];
         }
-        table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px; ' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+        table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px; cursor: pointer;' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
         selectedCount[bio][epi] = 0; // selected experiment counter
       }
       table_str = table_str + "</tr>";
