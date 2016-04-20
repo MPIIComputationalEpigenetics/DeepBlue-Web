@@ -149,6 +149,41 @@ require_once("inc/init.php");
                     <div class="list-group" name="experiment-project" id="projects-main"></div>
                     <ul class="list-group panel-collapse collapse out" name="experiment-project" id="projects-spill"></ul>
                   </div>
+                  <hr>
+                  <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Project's Legend</span>
+                        <a class="btn btn-xs btn-default disabled" role="button">-</a>
+                      </h4>
+                    </div>
+                    <table class="table">
+                      <tr>
+                        <td>ENCODE</td>
+                        <td style='background-color: lightgoldenrodyellow'></td>
+                      </tr>
+                      <tr>
+                        <td>DEEP</td>
+                        <td style='background-color: lavender'></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <hr>
+                  <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Project's Legend</span>
+                        <a class="btn btn-xs btn-default disabled" role="button">-</a>
+                      </h4>
+                    </div>
+                    <div class="list-group" id="projects-legend">
+                      <a class='list-group-item' style='background-color: lightgoldenrodyellow'>ENCODE</a>
+                      <a class='list-group-item' style='background-color: lavender'>DEEP</a>
+                    </div>
+                  </div>
+
                 </div>
               </div>
               <div class="col-md-9">
