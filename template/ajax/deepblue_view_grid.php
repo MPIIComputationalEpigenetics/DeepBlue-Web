@@ -77,6 +77,18 @@ require_once("inc/init.php");
                 </div>
                 <hr>
                 <br>
+                <div class="panel-group" id="types-panel">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Data types</span>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill" id="types-bttn" onclick="toggleButton(this.id)">+</a>
+                      </h4>
+                    </div>
+                    <div class="list-group" name="experiment-datatype" id="types-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-datatype" id="types-spill"></ul>
+                  </div>
+                </div>
                 <div class="panel-group" id="genomes-panel">
                   <div class="panel panel-default">
                     <div class="panel-heading" align="right">
@@ -136,18 +148,6 @@ require_once("inc/init.php");
                     </div>
                     <div class="list-group" name="experiment-project" id="projects-main"></div>
                     <ul class="list-group panel-collapse collapse out" name="experiment-project" id="projects-spill"></ul>
-                  </div>
-                </div>
-                <div class="panel-group" id="types-panel">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" align="right">
-                      <h4 class="panel-title">
-                        <span style="float: left">Datatypes</span>
-                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill" id="types-bttn" onclick="toggleButton(this.id)">+</a>
-                      </h4>
-                    </div>
-                    <div class="list-group" name="experiment-datatype" id="types-main"></div>
-                    <ul class="list-group panel-collapse collapse out" name="experiment-datatype" id="types-spill"></ul>
                   </div>
                 </div>
               </div>
@@ -460,7 +460,7 @@ require_once("inc/init.php");
       selectedCount[bio] = {};
 
       table_str = table_str + "<tr id='" + bio + "'>";
-      table_str = table_str + "<td scope='row' style='border-width: 1px;'><b>"  + data['cell_biosources'][i] + "</b></td>";
+      table_str = table_str + "<td scope='row' style='border-width: 1px; cursor: pointer;'><b>"  + data['cell_biosources'][i] + "</b></td>";
       for (j=0; j<table_columns; j++) {
         var epi = data['cell_epigenetic_marks'][j];
         var cell_count = data['cell_experiment_count'][bio][epi];
@@ -470,7 +470,7 @@ require_once("inc/init.php");
         if (cell_project != "") {
           project_color = cell_colors[cell_project];
         }
-        table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px; ' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+        table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px; cursor: pointer;' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
         selectedCount[bio][epi] = 0; // selected experiment counter
       }
       table_str = table_str + "</tr>";
