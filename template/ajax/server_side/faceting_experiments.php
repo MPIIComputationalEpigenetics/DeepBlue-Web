@@ -22,6 +22,9 @@ require_once("../../lib/error.php");
 $filters = array();
 if (isset($_GET) && isset($_GET["request"])) {
     $filters = $_GET["request"];
+
+} else if (isset($_POST) && isset($_POST["request"])) {
+    $filters = $_POST["request"];
 }
 
 array_key_exists("experiment-project", $filters) ? $project = $filters["experiment-project"] : $project = "";
