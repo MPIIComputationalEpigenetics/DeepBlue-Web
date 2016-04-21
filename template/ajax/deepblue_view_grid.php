@@ -457,7 +457,7 @@ require_once("inc/init.php");
       selectedCount[bio] = {};
 
       table_str = table_str + "<tr id='" + bio + "'>";
-      table_str = table_str + "<td scope='row' style='border-width: 1px; cursor: pointer;'><b>"  + data['cell_biosources'][i] + "</b></td>";
+      table_str = table_str + "<td scope='row' style='border-width: 1px;'><b>"  + data['cell_biosources'][i] + "</b></td>";
       for (j=0; j<table_columns; j++) {
         var epi = data['cell_epigenetic_marks'][j];
         var cell_count = data['cell_experiment_count'][bio][epi];
