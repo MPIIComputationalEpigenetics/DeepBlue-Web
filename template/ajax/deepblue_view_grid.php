@@ -382,7 +382,6 @@ require_once("inc/init.php");
       // store data in local storage
       list_in_use = data[0];
       if (filter_active) {
-        localStorage.setItem("list_in_use_filter", JSON.stringify(data[0]));
         loadFilters();
         loadExperiments();
       }
