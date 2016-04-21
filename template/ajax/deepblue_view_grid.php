@@ -467,7 +467,14 @@ require_once("inc/init.php");
         if (cell_project != "") {
           project_color = cell_colors[cell_project];
         }
-        table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px; cursor: pointer;' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+
+        if (cell_count == 0) {
+          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px;' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+        }
+        else {
+          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px; cursor: pointer;' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+        }
+
         selectedCount[bio][epi] = 0; // selected experiment counter
       }
       table_str = table_str + "</tr>";
