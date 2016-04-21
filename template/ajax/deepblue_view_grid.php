@@ -149,41 +149,6 @@ require_once("inc/init.php");
                     <div class="list-group" name="experiment-project" id="projects-main"></div>
                     <ul class="list-group panel-collapse collapse out" name="experiment-project" id="projects-spill"></ul>
                   </div>
-                  <hr>
-                  <div class="panel panel-default">
-                    <!-- Default panel contents -->
-                    <div class="panel-heading" align="right">
-                      <h4 class="panel-title">
-                        <span style="float: left">Project's Legend</span>
-                        <a class="btn btn-xs btn-default disabled" role="button">-</a>
-                      </h4>
-                    </div>
-                    <table class="table">
-                      <tr>
-                        <td>ENCODE</td>
-                        <td style='background-color: lightgoldenrodyellow'></td>
-                      </tr>
-                      <tr>
-                        <td>DEEP</td>
-                        <td style='background-color: lavender'></td>
-                      </tr>
-                    </table>
-                  </div>
-                  <hr>
-                  <div class="panel panel-default">
-                    <!-- Default panel contents -->
-                    <div class="panel-heading" align="right">
-                      <h4 class="panel-title">
-                        <span style="float: left">Project's Legend</span>
-                        <a class="btn btn-xs btn-default disabled" role="button">-</a>
-                      </h4>
-                    </div>
-                    <div class="list-group" id="projects-legend">
-                      <a class='list-group-item' style='background-color: lightgoldenrodyellow'>ENCODE</a>
-                      <a class='list-group-item' style='background-color: lavender'>DEEP</a>
-                    </div>
-                  </div>
-
                 </div>
               </div>
               <div class="col-md-9">
@@ -302,6 +267,7 @@ require_once("inc/init.php");
   var filter_active = false;
   var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
   var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
+  var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
   var size_main = 4;
   var defaults = {};
   var selectedData = []; // selected experiment
@@ -478,9 +444,6 @@ require_once("inc/init.php");
     var table_rows = data['cell_biosources'].length;
     var table_columns = data['cell_epigenetic_marks'].length;
 
-
-    var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
-
     var table_str = "<table class='table table-striped table-bordered table-condensed' id='grid'>";
 
     table_str = table_str + "<thead><th></th>";
@@ -593,13 +556,19 @@ require_once("inc/init.php");
     // build required variables
     var elem_id = element;
     var badge_id = element + "_badge_id";
+    var style_string = "";
+
+    if (list_id == "#projects-spill" || list_id == "#projects-main") {
+      // include colors legend
+      style_string =  "style='background-color: " + cell_colors[element] + "'";
+    }
 
     if (active) {
-      var elem_string = "<a class='list-group-item active' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' id='" +
+      var elem_string = "<a class='list-group-item active' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' " + style_string + " id='" +
           badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
     else {
-      var elem_string = "<a class='list-group-item' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' id='" +
+      var elem_string = "<a class='list-group-item' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' " + style_string + " id='" +
           badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
 
