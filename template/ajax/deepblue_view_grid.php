@@ -446,8 +446,10 @@ require_once("inc/init.php");
     var table_str = "<table class='table table-striped table-bordered table-condensed' id='grid'>";
 
     table_str = table_str + "<thead><th></th>";
+    var epi;
     for (j = 0; j < table_columns; j++) {
-      table_str = table_str + "<th>"  + data['cell_epigenetic_marks'][j] + "</th>";
+      epi = data['cell_epigenetic_marks'][j];
+      table_str = table_str + "<th data-col='" + epi + "'>"  + epi + "</th>";
     }
     table_str = table_str + "</thead>";
 
@@ -456,8 +458,8 @@ require_once("inc/init.php");
       var bio = data['cell_biosources'][i];
       selectedCount[bio] = {};
 
-      table_str = table_str + "<tr id='" + bio + "'>";
-      table_str = table_str + "<td scope='row' style='border-width: 1px;'><b>"  + data['cell_biosources'][i] + "</b></td>";
+      table_str = table_str + "<tr>";
+      table_str = table_str + "<td scope='row' data-row='" + bio + "' style='border-width: 1px;'><b>"  + bio + "</b></td>";
       for (j=0; j<table_columns; j++) {
         var epi = data['cell_epigenetic_marks'][j];
         var cell_count = data['cell_experiment_count'][bio][epi];
@@ -469,10 +471,10 @@ require_once("inc/init.php");
         }
 
         if (cell_count == 0) {
-          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px;' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+          table_str = table_str + "<td style='background:" + project_color + "; border-width: 1px;' data-val='0' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
         }
         else {
-          table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px; cursor: pointer;' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+          table_str = table_str + "<td style='background:" + project_color + "; border-width: 1px; cursor: pointer;' data-val='" + cell_count + "' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
         }
 
         selectedCount[bio][epi] = 0; // selected experiment counter
@@ -493,19 +495,79 @@ require_once("inc/init.php");
       ]
     });
 
+    $("#grid td").dblclick(function(event){
+      var cell = $(this);
+      var epi = cell.attr('data-col');
+      var bio = cell.attr('data-row');
+
+      if (epi == undefined) {
+        var current_cells = otable.cells(
+            function ( idx, data, node ) {
+              if(($(node).attr('data-row') == bio) && ($(node).attr('data-val') != 0)) {
+                return true;
+              }
+              return false;
+            }
+        ).nodes();
+
+        var row_experiments = data['cell_experiments'][bio];
+        if ($(cell).hasClass("selected-grid-cell")) {
+          current_cells.to$().removeClass("selected-grid-cell");
+
+          for (r in row_experiments) {
+            var cell_experiments = row_experiments[r];
+            var curr_epi = cell_experiments[1];
+            for (e in cell_experiments) {
+              var experiment = cell_experiments[e];
+              var experiment_id = experiment[0];
+
+              var index = selected.indexOf(experiment_id);
+              if (index > -1) {
+                selected.splice(index, 1);
+                selectedData.splice(index, 1);
+
+                $('#datatable_selected_column').dataTable().fnDeleteRow(index);
+              }
+            }
+            selectedCount[bio][r] = 0;
+          }
+
+        }
+        else {
+          current_cells.to$().removeClass("unselected-grid-cell");
+          current_cells.to$().addClass("selected-grid-cell");
+
+          for (r in row_experiments) {
+            var cell_experiments = row_experiments[r];
+            for (e in cell_experiments) {
+              var experiment = cell_experiments[e];
+              var experiment_id = experiment[0];
+
+              if (selected.indexOf(experiment_id) < 0) {
+                selected.push(experiment_id);
+                selectedData.push(experiment);
+                $('#datatable_selected_column').dataTable().fnAddData(experiment);
+
+                selectedCount[bio][r] = selectedCount[bio][r] + 1;
+              }
+            }
+          }
+        }
+      }
+    });
+
     $("#grid td").click(function(event){
 
       var cell = $(this);
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
 
-//      debugger;
-
-      if (data['cell_experiment_count'][bio] == undefined) {
+      if (epi == undefined || bio == undefined) {
         return;
       }
 
-      if (data['cell_experiment_count'][bio][epi] == 0) {
+      var count = cell.attr('data-val');
+      if (count == 0) {
         return;
       }
 
@@ -527,6 +589,16 @@ require_once("inc/init.php");
         selectedCount[bio][epi] = 0;
         $(cell).removeClass("selected-grid-cell");
         $(cell).removeClass("unselected-grid-cell");
+
+        var anchor_cell = otable.cells(
+            function ( idx, data, node ) {
+              if(($(node).attr('data-row') == bio) && ($(node).attr('data-col') == undefined)) {
+                return true;
+              }
+              return false;
+            }
+        ).nodes();
+        anchor_cell.to$().removeClass("selected-grid-cell");
       }
       else {
         $(cell).addClass("selected-grid-cell");
@@ -789,6 +861,15 @@ require_once("inc/init.php");
         current_cell.to$().addClass("unselected-grid-cell");
       }
       else {
+        var anchor_cell = otable.cells(
+            function ( idx, data, node ) {
+              if(($(node).attr('data-row') == bio) && ($(node).attr('data-col') == undefined)) {
+                return true;
+              }
+              return false;
+            }
+        ).nodes();
+        anchor_cell.to$().removeClass("selected-grid-cell");
         current_cell.to$().removeClass("unselected-grid-cell");
       }
 
