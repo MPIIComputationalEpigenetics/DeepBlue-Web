@@ -485,7 +485,6 @@ require_once("inc/init.php");
     table_str = table_str + "</table>";
 
     $("#experiment-column").empty();
-//    debugger;
     $("#experiment-column").append(table_str);
 
     otable = $('#grid').DataTable({
@@ -511,9 +510,10 @@ require_once("inc/init.php");
         ).nodes();
 
         var row_experiments = data['cell_experiments'][bio];
+        current_cells.to$().removeClass("unselected-grid-cell");
+
         if ($(cell).hasClass("selected-grid-cell")) {
           current_cells.to$().removeClass("selected-grid-cell");
-
           for (r in row_experiments) {
             var cell_experiments = row_experiments[r];
             var curr_epi = cell_experiments[1];
@@ -534,9 +534,7 @@ require_once("inc/init.php");
 
         }
         else {
-          current_cells.to$().removeClass("unselected-grid-cell");
           current_cells.to$().addClass("selected-grid-cell");
-
           for (r in row_experiments) {
             var cell_experiments = row_experiments[r];
             for (e in cell_experiments) {
@@ -738,7 +736,7 @@ require_once("inc/init.php");
 
       var list_in_use_main = JSON.parse(localStorage.getItem('list_in_use'));
       var currentvocab2 = list_in_use_main[vocabname]['alp'];
-      var currentvocab_size2 = currentvocab2.length;
+      //var currentvocab_size2 = currentvocab2.length;
 
       // add filtered results to list with count of 0
       var k = 0;
