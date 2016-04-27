@@ -491,7 +491,9 @@ require_once("inc/init.php");
       "iDisplayLength": 1000,
       "aoColumnDefs": [
         { "bSortable": true, "aTargets": "_all" }
-      ]
+      ],
+      "sDom": '<"top">rt<"bottom"><"clear">'
+
     });
 
     $("#grid td").dblclick(function(event){
