@@ -492,8 +492,10 @@ require_once("inc/init.php");
       "aoColumnDefs": [
         { "bSortable": true, "aTargets": "_all" }
       ],
-      "sDom": '<"top"f>rt<"bottom"><"clear">'
-
+      "sDom": '<"pull-left"f>rt<"bottom"><"clear">',
+      "language": {
+        searchPlaceholder: "Filter Biosource"
+      }
     });
 
     $("#grid td").dblclick(function(event){
