@@ -492,7 +492,7 @@ require_once("inc/init.php");
       "aoColumnDefs": [
         { "bSortable": true, "aTargets": "_all" }
       ],
-      "sDom": '<"top">rt<"bottom"><"clear">'
+      "sDom": '<"top"f>rt<"bottom"><"clear">'
 
     });
 
