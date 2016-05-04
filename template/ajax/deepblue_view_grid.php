@@ -503,8 +503,6 @@ require_once("inc/init.php");
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
 
-      $('body').css({'cursor' : 'wait'});
-
       if (epi == undefined) {
         var current_cells = otable.cells(
             function ( idx, data, node ) {
@@ -533,7 +531,6 @@ require_once("inc/init.php");
           }
         }
       }
-      $('body').css({'cursor' : 'default'});
     });
 
     $("#grid td").click(function(event){
