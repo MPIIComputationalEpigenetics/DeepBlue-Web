@@ -489,7 +489,6 @@ require_once("inc/init.php");
 
     otable = $('#grid').DataTable({
       "iDisplayLength": -1,
-      "scrollX" : true,
       "aoColumnDefs": [
         { "bSortable": true, "aTargets": "_all" }
       ],
