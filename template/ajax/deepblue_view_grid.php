@@ -503,6 +503,8 @@ require_once("inc/init.php");
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
 
+      $('body').css({'cursor' : 'wait'});
+
       if (epi == undefined) {
         var current_cells = otable.cells(
             function ( idx, data, node ) {
@@ -520,42 +522,18 @@ require_once("inc/init.php");
           current_cells.to$().removeClass("selected-grid-cell");
           for (r in row_experiments) {
             var cell_experiments = row_experiments[r];
-            var curr_epi = cell_experiments[1];
-            for (e in cell_experiments) {
-              var experiment = cell_experiments[e];
-              var experiment_id = experiment[0];
-
-              var index = selected.indexOf(experiment_id);
-              if (index > -1) {
-                selected.splice(index, 1);
-                selectedData.splice(index, 1);
-
-                $('#datatable_selected_column').dataTable().fnDeleteRow(index);
-              }
-            }
-            selectedCount[bio][r] = 0;
+            removeSelected(cell_experiments, bio, r)
           }
-
         }
         else {
           current_cells.to$().addClass("selected-grid-cell");
           for (r in row_experiments) {
             var cell_experiments = row_experiments[r];
-            for (e in cell_experiments) {
-              var experiment = cell_experiments[e];
-              var experiment_id = experiment[0];
-
-              if (selected.indexOf(experiment_id) < 0) {
-                selected.push(experiment_id);
-                selectedData.push(experiment);
-                $('#datatable_selected_column').dataTable().fnAddData(experiment);
-
-                selectedCount[bio][r] = selectedCount[bio][r] + 1;
-              }
-            }
+            addSelected(cell_experiments, bio, r)
           }
         }
       }
+      $('body').css({'cursor' : 'default'});
     });
 
     $("#grid td").click(function(event){
@@ -574,23 +552,7 @@ require_once("inc/init.php");
       }
 
       if ($(cell).hasClass("selected-grid-cell") || $(cell).hasClass("unselected-grid-cell")) {
-
         var experiments = data['cell_experiments'][bio][epi];
-        for (e in experiments) {
-          var experiment = experiments[e];
-          var experiment_id = experiment[0];
-
-          var index = selected.indexOf(experiment_id);
-          if (index > -1) {
-            selected.splice(index, 1);
-            selectedData.splice(index,1);
-
-            $('#datatable_selected_column').dataTable().fnDeleteRow(index);
-          }
-        }
-        selectedCount[bio][epi] = 0;
-        $(cell).removeClass("selected-grid-cell");
-        $(cell).removeClass("unselected-grid-cell");
 
         var anchor_cell = otable.cells(
             function ( idx, data, node ) {
@@ -601,22 +563,15 @@ require_once("inc/init.php");
             }
         ).nodes();
         anchor_cell.to$().removeClass("selected-grid-cell");
+
+        removeSelected(experiments, bio, epi);
+        $(cell).removeClass("selected-grid-cell");
+        $(cell).removeClass("unselected-grid-cell");
       }
       else {
         $(cell).addClass("selected-grid-cell");
         var experiments = data['cell_experiments'][bio][epi];
-        for (e in experiments) {
-          var experiment = experiments[e];
-          var experiment_id = experiment[0];
-
-          if (selected.indexOf(experiment_id) < 0) {
-            selected.push(experiment_id);
-            selectedData.push(experiment);
-            $('#datatable_selected_column').dataTable().fnAddData(experiment);
-
-            selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
-          }
-        }
+        addSelected(experiments, bio, epi);
       }
 
       if (selectedData.length > 0) {
@@ -629,6 +584,37 @@ require_once("inc/init.php");
 
     $('#clearBtn').removeAttr('disabled');
     $('#selectAllBtn').removeAttr('disabled');
+  }
+
+  function removeSelected(experiments, bio, epi) {
+    for (e in experiments) {
+      var experiment = experiments[e];
+      var experiment_id = experiment[0];
+
+      var index = selected.indexOf(experiment_id);
+      if (index > -1) {
+        selected.splice(index, 1);
+        selectedData.splice(index,1);
+
+        $('#datatable_selected_column').dataTable().fnDeleteRow(index);
+      }
+    }
+    selectedCount[bio][epi] = 0;
+  }
+
+  function addSelected(experiments, bio, epi) {
+    for (e in experiments) {
+      var experiment = experiments[e];
+      var experiment_id = experiment[0];
+
+      if (selected.indexOf(experiment_id) < 0) {
+        selected.push(experiment_id);
+        selectedData.push(experiment);
+        $('#datatable_selected_column').dataTable().fnAddData(experiment);
+
+        selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
+      }
+    }
   }
 
   function addToList(list_id, element, badge, active) {
