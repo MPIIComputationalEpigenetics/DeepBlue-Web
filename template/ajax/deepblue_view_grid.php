@@ -488,7 +488,8 @@ require_once("inc/init.php");
     $("#experiment-column").append(table_str);
 
     otable = $('#grid').DataTable({
-      "iDisplayLength": 1000,
+      "iDisplayLength": -1,
+      "scrollX" : true,
       "aoColumnDefs": [
         { "bSortable": true, "aTargets": "_all" }
       ],
