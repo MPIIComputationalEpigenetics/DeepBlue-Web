@@ -29,8 +29,8 @@ if (isset($_SESSION['user_key'])) {
 	$user_key = $_SESSION['user_key'];
 }
 else {
-	// user not properly logged in, redirecting to home page
-	header("Location: /index.php");
+	// user not properly logged in, authenticate user
+	header("Location: ../php/deepblue_checkuser.php");
 }
 
 function get_user_key() {
