@@ -89,6 +89,18 @@ require_once("inc/init.php");
                     <ul class="list-group panel-collapse collapse out" name="experiment-datatype" id="types-spill"></ul>
                   </div>
                 </div>
+                <div class="panel-group" id="projects-panel">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Projects</span>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill" id="projects-bttn" onclick="toggleButton(this.id)">+</a>
+                      </h4>
+                    </div>
+                    <div class="list-group" name="experiment-project" id="projects-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-project" id="projects-spill"></ul>
+                  </div>
+                </div>
                 <div class="panel-group" id="genomes-panel">
                   <div class="panel panel-default">
                     <div class="panel-heading" align="right">
@@ -136,18 +148,6 @@ require_once("inc/init.php");
                     </div>
                     <div class="list-group" name="experiment-technique" id="techniques-main"></div>
                     <ul class="list-group panel-collapse collapse out" name="experiment-technique" id="techniques-spill"></ul>
-                  </div>
-                </div>
-                <div class="panel-group" id="projects-panel">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" align="right">
-                      <h4 class="panel-title">
-                        <span style="float: left">Projects</span>
-                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill" id="projects-bttn" onclick="toggleButton(this.id)">+</a>
-                      </h4>
-                    </div>
-                    <div class="list-group" name="experiment-project" id="projects-main"></div>
-                    <ul class="list-group panel-collapse collapse out" name="experiment-project" id="projects-spill"></ul>
                   </div>
                 </div>
               </div>
