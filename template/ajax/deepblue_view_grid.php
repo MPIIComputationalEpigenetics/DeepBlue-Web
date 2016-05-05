@@ -39,7 +39,7 @@ require_once("inc/init.php");
 <div class="row">
   <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
     <h1 class="page-title txt-color-blueDark"><i class="fa fa-th"></i>
-      Grid
+      Experiments Grid
     </h1>
   </div>
 </div>
@@ -52,12 +52,7 @@ require_once("inc/init.php");
     <article class="col-sm-12 col-md-12 col-lg-12">
 
       <!-- Widget ID (each widget will need unique ID)-->
-      <div class="jarviswidget jarviswidget-color-blue" id="grid-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
-
-        <header>
-          <span class="widget-icon"> <i class="fa fa-th"></i> </span>
-          <h2>Experiments</h2>
-        </header>
+      <div class="jarviswidget jarviswidget-color-blue" id="grid-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false">
 
         <!-- widget div-->
         <div>
@@ -70,13 +65,49 @@ require_once("inc/init.php");
           <!-- widget content -->
           <div class="widget-body">
             <div class="row">
+
+              <div style="padding: 10px">
+                <div class="alert alert-info alert-block">
+                  <a class="close" data-dismiss="alert" href="#">×</a>
+                  The grid displays the experiments that match the selected metadata. Fell free to select the metadata attributes that better suits you.</br>
+                  The value in the grid cells represent the number of experiments that match selected metadata, <i>Epigenetic Mark</i> (collumn), and <i>BioSource</i> (row).</br>
+                  Click on a grid cell to select the experiments associated with this cell. The selected experiments are listed in the end of this page.</br>
+                  Double click on the grid cells with <i>BioSource</i> name to select all experiments of this <i>BioSource</i>.</br>
+                  For downloading the data, click in the <i>Download</i> button in the end of the page. You will be redirected to the download page.</br>
+                </div>
+              </div>
+
               <div class="col-md-3">
                 <div>
-                  <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear All </button>
-                  <button type="submit" id="selectAllBtn" class="btn btn-default" onClick="selectAll()" disabled> Select All </button>
+                  <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear metadata selection </button>
+                  <button type="submit" id="selectAllBtn" class="btn btn-default" onClick="selectAll()" disabled> Select all experiments </button>
                 </div>
                 <hr>
                 <br>
+                <div class="panel-group" id="types-panel">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Data types</span>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill" id="types-bttn" onclick="toggleButton(this.id)">+</a>
+                      </h4>
+                    </div>
+                    <div class="list-group" name="experiment-datatype" id="types-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-datatype" id="types-spill"></ul>
+                  </div>
+                </div>
+                <div class="panel-group" id="projects-panel">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" align="right">
+                      <h4 class="panel-title">
+                        <span style="float: left">Projects</span>
+                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill" id="projects-bttn" onclick="toggleButton(this.id)">+</a>
+                      </h4>
+                    </div>
+                    <div class="list-group" name="experiment-project" id="projects-main"></div>
+                    <ul class="list-group panel-collapse collapse out" name="experiment-project" id="projects-spill"></ul>
+                  </div>
+                </div>
                 <div class="panel-group" id="genomes-panel">
                   <div class="panel panel-default">
                     <div class="panel-heading" align="right">
@@ -124,30 +155,6 @@ require_once("inc/init.php");
                     </div>
                     <div class="list-group" name="experiment-technique" id="techniques-main"></div>
                     <ul class="list-group panel-collapse collapse out" name="experiment-technique" id="techniques-spill"></ul>
-                  </div>
-                </div>
-                <div class="panel-group" id="projects-panel">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" align="right">
-                      <h4 class="panel-title">
-                        <span style="float: left">Projects</span>
-                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill" id="projects-bttn" onclick="toggleButton(this.id)">+</a>
-                      </h4>
-                    </div>
-                    <div class="list-group" name="experiment-project" id="projects-main"></div>
-                    <ul class="list-group panel-collapse collapse out" name="experiment-project" id="projects-spill"></ul>
-                  </div>
-                </div>
-                <div class="panel-group" id="types-panel">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" align="right">
-                      <h4 class="panel-title">
-                        <span style="float: left">Datatypes</span>
-                        <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill" id="types-bttn" onclick="toggleButton(this.id)">+</a>
-                      </h4>
-                    </div>
-                    <div class="list-group" name="experiment-datatype" id="types-main"></div>
-                    <ul class="list-group panel-collapse collapse out" name="experiment-datatype" id="types-spill"></ul>
                   </div>
                 </div>
               </div>
@@ -267,6 +274,7 @@ require_once("inc/init.php");
   var filter_active = false;
   var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
   var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
+  var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
   var size_main = 4;
   var defaults = {};
   var selectedData = []; // selected experiment
@@ -351,6 +359,10 @@ require_once("inc/init.php");
     }
   }
 
+  function getDefaultsDataTypes() {
+    return ['peaks'];
+  }
+
   function getDefaultsEpigeneticMarks() {
     return ['H3K4me3','H3K9me3','H3K27me3','H3K36me3','H3K4me1','H3K27ac','Input','DNA Methylation','CTCF','DNaseI','RNA','mRNA'];
   }
@@ -377,7 +389,6 @@ require_once("inc/init.php");
       // store data in local storage
       list_in_use = data[0];
       if (filter_active) {
-        localStorage.setItem("list_in_use_filter", JSON.stringify(data[0]));
         loadFilters();
         loadExperiments();
       }
@@ -397,13 +408,18 @@ require_once("inc/init.php");
 
   function loadExperiments() {
 
+    $("#experiment-column").empty();
+    $("#experiment-column").append("<img src='../img/loader2.gif' >");
+
+    $('#clearBtn').attr('disabled', 'disabled');
+    $('#selectAllBtn').attr('disabled', 'disabled');
+
     var request2 = $.ajax({
       url: "api/grid",
       type: "POST",
       dataType: "JSON",
       data : {
         request : filters,
-        cols: 15,
         key : "<?php echo $user_key ?>",
       }
     });
@@ -434,14 +450,13 @@ require_once("inc/init.php");
     var table_rows = data['cell_biosources'].length;
     var table_columns = data['cell_epigenetic_marks'].length;
 
-
-    var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
-
     var table_str = "<table class='table table-striped table-bordered table-condensed' id='grid'>";
 
     table_str = table_str + "<thead><th></th>";
+    var epi;
     for (j = 0; j < table_columns; j++) {
-      table_str = table_str + "<th>"  + data['cell_epigenetic_marks'][j] + "</th>";
+      epi = data['cell_epigenetic_marks'][j];
+      table_str = table_str + "<th data-col='" + epi + "'>"  + epi + "</th>";
     }
     table_str = table_str + "</thead>";
 
@@ -450,8 +465,8 @@ require_once("inc/init.php");
       var bio = data['cell_biosources'][i];
       selectedCount[bio] = {};
 
-      table_str = table_str + "<tr id='" + bio + "'>";
-      table_str = table_str + "<td scope='row' style='border-width: 1px;'><b>"  + data['cell_biosources'][i] + "</b></td>";
+      table_str = table_str + "<tr>";
+      table_str = table_str + "<td scope='row' data-row='" + bio + "' style='border-width: 1px;'><b>"  + bio + "</b></td>";
       for (j=0; j<table_columns; j++) {
         var epi = data['cell_epigenetic_marks'][j];
         var cell_count = data['cell_experiment_count'][bio][epi];
@@ -461,7 +476,14 @@ require_once("inc/init.php");
         if (cell_project != "") {
           project_color = cell_colors[cell_project];
         }
-        table_str = table_str + "<td id='" + epi + "' style='background:" + project_color + "; border-width: 1px; ' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+
+        if (cell_count == 0) {
+          table_str = table_str + "<td style='background:" + project_color + "; border-width: 1px;' data-val='0' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+        }
+        else {
+          table_str = table_str + "<td style='background:" + project_color + "; border-width: 1px; cursor: pointer;' data-val='" + cell_count + "' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
+        }
+
         selectedCount[bio][epi] = 0; // selected experiment counter
       }
       table_str = table_str + "</tr>";
@@ -470,14 +492,52 @@ require_once("inc/init.php");
     table_str = table_str + "</table>";
 
     $("#experiment-column").empty();
-//    debugger;
     $("#experiment-column").append(table_str);
 
     otable = $('#grid').DataTable({
-      "iDisplayLength": 1000,
+      "iDisplayLength": -1,
       "aoColumnDefs": [
         { "bSortable": true, "aTargets": "_all" }
-      ]
+      ],
+      "sDom": '<"pull-left"f>rt<"bottom"><"clear">',
+      "language": {
+        searchPlaceholder: "Filter Biosource"
+      }
+    });
+
+    $("#grid td").dblclick(function(event){
+      var cell = $(this);
+      var epi = cell.attr('data-col');
+      var bio = cell.attr('data-row');
+
+      if (epi == undefined) {
+        var current_cells = otable.cells(
+            function ( idx, data, node ) {
+              if(($(node).attr('data-row') == bio) && ($(node).attr('data-val') != 0)) {
+                return true;
+              }
+              return false;
+            }
+        ).nodes();
+
+        var row_experiments = data['cell_experiments'][bio];
+        current_cells.to$().removeClass("unselected-grid-cell");
+
+        if ($(cell).hasClass("selected-grid-cell")) {
+          current_cells.to$().removeClass("selected-grid-cell");
+          for (r in row_experiments) {
+            var cell_experiments = row_experiments[r];
+            removeSelected(cell_experiments, bio, r)
+          }
+        }
+        else {
+          current_cells.to$().addClass("selected-grid-cell");
+          for (r in row_experiments) {
+            var cell_experiments = row_experiments[r];
+            addSelected(cell_experiments, bio, r)
+          }
+        }
+      }
     });
 
     $("#grid td").click(function(event){
@@ -486,57 +546,36 @@ require_once("inc/init.php");
       var epi = cell.attr('data-col');
       var bio = cell.attr('data-row');
 
-//      debugger;
-
-      if (data['cell_experiment_count'][bio] == undefined) {
+      if (epi == undefined || bio == undefined) {
         return;
       }
 
-      if (data['cell_experiment_count'][bio][epi] == 0) {
+      var count = cell.attr('data-val');
+      if (count == 0) {
         return;
       }
 
       if ($(cell).hasClass("selected-grid-cell") || $(cell).hasClass("unselected-grid-cell")) {
-
         var experiments = data['cell_experiments'][bio][epi];
-        for (e in experiments) {
-          var experiment = experiments[e];
-          var experiment_id = experiment[0];
 
-          var index = selected.indexOf(experiment_id);
-          if (index > -1) {
-            selected.splice(index, 1);
-            selectedData.splice(index,1);
+        var anchor_cell = otable.cells(
+            function ( idx, data, node ) {
+              if(($(node).attr('data-row') == bio) && ($(node).attr('data-col') == undefined)) {
+                return true;
+              }
+              return false;
+            }
+        ).nodes();
+        anchor_cell.to$().removeClass("selected-grid-cell");
 
-            $('#datatable_selected_column').dataTable().fnDeleteRow(index);
-          }
-        }
-        selectedCount[bio][epi] = 0;
+        removeSelected(experiments, bio, epi);
         $(cell).removeClass("selected-grid-cell");
         $(cell).removeClass("unselected-grid-cell");
       }
       else {
         $(cell).addClass("selected-grid-cell");
         var experiments = data['cell_experiments'][bio][epi];
-        for (e in experiments) {
-          var experiment = experiments[e];
-          var experiment_id = experiment[0];
-
-          if (selected.indexOf(experiment_id) < 0) {
-            selected.push(experiment_id);
-            selectedData.push(experiment);
-            $('#datatable_selected_column').dataTable().fnAddData(experiment);
-
-            selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
-          }
-        }
-      }
-
-      if (selectedData.length > 0) {
-        $('#downloadBtnBottom').removeAttr('disabled');
-      }
-      else {
-        $('#downloadBtnBottom').attr('disabled','disabled');
+        addSelected(experiments, bio, epi);
       }
     });
 
@@ -544,18 +583,134 @@ require_once("inc/init.php");
     $('#selectAllBtn').removeAttr('disabled');
   }
 
+  function removeSelected(experiments, bio, epi) {
+    for (e in experiments) {
+      var experiment = experiments[e];
+      var experiment_id = experiment[0];
+
+      var index = selected.indexOf(experiment_id);
+      if (index > -1) {
+        selected.splice(index, 1);
+        selectedData.splice(index,1);
+
+        $('#datatable_selected_column').dataTable().fnDeleteRow(index);
+      }
+    }
+    selectedCount[bio][epi] = 0;
+  }
+
+  var annotations_extra_metadata = function(annotation) {
+    debugger;
+    var tmp_str = "";
+
+    if (annotation.format) {
+      tmp_str += "<b>Format</b>: " + annotation.format + "<br />";
+      tmp_str += "<br />";
+    }
+
+    if (annotation.sample_info) {
+      tmp_str += "<b>Sample Info</b> <br />";
+      for (extra_metadata_key in annotation.sample_info) {
+        var extra_metadata_value = annotation.sample_info[extra_metadata_key];
+        if ((extra_metadata_value != '') && (extra_metadata_value != '-')) {
+          if (extra_metadata_key == 'key') {
+            tmp_str += "<b>" + extra_metadata_key + "</b> : <a href='" + extra_metadata_value + "' target='_blank'\>" + extra_metadata_value + '</a><br />';
+          } else {
+            tmp_str += '<b>' + extra_metadata_key + '</b> : ' + extra_metadata_value + "<br />";
+          }
+        }
+      }
+    }
+
+    tmp_str += "<br />";
+
+    if (annotation.extra_metadata) {
+      tmp_str += "<b>Extra Metadata</b> <br />";
+      for (var extra_metadata_key in annotation.extra_metadata) {
+        var extra_metadata_value = annotation.extra_metadata[extra_metadata_key];
+        if ((extra_metadata_value != '') && (extra_metadata_value != '-')) {
+          if (extra_metadata_key == 'key') {
+            tmp_str += "<b>" + extra_metadata_key + "</b> : <a href='" + extra_metadata_value + "' target='_blank'\>" + extra_metadata_value + '</a><br />';
+          } else {
+            tmp_str += '<b>' + extra_metadata_key + '</b> : ' + extra_metadata_value + "<br />";
+          }
+        }
+      }
+    }
+
+    return tmp_str;
+  };
+
+  var experiments_extra_metadata = function(experiment) {
+    var tmp_str = annotations_extra_metadata(experiment);
+
+    return "<div class='exp-metadata'>" + tmp_str + "</div><div class='exp-metadata-more-view'>-- View metadata --</div>";
+  }
+
+  function addSelected(experiments, bio, epi) {
+    var experiment_ids = experiments.map(function(a) { return a[0]});
+    var experiment_info_request = $.ajax({
+      url: "api/info",
+      type : "GET",
+      data : {
+        id : experiment_ids
+      },
+      dataType: "json"
+    });
+
+    experiment_info_request.done(function (data) {
+      debugger;
+      experiments = [];
+      for (e in data[1]) {
+        var experiment_info = data[1][e];
+        var id = experiment_info["_id"];
+        var name = experiment_info['name'];
+        var type = experiment_info['data_type'];
+        var desc = experiment_info['description'];
+        var genome = experiment_info['genome'];
+        var epigenetic_mark = experiment_info['epigenetic_mark'];
+        var biosource = experiment_info['sample_info']['biosource_name'];
+        var samp = experiment_info['sample_id'];
+        var tech = experiment_info['technique'];
+        var project = experiment_info['project'];
+        var meta = experiments_extra_metadata(experiment_info);
+
+        var experiment = [ id, name, type, desc, genome, epigenetic_mark, biosource, samp, tech, project, meta];
+
+        if (selected.indexOf(id) < 0) {
+          selected.push(id);
+          selectedData.push(experiment);
+          experiments.push(experiment);
+          selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
+        }
+      }
+
+      if (experiments.length > 0) {
+        $('#datatable_selected_column').dataTable().fnAddData(experiments);
+        $('#downloadBtnBottom').removeAttr('disabled');
+      }
+
+    });
+  }
+
   function addToList(list_id, element, badge, active) {
 
     // build required variables
     var elem_id = element;
     var badge_id = element + "_badge_id";
+    var style_string = "";
+
+    if (list_id == "#projects-spill" || list_id == "#projects-main") {
+      // include colors legend
+      style_string =  "style='background-color: " + cell_colors[element] + "'";
+    }
 
     if (active) {
-      var elem_string = "<a class='list-group-item active' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' id='" +
+      var elem_string = "<a class='list-group-item active' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' " + style_string + " id='" +
           badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
     else {
-      var elem_string = "<a class='list-group-item' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' id='" +
+      var elem_string = "<a class='list-group-item' id='" + elem_id + "' onclick='selectHandler(this, true)'><span class='badge' " + style_string + " id='" +
           badge_id + "'>" + badge + "</span>" + element + "</a>";
     }
 
@@ -647,7 +802,7 @@ require_once("inc/init.php");
 
       var list_in_use_main = JSON.parse(localStorage.getItem('list_in_use'));
       var currentvocab2 = list_in_use_main[vocabname]['alp'];
-      var currentvocab_size2 = currentvocab2.length;
+      //var currentvocab_size2 = currentvocab2.length;
 
       // add filtered results to list with count of 0
       var k = 0;
@@ -702,6 +857,12 @@ require_once("inc/init.php");
 
   function toggleDefaults() {
     var default_epigenetic_marks = getDefaultsEpigeneticMarks();
+    var default_datatypes = getDefaultsDataTypes();
+
+    for (var d in default_datatypes) {
+      emulateClick(default_datatypes[d], false);
+    }
+
     for (var d in default_epigenetic_marks) {
       emulateClick(default_epigenetic_marks[d], d == default_epigenetic_marks.length - 1);
     }
@@ -764,6 +925,15 @@ require_once("inc/init.php");
         current_cell.to$().addClass("unselected-grid-cell");
       }
       else {
+        var anchor_cell = otable.cells(
+            function ( idx, data, node ) {
+              if(($(node).attr('data-row') == bio) && ($(node).attr('data-col') == undefined)) {
+                return true;
+              }
+              return false;
+            }
+        ).nodes();
+        anchor_cell.to$().removeClass("selected-grid-cell");
         current_cell.to$().removeClass("unselected-grid-cell");
       }
 
