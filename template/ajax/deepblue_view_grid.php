@@ -39,7 +39,7 @@ require_once("inc/init.php");
 <div class="row">
   <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
     <h1 class="page-title txt-color-blueDark"><i class="fa fa-th"></i>
-      Grid
+      Experiments Grid
     </h1>
   </div>
 </div>
@@ -52,12 +52,7 @@ require_once("inc/init.php");
     <article class="col-sm-12 col-md-12 col-lg-12">
 
       <!-- Widget ID (each widget will need unique ID)-->
-      <div class="jarviswidget jarviswidget-color-blue" id="grid-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
-
-        <header>
-          <span class="widget-icon"> <i class="fa fa-th"></i> </span>
-          <h2>Experiments</h2>
-        </header>
+      <div class="jarviswidget jarviswidget-color-blue" id="grid-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false">
 
         <!-- widget div-->
         <div>
@@ -70,10 +65,22 @@ require_once("inc/init.php");
           <!-- widget content -->
           <div class="widget-body">
             <div class="row">
+
+              <div style="padding: 10px">
+                <div class="alert alert-info alert-block">
+                  <a class="close" data-dismiss="alert" href="#">×</a>
+                  The grid displays the experiments that match the selected metadata. Fell free to select the metadata attributes that better suits you.</br>
+                  The value in the grid cells represent the number of experiments that match selected metadata, <i>Epigenetic Mark</i> (collumn), and <i>BioSource</i> (row).</br>
+                  Click on a grid cell to select the experiments associated with this cell. The selected experiments are listed in the end of this page.</br>
+                  Double click on the grid cells with <i>BioSource</i> name to select all experiments of this <i>BioSource</i>.</br>
+                  For downloading the data, click in the <i>Download</i> button in the end of the page. You will be redirected to the download page.</br>
+                </div>
+              </div>
+
               <div class="col-md-3">
                 <div>
-                  <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear All </button>
-                  <button type="submit" id="selectAllBtn" class="btn btn-default" onClick="selectAll()" disabled> Select All </button>
+                  <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear metadata selection </button>
+                  <button type="submit" id="selectAllBtn" class="btn btn-default" onClick="selectAll()" disabled> Select all experiments </button>
                 </div>
                 <hr>
                 <br>
