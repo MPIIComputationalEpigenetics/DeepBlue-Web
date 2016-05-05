@@ -570,13 +570,6 @@ require_once("inc/init.php");
         var experiments = data['cell_experiments'][bio][epi];
         addSelected(experiments, bio, epi);
       }
-
-      if (selectedData.length > 0) {
-        $('#downloadBtnBottom').removeAttr('disabled');
-      }
-      else {
-        $('#downloadBtnBottom').attr('disabled','disabled');
-      }
     });
 
     $('#clearBtn').removeAttr('disabled');
@@ -599,19 +592,98 @@ require_once("inc/init.php");
     selectedCount[bio][epi] = 0;
   }
 
-  function addSelected(experiments, bio, epi) {
-    for (e in experiments) {
-      var experiment = experiments[e];
-      var experiment_id = experiment[0];
+  var annotations_extra_metadata = function(annotation) {
+    debugger;
+    var tmp_str = "";
 
-      if (selected.indexOf(experiment_id) < 0) {
-        selected.push(experiment_id);
-        selectedData.push(experiment);
-        $('#datatable_selected_column').dataTable().fnAddData(experiment);
+    if (annotation.format) {
+      tmp_str += "<b>Format</b>: " + annotation.format + "<br />";
+      tmp_str += "<br />";
+    }
 
-        selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
+    if (annotation.sample_info) {
+      tmp_str += "<b>Sample Info</b> <br />";
+      for (extra_metadata_key in annotation.sample_info) {
+        var extra_metadata_value = annotation.sample_info[extra_metadata_key];
+        if ((extra_metadata_value != '') && (extra_metadata_value != '-')) {
+          if (extra_metadata_key == 'key') {
+            tmp_str += "<b>" + extra_metadata_key + "</b> : <a href='" + extra_metadata_value + "' target='_blank'\>" + extra_metadata_value + '</a><br />';
+          } else {
+            tmp_str += '<b>' + extra_metadata_key + '</b> : ' + extra_metadata_value + "<br />";
+          }
+        }
       }
     }
+
+    tmp_str += "<br />";
+
+    if (annotation.extra_metadata) {
+      tmp_str += "<b>Extra Metadata</b> <br />";
+      for (var extra_metadata_key in annotation.extra_metadata) {
+        var extra_metadata_value = annotation.extra_metadata[extra_metadata_key];
+        if ((extra_metadata_value != '') && (extra_metadata_value != '-')) {
+          if (extra_metadata_key == 'key') {
+            tmp_str += "<b>" + extra_metadata_key + "</b> : <a href='" + extra_metadata_value + "' target='_blank'\>" + extra_metadata_value + '</a><br />';
+          } else {
+            tmp_str += '<b>' + extra_metadata_key + '</b> : ' + extra_metadata_value + "<br />";
+          }
+        }
+      }
+    }
+
+    return tmp_str;
+  };
+
+  var experiments_extra_metadata = function(experiment) {
+    var tmp_str = annotations_extra_metadata(experiment);
+
+    return "<div class='exp-metadata'>" + tmp_str + "</div><div class='exp-metadata-more-view'>-- View metadata --</div>";
+  }
+
+  function addSelected(experiments, bio, epi) {
+    var experiment_ids = experiments.map(function(a) { return a[0]});
+    var experiment_info_request = $.ajax({
+      url: "api/info",
+      type : "GET",
+      data : {
+        id : experiment_ids
+      },
+      dataType: "json"
+    });
+
+    experiment_info_request.done(function (data) {
+      debugger;
+      experiments = [];
+      for (e in data[1]) {
+        var experiment_info = data[1][e];
+        var id = experiment_info["_id"];
+        var name = experiment_info['name'];
+        var type = experiment_info['data_type'];
+        var desc = experiment_info['description'];
+        var genome = experiment_info['genome'];
+        var epigenetic_mark = experiment_info['epigenetic_mark'];
+        var biosource = experiment_info['sample_info']['biosource_name'];
+        var samp = experiment_info['sample_id'];
+        var tech = experiment_info['technique'];
+        var project = experiment_info['project'];
+        var meta = experiments_extra_metadata(experiment_info);
+
+        var experiment = [ id, name, type, desc, genome, epigenetic_mark, biosource, samp, tech, project, meta];
+
+        if (selected.indexOf(id) < 0) {
+          selected.push(id);
+          selectedData.push(experiment);
+          experiments.push(experiment);
+          selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
+        }
+      }
+
+      if (experiments.length > 0) {
+        $('#datatable_selected_column').dataTable().fnAddData(experiments);
+        $('#downloadBtnBottom').removeAttr('disabled');
+      }
+
+    });
   }
 
   function addToList(list_id, element, badge, active) {
