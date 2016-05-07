@@ -27,6 +27,7 @@
 				<ul>
 					<?php
                         $nav_no = 0;
+						$ELEVATION = 30;
 						foreach ($page_nav as $key => $nav_item) {
 							//process parent nav
 							$nav_htm = '';
@@ -45,7 +46,8 @@
 							if (isset($nav_item["sub"]) && $nav_item["sub"])
 								$nav_htm .= process_sub_nav($nav_item["sub"]);
 
-							if ($nav_elevated && $_SESSION['level'] > 30) {
+
+							if ($nav_elevated && $_SESSION['level'] > $ELEVATION) {
 								echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').' style="display:none">'.$nav_htm.'</li>';
 							}
 							else {
