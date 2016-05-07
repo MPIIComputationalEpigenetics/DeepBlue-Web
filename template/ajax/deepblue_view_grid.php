@@ -70,7 +70,7 @@ require_once("inc/init.php");
                 <div class="alert alert-info alert-block">
                   <a class="close" data-dismiss="alert" href="#">×</a>
                   The grid displays the experiments that match the selected metadata. Fell free to select the metadata attributes that better suits you.</br>
-                  The value in the grid cells represent the number of experiments that match selected metadata, <i>Epigenetic Mark</i> (collumn), and <i>BioSource</i> (row).</br>
+                  The value in the grid cells represent the number of experiments that match selected metadata, <i>Epigenetic Mark</i> (column), and <i>BioSource</i> (row).</br>
                   Click on a grid cell to select the experiments associated with this cell. The selected experiments are listed in the end of this page.</br>
                   Double click on the grid cells with <i>BioSource</i> name to select all experiments of this <i>BioSource</i>.</br>
                   For downloading the data, click in the <i>Download</i> button in the end of the page. You will be redirected to the download page.</br>

@@ -36,6 +36,7 @@
 							$icon = isset($nav_item["icon"]) ? '<i class="fa fa-lg fa-fw '.$nav_item["icon"].'">'.$icon_badge.'</i>' : "";
 							$nav_title = isset($nav_item["title"]) ? $nav_item["title"] : "(No Name)";
 							$nav_id = $key.'_id';
+							$nav_elevated = isset($nav_item["elevated"]) ? $nav_item["elevated"] : false;
                             $nav_no = $nav_no + 1;
                             $nav_description = isset($nav_item["description"]) ? $nav_item["description"] : "Empty Description";
 							$label_htm = isset($nav_item["label_htm"]) ? $nav_item["label_htm"] : "";
@@ -44,7 +45,12 @@
 							if (isset($nav_item["sub"]) && $nav_item["sub"])
 								$nav_htm .= process_sub_nav($nav_item["sub"]);
 
-							echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').'>'.$nav_htm.'</li>';
+							if ($nav_elevated && $_SESSION['level'] > 30) {
+								echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').' style="display:none">'.$nav_htm.'</li>';
+							}
+							else {
+								echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').'>'.$nav_htm.'</li>';
+							}
 						}
 
 						function process_sub_nav($nav_item) {

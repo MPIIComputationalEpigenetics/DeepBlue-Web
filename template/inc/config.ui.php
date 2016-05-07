@@ -41,41 +41,47 @@ $page_nav = array(
         "title" => "Dashboard",
         "url" => "ajax/dashboard.php",
         "icon" => "fa-home",
-        "description" => "Overview of DeepBlue data."
+        "description" => "Overview of DeepBlue data.",
+         "elevated" => false
     ),
 
     "grid" => array(
         "title" => "Grid",
         "url"=> "ajax/deepblue_view_grid.php",
         "icon" => "fa-th",
-        "description" => "Display DeepBlue with grid."
+        "description" => "Display DeepBlue with grid.",
+         "elevated" => false
     ),
 
     "search" => array(
         "title" => "Search",
         "url"=> "ajax/deepblue_view_search.php",
         "icon" => "fa-search",
-        "description" => "Perform full text search on DeepBlue data."
+        "description" => "Perform full text search on DeepBlue data.",
+        "elevated" => false
     ),
 
     "info" => array(
         "title" => "Info",
         "url"=> "ajax/deepblue_view_info.php",
         "icon" => "fa-info-circle",
-        "description" => "Obtain information about DeepBlue data."
+        "description" => "Obtain information about DeepBlue data.",
+        "elevated" => false
     ),
 
     "experiments" => array(
         "title" => "Experiments data",
         "url" => "ajax/deepblue_view_experiments.php",
         "icon" => "fa-database",
-        "description" => "List and download DeepBlue epigenomic data."
+        "description" => "List and download DeepBlue epigenomic data.",
+        "elevated" => false
     ),
 
     "deepblue_tables" => array(
         "title" => "Auxiliary data",
         "icon" => "fa-table",
         "description" => "You can have access to all auxiliary data used by DeepBlue.",
+        "elevated" => false,
         "sub" => array(
             "annotations" => array(
                 "title" => "Annotations",
@@ -125,7 +131,8 @@ $page_nav = array(
         "title" => "BioSources - Hierarchy",
         "url"=> "ajax/deepblue_view_biosources_hierarchy.php",
         "icon" => "fa-sitemap",
-        "description" => "Display the biosources in an hierarchy fashion (imported from the ontologies)."
+        "description" => "Display the biosources in an hierarchy fashion (imported from the ontologies).",
+        "elevated" => false
     ),
 
     "deepblue_request" => array(
@@ -139,6 +146,7 @@ $page_nav = array(
         "title" => "Insert data",
         "icon" => "fa-suitcase",
         "description" => "Insert new data such as annotations, column_types into DeepBlue (It requires permission)",
+        "elevated" => true,
         "sub" => array(
             "insert_annotation" => array(
                 "title" => "Annotation",
@@ -160,13 +168,13 @@ $page_nav = array(
         "title" => "Curate data",
         "icon" => "fa-edit",
         "description" => "Curate DeepBlue data. (It requires permission)",
+        "elevated" => true,
         "sub" => array(
             "clone" => array(
                 "title" => "Experiments cloning",
                 "url"=> "ajax/deepblue_clone_dataset.php",
                 "icon" => "fa-copy",
                 "description" => "Allows experiments cloning."
-
             )
         )
     ),

@@ -69,6 +69,7 @@ else {
 	$_SESSION['type'] = $user_details['type'];
     $_SESSION['permission'] = $user_details['permission_level'];
     $_SESSION['time'] = time();
+	$_SESSION['level'] = get_level_code($user_details['permission_level']);
 
     $remember = isset($_POST['remember']) || $remember;
 
@@ -87,6 +88,27 @@ else {
     }
 
 	header("Location:  ../dashboard.php");
+}
+
+function get_level_code($permission) {
+	switch ($permission) {
+		case "ADMIN":
+			return 0;
+		case "INCLUDE_COLLECTION_TERMS":
+			return 10;
+		case "INCLUDE_EXPERIMENTS":
+			return 20;
+		case "INCLUDE ANNOTATIONS":
+			return 30;
+		case "GET_DATA":
+			return 40;
+		case "LIST_COLLECTIONS":
+			return 50;
+		case "NONE":
+			return 1000;
+		case "NOT_SET":
+			return 10000;
+	}
 }
 
 ?>
