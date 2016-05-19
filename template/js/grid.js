@@ -491,15 +491,6 @@ function toggleMetadata() {
     });
 }
 
-function showOptionButtons() {
-    /* Show Options button */
-    $('#downloadBtnBottom').click(function(e){
-        // save the rows of the selected data table into local storage
-        localStorage.setItem("selectedData", JSON.stringify(selectedData));
-        window.location.href = "dashboard.php#ajax/deepblue_download_experiments.php";
-    });
-}
-
 function removeSelectedRow() {
     /* remove selection by clicking of row in the selection table*/
     $('#datatable_selected_column').on('click', 'tr', function () {
@@ -706,6 +697,4 @@ function gridPage() {
 
     removeSelectedRow();
     toggleMetadata();
-    showOptionButtons();
-
 }

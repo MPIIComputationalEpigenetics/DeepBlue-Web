@@ -54,7 +54,7 @@ include("inc/header.php");
             <dl class="dl-horizontal" id="freelance">
                 <dt>
                     <h5 id='example-search_experiments'>Searching for experiments</h5>
-                    <p>We use the <a href="api.php#api-search"</a>search</a> command to find experiments that contain the texts <i>H3k27AC</i>, <i>blood</i>, and <i>peaks</i> in their metadata.
+                    <p>We use the <a href="api.php#api-search"</a>search</a> command to find experiments that contain the texts <i>H3k27AC</i>, <i>blood</i>, and <i>peaks</i> in their metadata.</p>
                     <p>We put the names in single quotes to show that these names must be in the metadata.</p>
                 </dt>
                 <dd>
@@ -63,21 +63,21 @@ include("inc/header.php");
 
                 <dt>
                     <h5 id='example-list_experiments'>Listing experiments</h5>
-                    <p>We use the <a href="api.php#api-list_experiments"</a>list_experiments</a> command to list all experiments with the corresponding values in theirs metadata.
+                    <p>We use the <a href="api.php#api-list_experiments"</a>list_experiments</a> command to list all experiments with the corresponding values in theirs metadata.</p>
                 </dt>
                 <dd><script src="https://gist.github.com/felipealbrecht/820312cc302a25768c80.js"></script></dd>
 
 
                 <dt>
                     <h5 id='example-access_extra-metadata'>Accessing the extra-metadata</h5>
-                    <p>We use the <a href="api.php#api-info"</a>info</a> command to access an experiment's metadata and its extra-metadata fields.
+                    <p>We use the <a href="api.php#api-info"</a>info</a> command to access an experiment's metadata and its extra-metadata fields.</p>
                 </dt>
                 <dd><script src="https://gist.github.com/felipealbrecht/b2a002dc9edf0117133e.js"></script></dd>
 
                 <dt>
                     <h5 id='example-select_epigenomic_data'>Select epigenomic data</h5>
                     <p>We use the <a href="api.php#api-select_experiments"</a>select_experiments</a> command to select all genomic regions from the two informed experiments.</p>
-                    <p>We use the <a href="api.php#api-count_regions"</a>count_regions</a> command with the <i>query_id</i> value returned by the <a href="api.php#api-select_experiments"</a>select_experiments</a>.
+                    <p>We use the <a href="api.php#api-count_regions"</a>count_regions</a> command with the <i>query_id</i> value returned by the <a href="api.php#api-select_experiments"</a>select_experiments</a>.</p>
                     <p>The <a href="api.php#api-count_regions"</a>count_regions</a> command is asynchronous. It means that the user receives a <i>request_id</i> and should use the <a href="api.php#api-info"</a>info</a> command to check the status of this request.</p>
                     <p>The processing is over when the <i>request_status</i> value is <i>done</i> or <i>failed</i>.</p>
                     <p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
@@ -193,7 +193,7 @@ include("inc/header.php");
                     <p>We use the <a href="api.php#api-select_genes"</a>select_genes</a> command to generate a set of genes from the gene set <i>gencode v19</i>.</p>
                     <p>The <a href="api.php#api-flank"</a>flank</a> command obtains flanking regions based on the existing regions. First, we generate regions that starts 2500bp before the regions and with the length of 2000bp. After, we generate the regions that starts 1500 bases pair after the regions end and have 500 base pairs. We consider the regions strand in both cases.</p>
                     <p>The <a href="api.php#api-merge_queries"</a>merge_queries</a> command merges the region sets defined by the <i>query IDs</i>. We merge the two flanking regions sets with the genes' regions set.</p>
-                    <p>We use the <a href="api.php#api-get_regions"</a>get_regions</a> with the <i>query_id</i> that is returned by the <a href="api.php#api-merge_queries"</a>merge_queries</a>.
+                    <p>We use the <a href="api.php#api-get_regions"</a>get_regions</a> with the <i>query_id</i> that is returned by the <a href="api.php#api-merge_queries"</a>merge_queries</a>.</p>
                 </dt>
                 <dd><script src="https://gist.github.com/felipealbrecht/3f3b7439cc270949dcfb.js"></script></dd>
 

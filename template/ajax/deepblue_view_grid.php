@@ -44,8 +44,15 @@ require_once("inc/init.php");
   var user_key = "<?php echo $user_key ?>";
 
   pageSetUp();
+
   var pagefunction = function() {
     gridPage();
+
+    $('#downloadBtnBottom').click(function(e){
+      // save the rows of the selected data table into local storage
+      localStorage.setItem("selectedData", JSON.stringify(selectedData));
+      window.location.href = "dashboard.php#ajax/deepblue_download_experiments.php";
+    });
   };
 
   // load related plugins
