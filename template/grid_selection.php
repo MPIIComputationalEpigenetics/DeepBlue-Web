@@ -40,7 +40,6 @@ include("inc/scripts.php");
 //include footer
 include("inc/google-analytics.php");
 
-include "landing_menu.php";
 ?>
 <div style="padding:10px; border:none; background:#FFF">
     <?php include("ajax/grid.php"); ?>
@@ -49,16 +48,39 @@ include "landing_menu.php";
 <script type="text/javascript">
 
     var user_key = "<?php echo $_SESSION['user_key'] ?>";
+    var otherWindow;
+    var targetOrigin;
+    var server = location.protocol + "//" + location.hostname;
+
     pageSetUp();
+
+    function receiveMessage(event)
+    {
+        // Do we trust the sender of this message?
+        if (event.origin !== server) {
+            console.log("address error: " +  event.origin);
+            return;
+        }
+        if (event.data !== "connect") {
+            console.log("connect value error: " +  event.data);
+            return;
+        }
+
+        otherWindow = event.source;
+        targetOrigin = event.origin;
+    }
+
     var pagefunction = function() {
+
+        window.addEventListener("message", receiveMessage, false);
         gridPage();
 
-        // TODO: Modify to run and return requestID
-//        $('#downloadBtnBottom').click(function(e){
-//            // save the rows of the selected data table into local storage
-//            localStorage.setItem("selectedData", JSON.stringify(selectedData));
-//            window.location.href = "dashboard.php#ajax/deepblue_download_experiments.php";
-//        });
+        $('#downloadBtnBottom').click(function(e){
+            var query_id = 1234;
+            // TODO: implement select_experiments_server_processing.php
+            otherWindow.postMessage(query_id, targetOrigin);
+            window.close();
+        });
     };
 
     // load related plugins

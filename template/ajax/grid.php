@@ -20,7 +20,7 @@
 
             <div style="padding: 10px">
               <div class="alert alert-info alert-block">
-<!--                <a class="close" data-dismiss="alert" href="#">×</a>-->
+                <a class="close" data-dismiss="alert" href="#">×</a>
                 The grid displays the experiments that match the selected metadata. Fell free to select the metadata attributes that better suits you.</br>
                 The value in the grid cells represent the number of experiments that match selected metadata, <i>Epigenetic Mark</i> (column), and <i>BioSource</i> (row).</br>
                 Click on a grid cell to select the experiments associated with this cell. The selected experiments are listed in the end of this page.</br>
