@@ -74,12 +74,41 @@ include("inc/google-analytics.php");
 
         window.addEventListener("message", receiveMessage, false);
         gridPage();
-
         $('#downloadBtnBottom').click(function(e){
-            var query_id = 1234;
-            // TODO: implement select_experiments_server_processing.php
-            otherWindow.postMessage(query_id, targetOrigin);
-            window.close();
+            var request = $.ajax({
+                url: "ajax/server_side/select_experiments_server_processing.php",
+                dataType: "json",
+                data : {
+                    experiments_ids : selected
+                }
+            });
+            request.done( function(data) {
+                if ("error" in data) {
+                    swal({
+                        title: "Request Failed.",
+                        text: data['message']
+                    });
+                    return;
+                }
+                var query_id = data.query_id;
+                if (otherWindow !== undefined) {
+                    otherWindow.postMessage(query_id, targetOrigin);
+                    window.close();
+                }
+                else {
+                    swal({
+                        title: "Calling window not found",
+                        type: "warning",
+                        text: "The  queryID is " + data.query_id
+                    }, function(){
+                        window.close();
+                    })
+                }
+            });
+            request.fail( function(jqXHR, textStatus) {
+                console.log(jqXHR);
+                console.log('Error: '+ textStatus);
+            });
         });
     };
 
