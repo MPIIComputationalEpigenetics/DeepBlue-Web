@@ -74,6 +74,7 @@ include("inc/google-analytics.php");
 
         window.addEventListener("message", receiveMessage, false);
         gridPage();
+        $("#downloadBtnBottom").html("Select Experiments");
         $('#downloadBtnBottom').click(function(e){
             var request = $.ajax({
                 url: "ajax/server_side/select_experiments_server_processing.php",
