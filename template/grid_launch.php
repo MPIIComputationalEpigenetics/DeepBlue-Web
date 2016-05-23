@@ -20,25 +20,8 @@ include("inc/google-analytics.php");
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/starter-template.css" rel="stylesheet">
-
     <!-- Style from the Deepblue website -->
     <link href="css/smartadmin-production.min.css" rel="stylesheet">
-
-    <!-- FAVICONS -->
-    <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body id="extr-page">
@@ -52,6 +35,9 @@ include("inc/google-analytics.php");
         <div>
             <button type="submit" class="btn btn-primary" onClick="openGrid()"> DeepBlue Grid </button>
         </div>
+        <br>
+        <div id="selection_info">
+        </div>
     </div>
 </div> <!-- /container -->
 
@@ -59,7 +45,6 @@ include("inc/google-analytics.php");
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/bootstrap.min.js"></script>
 <script>
     function receiveMessage(event)
     {
@@ -70,7 +55,38 @@ include("inc/google-analytics.php");
             console.log("address error: " +  event.origin);
             return;
         }
-        alert(event.data);
+        var query_id = event.data;
+        var request2 = $.ajax({
+            url: "api/info",
+            type: "GET",
+            dataType: "JSON",
+            data : {
+                id : query_id
+            }
+        });
+        request2.done( function(data) {
+            if ("error" in data) {
+                swal({
+                    title: "Error listing experiments",
+                    text: data['message']
+                });
+                return;
+            }
+            var selections = $.parseJSON(data[1][0]['args']);
+            var experiments = selections['experiment_name'];
+            console.log(experiments);
+
+            var output = "<b>Experiments:</b><br>";
+            for (var i=0;i<experiments.length;i++) {
+                output += experiments[i] + "<br>";
+            }
+            $("#selection_info").append(output);
+        });
+        request2.fail( function(jqXHR, textStatus) {
+            console.log(jqXHR);
+            console.log('Error: '+ textStatus);
+            alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+        });
     }
 
     function openGrid() {
