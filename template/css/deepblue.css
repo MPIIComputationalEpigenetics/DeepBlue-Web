@@ -336,3 +336,11 @@ a.morelink {
      overflow-x: hidden;
      overflow-y: auto;
  }
+
+.table .selected-grid-cell {
+    border-color: green;
+}
+
+.table .unselected-grid-cell {
+    border-color: yellowgreen;
+}
