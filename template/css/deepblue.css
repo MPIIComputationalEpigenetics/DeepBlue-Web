@@ -344,3 +344,20 @@ a.morelink {
 .table .unselected-grid-cell {
     border-color: yellowgreen;
 }
+
+
+///
+
+th.rotate {
+  /* Something you can count on */
+  height: 140px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform:
+    translate(20px, 30px)
+    rotate(300deg);
+  width: px;
+  height: 90px;
+}

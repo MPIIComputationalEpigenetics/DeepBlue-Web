@@ -185,7 +185,7 @@ function showExperiments(data) {
     var epi;
     for (j = 0; j < table_columns; j++) {
         epi = data['cell_epigenetic_marks'][j];
-        table_str = table_str + "<th data-col='" + epi + "'>"  + epi + "</th>";
+        table_str = table_str + "<th class='rotate' data-col='" + epi + "'><div><span>"  + epi + "</span></div></th>";
     }
     table_str = table_str + "</thead>";
 
@@ -656,6 +656,7 @@ function toggleDefaults() {
     for (var d in default_datatypes) {
         emulateClick(default_datatypes[d], false);
     }
+
 
     for (var d in default_epigenetic_marks) {
         emulateClick(default_epigenetic_marks[d], d == default_epigenetic_marks.length - 1);
