@@ -356,8 +356,8 @@ th.rotate {
 
 th.rotate > div {
   transform:
-    translate(20px, 30px)
+    translate(20px, 10px)
     rotate(300deg);
-  width: px;
+  width: 80px;
   height: 90px;
 }
