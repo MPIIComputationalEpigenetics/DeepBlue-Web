@@ -39,7 +39,7 @@ require_once("inc/init.php");
 <section id="widget-grid" class="">
     <div class="row" id="selection-table">
         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="jarviswidget jarviswidget-color-blueDark" id="datable-download-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="datable-download-experiments" data-widget-togglebutton="false"  data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false">
 
                 <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>
@@ -131,10 +131,10 @@ require_once("inc/init.php");
         <!-- NEW COL START -->
         <article class="col-sm-12 col-md-12 col-lg-12">
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+            <div class="jarviswidget" id="wid-id-2" data-widget-togglebutton="false"  data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                    <h2>Columns </h2>
+                    <h2>Columns <small><i>(Select the columns that you want to include in the file)</i></small> </h2>
                 </header>
                <!-- widget div-->
                 <div>
@@ -190,10 +190,10 @@ require_once("inc/init.php");
             <!-- end widget -->
 
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-collapsed="true">
+            <div class="jarviswidget" id="wid-genomic-coordinates" data-widget-togglebutton="false"  data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-collapsed="false">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-map-marker"></i> </span>
-                    <h2>Genomic Coordinate </h2>
+                    <h2>Genomic Coordinate <small><i>(Empty for selecting all regions)</i></small></h2>
                 </header>
                <!-- widget div-->
                 <div>
@@ -239,10 +239,10 @@ require_once("inc/init.php");
             <!-- end widget -->
 
             <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-collapsed="true">
+            <div class="jarviswidget" id="wid-genomic-annotations" data-widget-togglebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-collapsed="false">
                 <header>
                     <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
-                    <h2>Overlapping with Annotations </h2>
+                    <h2>Overlapping with Annotations <small><i>(Empty for selecting all regions)</i></small></h2>
                 </header>
                <!-- widget div-->
                 <div>
