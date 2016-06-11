@@ -109,7 +109,7 @@
               </div>
             </div>
             <div class="col-md-9">
-              <div id="experiment-column"></div>
+              <div id="experiment-column" style="overflow-y:auto"></div>
             </div>
           </div>
         </div>
