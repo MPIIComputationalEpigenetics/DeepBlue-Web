@@ -29,8 +29,8 @@
 
             <div class="col-md-3">
               <div>
-                <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear metadata selection </button>
-                <button type="submit" id="selectAllBtn" class="btn btn-default" onClick="selectAll()" disabled> Select all experiments </button>
+                <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear metadata selection (x) </button>
+                <button type="submit" id="selectAllBtn" class="btn btn-default" onClick="selectAll()" disabled> Select all experiments (o) </button>
               </div>
               <hr>
               <br>
@@ -39,6 +39,8 @@
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
                       <span style="float: left">Data types</span>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-datatype')">o</a>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-datatype')">x</a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill" id="types-bttn" onclick="toggleButton(this.id)">+</a>
                     </h4>
                   </div>
@@ -51,6 +53,8 @@
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
                       <span style="float: left">Projects</span>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-project')">o</a>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-project')">x</a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill" id="projects-bttn" onclick="toggleButton(this.id)">+</a>
                     </h4>
                   </div>
@@ -63,6 +67,8 @@
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
                       <span style="float: left">Genome</span>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-genome')">o</a>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-genome')">x</a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#genomes-panel" href="#genomes-spill" id="genomes-bttn" onclick="toggleButton(this.id)">+</a>
                     </h4>
                   </div>
@@ -70,12 +76,13 @@
                   <ul class="list-group panel-collapse collapse out" name="experiment-genome" id="genomes-spill"></ul>
                 </div>
               </div>
-              <!--                var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];-->
               <div class="panel-group" id="epigenetic_marks-panel">
                 <div class="panel panel-default">
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
                       <span style="float: left">Epigenetic Marks</span>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-epigenetic_mark')">o</a>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-epigenetic_mark')">x</a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#epigenetic_marks-panel" href="#epigenetic_marks-spill" id="epigenetic_marks-bttn" onclick="toggleButton(this.id)">+</a>
                     </h4>
                   </div>
@@ -88,6 +95,8 @@
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
                       <span style="float: left">Biosources</span>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-biosource')">o</a>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-biosource')">x</a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#biosources-panel" href="#biosources-spill" id="biosources-bttn" onclick="toggleButton(this.id)">+</a>
                     </h4>
                   </div>
@@ -100,6 +109,8 @@
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
                       <span style="float: left">Techniques</span>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-technique')">o</a>
+                      <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-technique')">x</a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#techniques-panel" href="#techniques-spill" id="techniques-bttn" onclick="toggleButton(this.id)">+</a>
                     </h4>
                   </div>

@@ -1,7 +1,9 @@
 var selected = [];
 var list_in_use;
+var list_in_use_full;
 var experiments;
 var filters = {};
+var vocab_filters = {};
 var filter_active = false;
 var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
 var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
@@ -13,6 +15,55 @@ var selectedCount = {}; // selected experiment counter
 var selected = [];
 var otable;
 var otable2;
+
+function clearVocab(list_name) {
+    if (vocab_filters[list_name]) {
+        initVocab(list_name);
+        filter_active = true;
+        pullData();
+    }
+}
+
+function selectVocab(list_name) {
+
+    var index = vocabids.indexOf(list_name);// index of vocabid in vocabids
+    var vocabname = vocabnames[index];
+
+    console.log(list_name);
+    console.log(list_in_use[vocabname]['amt'].length);
+    console.log(list_in_use_full[vocabname]['amt'].length);
+
+    if (list_in_use[vocabname]['amt'].length != list_in_use_full[vocabname]['amt'].length) {
+        console.log("nicht equal");
+        console.log(filters[list_name].length);
+        var currentvocab = list_in_use_full[vocabname]['amt'];
+        for (j in currentvocab) {
+            if (filters[list_name].indexOf(currentvocab[j][1]) == -1) {
+                console.log(currentvocab[j][1]);
+                filters[list_name].push(currentvocab[j][1]);
+            }
+        }
+        filter_active = true;
+        vocab_filters[list_name] = true;
+
+        pullData();
+        console.log(filters[list_name].length);
+    }
+    else {
+        console.log(filters[list_name].length);
+        for (i in list_in_use_full[vocabname]['amt']) {
+            var item = list_in_use_full[vocabname]['amt'][i][1];
+            var elements = $("a[id='"+item+"']");
+            $(elements[0]).addClass('active');
+            vocab_filters[list_name] = true;
+
+            if (filters[list_name].indexOf(item) == -1) {
+                filters[list_name].push(item);
+            }
+        }
+    }
+    console.log(filters[list_name].length);
+}
 
 function clearSelections() {
     // clear list selection
@@ -60,6 +111,10 @@ function selectAll() {
             list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
             filter_active = true;
 
+            for (i in vocabids) {
+                vocab_filters[vocabids[i]] = true;
+            }
+
             initFilters(true);
             loadExperiments();
             fillFilter();
@@ -82,9 +137,15 @@ function fillFilter() {
     }
 }
 
+function initVocab(vocabid) {
+    filters[vocabid] = [];
+    vocab_filters[vocabid] = false;
+}
+
 function init() {
     for (i in vocabids) {
         filters[vocabids[i]] = [];
+        vocab_filters[vocabids[i]] = false;
     }
 }
 
@@ -123,6 +184,7 @@ function pullData() {
         }
         else {
             localStorage.setItem("list_in_use", JSON.stringify(data[0]));
+            list_in_use_full = data[0];
             initFilters(false);
             toggleDefaults();
         }
@@ -467,6 +529,7 @@ function selectHandler(e, pull_data) {
     }
     else {
         filters[selList].push(selElemName);
+        vocab_filters[selList] = true;
     }
 
     // update filter, pull data and prepend selections
@@ -594,8 +657,7 @@ function loadFilters() {
             }
         }
 
-        var list_in_use_main = JSON.parse(localStorage.getItem('list_in_use'));
-        var currentvocab2 = list_in_use_main[vocabname]['alp'];
+        var currentvocab2 = list_in_use_full[vocabname]['alp'];
         //var currentvocab_size2 = currentvocab2.length;
 
         // add filtered results to list with count of 0
@@ -657,7 +719,6 @@ function toggleDefaults() {
         emulateClick(default_datatypes[d], false);
     }
 
-
     for (var d in default_epigenetic_marks) {
         emulateClick(default_epigenetic_marks[d], d == default_epigenetic_marks.length - 1);
     }
@@ -678,6 +739,7 @@ function gridPage() {
         pullData();
     }
     else {
+        list_in_use_full = list_in_use;
         initFilters(false);
         toggleDefaults();
     }
