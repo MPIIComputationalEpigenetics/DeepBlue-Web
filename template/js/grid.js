@@ -725,9 +725,7 @@ function toggleDefaults() {
 }
 
 function toggleButton(id) {
-    $("#"+id).text(function(i,old){
-        return old=='+' ?  '-' : '+';
-    });
+    $("#"+id).find('i').toggleClass('fa fa-plus-square-o fa fa-minus-square-o');
 }
 
 function gridPage() {
