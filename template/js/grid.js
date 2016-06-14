@@ -445,6 +445,7 @@ function addSelected(experiments, bio, epi) {
         type : "GET",
         data : {
             id : experiment_ids
+            user_key : user_key,
         },
         dataType: "json"
     });
