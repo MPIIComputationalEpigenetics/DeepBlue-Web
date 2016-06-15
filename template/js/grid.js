@@ -17,6 +17,10 @@ var otable;
 var otable2;
 
 function clearVocab(list_name) {
+
+    // show loading
+    $("#"+list_name+"-i").addClass("fa fa-spinner fa-spin fa-fw");
+
     if (vocab_filters[list_name]) {
         initVocab(list_name);
         filter_active = true;
@@ -34,6 +38,10 @@ function selectVocab(list_name) {
     console.log(list_in_use_full[vocabname]['amt'].length);
 
     if (list_in_use[vocabname]['amt'].length != list_in_use_full[vocabname]['amt'].length) {
+
+        // show loading
+        $("#"+list_name+"-i").addClass("fa fa-spinner fa-spin fa-fw");
+
         console.log("nicht equal");
         console.log(filters[list_name].length);
         var currentvocab = list_in_use_full[vocabname]['amt'];
@@ -516,6 +524,10 @@ function selectHandler(e, pull_data) {
     filter_active = true;
 
     var selList = $(e).parent(".list-group").attr('name');
+
+    // show loading
+    $("#"+selList+"-i").addClass("fa fa-spinner fa-spin fa-fw");
+
     var selElemName = e.id;
 
     if ($(e).hasClass('active')) {
@@ -678,6 +690,9 @@ function loadFilters() {
                 }
             }
         }
+
+        // hide loading
+        $("#"+vocabid+"-i").removeClass("fa fa-spinner fa-spin fa-fw");
     }
 }
 
