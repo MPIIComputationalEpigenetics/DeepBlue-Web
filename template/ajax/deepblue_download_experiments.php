@@ -148,6 +148,7 @@ require_once("inc/init.php");
                     <div class="widget-body">
                         <legend>
                             Common Column(s)
+                            <i id="common-c" class="fa fa-spinner fa-spin fa-fw"></i>
                         </legend>
                         <div class="form-group">
                             <select id="common_col" multiple style="width:100%" class="select2"></select>
@@ -157,6 +158,7 @@ require_once("inc/init.php");
                         </div>
                         <legend>
                             Optional Column(s)
+                            <i id="optional-c" class="fa fa-spinner fa-spin fa-fw"></i>
                         </legend>
                         <div class="form-group">
                             <select id="optional_col" multiple style="width:100%" class="select2"></select>
@@ -166,6 +168,7 @@ require_once("inc/init.php");
                         </div>
                         <legend>
                             Meta Column(s)
+                            <i id="meta-c" class="fa fa-spinner fa-spin fa-fw"></i>
                         </legend>
                         <div class="form-group">
                             <select id="meta_col" multiple style="width:100%" class="select2"></select>
@@ -175,6 +178,7 @@ require_once("inc/init.php");
                         </div>
                         <legend>
                             Calculated Column(s)
+                            <i id="calculated-c" class="fa fa-spinner fa-spin fa-fw"></i>
                         </legend>
                         <div class="form-group">
                             <select id="calculated_col" multiple style="width:100%" class="select2"></select>
@@ -207,6 +211,7 @@ require_once("inc/init.php");
                     <div class="widget-body">
                         <legend>
                             Genomic Coordinate
+                            <i id="genomic-c" class="fa fa-spinner fa-spin fa-fw"></i>
                         </legend>
                         <div class="row">
                             <div class="col-sm-6 col-md-8 col-lg-8">
@@ -256,6 +261,7 @@ require_once("inc/init.php");
                     <div class="widget-body">
                         <legend>
                             Overlapping
+                            <i id="overlapping-c" class="fa fa-spinner fa-spin fa-fw"></i>
                         </legend>
                         <div class="form-group">
                             <label>Annotations</label>
@@ -369,6 +375,7 @@ require_once("inc/init.php");
                     .attr("value", value)
                     .text(value));
             }
+            $('#meta-c').removeClass("fa fa-spinner fa-spin fa-fw");
 
             // Calculated Columns
             for (i=0; i<data['calculated'].length; i++) {
@@ -380,6 +387,7 @@ require_once("inc/init.php");
                     .attr("value", value)
                     .text(text));
             }
+            $('#calculated-c').removeClass("fa fa-spinner fa-spin fa-fw");
 
             // Common Columns
             for (i=0; i<data['common'].length; i++) {
@@ -391,6 +399,7 @@ require_once("inc/init.php");
                     .text(value));
             }
             $('#common_col').select2("val", data['common']);
+            $('#common-c').removeClass("fa fa-spinner fa-spin fa-fw");
 
             // Optional Columns
             for (i=0; i<data['optional'].length; i++) {
@@ -402,6 +411,7 @@ require_once("inc/init.php");
                     .attr("value", key)
                     .text(text));
             }
+            $('#optional-c').removeClass("fa fa-spinner fa-spin fa-fw");
 
             // completed
             complete1 = true
@@ -442,6 +452,7 @@ require_once("inc/init.php");
                     .attr("value", value)
                     .text(value));
             }
+            $('#genomic-c').removeClass("fa fa-spinner fa-spin fa-fw");
 
             var ann = data['annotations'];
             for (i=0; i < ann.length; i++) {
@@ -451,7 +462,7 @@ require_once("inc/init.php");
                     .attr("value", value)
                     .text(value));
             }
-
+            $('#overlapping-c').removeClass("fa fa-spinner fa-spin fa-fw");
             allgenomes = data['genomes'];
 
             // completed
