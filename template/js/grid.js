@@ -526,9 +526,6 @@ function selectHandler(e, pull_data) {
 
     var selList = $(e).parent(".list-group").attr('name');
 
-    // show loading
-    $("#"+selList+"-i").addClass("fa fa-spinner fa-spin fa-fw");
-
     var selElemName = e.id;
 
     if ($(e).hasClass('active')) {
@@ -543,6 +540,8 @@ function selectHandler(e, pull_data) {
 
     // update filter, pull data and prepend selections
     if (pull_data) {
+        // show loading
+        $("#"+selList+"-i").addClass("fa fa-spinner fa-spin fa-fw");
         pullData();
     }
 }
