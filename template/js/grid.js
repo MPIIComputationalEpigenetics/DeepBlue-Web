@@ -565,7 +565,7 @@ function toggleMetadata() {
 
 function removeSelectedRow() {
     /* remove selection by clicking of row in the selection table*/
-    $('#datatable_selected_column').on('click', 'tr', function () {
+    $('#datatable_selected_column').on('dblclick', 'tr', function () {
         var id = $('td', this).eq(0).text();
         if (id ==  "") {
             return;
