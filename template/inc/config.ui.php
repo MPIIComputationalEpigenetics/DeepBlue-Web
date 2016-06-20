@@ -57,7 +57,7 @@ $page_nav = array(
         "title" => "Search",
         "url"=> "ajax/deepblue_view_search.php",
         "icon" => "fa-search",
-        "description" => "Perform full text search on DeepBlue data.",
+        "description" => "Perform full-text search on DeepBlue data.",
         "elevated" => false
     ),
 
