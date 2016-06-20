@@ -67,7 +67,13 @@ class DeepblueApi{
 		/* Counter for order number */
 		$n = 1;
 
-		foreach ($sortedArray as $sKeyOne => $sValueOne){
+        echo "<div class=\"row\">";
+
+        echo "<div class=\"col-md-3\">";
+        echo "<div class='api-panel'>";
+        echo "<div class='api-panel-header'>DeepBlue operations</div>";
+
+        foreach ($sortedArray as $sKeyOne => $sValueOne){
             $norm_name = str_replace(' ', '-', strtolower($sKeyOne));
 
 
@@ -75,19 +81,20 @@ class DeepblueApi{
             if ($show_sub) {
                 echo " location.href = '#api-".$norm_name."'";
             }
-            echo "});\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a> — $sValueOne</h3>";
+            echo "});\" href=\"javascript:void(0);\"><h3><b>$sKeyOne</b></a></h3>";
 
 		    foreach($commands as $tKeyOne => $tValueOne){
 			    if($sKeyOne == $tValueOne['description'][0]) {
 
                     $norm_name2 = str_replace(' ', '-', strtolower($tKeyOne));
-                    echo "<div class='api-description-listing'>".$n." )\n";
+                    echo "<div class='api-description-listing'>";
                     echo "<a onclick=\"$(function() { $(document).scrollTop($('#api-". $norm_name2."').offset().top );";
                     if ($show_sub) {
                         echo "location.href = '#api-".$norm_name2."'";
                     }
-                    echo "});\" href='javascript:void(0);'>$tKeyOne</a> — ".$tValueOne['description'][2];
+                    echo "});\" href='javascript:void(0);'>$tKeyOne</a>";
                     $n++;
+                    echo "</div>\n";
                 }
                 ?>
 				<div class="marginDiv"></div>
@@ -95,10 +102,14 @@ class DeepblueApi{
 		    }
 		    $n = 1;
 		}
+        echo "</div>";
+        echo "</div>";
+
+        echo "<div class=\"col-md-9\">";
 
 		foreach ($sortedArray as $sKeyOne => $sValueOne){
 			echo "<div class='api-panel'>
-				  <div class='api-panel-header' id='api-".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sValueOne."</div>";
+				  <div class='api-panel-header' id='api-".str_replace(' ', '-', strtolower($sKeyOne))."'>".$sKeyOne. " - <span class=\"small\">". $sValueOne."</span></div>";
 
 			foreach($commands as $tKeyOne => $tValueOne){
 				if($sKeyOne == $tValueOne['description'][0]){
@@ -171,6 +182,10 @@ class DeepblueApi{
 			}
 			echo "</div>";
 		}
+        echo "</div>";
+        // Main div
+        echo "</div>";
+
 
 	}
 

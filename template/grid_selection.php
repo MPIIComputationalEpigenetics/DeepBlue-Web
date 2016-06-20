@@ -44,7 +44,7 @@ include("inc/google-analytics.php");
 <div style="padding:10px; border:none; background:#FFF">
     <?php include("inc/grid.php"); ?>
     <div class="alert alert-info alert-block" id="selection-banner">
-        Click the row to unselect an experiment. It will be removed from the data table.</br>
+        Double click the row to unselect an experiment. It will be removed from the data table.</br>
         Click in the <i>Select Experiments</i> button to get the queryID referencing the selected experiments.</br>
     </div>
     <?php include("inc/selection_table.php"); ?>

@@ -57,6 +57,7 @@
     margin-left:20px;
 }
 .api-header{
+    font-size: 17px;
     border:1px dashed #CCC;
     padding: 20px;
     background: #EEE;
@@ -89,8 +90,14 @@
 .api-description-listing{
     font-size:17px;
 }
+
+.api-description {
+    font-size: 17px;
+    margin: 15px 40px 15px 40px;
+}
+
 .api-panel{
-    margin:20px 0 40px 0;
+    margin:20px 40px 50px 40px;
     padding:40px!important;
     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     -moz-box-shadow:    0 5px 10px rgba(0, 0, 0, 0.3);
@@ -122,8 +129,10 @@
 }
 .api-parameters ul li, .api-responses ul li{
     list-style: circle outside none;
+    font-size: 17px;
 }
 .api-parameters ul li{
+    font-size: 17px;
     line-height: 2.0em;
 }
 .search-results{

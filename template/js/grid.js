@@ -215,7 +215,7 @@ function loadExperiments() {
         dataType: "JSON",
         data : {
             request : filters,
-            key : user_key,
+            key : user_key
         }
     });
 
@@ -448,7 +448,8 @@ function addSelected(experiments, bio, epi) {
         url: "api/info",
         type : "GET",
         data : {
-            id : experiment_ids
+            id : experiment_ids,
+            user_key : user_key
         },
         dataType: "json"
     });

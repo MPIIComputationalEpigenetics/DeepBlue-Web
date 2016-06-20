@@ -37,7 +37,7 @@ require_once("inc/init.php");
   <!-- row -->
   <?php include("../inc/grid.php"); ?>
   <div class="alert alert-info alert-block" id="selection-banner">
-    Click the row to unselect an experiment. It will be removed from the data table.</br>
+    Double click the row to unselect an experiment. It will be removed from the data table.</br>
     For downloading the data, click in the <i>Download</i> button in the end of the page. You will be redirected to the download page.</br>
   </div>
   <?php include("../inc/selection_table.php"); ?>
