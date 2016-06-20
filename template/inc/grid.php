@@ -38,7 +38,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
-                      <span style="float: left">Data types</span>
+                      <span style="float: left">Data types <i id="experiment-datatype-i"></i></span>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-datatype')"><i class="fa fa-circle"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-datatype')"><i class="fa fa-circle-o"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#types-panel" href="#types-spill" id="types-bttn" onclick="toggleButton(this.id)"><i class="fa fa-plus-square-o"></i></a>
@@ -52,7 +52,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
-                      <span style="float: left">Projects</span>
+                      <span style="float: left">Projects <i id="experiment-project-i"></i></span>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-project')"><i class="fa fa-circle"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-project')"><i class="fa fa-circle-o"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#projects-panel" href="#projects-spill" id="projects-bttn" onclick="toggleButton(this.id)"><i class="fa fa-plus-square-o"></i></a>
@@ -66,7 +66,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
-                      <span style="float: left">Genome</span>
+                      <span style="float: left">Genome <i id="experiment-genome-i"></i></span>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-genome')"><i class="fa fa-circle"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-genome')"><i class="fa fa-circle-o"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#genomes-panel" href="#genomes-spill" id="genomes-bttn" onclick="toggleButton(this.id)"><i class="fa fa-plus-square-o"></i></a>
@@ -80,7 +80,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
-                      <span style="float: left">Epigenetic Marks</span>
+                      <span style="float: left">Epigenetic Marks <i id="experiment-epigenetic_mark-i"></i></span>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-epigenetic_mark')"><i class="fa fa-circle"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-epigenetic_mark')"><i class="fa fa-circle-o"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#epigenetic_marks-panel" href="#epigenetic_marks-spill" id="epigenetic_marks-bttn" onclick="toggleButton(this.id)"><i class="fa fa-plus-square-o"></i></a>
@@ -94,7 +94,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
-                      <span style="float: left">Biosources</span>
+                      <span style="float: left">Biosources <i id="experiment-biosource-i"></i></span>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-biosource')"><i class="fa fa-circle"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-biosource')"><i class="fa fa-circle-o"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#biosources-panel" href="#biosources-spill" id="biosources-bttn" onclick="toggleButton(this.id)"><i class="fa fa-plus-square-o"></i></a>
@@ -108,7 +108,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading" align="right">
                     <h4 class="panel-title">
-                      <span style="float: left">Techniques</span>
+                      <span style="float: left">Techniques <i id="experiment-technique-i"></i></span>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="selectVocab('experiment-technique')"><i class="fa fa-circle"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" onclick="clearVocab('experiment-technique')"><i class="fa fa-circle-o"></i></a>
                       <a class="btn btn-xs btn-default accordion-toggle" role="button" data-toggle="collapse" data-parent="#techniques-panel" href="#techniques-spill" id="techniques-bttn" onclick="toggleButton(this.id)"><i class="fa fa-plus-square-o"></i></a>

@@ -17,6 +17,10 @@ var otable;
 var otable2;
 
 function clearVocab(list_name) {
+
+    // show loading
+    $("#"+list_name+"-i").addClass("fa fa-spinner fa-spin fa-fw");
+
     if (vocab_filters[list_name]) {
         initVocab(list_name);
         filter_active = true;
@@ -34,6 +38,10 @@ function selectVocab(list_name) {
     console.log(list_in_use_full[vocabname]['amt'].length);
 
     if (list_in_use[vocabname]['amt'].length != list_in_use_full[vocabname]['amt'].length) {
+
+        // show loading
+        $("#"+list_name+"-i").addClass("fa fa-spinner fa-spin fa-fw");
+
         console.log("nicht equal");
         console.log(filters[list_name].length);
         var currentvocab = list_in_use_full[vocabname]['amt'];
@@ -151,10 +159,6 @@ function init() {
 
 function getDefaultsDataTypes() {
     return ['peaks'];
-}
-
-function getDefaultsEpigeneticMarks() {
-    return ['H3K4me3','H3K9me3','H3K27me3','H3K36me3','H3K4me1','H3K27ac','Input','DNA Methylation','CTCF','DNaseI','RNA','mRNA'];
 }
 
 function pullData() {
@@ -521,6 +525,7 @@ function selectHandler(e, pull_data) {
     filter_active = true;
 
     var selList = $(e).parent(".list-group").attr('name');
+
     var selElemName = e.id;
 
     if ($(e).hasClass('active')) {
@@ -535,6 +540,8 @@ function selectHandler(e, pull_data) {
 
     // update filter, pull data and prepend selections
     if (pull_data) {
+        // show loading
+        $("#"+selList+"-i").addClass("fa fa-spinner fa-spin fa-fw");
         pullData();
     }
 }
@@ -557,7 +564,7 @@ function toggleMetadata() {
 
 function removeSelectedRow() {
     /* remove selection by clicking of row in the selection table*/
-    $('#datatable_selected_column').on('click', 'tr', function () {
+    $('#datatable_selected_column').on('dblclick', 'tr', function () {
         var id = $('td', this).eq(0).text();
         if (id ==  "") {
             return;
@@ -683,6 +690,9 @@ function loadFilters() {
                 }
             }
         }
+
+        // hide loading
+        $("#"+vocabid+"-i").removeClass("fa fa-spinner fa-spin fa-fw");
     }
 }
 
@@ -713,15 +723,10 @@ function initFilters(active) {
 }
 
 function toggleDefaults() {
-    var default_epigenetic_marks = getDefaultsEpigeneticMarks();
     var default_datatypes = getDefaultsDataTypes();
 
     for (var d in default_datatypes) {
-        emulateClick(default_datatypes[d], false);
-    }
-
-    for (var d in default_epigenetic_marks) {
-        emulateClick(default_epigenetic_marks[d], d == default_epigenetic_marks.length - 1);
+        emulateClick(default_datatypes[d], d == default_datatypes.length - 1);
     }
 }
 
