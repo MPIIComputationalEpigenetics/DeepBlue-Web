@@ -3,7 +3,6 @@ var list_in_use;
 var list_in_use_full;
 var experiments;
 var filters = {};
-var vocab_filters = {};
 var filter_active = false;
 var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
 var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
@@ -13,19 +12,36 @@ var defaults = {};
 var selectedData = []; // selected experiment
 var selectedCount = {}; // selected experiment counter
 var selected = [];
+var toggleSelectAll = {};
 var otable;
 var otable2;
 
 function clearVocab(list_name) {
 
-    // show loading
-    $("#"+list_name+"-i").addClass("fa fa-spinner fa-spin fa-fw");
+    var index = vocabids.indexOf(list_name);// index of vocabid in vocabids
+    var vocabname = vocabnames[index];
 
-    if (vocab_filters[list_name]) {
-        initVocab(list_name);
+    // console.log(list_name);
+    // console.log(list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length);
+    // console.log(toggleSelectAll[list_name]);
+
+    if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
+        filters[list_name] = [];
+        for (i in list_in_use_full[vocabname]['amt']) {
+            var item = list_in_use_full[vocabname]['amt'][i][1];
+            var elements = $("a[id='"+item+"']");
+            $(elements[0]).removeClass('active');
+        }
+    }
+    else {
+        // show loading
+        $("#" + list_name + "-i").addClass("fa fa-spinner fa-spin fa-fw");
+
+        filters[list_name] = [];
         filter_active = true;
         pullData();
     }
+    toggleSelectAll[list_name] = true;
 }
 
 function selectVocab(list_name) {
@@ -33,17 +49,24 @@ function selectVocab(list_name) {
     var index = vocabids.indexOf(list_name);// index of vocabid in vocabids
     var vocabname = vocabnames[index];
 
-    console.log(list_name);
-    console.log(list_in_use[vocabname]['amt'].length);
-    console.log(list_in_use_full[vocabname]['amt'].length);
+    // console.log(list_name);
+    // console.log(list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length);
+    // console.log(toggleSelectAll[list_name]);
 
-    if (list_in_use[vocabname]['amt'].length != list_in_use_full[vocabname]['amt'].length) {
+    if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
+        for (i in list_in_use_full[vocabname]['amt']) {
+            var item = list_in_use_full[vocabname]['amt'][i][1];
+            var elements = $("a[id='"+item+"']");
+            $(elements[0]).addClass('active');
 
+            if (filters[list_name].indexOf(item) == -1) {
+                filters[list_name].push(item);
+            }
+        }
+    }
+    else {
         // show loading
         $("#"+list_name+"-i").addClass("fa fa-spinner fa-spin fa-fw");
-
-        console.log("nicht equal");
-        console.log(filters[list_name].length);
         var currentvocab = list_in_use_full[vocabname]['amt'];
         for (j in currentvocab) {
             if (filters[list_name].indexOf(currentvocab[j][1]) == -1) {
@@ -52,25 +75,9 @@ function selectVocab(list_name) {
             }
         }
         filter_active = true;
-        vocab_filters[list_name] = true;
-
         pullData();
-        console.log(filters[list_name].length);
     }
-    else {
-        console.log(filters[list_name].length);
-        for (i in list_in_use_full[vocabname]['amt']) {
-            var item = list_in_use_full[vocabname]['amt'][i][1];
-            var elements = $("a[id='"+item+"']");
-            $(elements[0]).addClass('active');
-            vocab_filters[list_name] = true;
-
-            if (filters[list_name].indexOf(item) == -1) {
-                filters[list_name].push(item);
-            }
-        }
-    }
-    console.log(filters[list_name].length);
+    toggleSelectAll[list_name] = true;
 }
 
 function clearSelections() {
@@ -120,7 +127,7 @@ function selectAll() {
             filter_active = true;
 
             for (i in vocabids) {
-                vocab_filters[vocabids[i]] = true;
+                toggleSelectAll[vocabids[i]] = true;
             }
 
             initFilters(true);
@@ -145,15 +152,10 @@ function fillFilter() {
     }
 }
 
-function initVocab(vocabid) {
-    filters[vocabid] = [];
-    vocab_filters[vocabid] = false;
-}
-
 function init() {
     for (i in vocabids) {
         filters[vocabids[i]] = [];
-        vocab_filters[vocabids[i]] = false;
+        toggleSelectAll[vocabids[i]] = true;
     }
 }
 
@@ -523,11 +525,10 @@ function emulateClick(id, pull_data) {
 
 function selectHandler(e, pull_data) {
     filter_active = true;
-
     var selList = $(e).parent(".list-group").attr('name');
-
     var selElemName = e.id;
 
+    toggleSelectAll[selList] = false;
     if ($(e).hasClass('active')) {
         var ind = filters[selList].indexOf(selElemName);
         $(e).removeClass('active');
@@ -535,9 +536,7 @@ function selectHandler(e, pull_data) {
     }
     else {
         filters[selList].push(selElemName);
-        vocab_filters[selList] = true;
     }
-
     // update filter, pull data and prepend selections
     if (pull_data) {
         // show loading
