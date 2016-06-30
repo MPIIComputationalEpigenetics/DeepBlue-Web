@@ -15,15 +15,12 @@ var selected = [];
 var toggleSelectAll = {};
 var otable;
 var otable2;
+var request_id = 0;
 
 function clearVocab(list_name) {
 
     var index = vocabids.indexOf(list_name);// index of vocabid in vocabids
     var vocabname = vocabnames[index];
-
-    // console.log(list_name);
-    // console.log(list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length);
-    // console.log(toggleSelectAll[list_name]);
 
     if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
         filters[list_name] = [];
@@ -39,7 +36,7 @@ function clearVocab(list_name) {
 
         filters[list_name] = [];
         filter_active = true;
-        pullData();
+        pullData(++request_id);
     }
     toggleSelectAll[list_name] = true;
 }
@@ -75,7 +72,7 @@ function selectVocab(list_name) {
             }
         }
         filter_active = true;
-        pullData();
+        pullData(++request_id);
     }
     toggleSelectAll[list_name] = true;
 }
@@ -92,7 +89,7 @@ function clearSelections() {
         filter_active = false;
         list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
         if (list_in_use == null) {
-            pullData();
+            pullData(++request_id);
         }
         else {
             initFilters(false);
@@ -131,7 +128,7 @@ function selectAll() {
             }
 
             initFilters(true);
-            loadExperiments();
+            loadExperiments(++request_id);
             fillFilter();
 
             $("#selectAllBtn").attr('disabled', 'disabled');
@@ -163,7 +160,20 @@ function getDefaultsDataTypes() {
     return ['peaks'];
 }
 
-function pullData() {
+function pullData(req_id) {
+    var delay = 1000;
+    setTimeout(function(){
+        if (req_id < request_id) {
+            // console.log("ignoring pull request: ", req_id);
+            return;
+        }
+        pullDataNow(req_id);
+    }, delay);
+}
+
+function pullDataNow(req_id) {
+    // console.log("pull data now for request: ", req_id);
+
     var request1 = $.ajax({
         url: "ajax/server_side/faceting_experiments.php",
         type : "POST",
@@ -186,7 +196,7 @@ function pullData() {
         list_in_use = data[0];
         if (filter_active) {
             loadFilters();
-            loadExperiments();
+            loadExperiments(req_id);
         }
         else {
             localStorage.setItem("list_in_use", JSON.stringify(data[0]));
@@ -203,11 +213,15 @@ function pullData() {
     });
 }
 
-function loadExperiments() {
+function loadExperiments(req_id) {
 
     $("#experiment-column").empty();
     $("#experiment-column").append("<img src='../img/loader2.gif' >");
 
+    if (req_id < request_id) {
+        return;
+    }
+    // console.log("load experiments for current request id: ", req_id, "and final request id", request_id);
     $('#clearBtn').attr('disabled', 'disabled');
     $('#selectAllBtn').attr('disabled', 'disabled');
 
@@ -541,7 +555,7 @@ function selectHandler(e, pull_data) {
     if (pull_data) {
         // show loading
         $("#"+selList+"-i").addClass("fa fa-spinner fa-spin fa-fw");
-        pullData();
+        pullData(++request_id);
     }
 }
 
@@ -739,7 +753,7 @@ function gridPage() {
 
     list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
     if (list_in_use == null) {
-        pullData();
+        pullData(request_id);
     }
     else {
         list_in_use_full = list_in_use;
