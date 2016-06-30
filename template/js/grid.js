@@ -161,7 +161,14 @@ function getDefaultsDataTypes() {
 }
 
 function pullData(req_id) {
+    // no delay for initial page loading
+    if (req_id <= 1) {
+        pullDataNow(req_id);
+        return;
+    }
+
     var delay = 1000;
+    // console.log("Delay request: ", req_id);
     setTimeout(function(){
         if (req_id < request_id) {
             // console.log("ignoring pull request: ", req_id);
