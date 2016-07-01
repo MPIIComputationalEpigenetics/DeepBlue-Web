@@ -556,6 +556,7 @@ function selectHandler(e, pull_data) {
         filters[selList].splice(ind, 1);
     }
     else {
+        $(e).addClass('active');
         filters[selList].push(selElemName);
     }
     // update filter, pull data and prepend selections
