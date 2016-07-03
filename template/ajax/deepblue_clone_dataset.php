@@ -754,6 +754,7 @@ require_once("inc/init.php");
 							report = report + "Experiment " + getId[l] + " cloning Successful: " + data[l][1] + "\n";
 							//$( "#tempSearchResult" ).empty();
 							$("#infoResult").empty(); $("#columnResult").empty(); $("#metadataResult" ).empty();
+							$("#infoDesc").empty(); $("#columnDesc").empty(); $("#metadataDesc" ).empty();
 							infoResult = ""; columnResult = ""; metadataResult = "";
 							$("#clone_display").hide();
 							$("#widget-grid").show();
