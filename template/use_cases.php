@@ -272,7 +272,7 @@ include("inc/header.php");
             <br />
             <br />
             <br />
-            <p>We build a list of all biosources names that are related with <i>liver</i>, <i>hematopoietic</i>, and <i>hematopoietic stem cell</i>. <small>(lines 21-25)</small></p>
+            <p>We build a list of all biosources names that are related with <i>Regulatory T cell</i>. <small>(lines 21-25)</small></p>
             <br />
             <br />
             <br />
@@ -313,7 +313,7 @@ include("inc/header.php");
             <br />
             <br />
             <br />
-            <p>The data is retrieved later. Were each request status is verified. If the request is <i>done</i>, its data is downloaded, stored in a file, and the request is removed from the list. It is repeated until all requests are processed. <small>(lines 66-81)</small>
+            <p>The data is retrieved later. Where each request status is verified. If the request is <i>done</i>, its data is downloaded, stored in a file, and the request is removed from the list. It is repeated until all requests are processed. <small>(lines 66-81)</small>
           </dt>
           <dd>
             <script src="https://gist.github.com/felipealbrecht/c84d81c78eb06b6a1d95.js"></script>
