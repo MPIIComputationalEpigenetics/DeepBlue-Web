@@ -63,16 +63,16 @@ include("inc/header.php");
             </p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               We filter the H3K27ac regions that overlap with some promoter region.</p>
-            </p>
+            <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               We select the signal of the Transcription Factors SP1.</p>
-            </p>
+            <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               We filter the TFs regions that overlap with some filtered H3K27ac peaks.</p>
-            </p>
+            <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               Finally, we request the regions and download them.
-            </p>
+            <p>
           </dt>
           <dd>
             <div align="right" style="padding: 20px 0px 0px 0px">
@@ -138,7 +138,7 @@ include("inc/header.php");
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               Finally, we request the regions and download them.
-            </p>
+            <p>
           </dt>
           <dd style="width: 40%;  margin-left: 55%">
             <div align="right" style="padding: 20px 0px 0px 0px">
@@ -214,7 +214,7 @@ include("inc/header.php");
             <br />
             <br />
             <br />
-            </p>The data is retrieved later. Were each request status is verified. If the request is <i>done</i>, its data is downloaded, stored in a file, and the request is removed from the list. It is repeated until all requests are processed. <small>(lines 77-90)</small>
+            <p>The data is retrieved later. Were each request status is verified. If the request is <i>done</i>, its data is downloaded, stored in a file, and the request is removed from the list. It is repeated until all requests are processed. <small>(lines 77-90)</small>
 
           </dt>
           <dd>
@@ -232,7 +232,7 @@ include("inc/header.php");
               We first select the regions of some genes ('<i>CCR1</i>', '<i>CD164</i>', '<i>CD1D</i>', '<i>CD2</i>', '<i>CD34</i>', '<i>CD3G</i>', '<i>CD44</i>') and filter those regions that are protein coding.
             </p>
             <p class="lead" style="text-align: justify; padding: 15px;">
-              We list all signal experiments with <i>Regulatory T cell</i>  biosources.
+              We list all signal experiments with <i>liver</i>, <i>hematopoietic</i>, <i>hematopoietic stem cell</i>  biosources.
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               For each listed experiment, we select the associated regions of this experiment.</p>
@@ -242,7 +242,7 @@ include("inc/header.php");
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               Finally, we request the regions and download them.
-            </p>
+            <p>
           </dt>
           <dd style="width: 40%;  margin-left: 55%">
             <div align="right" style="padding: 20px 0px 0px 0px">
@@ -313,7 +313,7 @@ include("inc/header.php");
             <br />
             <br />
             <br />
-            </p>The data is retrieved later. Where each request status is verified. If the request is <i>done</i>, its data is downloaded, stored in a file, and the request is removed from the list. It is repeated until all requests are processed. <small>(lines 66-81)</small>
+            <p>The data is retrieved later. Where each request status is verified. If the request is <i>done</i>, its data is downloaded, stored in a file, and the request is removed from the list. It is repeated until all requests are processed. <small>(lines 66-81)</small>
           </dt>
           <dd>
             <script src="https://gist.github.com/felipealbrecht/c84d81c78eb06b6a1d95.js"></script>
