@@ -232,7 +232,7 @@ include("inc/header.php");
               We first select the regions of some genes ('<i>CCR1</i>', '<i>CD164</i>', '<i>CD1D</i>', '<i>CD2</i>', '<i>CD34</i>', '<i>CD3G</i>', '<i>CD44</i>') and filter those regions that are protein coding.
             </p>
             <p class="lead" style="text-align: justify; padding: 15px;">
-              We list all signal experiments with <i>liver</i>, <i>hematopoietic</i>, <i>hematopoietic stem cell</i>  biosources.
+              We list all signal experiments with <i>Regulatory T cell</i>  biosources.
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               For each listed experiment, we select the associated regions of this experiment.</p>
