@@ -354,9 +354,6 @@ a.morelink {
     border-color: yellowgreen;
 }
 
-
-///
-
 th.rotate {
   /* Something you can count on */
   height: 140px;
@@ -369,4 +366,11 @@ th.rotate > div {
     rotate(300deg);
   width: 80px;
   height: 90px;
+}
+
+.tab_areas {
+    min-width: 100%;
+    height: 470px;
+    border: none;
+    resize: none;
 }

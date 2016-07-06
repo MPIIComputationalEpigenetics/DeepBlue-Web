@@ -67,7 +67,9 @@ require_once("inc/init.php");
         loadScript("js/plugin/datatables/dataTables.tableTools.min.js", function(){
           loadScript("js/plugin/datatables/dataTables.bootstrap.min.js", function(){
             loadScript("js/plugin/datatable-responsive/datatables.responsive.min.js", function(){
-              loadScript("js/grid.js", pagefunction)
+              loadScript("js/clipboard.min.js", function(){
+                loadScript("js/grid.js", pagefunction)
+              });
             });
           });
         });

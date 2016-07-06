@@ -10,6 +10,7 @@ var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyel
 var size_main = 4;
 var defaults = {};
 var selectedData = []; // selected experiment
+var selectedNames = []; // selected experiment name
 var selectedCount = {}; // selected experiment counter
 var selected = [];
 var toggleSelectAll = {};
@@ -102,6 +103,7 @@ function clearSelections() {
     selected = [];
     selectedCount = {};
     selectedData = [];
+    selectedNames = [];
 }
 
 function selectAll() {
@@ -410,6 +412,7 @@ function removeSelected(experiments, bio, epi) {
         if (index > -1) {
             selected.splice(index, 1);
             selectedData.splice(index,1);
+            selectedNames.splice(index,1);
 
             $('#datatable_selected_column').dataTable().fnDeleteRow(index);
         }
@@ -499,6 +502,7 @@ function addSelected(experiments, bio, epi) {
             if (selected.indexOf(id) < 0) {
                 selected.push(id);
                 selectedData.push(experiment);
+                selectedNames.push(experiment[1]);
                 experiments.push(experiment);
                 selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
             }
@@ -507,6 +511,7 @@ function addSelected(experiments, bio, epi) {
         if (experiments.length > 0) {
             $('#datatable_selected_column').dataTable().fnAddData(experiments);
             $('#downloadBtnBottom').removeAttr('disabled');
+            $('#exportBtnBottom').removeAttr('disabled');
         }
 
     });
@@ -623,11 +628,14 @@ function removeSelectedRow() {
         var index = selected.indexOf(id);
         selected.splice(index,1);
         selectedData.splice(index,1);
+        selectedNames.splice(index,1);
+
 
         $('#datatable_selected_column').dataTable().fnDeleteRow(index);
 
         if (selectedData.length == 0) {
             $('#downloadBtnBottom').attr('disabled','disabled');
+            $('#exportBtnBottom').attr('disabled','disabled');
         }
     });
 }
@@ -759,6 +767,12 @@ function gridPage() {
 
     init();
 
+    // initialize the clipboard js
+    new Clipboard('.btn');
+
+    // unhide the export data button for the grid (**hidden from view experiment page for now)
+    $("#exportBtnBottom").removeClass('hidden');
+
     list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
     if (list_in_use == null) {
         pullData(request_id);
@@ -768,6 +782,26 @@ function gridPage() {
         initFilters(false);
         toggleDefaults();
     }
+
+    $('#exportBtnBottom').click(function(e){
+        console.log(selectedData);
+        var experiment_str = '"';
+        for (var i in selectedNames) {
+            experiment_str = experiment_str + selectedNames[i] + '"';
+            if (i < selectedNames.length-1) {
+                experiment_str = experiment_str + ', "'
+            }
+        }
+
+        var r_experiments = 'grid_experiments = c( ' + experiment_str + ' )';
+        var py_experiments = 'grid_experiments = [ ' + experiment_str + ' ]';
+
+        $("#r_area").empty();
+        $("#r_area").append(r_experiments);
+
+        $("#py_area").empty();
+        $("#py_area").append(py_experiments);
+    });
 
     // selected datatable
     otable2 = $('#datatable_selected_column').DataTable({
