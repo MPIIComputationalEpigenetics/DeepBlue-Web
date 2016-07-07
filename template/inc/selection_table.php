@@ -27,7 +27,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-clipboard-target="div.active > textarea">Copy</button>
+        <button type="button" class="btn btn-primary" data-clipboard-target="div.active > textarea">Copy to Clipboard</button>
       </div>
     </div>
   </div>
