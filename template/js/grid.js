@@ -418,6 +418,11 @@ function removeSelected(experiments, bio, epi) {
         }
     }
     selectedCount[bio][epi] = 0;
+
+    if (selectedData.length == 0) {
+        $('#downloadBtnBottom').attr('disabled','disabled');
+        $('#exportBtnBottom').attr('disabled','disabled');
+    }
 }
 
 var annotations_extra_metadata = function(annotation) {
@@ -466,7 +471,7 @@ var experiments_extra_metadata = function(experiment) {
     var tmp_str = annotations_extra_metadata(experiment);
 
     return "<div class='exp-metadata'>" + tmp_str + "</div><div class='exp-metadata-more-view'>-- View metadata --</div>";
-}
+};
 
 function addSelected(experiments, bio, epi) {
     var experiment_ids = experiments.map(function(a) { return a[0]});
@@ -513,7 +518,6 @@ function addSelected(experiments, bio, epi) {
             $('#downloadBtnBottom').removeAttr('disabled');
             $('#exportBtnBottom').removeAttr('disabled');
         }
-
     });
 }
 
