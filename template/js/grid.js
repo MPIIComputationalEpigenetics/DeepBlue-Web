@@ -774,9 +774,6 @@ function gridPage() {
     // initialize the clipboard js
     new Clipboard('.btn');
 
-    // unhide the export data button for the grid (**hidden from view experiment page for now)
-    $("#exportBtnBottom").removeClass('hidden');
-
     list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
     if (list_in_use == null) {
         pullData(request_id);
@@ -786,26 +783,6 @@ function gridPage() {
         initFilters(false);
         toggleDefaults();
     }
-
-    $('#exportBtnBottom').click(function(e){
-        console.log(selectedData);
-        var experiment_str = '"';
-        for (var i in selectedNames) {
-            experiment_str = experiment_str + selectedNames[i] + '"';
-            if (i < selectedNames.length-1) {
-                experiment_str = experiment_str + ', "'
-            }
-        }
-
-        var r_experiments = 'grid_experiments = c( ' + experiment_str + ' )';
-        var py_experiments = 'grid_experiments = [ ' + experiment_str + ' ]';
-
-        $("#r_area").empty();
-        $("#r_area").append(r_experiments);
-
-        $("#py_area").empty();
-        $("#py_area").append(py_experiments);
-    });
 
     // selected datatable
     otable2 = $('#datatable_selected_column').DataTable({
