@@ -225,14 +225,14 @@ include("inc/header.php");
 
           <!---      -->
 
-          <h4 id='example-search_experiments'>Use case 3:<br/><b>Calculating the mRNA expression level for your favorite genes across all hematopoietic cell types and subsequent filtering regarding those genes regions where the value of the column named “score” is higher than a given threshold</b></h4>
+          <h4 id='example-search_experiments'>Use case 3:<br/><b>Calculating the mRNA expression level for your favorite genes across Regulatory T cells and related, and subsequent filtering regarding those genes regions where the value of the column named “score” is higher than a given threshold</b></h4>
           <dt style="width: 60%">
             <br />
             <p class="lead" style="text-align: justify; padding: 15px;">
               We first select the regions of some genes ('<i>CCR1</i>', '<i>CD164</i>', '<i>CD1D</i>', '<i>CD2</i>', '<i>CD34</i>', '<i>CD3G</i>', '<i>CD44</i>') and filter those regions that are protein coding.
             </p>
             <p class="lead" style="text-align: justify; padding: 15px;">
-              We list all signal experiments with <i>Regulatory T cell</i>  biosources.
+              We list all signal experiments related to <i>Regulatory T cell</i> biosources.
             <p>
             <p class="lead" style="text-align: justify; padding: 15px;">
               For each listed experiment, we select the associated regions of this experiment.</p>
