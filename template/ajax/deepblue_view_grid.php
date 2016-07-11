@@ -57,12 +57,11 @@ require_once("inc/init.php");
     $("#exportBtnBottom").removeClass('hidden');
 
     $('#exportBtnBottom').click(function(e){
-      console.log(selectedData);
       var experiment_str = '"';
       for (var i in selectedNames) {
         experiment_str = experiment_str + selectedNames[i] + '"';
         if (i < selectedNames.length-1) {
-          experiment_str = experiment_str + ', "'
+          experiment_str = experiment_str + ',\n\t\t      "'
         }
       }
 

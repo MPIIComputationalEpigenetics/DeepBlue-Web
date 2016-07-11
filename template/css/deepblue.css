@@ -181,10 +181,18 @@ a.morelink {
     background: #FAFAFA;
     padding: 10px;
 }
+
+.modalViewSingleInfoSmall{
+    width: 77%!important;
+    height: 50% !important;
+    margin:0 auto;
+}
+
 .modalViewSingleInfo{
     width: 77%!important;
     margin:0 auto;
 }
+
 .search-modal-table{
     font-weight: bold!important;
     width:19%;
@@ -370,7 +378,7 @@ th.rotate > div {
 
 .tab_areas {
     min-width: 100%;
-    height: 470px;
+    height: 235px;
     border: none;
     resize: none;
 }

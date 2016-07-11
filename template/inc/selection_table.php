@@ -1,6 +1,6 @@
 <div class="modal fade" id="exportDataModal" tabindex="-1" role="dialog" aria-labelledby="exportDataModalLabel">
   <div class="modal-dialog">
-    <div class="modal-content modalViewSingleInfo">
+    <div class="modal-content modalViewSingleInfoSmall">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="exportDataModelLabel">Export experiment data</h4>
