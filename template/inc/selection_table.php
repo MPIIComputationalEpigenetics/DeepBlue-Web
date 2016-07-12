@@ -110,7 +110,7 @@
           </table>
           <div class="downloadButtonDiv">
             <button type="button" id="downloadBtnBottom" class="btn btn-primary" disabled><i class="fa fa-forward"></i> Download</button>
-            <button type="button" id="exportBtnBottom" class="btn btn-primary hidden" disabled data-toggle="modal" data-target="#exportDataModal"> Export data</button>
+            <button type="button" id="exportBtnBottom" class="btn btn-primary hidden" disabled data-toggle="modal" data-target="#exportDataModal"><i class="fa fa-clipboard" aria-hidden="true"></i> Export data</button>
           </div>
         </div>
         <!-- end widget content -->

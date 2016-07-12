@@ -39,7 +39,7 @@ require_once("inc/init.php");
 <section id="widget-grid" class="">
     <div class="alert alert-info alert-block" id="main-banner">
         <h4 class="alert-heading">Experiments data table</h4>
-        Click the row to select an experiment. It will be added to the selected experiments data table. </br>
+        Double click the row to select an experiment. It will be added to the selected experiments data table. </br>
         Selected experiments are highlighted in green. </br>
         Double click to unselect a selected experiment. </br>
     </div>
@@ -349,7 +349,7 @@ require_once("inc/init.php");
         /* END COLUMN FILTER */
 
         /* process experiment selection by row clicking*/
-        $('#datatable_fixed_column').on('click', 'tr', function () {
+        $('#datatable_fixed_column').on('dblclick', 'tr', function () {
             var id = $('td', this).eq(0).text();
 
             if (id ==  "") {
