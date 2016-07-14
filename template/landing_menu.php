@@ -56,7 +56,7 @@
 						</li>
 						<li class="divider"></li>
 						<li>
-							<a href="r_users.php">Accessing from the R Language</a>
+							<a href="http://deepblue.mpi-inf.mpg.de/R" target="_blank">Accessing from the R Language</a>
 						</li>
 				  	</ul>
         		</li>
