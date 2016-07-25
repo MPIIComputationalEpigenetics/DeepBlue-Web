@@ -13,6 +13,8 @@ var selectedData = []; // selected experiment
 var selectedNames = []; // selected experiment name
 var selectedCount = {}; // selected experiment counter
 var selected = [];
+var set_all_projects = false;
+var all_projects = [];
 var toggleSelectAll = {};
 var otable;
 var otable2;
@@ -210,6 +212,7 @@ function pullDataNow(req_id) {
         else {
             localStorage.setItem("list_in_use", JSON.stringify(data[0]));
             list_in_use_full = data[0];
+            init_projects();
             initFilters(false);
             toggleDefaults();
         }
@@ -234,6 +237,12 @@ function loadExperiments(req_id) {
     $('#clearBtn').attr('disabled', 'disabled');
     $('#selectAllBtn').attr('disabled', 'disabled');
 
+    // send all the projects when no one is selected
+    if (filters['experiment-project'].length == 0) {
+        filters['experiment-project'] = all_projects;
+        set_all_projects = true
+    }
+
     var request2 = $.ajax({
         url: "api/grid",
         type: "POST",
@@ -252,6 +261,12 @@ function loadExperiments(req_id) {
                 text: data['message']
             });
             return;
+        }
+
+        // restore filters['experiment-project'] = all_projects; to empty array if manually set
+        if (set_all_projects) {
+            filters['experiment-project'] = [];
+            set_all_projects = false;
         }
 
         //show experiments
@@ -518,6 +533,7 @@ function addSelected(experiments, bio, epi) {
             $('#downloadBtnBottom').removeAttr('disabled');
             $('#exportBtnBottom').removeAttr('disabled');
         }
+
     });
 }
 
@@ -767,6 +783,14 @@ function toggleButton(id) {
     $("#"+id).find('i').toggleClass('fa fa-plus-square-o fa fa-minus-square-o');
 }
 
+function init_projects() {
+    var p_vocab = list_in_use['projects']['amt'];
+    for (j in p_vocab) {
+        all_projects.push(p_vocab[j][1])
+    }
+    console.log(all_projects);
+}
+
 function gridPage() {
 
     init();
@@ -780,6 +804,7 @@ function gridPage() {
     }
     else {
         list_in_use_full = list_in_use;
+        init_projects();
         initFilters(false);
         toggleDefaults();
     }
