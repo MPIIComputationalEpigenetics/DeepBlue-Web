@@ -46,7 +46,7 @@ $page_nav = array(
     ),
 
     "grid" => array(
-        "title" => "Grid",
+        "title" => "Experiments grid",
         "url"=> "ajax/deepblue_view_grid.php",
         "icon" => "fa-th",
         "description" => "Display DeepBlue with grid.",
