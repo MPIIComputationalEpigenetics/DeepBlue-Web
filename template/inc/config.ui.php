@@ -123,6 +123,11 @@ $page_nav = array(
                 "title" => "Column types",
                 "url" => "ajax/deepblue_view_column_types.php",
                 "description" => "List available column types in DeepBlue."
+            ),
+            "genes" => array(
+                "title" => "Genes",
+                "url" => "ajax/deepblue_view_genes.php",
+                "description" => "List available genes in DeepBlue."
             )
         )
     ),
