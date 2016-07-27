@@ -29,6 +29,7 @@ require_once("inc/init.php");
 		<h1 class="page-title txt-color-blueDark">
 			<i class="fa fa-table fa-fw "></i>
 				Auxiliary data > Genes
+			</span>
 		</h1>
 	</div>
 </div>
@@ -43,9 +44,8 @@ require_once("inc/init.php");
 		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 
-
 			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget jarviswidget-color-blueDark" id="datable-genes" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
+			<div class="jarviswidget jarviswidget-color-blueDark" id="datatable-genes" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
 
 				<header>
 					<span class="widget-icon"> <i class="fa fa-table"></i> </span>
@@ -66,24 +66,24 @@ require_once("inc/init.php");
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 
-						<table id="datatable_fixed_column_genes" class="table table-striped table-bordered" width="100%">
+						<table id="datatable_fixed_column" class="table table-striped table-bordered" width="100%">
 
 					        <thead>
 								<tr>
 									<th class="hasinput">
-										<input class="form-control" placeholder="ID" type="text" id="gene-id">
+										<input class="form-control" placeholder="ID" type="text" id="gene-id"/>
 									</th>
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Gene model" id="gene-model" />
 									</th>
 									<th class="hasinput">
-										<input class="form-control" placeholder="Source" type="text" id="gene-source">
+										<input type="text" class="form-control" placeholder="Source" id="gene-source"/>
 									</th>
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Chromosome" id="gene-chromosome" />
 									</th>
 									<th class="hasinput">
-										<input class="form-control" placeholder="Start" type="text" id="gene-start">
+										<input type="text" class="form-control" placeholder="Start" id="gene-start" />
 									</th>
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="End" id="gene-end" />
@@ -95,7 +95,7 @@ require_once("inc/init.php");
 										<input type="text" class="form-control" placeholder="Ensembl ID" id="gene-ensembl-id" />
 									</th>
 									<th class="hasinput">
-										<input class="form-control" placeholder="Gene name" type="text" id="gene-name">
+										<input class="form-control" placeholder="Gene name" type="text" id="gene-name"/>
 									</th>
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Type" id="gene-type" />
@@ -103,7 +103,6 @@ require_once("inc/init.php");
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Status" id="gene-status" />
 									</th>
-
 									<th class="hasinput">
 										<input type="text" class="form-control" placeholder="Level" id="gene-level" />
 									</th>
@@ -152,7 +151,10 @@ require_once("inc/init.php");
 
 	var pagefunction = function() {
 
-		var responsiveHelper_datatable_fixed_column_genes = undefined;
+		var responsiveHelper_dt_basic = undefined;
+		var responsiveHelper_datatable_fixed_column = undefined;
+		var responsiveHelper_datatable_col_reorder = undefined;
+		var responsiveHelper_datatable_tabletools = undefined;
 
 		var breakpointDefinition = {
 			tablet : 1024,
@@ -160,8 +162,9 @@ require_once("inc/init.php");
 		};
 
 		/* COLUMN FILTER  */
-	    var otable = $('#datatable_fixed_column_genes').DataTable({
+	    var otable = $('#datatable_fixed_column').DataTable({
 	    	"bServerSide": true,
+	    	"pageLength": 25,
 	        "sAjaxSource": "api/datatable",
 	        "fnServerParams": function ( aoData ) {
       			aoData.push( { "name": "collection", "value": "genes" } );
@@ -179,20 +182,25 @@ require_once("inc/init.php");
       			aoData.push( { "name": "col_11", "value": "level"} );
       			aoData.push( { "name": "key", "value": "<?php echo $user_key ?>"} );
     		},
+	        "iDisplayLength": 50,
+	        "autoWidth" : true,
+			"scrollX" : true,
 			"preDrawCallback" : function() {
 				// Initialize the responsive datatables helper once.
-				if (!responsiveHelper_datatable_fixed_column_genes) {
-					responsiveHelper_datatable_fixed_column_genes = new ResponsiveDatatablesHelper($('#datatable_fixed_column_genes'), breakpointDefinition);
+				if (!responsiveHelper_datatable_fixed_column) {
+					responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
 				}
 			},
-			"scrollX" : true,
 			"rowCallback" : function(nRow) {
-				responsiveHelper_datatable_fixed_column_genes.createExpandIcon(nRow);
+				responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
 			},
 			"drawCallback" : function(oSettings) {
-				responsiveHelper_datatable_fixed_column_genes.respond();
+				responsiveHelper_datatable_fixed_column.respond();
 			},
 	    });
+
+	   	// custom toolbar
+	    $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="DeepBlue" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
 
 		// Apply the filter
