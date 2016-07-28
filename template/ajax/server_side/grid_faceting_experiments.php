@@ -44,33 +44,19 @@ $data = array();
 $vocabularies = ["projects","epigenetic_marks", "biosources", "techniques", "genomes", "samples", "types"];
 foreach ($vocabularies as $vocabulary) {
 	$data[$vocabulary] = array();
-	// TODO: Remove this line below then test, should get the same result as the existing implementation
+
 	$temp = $collection[$vocabulary];
 	$collection[$vocabulary] = "";
 
-	if ($vocabulary == "types") {
-		// TODO:types is yet to be implemented in collection_experiments_count
-		if(!$client->query("faceting_experiments", $collection["genomes"], $collection["types"], $collection["epigenetic_marks"],
-			$collection["biosources"], $collection["samples"], $collection["techniques"], $collection["projects"], $user_key)){
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-		$response = $client->getResponse();
-		check_error($response);
-
-		$response_temp = $response[1][$vocabulary];
-		$data[$vocabulary]['alp'] = $response_temp;
+	if(!$client->query("collection_experiments_count", $vocabulary, $collection["genomes"], $collection["types"],
+		$collection["epigenetic_marks"], $collection["biosources"], $collection["samples"], $collection["techniques"], $collection["projects"], $user_key)){
+		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 	}
-	else {
-		if(!$client->query("collection_experiments_count", $vocabulary, $collection["genomes"], $collection["types"],
-			$collection["epigenetic_marks"], $collection["biosources"], $collection["samples"], $collection["techniques"], $collection["projects"], $user_key)){
-			die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
-		}
-		$response = $client->getResponse();
-		check_error($response);
+	$response = $client->getResponse();
+	check_error($response);
 
-		$response_temp = $response[1];
-		$data[$vocabulary]['alp'] = $response_temp;
-	}
+	$response_temp = $response[1];
+	$data[$vocabulary]['alp'] = $response_temp;
 
 	usort($data[$vocabulary]['alp'], function($a, $b) {
 		return strcasecmp($a[1], $b[1]);
@@ -82,7 +68,7 @@ foreach ($vocabularies as $vocabulary) {
 			return $a[2] > $b[2];
 		});
 	}
-	// TODO: Also remove this line below then test, should get the same result as the existing implementation
+
 	$collection[$vocabulary] = $temp;
 }
 
