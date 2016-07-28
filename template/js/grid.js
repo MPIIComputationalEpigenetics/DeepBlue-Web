@@ -695,22 +695,37 @@ function loadFilters() {
         clearListByName(vocabid);
 
         // add returned results to list
+        // Adding from behind so that collections with more experiment comes first
+        // process selected elements first
+        var k = 0;
         for(j=currentvocab_size1-1; j >= 0; j--) {
             var currentElem1 = currentvocab1[j][1];
             var currentBadge1 = currentvocab1[j][2];
-            var active = false;
 
-            filtered_elements.push(currentElem1);
             if (filters[vocabid].indexOf(currentElem1) >= 0) {
-                active = true;
+                filtered_elements.push(currentElem1);
+                addToList(list_id_main, currentElem1, currentBadge1, true);
             }
 
-            if (j < currentvocab_size1 - size_main) {
-                // use spill list
-                addToList(list_id_spill, currentElem1 , currentBadge1, active);
+            if(filtered_elements.length >= filters[vocabid].length) {
+                console.log("break", vocabid);
+                break;
             }
-            else {
-                addToList(list_id_main, currentElem1 , currentBadge1, active);
+        }
+
+        // add returned but unselected elements
+        for(j=currentvocab_size1-1; j >= 0; j--) {
+            var currentElem1 = currentvocab1[j][1];
+            if ($.inArray(currentElem1, filtered_elements) < 0) {
+                var currentBadge1 = currentvocab1[j][2];
+
+                filtered_elements.push(currentElem1);
+                if (filtered_elements.length > size_main) {
+                    addToList(list_id_spill, currentElem1 , currentBadge1, false);
+                }
+                else {
+                    addToList(list_id_main, currentElem1 , currentBadge1, false);
+                }
             }
         }
 
