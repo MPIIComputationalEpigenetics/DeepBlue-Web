@@ -364,15 +364,15 @@ a.morelink {
 
 th.rotate {
   /* Something you can count on */
-  height: 140px;
+  height: 180px;
   white-space: nowrap;
 }
 
 th.rotate > div {
   transform:
-    translate(20px, 10px)
-    rotate(300deg);
-  width: 80px;
+    translate(35px, 30px)
+    rotate(270deg);
+  width: 20px;
   height: 90px;
 }
 
