@@ -186,7 +186,7 @@ function pullDataNow(req_id) {
     // console.log("pull data now for request: ", req_id);
 
     var request1 = $.ajax({
-        url: "ajax/server_side/faceting_experiments.php",
+        url: "ajax/server_side/grid_faceting_experiments.php",
         type : "POST",
         data : {
             request : filters
