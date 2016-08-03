@@ -51,10 +51,6 @@ function selectVocab(list_name) {
     var index = vocabids.indexOf(list_name);// index of vocabid in vocabids
     var vocabname = vocabnames[index];
 
-    // console.log(list_name);
-    // console.log(list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length);
-    // console.log(toggleSelectAll[list_name]);
-
     // if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
     //TODO: Fix for case of individual selection of all elements, before pressing clearVocab
     if (toggleSelectAll[list_name]) {
@@ -139,6 +135,7 @@ function selectAll() {
             loadExperiments(++request_id);
             fillFilter();
 
+            set_all_projects = false;
             $("#selectAllBtn").attr('disabled', 'disabled');
         }
     );
@@ -244,7 +241,7 @@ function loadExperiments(req_id) {
     // send all the projects when no one is selected
     if (filters['experiment-project'].length == 0) {
         filters['experiment-project'] = all_projects;
-        set_all_projects = true
+        set_all_projects = true;
     }
 
     var request2 = $.ajax({
@@ -712,7 +709,7 @@ function loadFilters() {
             }
 
             if(filtered_elements.length >= filters[vocabid].length) {
-                console.log("break", vocabid);
+                // console.log("break", vocabid);
                 break;
             }
         }
