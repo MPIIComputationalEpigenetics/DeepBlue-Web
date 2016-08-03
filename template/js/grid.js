@@ -25,7 +25,9 @@ function clearVocab(list_name) {
     var index = vocabids.indexOf(list_name);// index of vocabid in vocabids
     var vocabname = vocabnames[index];
 
-    if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
+    // if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
+    //TODO: Fix for case of individual deselection of all elements, before pressing clearVocab
+    if (toggleSelectAll[list_name]) {
         filters[list_name] = [];
         for (i in list_in_use_full[vocabname]['amt']) {
             var item = list_in_use_full[vocabname]['amt'][i][1];
@@ -53,7 +55,9 @@ function selectVocab(list_name) {
     // console.log(list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length);
     // console.log(toggleSelectAll[list_name]);
 
-    if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
+    // if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
+    //TODO: Fix for case of individual selection of all elements, before pressing clearVocab
+    if (toggleSelectAll[list_name]) {
         for (i in list_in_use_full[vocabname]['amt']) {
             var item = list_in_use_full[vocabname]['amt'][i][1];
             var elements = $("a[id='"+item+"']");
@@ -70,7 +74,7 @@ function selectVocab(list_name) {
         var currentvocab = list_in_use_full[vocabname]['amt'];
         for (j in currentvocab) {
             if (filters[list_name].indexOf(currentvocab[j][1]) == -1) {
-                console.log(currentvocab[j][1]);
+                // console.log(currentvocab[j][1]);
                 filters[list_name].push(currentvocab[j][1]);
             }
         }
