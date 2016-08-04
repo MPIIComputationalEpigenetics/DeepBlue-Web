@@ -118,6 +118,9 @@
                   <ul class="list-group panel-collapse collapse out" name="experiment-technique" id="techniques-spill"></ul>
                 </div>
               </div>
+              <div id="gridScroll">
+                <button type="submit"  class="btn btn-default" onclick="jumpToDownload()"> Scroll to Selected </button>
+              </div>
             </div>
             <div class="col-md-9">
               <div id="experiment-column" style="overflow-y:auto"></div>

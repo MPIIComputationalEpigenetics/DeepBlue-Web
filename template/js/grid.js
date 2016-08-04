@@ -799,12 +799,18 @@ function toggleButton(id) {
     $("#"+id).find('i').toggleClass('fa fa-plus-square-o fa fa-minus-square-o');
 }
 
+function jumpToDownload() {
+    $('html, body').animate({
+        scrollTop: $("#selection-table").offset().top
+    }, 1000);
+}
+
 function init_projects() {
     var p_vocab = list_in_use['projects']['amt'];
     for (j in p_vocab) {
         all_projects.push(p_vocab[j][1])
     }
-    console.log(all_projects);
+    // console.log(all_projects);
 }
 
 function gridPage() {
@@ -824,6 +830,9 @@ function gridPage() {
         initFilters(false);
         toggleDefaults();
     }
+
+    // initialize the sticker after the intial loading
+    $("#gridScroll").sticky({topSpacing:10, bottomSpacing:800});
 
     // selected datatable
     otable2 = $('#datatable_selected_column').DataTable({
