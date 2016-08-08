@@ -9,7 +9,8 @@
 require_once("../lib/process_login.php");
 
 // start session
-session_start();
+if (session_id() == '')
+	session_start();
 
 $remember = False;
 $redirect = True;

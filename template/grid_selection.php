@@ -1,11 +1,15 @@
 <?php
 
 // start session
+if (session_id() == '') {
+    session_start();
+}
+
 if (isset($_SESSION['user_key'])) {
     $_SESSION['key'] = $_SESSION['user_key'];
 }
 else {
-    session_start();
+//    session_start();
     include_once("php/deepblue_anonymous.php");
 }
 

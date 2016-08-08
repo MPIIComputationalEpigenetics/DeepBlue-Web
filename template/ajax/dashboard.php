@@ -16,12 +16,11 @@
 
 <?php
 
+	// enter session
+	session_start();
+
 	/* DeepBlue Configuration */
 	require_once("../lib/lib.php");
-
-	/* DeepBlue Class */
-	require_once("../lib/deepblue.functions.php");
-	$deepBlueObj = new Deepblue();
 
 ?>
 
