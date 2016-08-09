@@ -27,7 +27,6 @@
 				<ul>
 					<?php
                         $nav_no = 0;
-						$ELEVATION = 30;
 						foreach ($page_nav as $key => $nav_item) {
 							//process parent nav
 							$nav_htm = '';
@@ -38,21 +37,25 @@
 							$nav_title = isset($nav_item["title"]) ? $nav_item["title"] : "(No Name)";
 							$nav_id = $key.'_id';
 							$nav_elevated = isset($nav_item["elevated"]) ? $nav_item["elevated"] : false;
-                            $nav_no = $nav_no + 1;
                             $nav_description = isset($nav_item["description"]) ? $nav_item["description"] : "Empty Description";
 							$label_htm = isset($nav_item["label_htm"]) ? $nav_item["label_htm"] : "";
-							$nav_htm .= '<a id="'.$nav_id.'" data-container="body" class="bootstro side-menu" data-bootstro-step='.$nav_no.' data-bootstro-placement="right" data-bootstro-content="'.$nav_description.'" href="'.$url.'" '.$url_target.' title="'.$nav_title.'">'.$icon.' <span class="menu-item-parent">'.$nav_title.'</span>'.$label_htm.'</a>';
 
-							if (isset($nav_item["sub"]) && $nav_item["sub"])
-								$nav_htm .= process_sub_nav($nav_item["sub"]);
-
-
-							if ($nav_elevated && $_SESSION['level'] > $ELEVATION) {
+							if ($nav_elevated && (!$_SESSION['elevated_user'])) {
+								$nav_htm .= '<a id="'.$nav_id.'" data-container="body" class="side-menu" href="'.$url.'" '.$url_target.
+									' title="'.$nav_title.'">'.$icon.' <span class="menu-item-parent">'.$nav_title.'</span>'.$label_htm.'</a>';
 								echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').' style="display:none">'.$nav_htm.'</li>';
 							}
 							else {
+								$nav_no = $nav_no + 1;
+								$nav_htm .= '<a id="'.$nav_id.'" data-container="body" class="bootstro side-menu" data-bootstro-step='.$nav_no.
+									' data-bootstro-placement="right" data-bootstro-content="'.$nav_description.'" href="'.$url.'" '.$url_target.
+									' title="'.$nav_title.'">'.$icon.' <span class="menu-item-parent">'.$nav_title.'</span>'.$label_htm.'</a>';
+
 								echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').'>'.$nav_htm.'</li>';
 							}
+
+							if (isset($nav_item["sub"]) && $nav_item["sub"])
+								$nav_htm .= process_sub_nav($nav_item["sub"]);
 						}
 
 						function process_sub_nav($nav_item) {
