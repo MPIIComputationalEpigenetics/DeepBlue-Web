@@ -119,7 +119,8 @@
                 </div>
               </div>
               <div id="gridScroll">
-                <button type="submit"  class="btn btn-default" onclick="jumpToDownload()"> Scroll to Selected </button>
+                <button type="submit"  class="btn btn-default" onclick="jumpToDownload()" style="background-color: transparent"> Selected Experiment(s)
+                  <i class="fa fa-map-marker" aria-hidden="true"></i></button>
               </div>
             </div>
             <div class="col-md-9">

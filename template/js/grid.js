@@ -802,7 +802,7 @@ function toggleButton(id) {
 function jumpToDownload() {
     $('html, body').animate({
         scrollTop: $("#selection-table").offset().top
-    }, 1000);
+    }, 100);
 }
 
 function init_projects() {
@@ -832,7 +832,7 @@ function gridPage() {
     }
 
     // initialize the sticker after the intial loading
-    $("#gridScroll").sticky({topSpacing:10, bottomSpacing:800});
+    $("#gridScroll").sticky({topSpacing:100, bottomSpacing:800});
 
     // selected datatable
     otable2 = $('#datatable_selected_column').DataTable({
