@@ -1,20 +1,15 @@
 <?php
 
-// start session
-if (session_id() == '') {
-    session_start();
-}
+//initilize the page
+require_once("inc/init.php");
 
 if (isset($_SESSION['user_key'])) {
     $_SESSION['key'] = $_SESSION['user_key'];
 }
 else {
-//    session_start();
     include_once("php/deepblue_anonymous.php");
 }
 
-//initilize the page
-require_once("inc/init.php");
 require_once("inc/config.ui.php");
 include_once("lib/server_settings.php");
 

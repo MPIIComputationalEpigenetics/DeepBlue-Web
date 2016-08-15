@@ -3,10 +3,6 @@
 //initilize the page
 require_once("inc/init.php");
 
-if (session_id() == '') {
-	session_start();
-}
-
 //require UI configuration (nav, ribbon, etc.)
 require_once("inc/config.ui.php");
 

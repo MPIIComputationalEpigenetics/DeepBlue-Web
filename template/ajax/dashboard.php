@@ -16,8 +16,8 @@
 
 <?php
 
-	// enter session
-	session_start();
+	// initialize the page
+	require_once("inc/init.php");
 
 	/* DeepBlue Configuration */
 	require_once("../lib/lib.php");
