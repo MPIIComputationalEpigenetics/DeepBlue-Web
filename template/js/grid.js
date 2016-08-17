@@ -1,24 +1,23 @@
-var selected = [];
 var list_in_use;
 var list_in_use_full;
 var experiments;
-var filters = {};
-var filter_active = false;
-var vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
-var vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
-var cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
-var size_main = 4;
-var defaults = {};
-var selectedData = []; // selected experiment
-var selectedNames = []; // selected experiment name
-var selectedCount = {}; // selected experiment counter
-var selected = [];
-var set_all_projects = false;
-var all_projects = [];
-var toggleSelectAll = {};
+var filters;
+var filter_active;
+var vocabnames;
+var vocabids;
+var cell_colors;
+var size_main;
+var defaults;
+var selectedData;
+var selectedNames;
+var selectedCount;
+var selected;
+var set_all_projects;
+var all_projects;
+var toggleSelectAll;
 var otable;
 var otable2;
-var request_id = 0;
+var request_id;
 
 function clearVocab(list_name) {
 
@@ -813,9 +812,31 @@ function init_projects() {
     // console.log(all_projects);
 }
 
-function gridPage() {
+function initPage() {
+    selected = [];
+    filter_active = false;
+    vocabnames = ["projects","genomes", "techniques", "epigenetic_marks", "biosources", "types"];
+    vocabids = ['experiment-project','experiment-genome', "experiment-technique", "experiment-epigenetic_mark", "experiment-biosource", "experiment-datatype"];
+    cell_colors = {'BLUEPRINT Epigenome': 'lightblue','DEEP': 'lightgoldenrodyellow','ENCODE': 'lavender', 'Roadmap Epigenomics': 'lightsteelblue', 'others': 'lightskyblue'};
+    size_main = 4;
+    defaults = {};
+    selectedData = []; // selected experiment
+    selectedNames = []; // selected experiment name
+    selectedCount = {}; // selected experiment counter
+    selected = [];
+    set_all_projects = false;
+    all_projects = [];
+    request_id = 0;
+
+    filters = {};
+    toggleSelectAll = {};
 
     init();
+}
+
+function gridPage() {
+
+    initPage();
 
     // initialize the clipboard js
     new Clipboard('.btn');
