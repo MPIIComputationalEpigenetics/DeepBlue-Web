@@ -87,9 +87,6 @@ function login($email, $password, $remember, $redirect) {
 		$_SESSION['time'] = time();
 		$_SESSION['level'] = get_level_code($user_details['permission_level']);
 
-		$_SESSION['elevated_user'] = $_SESSION['level'] < 30;
-		$_SESSION['menu_count'] = $_SESSION['elevated_user'] ? 15 : 13;
-
 		$remember = isset($_POST['remember']) || $remember;
 
 		// get cookies for tutorial tour settings
