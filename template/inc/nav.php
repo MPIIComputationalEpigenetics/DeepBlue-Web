@@ -1,7 +1,6 @@
 		<!-- Left panel : Navigation area -->
 		<!-- Note: This width of the aside area can be adjusted through LESS variables -->
 		<aside id="left-panel">
-
 			<!-- User info -->
 			<span class="login-info">
 				<i class="fa fa-user"></i>
@@ -43,19 +42,25 @@
 							if ($nav_elevated && (!$_SESSION['elevated_user'])) {
 								$nav_htm .= '<a id="'.$nav_id.'" data-container="body" class="side-menu" href="'.$url.'" '.$url_target.
 									' title="'.$nav_title.'">'.$icon.' <span class="menu-item-parent">'.$nav_title.'</span>'.$label_htm.'</a>';
-								echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').' style="display:none">'.$nav_htm.'</li>';
+
 							}
 							else {
 								$nav_no = $nav_no + 1;
 								$nav_htm .= '<a id="'.$nav_id.'" data-container="body" class="bootstro side-menu" data-bootstro-step='.$nav_no.
 									' data-bootstro-placement="right" data-bootstro-content="'.$nav_description.'" href="'.$url.'" '.$url_target.
 									' title="'.$nav_title.'">'.$icon.' <span class="menu-item-parent">'.$nav_title.'</span>'.$label_htm.'</a>';
-
-								echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').'>'.$nav_htm.'</li>';
-							}
+ 							}
 
 							if (isset($nav_item["sub"]) && $nav_item["sub"])
 								$nav_htm .= process_sub_nav($nav_item["sub"]);
+
+							if ($nav_elevated && (!$_SESSION['elevated_user'])) {
+								echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').' style="display:none">'.$nav_htm.'</li>';
+							}
+							else {
+								echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').'>'.$nav_htm.'</li>';
+							}
+
 						}
 
 						function process_sub_nav($nav_item) {
