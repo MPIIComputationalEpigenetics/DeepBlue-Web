@@ -104,6 +104,9 @@ require_once("inc/init.php");
                                     <th class="hasinput">
                                         <input type="text" class="form-control" placeholder="Meta data" id="experiment-metadata" />
                                     </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Preview" id="experiment-preview" />
+                                    </th>
                                 </tr>
                                 <tr>
                                     <th>ID</th>
@@ -117,6 +120,7 @@ require_once("inc/init.php");
                                     <th>Technique</th>
                                     <th>Project</th>
                                     <th>Metadata</th>
+                                    <th>Preview</th>
                                 </tr>
                             </thead>
 
@@ -240,7 +244,7 @@ require_once("inc/init.php");
             loadTableAutoComplete();
         }
 
-        $("#datatable_fixed_column").on("click", '.exp-metadata-more-view', function (e) {
+        $("#datatable_fixed_column, #datatable_selected_column").on("click", '.exp-metadata-more-view', function (e) {
             var toggle = $(this).text();
             if (toggle == "-- Hide --") {
                 $(this).prev().hide(10);
@@ -254,16 +258,30 @@ require_once("inc/init.php");
             e.stopPropagation();
         });
 
-        $("#datatable_selected_column").on("click", '.exp-metadata-more-view', function (e) {
-            var toggle = $(this).text();
-            if (toggle == "-- Hide --") {
-                $(this).prev().hide(10);
-                $(this).text("-- View metadata --");
-            }
-            else {
-                $(this).prev().show(10);
-                $(this).text("-- Hide --");
-            }
+        $("#datatable_fixed_column, #datatable_selected_column").on("click", '.preview-experiment', function (e) {
+            var elem = this.id;
+            var request = $.ajax({
+                url: "ajax/server_side/preview_experiment_server_processing.php",
+                dataType: "json",
+                data : {
+                    id : elem
+                }
+            });
+            request.done( function(data) {
+                // empty the modal window
+                $("#experiment_preview").empty();
+
+                // toggle modal
+                var preview = data.data;
+                $("#experiment_preview").append(preview);
+                $('#previewModal').modal('toggle');
+            });
+
+            request.fail( function(jqXHR, textStatus) {
+                console.log(jqXHR);
+                console.log('Error: '+ textStatus);
+                alert( "error" );
+            });
 
             e.stopPropagation();
         });
@@ -314,7 +332,9 @@ require_once("inc/init.php");
             },
 
             "fnRowCallback" : function(nRow, aData, iDisplayIndex) {
-
+                var $cell = $('td:eq(11)', nRow);
+                var id = aData[0];
+                $cell.html("<button id='" + id + "' type='button' class='btn btn-default preview-experiment'><i class='fa fa-search'></i></button>");
                 if (selected.indexOf(aData[0]) != -1) {
                     $(nRow).addClass('success');
                 }
@@ -366,15 +386,16 @@ require_once("inc/init.php");
             var tech = $('td', this).eq(8).text();
             var proj = $('td', this).eq(9).text();
             var meta = $('td', this).eq(10).html();
+            var prev = $('td', this).eq(11).html();
 
             var index = selected.indexOf(id);
             if (index == -1) {
                 selected.push(id);
                 selectedNames.push(name);
-                selectedData.push([ id, name, type , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta])
+                selectedData.push([ id, name, type , desc ,genome , epi ,bio ,samp ,tech ,proj ,meta]);
 
                 $('#datatable_selected_column').dataTable().fnAddData(
-                    [ id, name, type, desc ,genome , epi ,bio ,samp ,tech ,proj ,meta]
+                    [ id, name, type, desc ,genome , epi ,bio ,samp ,tech ,proj ,meta, prev]
                 );
 
                 $(this).addClass("success");

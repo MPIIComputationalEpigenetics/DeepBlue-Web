@@ -516,8 +516,9 @@ function addSelected(experiments, bio, epi) {
             var tech = experiment_info['technique'];
             var project = experiment_info['project'];
             var meta = experiments_extra_metadata(experiment_info);
+            var prev = "<button id='" + id + "' type='button' class='btn btn-default preview-experiment'><i class='fa fa-search'></i></button>";
 
-            var experiment = [ id, name, type, desc, genome, epigenetic_mark, biosource, samp, tech, project, meta];
+            var experiment = [ id, name, type, desc, genome, epigenetic_mark, biosource, samp, tech, project, meta, prev];
 
             if (selected.indexOf(id) < 0) {
                 selected.push(id);
@@ -590,6 +591,37 @@ function selectHandler(e, pull_data) {
         $("#"+selList+"-i").addClass("fa fa-spinner fa-spin fa-fw");
         pullData(++request_id);
     }
+}
+
+function initPreviewModal() {
+
+    $("#datatable_selected_column").on("click", '.preview-experiment', function (e) {
+        var elem = this.id;
+        var request = $.ajax({
+            url: "ajax/server_side/preview_experiment_server_processing.php",
+            dataType: "json",
+            data : {
+                id : elem
+            }
+        });
+        request.done( function(data) {
+            // empty the modal window
+            $("#experiment_preview").empty();
+
+            // toggle modal
+            var preview = data.data;
+            $("#experiment_preview").append(preview);
+            $('#previewModal').modal('toggle');
+        });
+
+        request.fail( function(jqXHR, textStatus) {
+            console.log(jqXHR);
+            console.log('Error: '+ textStatus);
+            alert( "error" );
+        });
+
+        e.stopPropagation();
+    });
 }
 
 function toggleMetadata() {
@@ -871,4 +903,5 @@ function gridPage() {
 
     removeSelectedRow();
     toggleMetadata();
+    initPreviewModal();
 }

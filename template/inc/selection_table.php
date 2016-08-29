@@ -1,3 +1,22 @@
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content modalViewSingleInfoShort">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="previewModelLabel">Preview experiment</h4>
+      </div>
+      <div class="modal-body" >
+        <div id='experiment_preview'>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="modal fade" id="exportDataModal" tabindex="-1" role="dialog" aria-labelledby="exportDataModalLabel">
   <div class="modal-dialog">
     <div class="modal-content modalViewSingleInfoSmall">
@@ -92,6 +111,9 @@
               <th class="hasinput">
                 <input type="text" class="form-control" placeholder="Meta data" id="experiment-metadata2" />
               </th>
+              <th class="hasinput">
+                <input type="text" class="form-control" placeholder="Preview" id="experiment-preview2" />
+              </th>
             </tr>
             <tr>
               <th>ID</th>
@@ -105,6 +127,7 @@
               <th>Technique</th>
               <th>Project</th>
               <th>Metadata</th>
+              <th>Preview</th>
             </tr>
             </thead>
           </table>

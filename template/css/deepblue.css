@@ -182,6 +182,12 @@ a.morelink {
     padding: 10px;
 }
 
+.modalViewSingleInfoShort{
+    width: 88%!important;
+    height: 50% !important;
+    margin:0 auto;
+}
+
 .modalViewSingleInfoSmall{
     width: 30%!important;
     height: 50% !important;
