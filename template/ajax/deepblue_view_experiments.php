@@ -272,7 +272,7 @@ require_once("inc/init.php");
                 $("#experiment_preview").empty();
 
                 // toggle modal
-                var preview = data.data;
+                var preview = "<pre style='font-size: medium'>"+data.data+"</pre>";
                 $("#experiment_preview").append(preview);
                 $('#previewModal').modal('toggle');
             });

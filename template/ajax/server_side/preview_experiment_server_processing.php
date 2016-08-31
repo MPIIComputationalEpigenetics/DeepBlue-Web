@@ -30,5 +30,5 @@ if (isset($_GET) && isset($_GET["id"])) {
 	$response = $client->getResponse();
 	check_error($response);
 
-	echo json_encode(['data' => "<pre>".$response[1]."</pre>"]);
+	echo json_encode(['data' => $response[1]]);
 }
