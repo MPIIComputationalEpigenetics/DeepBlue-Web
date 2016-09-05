@@ -98,6 +98,8 @@ function clearSelections() {
         }
     }
     $("#clearBtn").attr('disabled', 'disabled');
+    $("#downloadBtnBottom").attr('disabled', 'disabled');
+    $("#exportBtnBottom").attr('disabled', 'disabled');
 
     otable2.clear().draw();
 
