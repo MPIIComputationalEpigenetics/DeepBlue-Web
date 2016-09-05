@@ -13,7 +13,7 @@
 *
 *   Created : 25-08-2014
 */
-
+ini_set('session.gc_maxlifetime', 86400 * 365);
 if (session_id() == '') {
 	session_start();
 }
