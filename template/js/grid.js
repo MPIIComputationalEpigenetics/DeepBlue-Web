@@ -321,7 +321,7 @@ function showExperiments(data) {
                 table_str = table_str + "<td style='background:" + project_color + "; border-width: 1px; cursor: pointer;' data-val='" + cell_count + "' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
             }
 
-            selectedCount[bio][epi] = 0; // selected experiment counter
+            selectedCount[bio][normalize(epi)] = 0; // selected experiment counter
         }
         table_str = table_str + "</tr>";
     }
@@ -434,7 +434,7 @@ function removeSelected(experiments, bio, epi) {
             $('#datatable_selected_column').dataTable().fnDeleteRow(index);
         }
     }
-    selectedCount[bio][epi] = 0;
+    selectedCount[bio][normalize(epi)] = 0;
 
     if (selectedData.length == 0) {
         $('#downloadBtnBottom').attr('disabled','disabled');
@@ -527,7 +527,7 @@ function addSelected(experiments, bio, epi) {
                 selectedData.push(experiment);
                 selectedNames.push(experiment[1]);
                 experiments.push(experiment);
-                selectedCount[bio][epi] = selectedCount[bio][epi] + 1;
+                selectedCount[bio][normalize(epi)] = selectedCount[bio][normalize(epi)] + 1;
             }
         }
 
@@ -642,6 +642,10 @@ function toggleMetadata() {
     });
 }
 
+var normalize = function(name) {
+    return name.toLowerCase().replace(/[\W_]+/g, "");
+};
+
 function removeSelectedRow() {
     /* remove selection by clicking of row in the selection table*/
     $('#datatable_selected_column').on('dblclick', 'tr', function () {
@@ -652,10 +656,16 @@ function removeSelectedRow() {
         var bio = $('td', this).eq(6).text();
         var epi = $('td', this).eq(5).text();
 
-        selectedCount[bio][epi] = selectedCount[bio][epi] - 1;
+        selectedCount[bio][normalize(epi)] = selectedCount[bio][normalize(epi)] - 1;
         var current_cell = otable.cells(
             function ( idx, data, node ) {
-                if(($(node).attr('data-row') == bio) && ($(node).attr('data-col') == epi)) {
+                if ($(node).attr('data-col') == undefined) {
+                    return false;
+                }
+                if ($(node).attr('data-row') == undefined) {
+                    return false;
+                }
+                if(($(node).attr('data-row') == bio) && (normalize($(node).attr('data-col')) == normalize(epi))) {
                     return true;
                 }
                 return false;
@@ -663,7 +673,7 @@ function removeSelectedRow() {
         ).nodes();
         current_cell.to$().removeClass("selected-grid-cell");
 
-        if (selectedCount[bio][epi] != 0) {
+        if (selectedCount[bio][normalize(epi)] != 0) {
             current_cell.to$().addClass("unselected-grid-cell");
         }
         else {
