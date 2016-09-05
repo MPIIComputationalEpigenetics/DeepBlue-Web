@@ -16,19 +16,30 @@
 
 $data = "";
 $status = "okay";
+$content = "";
+
+echo $content;
 if (isset($_FILES['file'])) {
 	$tmp_filename = $_FILES['file']['tmp_name'];
-	$content = file_get_contents($tmp_filename);
+}
+
+// check if file is text
+$file_type = mime_content_type($tmp_filename);
+$parts = explode("/", $file_type);
+if (!($parts[0] == "text")) {
+    $response = ["error", "The selected file is not a text file".":".$parts[0]];
+    echo json_encode($response);
+    return;
 }
 
 // check if file is empty
+$content = file_get_contents($tmp_filename);
 if ($content == "") {
-	$status = "error";
-	$content = "The uploaded file is empty";
+    $response = ["error", "The uploaded file is empty"];
+    echo json_encode($response);
+    return;
 }
 
-
-$response = [$status, $content];
-
+$response = ["okay", $content];
 echo json_encode($response);
 ?>

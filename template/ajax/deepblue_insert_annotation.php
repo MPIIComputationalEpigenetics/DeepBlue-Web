@@ -251,6 +251,7 @@ require_once("inc/init.php");
 	// upload annotation data button
     $('#uploadButton').bind('click', function (e) {
     	var sel_file = $("#file").val();
+		$("#data_err").text('');
     	if (sel_file == '') {
     		$("#data_err").text("No file selected");
     	}
@@ -271,7 +272,7 @@ require_once("inc/init.php");
 		    request.done( function(data) {
 		    	if (data[0] == "okay") {
 		    		annotation_data = data[1];
-		    		$("#data_err").text('Successful');
+		    		$("#data_err").text('Uploaded');
 		    	}
 		    	else {
 		    		$("#data_err").text(data[1]);
