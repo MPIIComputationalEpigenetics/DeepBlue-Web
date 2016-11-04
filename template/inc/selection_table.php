@@ -52,6 +52,42 @@
   </div>
 </div>
 
+<div class="modal fade" id="createCollection" tabindex="-1" role="dialog" aria-labelledby="createCollectionLabel">
+  <div class="modal-dialog">
+    <div class="modal-content modalViewSingleInfoSmall">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exportDataModelLabel">Export experiment data</h4>
+      </div>
+      <div class="modal-body" >
+        <div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#r" aria-controls="r" role="tab" data-toggle="tab">R</a></li>
+            <li role="presentation"><a href="#python" aria-controls="python" role="tab" data-toggle="tab">Python</a></li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="r">
+              <br>
+              <textarea class="tab_areas" id="r_area" spellcheck="false" readonly></textarea>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="python">
+              <br>
+              <textarea class="tab_areas" id="py_area" spellcheck="false" readonly></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-clipboard-target="div.active > textarea">Copy to Clipboard</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="row" id="selection-table">
   <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="jarviswidget jarviswidget-color-blueDark" id="datable-selected-experiments" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false">
@@ -132,8 +168,11 @@
             </thead>
           </table>
           <div class="downloadButtonDiv">
-            <button type="button" id="downloadBtnBottom" class="btn btn-primary" disabled><i class="fa fa-forward"></i> Download</button>
+            <button type="button" id="downloadBtnBottom" class="btn btn-primary" disabled><i class="fa fa-forward"></i> Proceed to the download page</button>
+            <!--
             <button type="button" id="exportBtnBottom" class="btn btn-primary hidden" disabled data-toggle="modal" data-target="#exportDataModal"><i class="fa fa-clipboard" aria-hidden="true"></i> Export data</button>
+            -->
+            <button type="button" id="createCollectionBottom" class="btn btn-primary hidden" disabled data-toggle="modal" data-target="#createCollection"><i class="fa fa-list" aria-hidden="true"></i> Create collection</button>
           </div>
         </div>
         <!-- end widget content -->
