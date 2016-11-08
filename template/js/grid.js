@@ -878,7 +878,7 @@ function initPage() {
     init();
 }
 
-function gridPage() {
+function gridPage(project, type) {
 
     initPage();
 
@@ -915,5 +915,24 @@ function gridPage() {
 
     removeSelectedRow();
     toggleMetadata();
+
+    var pull_data = false;
+    if (project != "") {
+        emulateClick(project, false);
+        pull_data = true;
+    }
+
+    if (type != "") {
+        emulateClick(type, false);
+        pull_data = true;
+    }
+
+    // update filter, pull data and prepend selections
+    if (pull_data) {
+        // show loading
+        $("#"+selList+"-i").addClass("fa fa-spinner fa-spin fa-fw");
+        pullData(++request_id);
+    }
+
     initPreviewModal();
 }

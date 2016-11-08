@@ -23,6 +23,17 @@ require_once("../lib/lib.php");
 require_once("../lib/server_settings.php");
 
 require_once("inc/init.php");
+
+$project = '';
+$type = '';
+
+if (isset($_GET['project'])) {
+  $project = $_GET['project'];
+}
+
+if (isset($_GET['type'])) {
+  $type = $_GET['type'];
+}
 ?>
 
 <div class="row">
@@ -51,10 +62,13 @@ require_once("inc/init.php");
   pageSetUp();
 
   var pagefunction = function() {
-    gridPage();
+    var project = '<?php echo $project; ?>';
+    var type = '<?php echo $type; ?>';
+    gridPage(project, type);
 
     // unhide the export data button for the grid (**hidden from view experiment page for now)
     $("#exportBtnBottom").removeClass('hidden');
+    $("#createCollectionBottom").removeClass('hidden');
 
     $('#exportBtnBottom').click(function(e){
       var experiment_str = '"';
