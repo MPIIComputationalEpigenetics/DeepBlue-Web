@@ -1,0 +1,10 @@
+<html>
+<head>
+</head>
+
+<body>
+<script>
+  window.location = "http://deepblue.mpi-inf.mpg.de/dashboard.php#ajax/deepblue_view_grid.php?project=BLUEPRINT%20Progenitors&type=signal";
+</script>
+</body>
+</html> 
