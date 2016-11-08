@@ -929,8 +929,6 @@ function gridPage(project, type) {
 
     // update filter, pull data and prepend selections
     if (pull_data) {
-        // show loading
-        $("#"+selList+"-i").addClass("fa fa-spinner fa-spin fa-fw");
         pullData(++request_id);
     }
 
