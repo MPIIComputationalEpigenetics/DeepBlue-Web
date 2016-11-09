@@ -158,6 +158,18 @@ include("inc/header.php");
                 <dd><script src="https://gist.github.com/felipealbrecht/58740596a2f75ddf11f9.js"></script></dd>
 
                 <dt>
+                    <h5 id='motifs-count'>Counting motifs in the regions</h5>
+                    <p>We use the <a href="api.php#api-select_experiments"</a>select_experiments</a> command to select an experiment of interest.</p>
+                    <p>We use the <i>@COUNT.MOTIF()</i> meta-column to count how many times the given motif appear in the region.</p>
+                    <p>We use the <a href="api.php#api-get_regions"</a>get_regions</a> with the <i>query_id</i> returned by the <a href="api.php#api-select_experiments"</a>select_experiments</a> and the columns and meta-columns defined in the previous line.</p>
+                    <p>The <a href="api.php#api-get_regions"</a>get_regions</a> command is asynchronous. It means that the user receives a <i>request_id</i> and should use the <a href="api.php#api-info"</a>info</a> command to check the status of this request.</p>
+                    <p>The processing is over when the <i>request_status</i> value is <i>done</i> or <i>failed</i>.</p>
+                    <p>The request data is retrieved using the <a href="api.php#api-get_request_data"</a>get_request_data</a> command.</p>
+                </dt>
+                <dd><script src="https://gist.github.com/felipealbrecht/b12bf3aa7c6146f8890dfc1ce50584e1.js"></script></dd>
+
+
+                <dt>
                     <h5 id='example-genes'>Genes</h5>
                     <p>We use the <a href="api.php#api-select_genes"</a>select_genes</a> command to select the gene <i>RP11-34P13</i> from the gene set <i>gencode v23</i>.</p>
                     <p>The selected genes behave like a regular genomic region that, for example, can be filtered by their content.</p>
