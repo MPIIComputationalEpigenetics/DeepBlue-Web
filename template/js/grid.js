@@ -18,6 +18,8 @@ var toggleSelectAll;
 var otable;
 var otable2;
 var request_id;
+var default_project;
+var default_type;
 
 function clearVocab(list_name) {
 
@@ -443,7 +445,6 @@ function removeSelected(experiments, bio, epi) {
 }
 
 var annotations_extra_metadata = function(annotation) {
-//    debugger;
     var tmp_str = "";
 
     if (annotation.format) {
@@ -503,7 +504,6 @@ function addSelected(experiments, bio, epi) {
     });
 
     experiment_info_request.done(function (data) {
-//      debugger;
         experiments = [];
         for (e in data[1]) {
             var experiment_info = data[1][e];
@@ -831,11 +831,29 @@ function initFilters(active) {
 }
 
 function toggleDefaults() {
+    var pull_data = false;
     var default_datatypes = getDefaultsDataTypes();
 
     for (var d in default_datatypes) {
-        emulateClick(default_datatypes[d], d == default_datatypes.length - 1);
+        emulateClick(default_datatypes[d], false);
+        pull_data = true;
     }
+
+    if (default_project != "") {
+        emulateClick(default_project, false);
+        pull_data = true;
+    }
+
+    if (default_type != "") {
+        emulateClick(default_type, false);
+        pull_data = true;
+    }
+
+    // update filter, pull data and prepend selections
+    if (pull_data) {
+        pullData(++request_id);
+    }
+
 }
 
 function toggleButton(id) {
@@ -853,7 +871,6 @@ function init_projects() {
     for (j in p_vocab) {
         all_projects.push(p_vocab[j][1])
     }
-    // console.log(all_projects);
 }
 
 function initPage() {
@@ -882,19 +899,13 @@ function gridPage(project, type) {
 
     initPage();
 
+    default_project = project;
+    default_type = type;
+
     // initialize the clipboard js
     new Clipboard('.btn');
 
-    list_in_use = JSON.parse(localStorage.getItem('list_in_use'));
-    if (list_in_use == null) {
-        pullData(request_id);
-    }
-    else {
-        list_in_use_full = list_in_use;
-        init_projects();
-        initFilters(false);
-        toggleDefaults();
-    }
+    pullData(request_id);
 
     // initialize the sticker after the intial loading
     $("#gridScroll").sticky({topSpacing:100, bottomSpacing:800});
@@ -916,21 +927,6 @@ function gridPage(project, type) {
     removeSelectedRow();
     toggleMetadata();
 
-    var pull_data = false;
-    if (project != "") {
-        emulateClick(project, false);
-        pull_data = true;
-    }
-
-    if (type != "") {
-        emulateClick(type, false);
-        pull_data = true;
-    }
-
-    // update filter, pull data and prepend selections
-    if (pull_data) {
-        pullData(++request_id);
-    }
 
     initPreviewModal();
 }
