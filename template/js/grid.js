@@ -20,13 +20,13 @@ var otable2;
 var request_id;
 var default_project;
 var default_type;
+var grid_data;
 
 function clearVocab(list_name) {
 
     var index = vocabids.indexOf(list_name);// index of vocabid in vocabids
     var vocabname = vocabnames[index];
 
-    // if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
     //TODO: Fix for case of individual deselection of all elements, before pressing clearVocab
     if (toggleSelectAll[list_name]) {
         filters[list_name] = [];
@@ -52,7 +52,6 @@ function selectVocab(list_name) {
     var index = vocabids.indexOf(list_name);// index of vocabid in vocabids
     var vocabname = vocabnames[index];
 
-    // if ((list_in_use[vocabname]['amt'].length == list_in_use_full[vocabname]['amt'].length) || toggleSelectAll[list_name]) {
     //TODO: Fix for case of individual selection of all elements, before pressing clearVocab
     if (toggleSelectAll[list_name]) {
         for (i in list_in_use_full[vocabname]['amt']) {
@@ -111,7 +110,7 @@ function clearSelections() {
     selectedNames = [];
 }
 
-function selectAll() {
+function selectAllMetadata() {
     swal(
         {
             title: "Are you sure?",
@@ -142,6 +141,33 @@ function selectAll() {
             $("#selectAllBtn").attr('disabled', 'disabled');
         }
     );
+}
+
+function selectAllGridExperiments() {
+    var table_rows = grid_data['cell_biosources'].length;
+    var table_columns = grid_data['cell_epigenetic_marks'].length;
+
+    experiments = new Array();
+    for (i=0; i<table_rows; i++) {
+        var bio = grid_data['cell_biosources'][i];
+        var row_experiments = grid_data['cell_experiments'][bio];
+
+        for (var epigenetic_mark in row_experiments) {
+            experiments.push.apply(experiments, row_experiments[epigenetic_mark]);
+        }
+    }
+
+    for (var i = 0; i < experiments.length; i+=100) {
+        addSelected(experiments.slice(i, i+100));
+    }
+
+    var current_cells = otable.cells(
+        function ( idx, data, node ) {
+            return ((idx.column != 0) && ($(node).attr('data-val') != 0));
+        }).nodes();
+
+    current_cells.to$().addClass("selected-grid-cell");
+    jumpToDownload();
 }
 
 function fillFilter() {
@@ -214,7 +240,6 @@ function pullDataNow(req_id) {
             loadExperiments(req_id);
         }
         else {
-            localStorage.setItem("list_in_use", JSON.stringify(data[0]));
             list_in_use_full = data[0];
             init_projects();
             initFilters(false);
@@ -223,9 +248,11 @@ function pullDataNow(req_id) {
     });
 
     request1.fail(function (jqXHR, textStatus) {
-        console.log(jqXHR);
-        console.log('Error: ' + textStatus);
-        alert("Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint");
+        swal({
+            title: "Error loading experiments",
+            text: textStatus,
+            type: "error"
+        });
     });
 }
 
@@ -240,6 +267,7 @@ function loadExperiments(req_id) {
     // console.log("load experiments for current request id: ", req_id, "and final request id", request_id);
     $('#clearBtn').attr('disabled', 'disabled');
     $('#selectAllBtn').attr('disabled', 'disabled');
+    $('#selectAllExperimentsBtn').attr('disabled', 'disabled');
 
     // send all the projects when no one is selected
     if (filters['experiment-project'].length == 0) {
@@ -273,6 +301,7 @@ function loadExperiments(req_id) {
             set_all_projects = false;
         }
 
+        grid_data = data;
         //show experiments
         showExperiments(data);
     });
@@ -280,7 +309,11 @@ function loadExperiments(req_id) {
     request2.fail( function(jqXHR, textStatus) {
         console.log(jqXHR);
         console.log('Error: '+ textStatus);
-        alert( "Encountered an error. Please wait a few seconds and reload page. If problem persist, kindly log a complaint" );
+        swal({
+            title: "Error loading experiments",
+            text: textStatus,
+            type: "error"
+        });
     });
 }
 
@@ -302,7 +335,7 @@ function showExperiments(data) {
     table_str = table_str + "<tbody>";
     for (i=0; i<table_rows; i++) {
         var bio = data['cell_biosources'][i];
-        selectedCount[bio] = {};
+        selectedCount[normalize(bio)] = {};
 
         table_str = table_str + "<tr>";
         table_str = table_str + "<td scope='row' data-row='" + bio + "' style='border-width: 1px;'><b>"  + bio + "</b></td>";
@@ -323,7 +356,7 @@ function showExperiments(data) {
                 table_str = table_str + "<td style='background:" + project_color + "; border-width: 1px; cursor: pointer;' data-val='" + cell_count + "' data-row='" + bio + "' data-col='" + epi + "'>"  + cell_count + "</td>";
             }
 
-            selectedCount[bio][normalize(epi)] = 0; // selected experiment counter
+            selectedCount[normalize(bio)][normalize(epi)] = 0; // selected experiment counter
         }
         table_str = table_str + "</tr>";
     }
@@ -352,10 +385,7 @@ function showExperiments(data) {
         if (epi == undefined) {
             var current_cells = otable.cells(
                 function ( idx, data, node ) {
-                    if(($(node).attr('data-row') == bio) && ($(node).attr('data-val') != 0)) {
-                        return true;
-                    }
-                    return false;
+                    return (($(node).attr('data-row') == bio) && ($(node).attr('data-val') != 0));
                 }
             ).nodes();
 
@@ -373,7 +403,7 @@ function showExperiments(data) {
                 current_cells.to$().addClass("selected-grid-cell");
                 for (r in row_experiments) {
                     var cell_experiments = row_experiments[r];
-                    addSelected(cell_experiments, bio, r)
+                    addSelected(cell_experiments);
                 }
             }
         }
@@ -414,12 +444,13 @@ function showExperiments(data) {
         else {
             $(cell).addClass("selected-grid-cell");
             var experiments = data['cell_experiments'][bio][epi];
-            addSelected(experiments, bio, epi);
+            addSelected(experiments);
         }
     });
 
     $('#clearBtn').removeAttr('disabled');
     $('#selectAllBtn').removeAttr('disabled');
+    $('#selectAllExperimentsBtn').removeAttr('disabled');
 }
 
 function removeSelected(experiments, bio, epi) {
@@ -436,7 +467,7 @@ function removeSelected(experiments, bio, epi) {
             $('#datatable_selected_column').dataTable().fnDeleteRow(index);
         }
     }
-    selectedCount[bio][normalize(epi)] = 0;
+    selectedCount[normalize(bio)][normalize(epi)] = 0;
 
     if (selectedData.length == 0) {
         $('#downloadBtnBottom').attr('disabled','disabled');
@@ -491,8 +522,9 @@ var experiments_extra_metadata = function(experiment) {
     return "<div class='exp-metadata'>" + tmp_str + "</div><div class='exp-metadata-more-view'>-- View metadata --</div>";
 };
 
-function addSelected(experiments, bio, epi) {
+function addSelected(experiments) {
     var experiment_ids = experiments.map(function(a) { return a[0]});
+    console.log(experiment_ids.length);
     var experiment_info_request = $.ajax({
         url: "api/info",
         type : "GET",
@@ -527,7 +559,7 @@ function addSelected(experiments, bio, epi) {
                 selectedData.push(experiment);
                 selectedNames.push(experiment[1]);
                 experiments.push(experiment);
-                selectedCount[bio][normalize(epi)] = selectedCount[bio][normalize(epi)] + 1;
+                selectedCount[normalize(biosource)][normalize(epigenetic_mark)] = selectedCount[normalize(biosource)][normalize(epigenetic_mark)] + 1;
             }
         }
 
@@ -617,12 +649,13 @@ function initPreviewModal() {
         });
 
         request.fail( function(jqXHR, textStatus) {
-            console.log(jqXHR);
-            console.log('Error: '+ textStatus);
-            alert( "error" );
+            swal({
+                title: "Error loading experiment preview",
+                text: textStatus,
+                type: "error"
+            });
+            e.stopPropagation();
         });
-
-        e.stopPropagation();
     });
 }
 
@@ -656,7 +689,7 @@ function removeSelectedRow() {
         var bio = $('td', this).eq(6).text();
         var epi = $('td', this).eq(5).text();
 
-        selectedCount[bio][normalize(epi)] = selectedCount[bio][normalize(epi)] - 1;
+        selectedCount[normalize(bio)][normalize(epi)] = selectedCount[normalize(bio)][normalize(epi)] - 1;
         var current_cell = otable.cells(
             function ( idx, data, node ) {
                 if ($(node).attr('data-col') == undefined) {
@@ -673,7 +706,7 @@ function removeSelectedRow() {
         ).nodes();
         current_cell.to$().removeClass("selected-grid-cell");
 
-        if (selectedCount[bio][normalize(epi)] != 0) {
+        if (selectedCount[normalize(bio)][normalize(epi)] != 0) {
             current_cell.to$().addClass("unselected-grid-cell");
         }
         else {

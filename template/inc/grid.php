@@ -29,8 +29,10 @@
 
             <div class="col-md-3">
               <div>
-                <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear metadata selection <i class="fa fa-circle-o"></i> </button>
-                <button type="submit" id="selectAllBtn" class="btn btn-default" onClick="selectAll()" disabled> Select all experiments <i class="fa fa-circle"></i> </button>
+                  <button type="submit" id="selectAllBtn" class="btn btn-default" onClick="selectAllMetadata()" disabled> Select all metadata <i class="fa fa-circle"></i> </button>
+                  <button type="submit" id="clearBtn" class="btn btn-default" onClick="clearSelections()" disabled> Clear selection <i class="fa fa-circle-o"></i> </button>
+                <hr>
+                  <button type="submit" id="selectAllExperimentsBtn" class="btn btn-default" onClick="selectAllGridExperiments()" disabled> Select all experiments displayed in the Grid <i class="fa fa-align-justify"></i> </button>
               </div>
               <hr>
               <br>

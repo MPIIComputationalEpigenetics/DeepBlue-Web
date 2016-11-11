@@ -169,10 +169,10 @@
           </table>
           <div class="downloadButtonDiv">
             <button type="button" id="downloadBtnBottom" class="btn btn-primary" disabled><i class="fa fa-forward"></i> Proceed to the download page</button>
-            <!--
             <button type="button" id="exportBtnBottom" class="btn btn-primary hidden" disabled data-toggle="modal" data-target="#exportDataModal"><i class="fa fa-clipboard" aria-hidden="true"></i> Export data</button>
-            -->
+            <!--
             <button type="button" id="createCollectionBottom" class="btn btn-primary hidden" disabled data-toggle="modal" data-target="#createCollection"><i class="fa fa-list" aria-hidden="true"></i> Create collection</button>
+            -->
           </div>
         </div>
         <!-- end widget content -->
