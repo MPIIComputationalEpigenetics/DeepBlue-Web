@@ -4,7 +4,7 @@
 
 <body>
 <script>
-  window.location = "http://deepblue.mpi-inf.mpg.de/dashboard.php#ajax/deepblue_view_grid.php?project=BLUEPRINT%20Progenitors&type=signal";
+  window.location = "http://deepblue.mpi-inf.mpg.de/dashboard.php#ajax/deepblue_view_grid.php?project=BLUEPRINT HSC differentiation&type=signal";
 </script>
 </body>
 </html> 
