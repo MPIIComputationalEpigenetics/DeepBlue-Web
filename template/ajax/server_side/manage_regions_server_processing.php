@@ -27,46 +27,46 @@ require_once("../../lib/server_settings.php");
 require_once("../../lib/deepblue.IXR_Library.php");
 $client = new IXR_Client(get_server());
 
-if (!isset($_GET["experiments_ids"])) {
+if (!isset($_POST["experiments_ids"])) {
     return;
 }
 
-if (!isset($_GET["columns"])) {
+if (!isset($_POST["columns"])) {
     $format = 'CHROMOSOME,START,END';
 }
 else {
-    $format = $_GET['columns'];
+    $format = $_POST['columns'];
 }
 
-if (!isset($_GET["annotation_names"])) {
+if (!isset($_POST["annotation_names"])) {
     $annotation_names = [];
 }
 else {
-    $annotation_names = $_GET["annotation_names"];
+    $annotation_names = $_POST["annotation_names"];
 }
 
-if (!isset($_GET["chromosome"])) {
+if (!isset($_POST["chromosome"])) {
     $chromosome = [];
 }
 else {
-    $chromosome = $_GET["chromosome"];
+    $chromosome = $_POST["chromosome"];
 }
 
-$experiments_ids = $_GET["experiments_ids"];
+$experiments_ids = $_POST["experiments_ids"];
 $genome = "";
-$allgenomes = $_GET["allgenomes"];
+$allgenomes = $_POST["allgenomes"];
 $epigenetic_mark = "";
 $sample_id = "";
 $technique = "";
 $project = "";
 
-$start = $_GET["start"];
+$start = $_POST["start"];
 if (!is_numeric($start)) {
     $start = 0;
 }
 $start = (int)$start;
 
-$end = $_GET["end"];
+$end = $_POST["end"];
 if (!is_numeric($end)) {
     $end = PHP_INT_MAX;
 }

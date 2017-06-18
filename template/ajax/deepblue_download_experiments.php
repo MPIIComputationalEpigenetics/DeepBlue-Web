@@ -513,6 +513,7 @@ require_once("inc/init.php");
             var request = $.ajax({
                 url: "ajax/server_side/manage_regions_server_processing.php",
                 dataType: "json",
+                type: "POST",
                 data : {
                     experiments_ids : selected,
                     annotation_names : annot,
