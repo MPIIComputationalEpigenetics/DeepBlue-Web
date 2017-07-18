@@ -126,7 +126,7 @@ function query_detail($qud, &$rdetail, &$cache_chromosomes, &$cache_queries, $us
 	check_error($response);
 
 	$qtype = $response[1][0]['type'];
-	$qdetail = json_decode($response[1][0]['args'], true);
+	$qdetail = $response[1][0]['args'];
 
 	$rdetail = $rdetail.'<li><b>'.$qtype.'</b>';
 	$rdetail = $rdetail.' (query '.$qud.'): ';
