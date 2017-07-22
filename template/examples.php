@@ -144,10 +144,8 @@ include("inc/header.php");
                 <dd><script src="https://gist.github.com/felipealbrecht/b8f200c6e591dd41bb51.js"></script></dd>
 
                 <dt>
-                    <h5 id='example-dna_pattern'>DNA pattern matching operations</h5>
-                    <p>We use the <a href="api.php#api-find_pattern"</a>find_pattern</a> command to generate an annotation of the genomic locations where the pattern <i>TATAA</i> happens in the genome assembly <i>GRCh38</i>.</p>
-                    <p>The <a href="api.php#api-find_pattern"</a>find_pattern</a> command requires permission to include annotations. If the user (e.g. anonymous user) does not have this permission, an error will be returned. </p>
-                    <p>Nevertheless, we have already processed this pattern, and the annotation was generated with the name <i>"Pattern TATAAA (non-overlap) in the genome GRCh38"</i>. We selected the genomic regions of the first chromosome of this annotation with the <a href="api.php#api-select_annotations"</a>select_annotations</a> command.</p>
+                    <h5 id='example-dna_motif'>DNA motif matching operations</h5>
+                    <p>We use the <a href="api.php#api-find_motif"</a>find_motif</a> command to find the locations where the motif <i>TATAA</i> happens in the chromosome one of the genome <i>GRCh38</i>.</p>
                     <p>We use the <a href="api.php#api-select_experiments"</a>select_experiments</a> command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.</p>
                     <p>The command <a href="api.php#api-intersection"</a>intersection</a> filters all regions of the <i>query_id</i> that overlap with at least one <i>tataa_regions</i> region.</p>
                     <p>We use the <a href="api.php#api-get_regions"</a>get_regions</a> with the <i>query_id</i> returned by the <a href="api.php#api-select_experiments"</a>select_experiments</a> and the desired file columns. In this case, we use the meta-column @SEQUENCE, that includes the <i>DNA Sequence</i> in the genomic region output.</p>
