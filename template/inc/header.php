@@ -62,60 +62,114 @@
 			 You can also add different skin classes such as "smart-skin-1", "smart-skin-2" etc...-->
 		<?php
 			if (!$no_main_header) {
-
 		?>
-				<!-- HEADER -->
-				<header id="header">
-					<div id="logo-group">
 
-						<!-- PLACE YOUR LOGO HERE -->
-						<span id="logo"> <img src="<?php echo ASSETS_URL; ?>/img/deepblue_no_sub.png" alt="DeepBlue"> </span>
-						<!-- END LOGO PLACEHOLDER -->
+		<!-- HEADER -->
+		<header id="header">
+			<div id="logo-group">
+				<!-- PLACE YOUR LOGO HERE -->
+				<span id="logo"> <img src="<?php echo ASSETS_URL; ?>/img/deepblue_no_sub.png" alt="DeepBlue"> </span>
+				<!-- END LOGO PLACEHOLDER -->
+			</div>
 
-					</div>
+		<!-- GLBAL MENU STUFF -->
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>DeepBlue Overview</b> <b class="caret"></b></a>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li class="dropdown-header">DeepBlue Overview</li>
+						<li class="divider"></li>
+						<li><a href="deepblue_overview.php">Overview</a></li>
+						<li><a href="features.php">Features</a></li>
+						<li><a href="citing.php">Citing</a></li>
+						<li><a href="acknowledgements.php">Acknowledgements</a></li>
+						<li><a href="http://www.mpi-inf.mpg.de/imprint/" target="_blank">Imprint</a></li>
+					</ul>
+				</li>
 
-					<!-- pulled right: nav area -->
-					<!--  -->
-                    <div data-container="body" class="pull-right bootstro" data-bootstro-step=<?php echo $_SESSION['menu_count'] ?> data-bootstro-placement="bottom" data-bootstro-content="The menu provides options to logout, close the side menu, search all of DeepBlue's data and expand to full screen">
-						<!-- logout button -->
-						<div  id="logout" class="btn-header transparent pull-right">
-							<span> <a href="<?php echo APP_URL.'/php/deepblue_logout.php' ?>" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
-						</div>
-						<!-- end logout button -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>API Interface</b> <b class="caret"></b></a>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li class="dropdown-header">API Interface</li>
+						<li class="divider"></li>
+						<li><a href="examples.php">Examples</a></li>
+						<li><a href="use_cases.php">Use cases</a></li>
+						<li><a href="tutorials.php">Tutorials</a></li>
+						<li><a href="manual/" target="_blank">Manual</a></li>
+						<li><a href="api.php">API References Commands</a></li>
+						<li class="divider"></li>
+						<li><a href="http://deepblue.mpi-inf.mpg.de/R" target="_blank">Accessing from the R Language</a></li>
+					</ul>
+				</li>
 
-						<!-- collapse menu button -->
-						<div id="hide-menu" class="btn-header pull-right">
-							<span> <a href="javascript:void(0);" title="Collapse Menu" data-action="toggleMenu"><i class="fa fa-reorder"></i></a> </span>
-						</div>
-						<!-- end collapse menu -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Web Interface</b> <b class="caret"></b></a>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li class="dropdown-header">Web Interface</li>
+						<li class="divider"></li>
+						<li><a href="web_examples.php">Examples</a></li>
+						<li><a href="<?php echo APP_URL.'/php/deepblue_checkuser.php'?>">Access</a></li>
+					</ul>
+				</li>
 
-						<!-- search mobile button (this is hidden till mobile view port) -->
-						<div id="search-mobile" class="btn-header transparent pull-right">
-							<span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
-						</div>
-						<!-- end search mobile button -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Feedback</b> <b class="caret"></b></a>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li class="dropdown-header">Feedback</li>
+						<li class="divider"></li>
+						<li><a href="http://deepblue.userecho.com/">Give your feedback or suggestions</a></li>
+						<li><a href="mailto:deepblue@mpi-inf.mpg.de">Write an email to us</a></li>
+					</ul>
+				</li>
 
-						<!-- input: search field -->
-						<form action="#ajax/deepblue_view_search.php" class="header-search pull-right">
-							<input type="text" name="search" placeholder="Search for DeepBlue Data" id="search-fld">
-							<button type="submit">
-								<i class="fa fa-search"></i>
-							</button>
-							<a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
-						</form>
-						<!-- end input: search field -->
+			</ul>
+		</div>
 
-						<!-- fullscreen button -->
-						<div id="fullscreen" class="btn-header transparent pull-right">
-							<span> <a href="javascript:void(0);" title="Full Screen" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i></a> </span>
-						</div>
-						<!-- end fullscreen button -->
+		<!-- END MENU -->
 
-					</div>
-					<!-- end pulled right: nav area -->
+			<!-- pulled right: nav area -->
+			<!--  -->
+      <div data-container="body" class="pull-right bootstro" data-bootstro-step=<?php echo $_SESSION['menu_count'] ?> data-bootstro-placement="bottom" data-bootstro-content="The menu provides options to logout, close the side menu, search all of DeepBlue's data and expand to full screen">
+				<!-- logout button -->
+				<div  id="logout" class="btn-header transparent pull-right">
+					<span> <a href="<?php echo APP_URL.'/php/deepblue_logout.php' ?>" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+				</div>
+				<!-- end logout button -->
 
-				</header>
-				<!-- END HEADER -->
+				<!-- collapse menu button -->
+				<div id="hide-menu" class="btn-header pull-right">
+					<span> <a href="javascript:void(0);" title="Collapse Menu" data-action="toggleMenu"><i class="fa fa-reorder"></i></a> </span>
+				</div>
+				<!-- end collapse menu -->
+
+				<!-- search mobile button (this is hidden till mobile view port) -->
+				<div id="search-mobile" class="btn-header transparent pull-right">
+					<span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
+				</div>
+				<!-- end search mobile button -->
+
+				<!-- input: search field -->
+				<form action="#ajax/deepblue_view_search.php" class="header-search pull-right">
+					<input type="text" name="search" placeholder="Search for DeepBlue Data" id="search-fld">
+					<button type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+					<a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
+				</form>
+				<!-- end input: search field -->
+
+				<!-- fullscreen button -->
+				<div id="fullscreen" class="btn-header transparent pull-right">
+					<span> <a href="javascript:void(0);" title="Full Screen" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i></a> </span>
+				</div>
+				<!-- end fullscreen button -->
+
+			</div>
+			<!-- end pulled right: nav area -->
+
+			</header>
+			<!-- END HEADER -->
 		<?php
 			}
 		?>
