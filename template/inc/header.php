@@ -102,27 +102,6 @@
 						<li><a href="http://deepblue.mpi-inf.mpg.de/R" target="_blank">Accessing from the R Language</a></li>
 					</ul>
 				</li>
-
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Web Interface</b> <b class="caret"></b></a>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li class="dropdown-header">Web Interface</li>
-						<li class="divider"></li>
-						<li><a href="web_examples.php">Examples</a></li>
-						<li><a href="<?php echo APP_URL.'/php/deepblue_checkuser.php'?>">Access</a></li>
-					</ul>
-				</li>
-
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Feedback</b> <b class="caret"></b></a>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li class="dropdown-header">Feedback</li>
-						<li class="divider"></li>
-						<li><a href="http://deepblue.userecho.com/">Give your feedback or suggestions</a></li>
-						<li><a href="mailto:deepblue@mpi-inf.mpg.de">Write an email to us</a></li>
-					</ul>
-				</li>
-
 			</ul>
 		</div>
 
