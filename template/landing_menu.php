@@ -57,6 +57,11 @@
 				  </ul>
         </li>
 
+				<ul class="nav navbar-nav">
+		    	<li class="dropdown"><a href="<?php echo APP_URL; ?>/dashboard.php#ajax/dashboard.php"><b>Go to the dashboard</b></a></li>
+		  	</ul>
+
+
 			<!-- <ul class="nav navbar-nav"> -->
       </ul>
 
