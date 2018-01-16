@@ -20,7 +20,7 @@ ini_set('display_errors', 1);
 /* URL to XML-RPC Server */
 function get_server() {
 	return 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
-	//return 'http://localhost:31415/xmlrpc';
+//	return 'http://localhost:31415/xmlrpc';
 }
 
 ?>
