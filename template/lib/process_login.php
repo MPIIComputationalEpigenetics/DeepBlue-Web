@@ -40,8 +40,7 @@ function get_level_code($permission) {
 
 function login($email, $password, $remember, $redirect) {
 
-	$url = get_server();
-	$client = new IXR_Client($url);
+	$client = new IXR_Client(get_server());
 
 	if(!$client->query("user_auth", $email, $password)){
 		die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());

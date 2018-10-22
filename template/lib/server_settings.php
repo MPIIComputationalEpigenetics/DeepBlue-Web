@@ -19,8 +19,13 @@ ini_set('display_errors', 1);
 
 /* URL to XML-RPC Server */
 function get_server() {
-	return 'http://deepblue.mpi-inf.mpg.de/xmlrpc';
+	return 'http://srv-13-41:56573'; // 'https://deepblue.mpi-inf.mpg.de/xmlrpc'; geht nicht wegen https!!!
 //	return 'http://localhost:31415/xmlrpc';
+}
+
+// Public and visible deepblue xmlrpc connector url
+function get_public_url() {	
+	return "https://deepblue.mpi-inf.mpg.de/xmlrpc";
 }
 
 ?>

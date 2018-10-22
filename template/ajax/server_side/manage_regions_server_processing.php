@@ -86,8 +86,16 @@ $query_id = $query_ida;
 $annlen = count($annotation_names);
 
 if ($annlen > 0) {
+    if (count($allgenomes) > 1) {
+        die("Please, when filtering by annotation select all experiments data sets from one genome.");
+    }
+
+    if (count($allgenomes) == 0) {
+        die("Please, inform at least one genome.");
+    }
+
     // select annotations
-    if (!$client->query("select_annotations", $annotation_names, $allgenomes, $chromosome, $start, $end, $user_key)) {
+    if (!$client->query("select_annotations", $annotation_names, $allgenomes[0], $chromosome, $start, $end, $user_key)) {
         die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
     }
 
