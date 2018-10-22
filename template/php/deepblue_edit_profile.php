@@ -14,8 +14,7 @@ if (session_id() == '') {
 	session_start();
 }
 
-$url = get_server();
-$client = new IXR_Client($url);
+$client = new IXR_Client(get_server);
 
 $email = $_SESSION['user_email'];
 $newemail = $_POST['email'];

@@ -61,7 +61,7 @@ function build_request_info($ids, $user_key) {
 		$rdetail = $rdetail.$tdetail.'</ul></div>';
 
 		$rstate = $request_info['state'];
-		$srv = get_server().'/download/?r='.$rid.'&key='.$user_key;
+		$srv = get_public_url().'/download/?r='.$rid.'&key='.$user_key;
 		$cusbutton = '<button type="button" id="downloadBtnBottom_'.$rid.'" class="btn btn-primary" disabled>&nbspDownload&nbsp</button>';;
 		switch($request_info['command']) {
 			case "get_regions":

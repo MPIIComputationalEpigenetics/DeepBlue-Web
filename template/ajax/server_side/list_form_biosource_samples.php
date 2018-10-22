@@ -26,8 +26,7 @@ else {
 }
 
 // retrieve the list of samples associated with the given biosource
-$url = get_server();
-$client = new IXR_Client($url);
+$client = new IXR_Client($get_server());
 if(!$client->query("list_samples", $biosource, (Object)Null, $user_key)){
 	die('An error occurred - '.$client->getErrorCode().":".$client->getErrorMessage());
 }
