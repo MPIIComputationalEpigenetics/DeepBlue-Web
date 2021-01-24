@@ -48,7 +48,7 @@
 
     $mail = new phpmailer();
     $mail->CharSet  = 'UTF-8';
-    $mail->From     = 'deepblue@mpi-inf.mpg.de';
+    $mail->From     = 'albrecht@mpi-inf.mpg.de';
     $mail->FromName = 'DeepBlue';
     $mail->Host     = $mail_host;
     $mail->Mailer   = "smtp";
